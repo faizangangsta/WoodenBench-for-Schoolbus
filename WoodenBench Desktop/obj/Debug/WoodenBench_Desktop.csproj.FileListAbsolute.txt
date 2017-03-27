@@ -1,0 +1,13 @@
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\WoodenBench Desktop.exe.config
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\WoodenBench Desktop.exe
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\WoodenBench Desktop.pdb
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\Bmob-Windows.dll
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\Newtonsoft.Json.dll
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\Newtonsoft.Json.xml
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.csprojResolveAssemblyReference.cache
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.UsrLoginForm.resources
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Properties.Resources.resources
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.csproj.GenerateResource.Cache
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench Desktop.exe
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench Desktop.pdb
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Views.MainWindow.resources
