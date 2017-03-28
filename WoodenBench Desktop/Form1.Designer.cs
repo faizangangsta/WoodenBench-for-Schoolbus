@@ -54,6 +54,7 @@
 			this.label1.Size = new System.Drawing.Size(53, 12);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "用户名：";
+			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
 			// PswdTxt
 			// 
@@ -93,7 +94,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(38, 50);
+			this.label2.Location = new System.Drawing.Point(38, 53);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(41, 12);
 			this.label2.TabIndex = 5;
@@ -123,6 +124,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.UserNameTxt);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(375, 160);
 			this.MinimizeBox = false;

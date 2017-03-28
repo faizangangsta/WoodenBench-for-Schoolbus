@@ -36,12 +36,14 @@ namespace WoodenBench_Desktop.Views
 		{
 			if (UserGroupChangeDrop.SelectedIndex + 1 != 0 && PartOfSchoolDrop.SelectedIndex + 1 != 0)
 			{
-				UserObject Obj = new UserObject(TABLE_NAME);
-				Obj.objectId = NowUser.UserID;
-				Obj.UserActAs = UserGroupChangeDrop.SelectedIndex + 1;
-				Obj.UserPartOfSchool = PartOfSchoolDrop.SelectedIndex + 1;
-				Obj.Password = NowUser.Password;
-				Obj.UserName = NowUser.UserName;
+				UserObject Obj = new UserObject(TABLE_NAME)
+				{
+					objectId = NowUser.UserID,
+					UserActAs = UserGroupChangeDrop.SelectedIndex + 1,
+					UserPartOfSchool = PartOfSchoolDrop.SelectedIndex + 1,
+					Password = NowUser.Password,
+					UserName = NowUser.UserName
+				};
 				Bmob.UpdateTaskAsync(Obj);
 				MessageBox.Show("为重新载入用户配置，应用将会重启");
 				Application.Restart();
@@ -80,7 +82,7 @@ namespace WoodenBench_Desktop.Views
 
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		private void DoChange(object sender, EventArgs e)
 		{
 			if (FPasswordTxt.Text == null || FPasswordTxt.Text == NowUser.Password)
 			{
@@ -88,12 +90,14 @@ namespace WoodenBench_Desktop.Views
 				{
 					if (NPasswrodTxt1.Text != "")
 					{
-						UserObject Obj = new UserObject(TABLE_NAME);
-						Obj.objectId = NowUser.UserID;
-						Obj.UserActAs = (int)NowUser.UserGroup;
-						Obj.UserPartOfSchool = (int)NowUser.UserGroup;
-						Obj.Password = NPasswrodTxt2.Text;
-						Obj.UserName = NowUser.UserName;
+						UserObject Obj = new UserObject(TABLE_NAME)
+						{
+							objectId = NowUser.UserID,
+							UserActAs = (int)NowUser.UserGroup,
+							UserPartOfSchool = (int)NowUser.UserGroup,
+							Password = NPasswrodTxt2.Text,
+							UserName = NowUser.UserName
+						};
 						Bmob.UpdateTaskAsync(Obj);
 						MessageBox.Show($"为重载用户配置，当前用户 {NowUser.UserName} 将被注销，请重新登陆");
 						Application.Restart();

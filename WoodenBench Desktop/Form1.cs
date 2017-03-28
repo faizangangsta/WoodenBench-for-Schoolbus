@@ -16,7 +16,7 @@ namespace WoodenBench_Desktop
 		private string Password;
 		private int UserGroup;
 		private int UserPartOfSchool;
-
+		int CreateUsr = 0;
 		private void button1_Click(object sender, EventArgs e) => Application.Exit();
 		private void UserNameTxt_TextChanged(object sender, EventArgs e)
 		{
@@ -108,6 +108,16 @@ namespace WoodenBench_Desktop
 			DoLoginBtn.Enabled = true;
 			CancelBtn.Enabled = true;
 			DoLoginBtn.Text = "登陆(&L)";
+		}
+
+		private void label1_Click(object sender, EventArgs e)
+		{
+			CreateUsr = CreateUsr + 1;
+			if (CreateUsr == 8)
+			{
+				(new Views.CreateUser()).ShowDialog();
+				CreateUsr = 0;
+			}
 		}
 
 		private void UsrLoginForm_Load(object sender, EventArgs e)
