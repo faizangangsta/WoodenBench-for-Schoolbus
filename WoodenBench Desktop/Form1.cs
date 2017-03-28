@@ -14,7 +14,8 @@ namespace WoodenBench_Desktop
 	{
 		private string StrObjectID;
 		private string Password;
-		private int UserActAs;
+		private int UserGroup;
+		private int UserPartOfSchool;
 
 		private void button1_Click(object sender, EventArgs e) => Application.Exit();
 		private void UserNameTxt_TextChanged(object sender, EventArgs e)
@@ -28,7 +29,26 @@ namespace WoodenBench_Desktop
 			Bmob = new BmobWindows();
 			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
 			InitializeComponent();
-			BmobDebug.Register(Message => { Debug.WriteLine(Message); });
+			if (defaultInstance == null) defaultInstance = this;
+			BmobDebug.Register(Message =>
+			{
+				Debug.WriteLine(Message);
+				//Console.WriteLine(Message);
+			});
+		}
+		private static UsrLoginForm defaultInstance;
+		static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+		public static UsrLoginForm Default
+		{
+			get
+			{
+				if (defaultInstance == null)
+				{
+					defaultInstance = new UsrLoginForm();
+					defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+				}
+				return defaultInstance;
+			}
 		}
 
 		public BmobWindows Bmob { get; }
@@ -45,22 +65,27 @@ namespace WoodenBench_Desktop
 			{
 				BmobQuery UserNameQuery = new BmobQuery();
 				UserNameQuery.WhereContainedIn("Username", UserNameTxt.Text);
-				var UsrNameResult = Bmob.FindTaskAsync<BmobObject>(TABLE_NAME, UserNameQuery);
+				var UsrNameResult = Bmob.FindTaskAsync<UserObject>(TABLE_NAME, UserNameQuery);
 				JObject JsonUserNameResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result));
 
 				StrObjectID = (JsonUserNameResult.First.First.First.First.First).ToString();
-				var NowUserResult = Bmob.GetTaskAsync<BmobObject>(TABLE_NAME, StrObjectID);
+				var NowUserResult = Bmob.GetTaskAsync<UserObject>(TABLE_NAME, StrObjectID);
 				JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(NowUserResult.Result));
 
 				Password = JsonNowUsrResult["Password"].ToString();
 				DoLoginBtn.Enabled = true;
 				CancelBtn.Enabled = true;
 				DoLoginBtn.Text = "登陆(&L)";
-				UserActAs = Convert.ToInt32(JsonNowUsrResult["UserActAs"].ToString());
+				UserGroup = Convert.ToInt32(JsonNowUsrResult["UserActAs"].ToString());
+				UserPartOfSchool = Convert.ToInt32(JsonNowUsrResult["PartOfSchool"].ToString());
 			}
 			catch (Exception)
 			{
 				LoginResult.Text = "用户名不存在";
+				DoLoginBtn.Enabled = true;
+				CancelBtn.Enabled = true;
+				DoLoginBtn.Text = "登陆(&L)";
+				return;
 			}
 			if (PswdTxt.Text == Password)
 			{
@@ -69,8 +94,9 @@ namespace WoodenBench_Desktop
 					Password = Password,
 					UserID = StrObjectID,
 					UserName = UserNameTxt.Text,
-					UserActAs = (Users)UserActAs,
-					LoginTime = DateTime.Now.ToString()
+					UserGroup = (UserGroup)UserGroup,
+					UserPartOfSchool = (UserPartOS)UserPartOfSchool,
+					LoginTime = DateTime.Now.TimeOfDay.ToString()
 				};
 				(new Views.MainWindow(UsrCtrl)).Show();
 				Hide();
@@ -82,6 +108,11 @@ namespace WoodenBench_Desktop
 			DoLoginBtn.Enabled = true;
 			CancelBtn.Enabled = true;
 			DoLoginBtn.Text = "登陆(&L)";
+		}
+
+		private void UsrLoginForm_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

@@ -57,11 +57,12 @@
 			// 
 			// PswdTxt
 			// 
+			this.PswdTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
 			this.PswdTxt.Location = new System.Drawing.Point(85, 47);
 			this.PswdTxt.Name = "PswdTxt";
 			this.PswdTxt.PasswordChar = '●';
 			this.PswdTxt.ShortcutsEnabled = false;
-			this.PswdTxt.Size = new System.Drawing.Size(237, 21);
+			this.PswdTxt.Size = new System.Drawing.Size(237, 23);
 			this.PswdTxt.TabIndex = 2;
 			this.PswdTxt.WordWrap = false;
 			this.PswdTxt.TextChanged += new System.EventHandler(this.PswdTxt_TextChanged);
@@ -129,6 +130,8 @@
 			this.Name = "UsrLoginForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "用户登录";
+			this.TopMost = true;
+			this.Load += new System.EventHandler(this.UsrLoginForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

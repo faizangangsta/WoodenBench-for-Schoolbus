@@ -72,8 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\BmobClass.cs" />
-    <Compile Include="Controls\UserController.cs" />
+    <Compile Include="Controls\NotificationObject.cs" />
+    <Compile Include="Controls\UserObject.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +87,12 @@
     </Compile>
     <Compile Include="Views\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserChangeProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserChangeProperty.Designer.cs">
+      <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -103,6 +109,9 @@
     </Compile>
     <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserChangeProperty.resx">
+      <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
