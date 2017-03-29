@@ -36,29 +36,31 @@
 			this.DoLoginBtn = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.LoginResult = new System.Windows.Forms.Label();
+			this.NewUserLabel = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// UserNameTxt
 			// 
+			this.UserNameTxt.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.UserNameTxt.Location = new System.Drawing.Point(85, 20);
 			this.UserNameTxt.Name = "UserNameTxt";
-			this.UserNameTxt.Size = new System.Drawing.Size(237, 21);
+			this.UserNameTxt.Size = new System.Drawing.Size(237, 23);
 			this.UserNameTxt.TabIndex = 0;
 			this.UserNameTxt.TextChanged += new System.EventHandler(this.UserNameTxt_TextChanged);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(26, 23);
+			this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label1.Location = new System.Drawing.Point(24, 23);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(53, 12);
+			this.label1.Size = new System.Drawing.Size(56, 17);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "用户名：";
-			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
 			// PswdTxt
 			// 
-			this.PswdTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
+			this.PswdTxt.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.PswdTxt.Location = new System.Drawing.Point(85, 47);
 			this.PswdTxt.Name = "PswdTxt";
 			this.PswdTxt.PasswordChar = '●';
@@ -72,6 +74,7 @@
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.CancelBtn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.CancelBtn.Location = new System.Drawing.Point(191, 86);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(75, 23);
@@ -83,6 +86,7 @@
 			// DoLoginBtn
 			// 
 			this.DoLoginBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.DoLoginBtn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.DoLoginBtn.Location = new System.Drawing.Point(272, 86);
 			this.DoLoginBtn.Name = "DoLoginBtn";
 			this.DoLoginBtn.Size = new System.Drawing.Size(75, 23);
@@ -94,9 +98,10 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(38, 53);
+			this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label2.Location = new System.Drawing.Point(36, 50);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(41, 12);
+			this.label2.Size = new System.Drawing.Size(44, 17);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "密码：";
 			// 
@@ -109,6 +114,18 @@
 			this.LoginResult.Size = new System.Drawing.Size(0, 12);
 			this.LoginResult.TabIndex = 6;
 			// 
+			// NewUserLabel
+			// 
+			this.NewUserLabel.AutoSize = true;
+			this.NewUserLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.NewUserLabel.Location = new System.Drawing.Point(24, 89);
+			this.NewUserLabel.Name = "NewUserLabel";
+			this.NewUserLabel.Size = new System.Drawing.Size(54, 17);
+			this.NewUserLabel.TabIndex = 7;
+			this.NewUserLabel.TabStop = true;
+			this.NewUserLabel.Text = "新用户 ?";
+			this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
 			// UsrLoginForm
 			// 
 			this.AcceptButton = this.DoLoginBtn;
@@ -116,6 +133,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.CancelBtn;
 			this.ClientSize = new System.Drawing.Size(359, 121);
+			this.Controls.Add(this.NewUserLabel);
 			this.Controls.Add(this.LoginResult);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.DoLoginBtn);
@@ -132,7 +150,6 @@
 			this.Name = "UsrLoginForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "用户登录";
-			this.TopMost = true;
 			this.Load += new System.EventHandler(this.UsrLoginForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -148,6 +165,7 @@
 		private System.Windows.Forms.Button DoLoginBtn;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label LoginResult;
+		private System.Windows.Forms.LinkLabel NewUserLabel;
 	}
 }
 

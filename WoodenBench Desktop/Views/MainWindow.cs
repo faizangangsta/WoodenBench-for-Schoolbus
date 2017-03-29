@@ -12,7 +12,7 @@ namespace WoodenBench_Desktop.Views
 {
 	public partial class MainWindow : Form
 	{
-		static string NOTI_TABLE_NAME = "YHNotifications";
+		string ExcelFilePath;
 		public UserController NowUser;
 		string NotificationTitle, NotificationContent;
 		public MainWindow(UserController ValController) : base()
@@ -45,7 +45,7 @@ namespace WoodenBench_Desktop.Views
 
 		private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
-			var Resulta = Bmob.GetTaskAsync<NotificationObject>(NOTI_TABLE_NAME, "DVMoSSS3");
+			var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, "DVMoSSS3");
 			JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
 			NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
 			string NotSplitedContent = JsonNowUsrResult["NContent"].ToString();
@@ -70,12 +70,20 @@ namespace WoodenBench_Desktop.Views
 				case DialogResult.Yes:
 					Application.Restart();
 					break;
-				case DialogResult.No:
-					break;
 				default:
 					break;
 			}
 
+		}
+
+		private void Button1_Click(object sender, EventArgs e)
+		{
+			OpenExcelFileDialog.ShowDialog();
+			if (OpenExcelFileDialog!=null)
+			{
+				ExcelFilePath = OpenExcelFileDialog.FileName;
+				ExcelFilePathTxt.Text = ExcelFilePath;
+			}
 		}
 
 		private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,3 +92,8 @@ namespace WoodenBench_Desktop.Views
 		}
 	}
 }
+
+//var query = new BmobQuery();
+//query.WhereContainedIn<string>("playerName", "123");
+//var future = Bmob.FindTaskAsync<GameObject>(TABLE_NAME, query);
+//FinishedCallback(future.Result, resultText);

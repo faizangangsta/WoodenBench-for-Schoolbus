@@ -28,8 +28,6 @@ class UserObject : BmobTable
 			return base.table;
 		}
 	}
-
-	//读字段信息
 	public override void readFields(BmobInput input)
 	{
 		base.readFields(input);
@@ -38,8 +36,7 @@ class UserObject : BmobTable
 		UserActAs = input.getInt("UserActAs").Get();
 		UserPartOfSchool = input.getInt("PartOfSchool").Get();
 	}
-
-	//写字段信息
+	
 	public override void write(BmobOutput output, bool all)
 	{
 		base.write(output, all);
@@ -49,7 +46,6 @@ class UserObject : BmobTable
 		output.Put("PartOfSchool", UserPartOfSchool);
 	}
 }
-
 namespace WoodenBench_Desktop.Controls
 {
 	public class UserController

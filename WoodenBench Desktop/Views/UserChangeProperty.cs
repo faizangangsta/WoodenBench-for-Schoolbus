@@ -16,7 +16,6 @@ namespace WoodenBench_Desktop.Views
 {
 	public partial class ChangeUserData : Form
 	{
-		public const String TABLE_NAME = "AllUsersTable";
 		public UserController NowUser;
 		public ChangeUserData(UserController ValController)
 		{
@@ -36,7 +35,7 @@ namespace WoodenBench_Desktop.Views
 		{
 			if (UserGroupChangeDrop.SelectedIndex + 1 != 0 && PartOfSchoolDrop.SelectedIndex + 1 != 0)
 			{
-				UserObject Obj = new UserObject(TABLE_NAME)
+				UserObject Obj = new UserObject(Consts.TABLE_NAME_General_AllUser)
 				{
 					objectId = NowUser.UserID,
 					UserActAs = UserGroupChangeDrop.SelectedIndex + 1,
@@ -90,7 +89,7 @@ namespace WoodenBench_Desktop.Views
 				{
 					if (NPasswrodTxt1.Text != "")
 					{
-						UserObject Obj = new UserObject(TABLE_NAME)
+						UserObject Obj = new UserObject(Consts.TABLE_NAME_General_AllUser)
 						{
 							objectId = NowUser.UserID,
 							UserActAs = (int)NowUser.UserGroup,
@@ -105,7 +104,7 @@ namespace WoodenBench_Desktop.Views
 					}
 					else
 					{
-						MessageBox.Show("你设置了空密码", "注意");
+						MessageBox.Show("不允许设置空密码", "注意");
 					}
 				}
 				else

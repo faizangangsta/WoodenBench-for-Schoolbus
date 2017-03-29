@@ -52,10 +52,10 @@ namespace WoodenBench_Desktop
 		}
 
 		public BmobWindows Bmob { get; }
-		public const String TABLE_NAME = "AllUsersTable";
 
 		private void DoLogin(object sender, EventArgs e)
 		{
+			NewUserLabel.Visible = false;
 			LoginResult.Text = "";
 			DoLoginBtn.Enabled = false;
 			CancelBtn.Enabled = false;
@@ -65,11 +65,11 @@ namespace WoodenBench_Desktop
 			{
 				BmobQuery UserNameQuery = new BmobQuery();
 				UserNameQuery.WhereContainedIn("Username", UserNameTxt.Text);
-				var UsrNameResult = Bmob.FindTaskAsync<UserObject>(TABLE_NAME, UserNameQuery);
+				var UsrNameResult = Bmob.FindTaskAsync<UserObject>(Consts.TABLE_NAME_General_AllUser, UserNameQuery);
 				JObject JsonUserNameResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result));
 
 				StrObjectID = (JsonUserNameResult.First.First.First.First.First).ToString();
-				var NowUserResult = Bmob.GetTaskAsync<UserObject>(TABLE_NAME, StrObjectID);
+				var NowUserResult = Bmob.GetTaskAsync<UserObject>(Consts.TABLE_NAME_General_AllUser, StrObjectID);
 				JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(NowUserResult.Result));
 
 				Password = JsonNowUsrResult["Password"].ToString();
@@ -81,7 +81,7 @@ namespace WoodenBench_Desktop
 			}
 			catch (Exception)
 			{
-				LoginResult.Text = "用户名不存在";
+				LoginResult.Text = "用户名或密码不正确";
 				DoLoginBtn.Enabled = true;
 				CancelBtn.Enabled = true;
 				DoLoginBtn.Text = "登陆(&L)";
@@ -110,14 +110,9 @@ namespace WoodenBench_Desktop
 			DoLoginBtn.Text = "登陆(&L)";
 		}
 
-		private void label1_Click(object sender, EventArgs e)
+		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			CreateUsr = CreateUsr + 1;
-			if (CreateUsr == 8)
-			{
-				(new Views.CreateUser()).ShowDialog();
-				CreateUsr = 0;
-			}
+			new Views.CreateUser().ShowDialog();
 		}
 
 		private void UsrLoginForm_Load(object sender, EventArgs e)

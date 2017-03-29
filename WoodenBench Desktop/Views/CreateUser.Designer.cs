@@ -44,6 +44,7 @@
 			this.GroupT = new System.Windows.Forms.ComboBox();
 			this.ActT = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.ResultLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -100,10 +101,10 @@
 			// 
 			this.CheckT.AutoSize = true;
 			this.CheckT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.CheckT.Location = new System.Drawing.Point(38, 238);
+			this.CheckT.Location = new System.Drawing.Point(38, 226);
 			this.CheckT.Name = "CheckT";
 			this.CheckT.Size = new System.Drawing.Size(207, 55);
-			this.CheckT.TabIndex = 5;
+			this.CheckT.TabIndex = 7;
 			this.CheckT.Text = "我已经同意使用小板凳，\r\n任何使用中的误操作所造成的后果\r\n均由用户（我）承担";
 			this.CheckT.UseVisualStyleBackColor = true;
 			// 
@@ -123,13 +124,13 @@
 			this.KeyT.Location = new System.Drawing.Point(62, 197);
 			this.KeyT.Name = "KeyT";
 			this.KeyT.Size = new System.Drawing.Size(159, 23);
-			this.KeyT.TabIndex = 7;
+			this.KeyT.TabIndex = 6;
 			// 
 			// button1
 			// 
 			this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.button1.ForeColor = System.Drawing.Color.Red;
-			this.button1.Location = new System.Drawing.Point(62, 298);
+			this.button1.Location = new System.Drawing.Point(62, 333);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(159, 35);
 			this.button1.TabIndex = 8;
@@ -143,7 +144,7 @@
 			this.UserNameT.Location = new System.Drawing.Point(100, 9);
 			this.UserNameT.Name = "UserNameT";
 			this.UserNameT.Size = new System.Drawing.Size(145, 23);
-			this.UserNameT.TabIndex = 9;
+			this.UserNameT.TabIndex = 1;
 			// 
 			// PasswordT
 			// 
@@ -152,7 +153,7 @@
 			this.PasswordT.Name = "PasswordT";
 			this.PasswordT.PasswordChar = '●';
 			this.PasswordT.Size = new System.Drawing.Size(145, 23);
-			this.PasswordT.TabIndex = 10;
+			this.PasswordT.TabIndex = 2;
 			// 
 			// PasswordT2
 			// 
@@ -161,7 +162,7 @@
 			this.PasswordT2.Name = "PasswordT2";
 			this.PasswordT2.PasswordChar = '●';
 			this.PasswordT2.Size = new System.Drawing.Size(145, 23);
-			this.PasswordT2.TabIndex = 11;
+			this.PasswordT2.TabIndex = 3;
 			// 
 			// GroupT
 			// 
@@ -179,7 +180,7 @@
 			this.GroupT.Location = new System.Drawing.Point(100, 88);
 			this.GroupT.Name = "GroupT";
 			this.GroupT.Size = new System.Drawing.Size(145, 25);
-			this.GroupT.TabIndex = 12;
+			this.GroupT.TabIndex = 4;
 			// 
 			// ActT
 			// 
@@ -193,7 +194,7 @@
 			this.ActT.Location = new System.Drawing.Point(100, 114);
 			this.ActT.Name = "ActT";
 			this.ActT.Size = new System.Drawing.Size(145, 25);
-			this.ActT.TabIndex = 13;
+			this.ActT.TabIndex = 5;
 			// 
 			// label7
 			// 
@@ -205,11 +206,24 @@
 			this.label7.TabIndex = 14;
 			this.label7.Text = "请在下面输入你看到的验证码";
 			// 
+			// ResultLabel
+			// 
+			this.ResultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ResultLabel.Location = new System.Drawing.Point(12, 284);
+			this.ResultLabel.Name = "ResultLabel";
+			this.ResultLabel.Size = new System.Drawing.Size(247, 46);
+			this.ResultLabel.TabIndex = 15;
+			this.ResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// CreateUser
 			// 
+			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(271, 345);
+			this.ClientSize = new System.Drawing.Size(271, 380);
+			this.Controls.Add(this.ResultLabel);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.ActT);
 			this.Controls.Add(this.GroupT);
@@ -226,14 +240,14 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Location = new System.Drawing.Point(287, 419);
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(287, 384);
+			this.MaximumSize = new System.Drawing.Size(287, 419);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(287, 384);
 			this.Name = "CreateUser";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "创建用户";
-			this.TopMost = true;
 			this.Load += new System.EventHandler(this.CreateUser_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -257,5 +271,6 @@
 		private System.Windows.Forms.ComboBox GroupT;
 		private System.Windows.Forms.ComboBox ActT;
 		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label ResultLabel;
 	}
 }

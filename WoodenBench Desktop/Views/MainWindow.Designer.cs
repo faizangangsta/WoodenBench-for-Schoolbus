@@ -59,11 +59,15 @@
 			this.NotificationContentLabel = new System.Windows.Forms.Label();
 			this.NotificationTitleLabel = new System.Windows.Forms.Label();
 			this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.ProcessExcelGroup = new System.Windows.Forms.GroupBox();
+			this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
+			this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
 			this.TopMenu.SuspendLayout();
 			this.NowUsrDataGroup.SuspendLayout();
 			this.MainStatusGroup.SuspendLayout();
 			this.SysNotiGroup.SuspendLayout();
+			this.ProcessExcelGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// TopMenu
@@ -346,21 +350,51 @@
 			this.NotificationWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GetNotificationWorker_DoWork);
 			this.NotificationWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GetNotificationWorker_RunWorkerCompleted);
 			// 
-			// groupBox1
+			// ProcessExcelGroup
 			// 
-			this.groupBox1.Location = new System.Drawing.Point(12, 28);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(201, 155);
-			this.groupBox1.TabIndex = 7;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "groupBox1";
+			this.ProcessExcelGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ProcessExcelGroup.Controls.Add(this.ExcelFilePathTxt);
+			this.ProcessExcelGroup.Controls.Add(this.ExcelFileOpenBtn);
+			this.ProcessExcelGroup.Location = new System.Drawing.Point(12, 28);
+			this.ProcessExcelGroup.Name = "ProcessExcelGroup";
+			this.ProcessExcelGroup.Size = new System.Drawing.Size(632, 210);
+			this.ProcessExcelGroup.TabIndex = 7;
+			this.ProcessExcelGroup.TabStop = false;
+			this.ProcessExcelGroup.Text = "从 Excel 导入信息";
+			// 
+			// OpenExcelFileDialog
+			// 
+			this.OpenExcelFileDialog.DefaultExt = "*.xls;*.xlsx";
+			this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
+			this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
+			// 
+			// ExcelFileOpenBtn
+			// 
+			this.ExcelFileOpenBtn.Location = new System.Drawing.Point(7, 21);
+			this.ExcelFileOpenBtn.Name = "ExcelFileOpenBtn";
+			this.ExcelFileOpenBtn.Size = new System.Drawing.Size(118, 23);
+			this.ExcelFileOpenBtn.TabIndex = 0;
+			this.ExcelFileOpenBtn.Text = "打开一个文件(&O)";
+			this.ExcelFileOpenBtn.UseVisualStyleBackColor = true;
+			this.ExcelFileOpenBtn.Click += new System.EventHandler(this.Button1_Click);
+			// 
+			// ExcelFilePathTxt
+			// 
+			this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 21);
+			this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
+			this.ExcelFilePathTxt.ReadOnly = true;
+			this.ExcelFilePathTxt.Size = new System.Drawing.Size(495, 21);
+			this.ExcelFilePathTxt.TabIndex = 1;
 			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(870, 528);
-			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.ProcessExcelGroup);
 			this.Controls.Add(this.SysNotiGroup);
 			this.Controls.Add(this.MainStatusGroup);
 			this.Controls.Add(this.NowUsrDataGroup);
@@ -378,6 +412,8 @@
 			this.MainStatusGroup.ResumeLayout(false);
 			this.MainStatusGroup.PerformLayout();
 			this.SysNotiGroup.ResumeLayout(false);
+			this.ProcessExcelGroup.ResumeLayout(false);
+			this.ProcessExcelGroup.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -414,6 +450,9 @@
 		private System.Windows.Forms.ToolStripMenuItem 更改用户信息DToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem 退出用户EToolStripMenuItem;
-		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox ProcessExcelGroup;
+		private System.Windows.Forms.OpenFileDialog OpenExcelFileDialog;
+		private System.Windows.Forms.TextBox ExcelFilePathTxt;
+		private System.Windows.Forms.Button ExcelFileOpenBtn;
 	}
 }
