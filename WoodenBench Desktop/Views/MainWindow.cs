@@ -12,6 +12,8 @@ namespace WoodenBench_Desktop.Views
 {
 	public partial class MainWindow : Form
 	{
+		Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+		Microsoft.Office.Interop.Excel.Workbook xWorkbook;
 		string ExcelFilePath;
 		public UserController NowUser;
 		string NotificationTitle, NotificationContent;
@@ -33,19 +35,20 @@ namespace WoodenBench_Desktop.Views
 		{
 			BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
 			BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;
-			BtomNowUsrLoginTime.Text = TopNowUserLoginName.Text = NowUser.LoginTime;
+			TopNowUserLoginName.Text = NowUser.LoginTime;
 			BtomNowUserAct.Text = TopNowUserGroup.Text = NowUser.UserGroup.ToString();
 			NotificationWorker.RunWorkerAsync();
 		}
 
 		private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			ExcelApp.Quit();
 			Application.Exit();
 		}
 
 		private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
-			var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, "DVMoSSS3");
+			var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
 			JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
 			NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
 			string NotSplitedContent = JsonNowUsrResult["NContent"].ToString();
@@ -79,10 +82,11 @@ namespace WoodenBench_Desktop.Views
 		private void Button1_Click(object sender, EventArgs e)
 		{
 			OpenExcelFileDialog.ShowDialog();
-			if (OpenExcelFileDialog!=null)
+			if (OpenExcelFileDialog != null)
 			{
 				ExcelFilePath = OpenExcelFileDialog.FileName;
 				ExcelFilePathTxt.Text = ExcelFilePath;
+				xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
 			}
 		}
 

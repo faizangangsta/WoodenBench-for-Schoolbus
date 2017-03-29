@@ -53,16 +53,18 @@
 			this.BtomNowUsrID = new System.Windows.Forms.ToolStripStatusLabel();
 			this.BtomStaLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.BtomNowUserAct = new System.Windows.Forms.ToolStripStatusLabel();
-			this.BtomStaLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.BtomNowUsrLoginTime = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SysNotiGroup = new System.Windows.Forms.GroupBox();
 			this.NotificationContentLabel = new System.Windows.Forms.Label();
 			this.NotificationTitleLabel = new System.Windows.Forms.Label();
 			this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
 			this.ProcessExcelGroup = new System.Windows.Forms.GroupBox();
-			this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
 			this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
+			this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
+			this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.listView1 = new System.Windows.Forms.ListView();
+			this.ExcelStudentNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.ExcelStudentSBusStation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.ExcelStudentBSWeek = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.TopMenu.SuspendLayout();
 			this.NowUsrDataGroup.SuspendLayout();
 			this.MainStatusGroup.SuspendLayout();
@@ -78,7 +80,7 @@
             this.关于ToolStripMenuItem});
 			this.TopMenu.Location = new System.Drawing.Point(0, 0);
 			this.TopMenu.Name = "TopMenu";
-			this.TopMenu.Size = new System.Drawing.Size(870, 25);
+			this.TopMenu.Size = new System.Drawing.Size(691, 25);
 			this.TopMenu.TabIndex = 3;
 			this.TopMenu.Text = "menuStrip1";
 			// 
@@ -147,7 +149,7 @@
 			this.NowUsrDataGroup.Controls.Add(this.TopNowUserID);
 			this.NowUsrDataGroup.Controls.Add(this.TopNowUserName);
 			this.NowUsrDataGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.NowUsrDataGroup.Location = new System.Drawing.Point(650, 27);
+			this.NowUsrDataGroup.Location = new System.Drawing.Point(471, 27);
 			this.NowUsrDataGroup.Name = "NowUsrDataGroup";
 			this.NowUsrDataGroup.Size = new System.Drawing.Size(208, 104);
 			this.NowUsrDataGroup.TabIndex = 4;
@@ -238,12 +240,10 @@
             this.BtomStaLabel2,
             this.BtomNowUsrID,
             this.BtomStaLabel3,
-            this.BtomNowUserAct,
-            this.BtomStaLabel4,
-            this.BtomNowUsrLoginTime});
+            this.BtomNowUserAct});
 			this.MainStatusGroup.Location = new System.Drawing.Point(0, 506);
 			this.MainStatusGroup.Name = "MainStatusGroup";
-			this.MainStatusGroup.Size = new System.Drawing.Size(870, 22);
+			this.MainStatusGroup.Size = new System.Drawing.Size(691, 22);
 			this.MainStatusGroup.TabIndex = 5;
 			this.MainStatusGroup.Text = "statusStrip1";
 			// 
@@ -291,21 +291,6 @@
 			this.BtomNowUserAct.Size = new System.Drawing.Size(80, 17);
 			this.BtomNowUserAct.Text = "NowUserAct";
 			// 
-			// BtomStaLabel4
-			// 
-			this.BtomStaLabel4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.BtomStaLabel4.Name = "BtomStaLabel4";
-			this.BtomStaLabel4.Size = new System.Drawing.Size(128, 17);
-			this.BtomStaLabel4.Text = "   当前用户登陆时间：";
-			this.BtomStaLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// BtomNowUsrLoginTime
-			// 
-			this.BtomNowUsrLoginTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.BtomNowUsrLoginTime.Name = "BtomNowUsrLoginTime";
-			this.BtomNowUsrLoginTime.Size = new System.Drawing.Size(126, 17);
-			this.BtomNowUsrLoginTime.Text = "0000/00/00 00:00:00";
-			// 
 			// SysNotiGroup
 			// 
 			this.SysNotiGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -313,7 +298,7 @@
 			this.SysNotiGroup.Controls.Add(this.NotificationContentLabel);
 			this.SysNotiGroup.Controls.Add(this.NotificationTitleLabel);
 			this.SysNotiGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.SysNotiGroup.Location = new System.Drawing.Point(650, 137);
+			this.SysNotiGroup.Location = new System.Drawing.Point(471, 137);
 			this.SysNotiGroup.Name = "SysNotiGroup";
 			this.SysNotiGroup.Size = new System.Drawing.Size(208, 366);
 			this.SysNotiGroup.TabIndex = 6;
@@ -354,20 +339,25 @@
 			// 
 			this.ProcessExcelGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.ProcessExcelGroup.Controls.Add(this.listView1);
 			this.ProcessExcelGroup.Controls.Add(this.ExcelFilePathTxt);
 			this.ProcessExcelGroup.Controls.Add(this.ExcelFileOpenBtn);
 			this.ProcessExcelGroup.Location = new System.Drawing.Point(12, 28);
 			this.ProcessExcelGroup.Name = "ProcessExcelGroup";
-			this.ProcessExcelGroup.Size = new System.Drawing.Size(632, 210);
+			this.ProcessExcelGroup.Size = new System.Drawing.Size(453, 218);
 			this.ProcessExcelGroup.TabIndex = 7;
 			this.ProcessExcelGroup.TabStop = false;
 			this.ProcessExcelGroup.Text = "从 Excel 导入信息";
 			// 
-			// OpenExcelFileDialog
+			// ExcelFilePathTxt
 			// 
-			this.OpenExcelFileDialog.DefaultExt = "*.xls;*.xlsx";
-			this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
-			this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
+			this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 21);
+			this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
+			this.ExcelFilePathTxt.ReadOnly = true;
+			this.ExcelFilePathTxt.Size = new System.Drawing.Size(316, 21);
+			this.ExcelFilePathTxt.TabIndex = 1;
 			// 
 			// ExcelFileOpenBtn
 			// 
@@ -379,21 +369,48 @@
 			this.ExcelFileOpenBtn.UseVisualStyleBackColor = true;
 			this.ExcelFileOpenBtn.Click += new System.EventHandler(this.Button1_Click);
 			// 
-			// ExcelFilePathTxt
+			// OpenExcelFileDialog
 			// 
-			this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.OpenExcelFileDialog.DefaultExt = "*.xls;*.xlsx";
+			this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
+			this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
+			// 
+			// listView1
+			// 
+			this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 21);
-			this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
-			this.ExcelFilePathTxt.ReadOnly = true;
-			this.ExcelFilePathTxt.Size = new System.Drawing.Size(495, 21);
-			this.ExcelFilePathTxt.TabIndex = 1;
+			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ExcelStudentNameCol,
+            this.ExcelStudentSBusStation,
+            this.ExcelStudentBSWeek});
+			this.listView1.Location = new System.Drawing.Point(7, 50);
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(440, 162);
+			this.listView1.TabIndex = 2;
+			this.listView1.UseCompatibleStateImageBehavior = false;
+			this.listView1.View = System.Windows.Forms.View.Details;
+			// 
+			// ExcelStudentNameCol
+			// 
+			this.ExcelStudentNameCol.Text = "学生姓名";
+			this.ExcelStudentNameCol.Width = 119;
+			// 
+			// ExcelStudentSBusStation
+			// 
+			this.ExcelStudentSBusStation.Text = "校车路线";
+			this.ExcelStudentSBusStation.Width = 165;
+			// 
+			// ExcelStudentBSWeek
+			// 
+			this.ExcelStudentBSWeek.Text = "大小周";
+			this.ExcelStudentBSWeek.Width = 81;
 			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(870, 528);
+			this.ClientSize = new System.Drawing.Size(691, 528);
 			this.Controls.Add(this.ProcessExcelGroup);
 			this.Controls.Add(this.SysNotiGroup);
 			this.Controls.Add(this.MainStatusGroup);
@@ -432,8 +449,6 @@
 		private System.Windows.Forms.ToolStripStatusLabel BtomNowUsrID;
 		private System.Windows.Forms.ToolStripStatusLabel BtomStaLabel3;
 		private System.Windows.Forms.ToolStripStatusLabel BtomNowUserAct;
-		private System.Windows.Forms.ToolStripStatusLabel BtomStaLabel4;
-		private System.Windows.Forms.ToolStripStatusLabel BtomNowUsrLoginTime;
 		private System.Windows.Forms.Label TopNowUserLoginName;
 		private System.Windows.Forms.Label TopNowUserGroup;
 		private System.Windows.Forms.Label TopNowUserID;
@@ -454,5 +469,9 @@
 		private System.Windows.Forms.OpenFileDialog OpenExcelFileDialog;
 		private System.Windows.Forms.TextBox ExcelFilePathTxt;
 		private System.Windows.Forms.Button ExcelFileOpenBtn;
+		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.ColumnHeader ExcelStudentNameCol;
+		private System.Windows.Forms.ColumnHeader ExcelStudentSBusStation;
+		private System.Windows.Forms.ColumnHeader ExcelStudentBSWeek;
 	}
 }
