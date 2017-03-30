@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.TopMenu = new System.Windows.Forms.MenuStrip();
 			this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,18 +59,28 @@
 			this.NotificationTitleLabel = new System.Windows.Forms.Label();
 			this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
 			this.ProcessExcelGroup = new System.Windows.Forms.GroupBox();
+			this.StudentData = new System.Windows.Forms.DataGridView();
+			this.SureAndUploadBtn = new System.Windows.Forms.Button();
 			this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
 			this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
 			this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.listView1 = new System.Windows.Forms.ListView();
-			this.ExcelStudentNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.ExcelStudentSBusStation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.ExcelStudentBSWeek = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.显示日志LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.NowClassLbl = new System.Windows.Forms.Label();
+			this.NowPartOSchoolLbl = new System.Windows.Forms.Label();
+			this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DataStuIsBWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.TopMenu.SuspendLayout();
 			this.NowUsrDataGroup.SuspendLayout();
 			this.MainStatusGroup.SuspendLayout();
 			this.SysNotiGroup.SuspendLayout();
 			this.ProcessExcelGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// TopMenu
@@ -80,13 +91,15 @@
             this.关于ToolStripMenuItem});
 			this.TopMenu.Location = new System.Drawing.Point(0, 0);
 			this.TopMenu.Name = "TopMenu";
-			this.TopMenu.Size = new System.Drawing.Size(691, 25);
+			this.TopMenu.Size = new System.Drawing.Size(811, 25);
 			this.TopMenu.TabIndex = 3;
 			this.TopMenu.Text = "menuStrip1";
 			// 
 			// 文件ToolStripMenuItem
 			// 
 			this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.显示日志LToolStripMenuItem,
+            this.toolStripSeparator2,
             this.退出EToolStripMenuItem});
 			this.文件ToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
@@ -97,7 +110,7 @@
 			// 
 			this.退出EToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.退出EToolStripMenuItem.Name = "退出EToolStripMenuItem";
-			this.退出EToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+			this.退出EToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.退出EToolStripMenuItem.Text = "退出(&E)";
 			this.退出EToolStripMenuItem.Click += new System.EventHandler(this.退出EToolStripMenuItem_Click);
 			// 
@@ -149,7 +162,7 @@
 			this.NowUsrDataGroup.Controls.Add(this.TopNowUserID);
 			this.NowUsrDataGroup.Controls.Add(this.TopNowUserName);
 			this.NowUsrDataGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.NowUsrDataGroup.Location = new System.Drawing.Point(471, 27);
+			this.NowUsrDataGroup.Location = new System.Drawing.Point(591, 27);
 			this.NowUsrDataGroup.Name = "NowUsrDataGroup";
 			this.NowUsrDataGroup.Size = new System.Drawing.Size(208, 104);
 			this.NowUsrDataGroup.TabIndex = 4;
@@ -241,9 +254,9 @@
             this.BtomNowUsrID,
             this.BtomStaLabel3,
             this.BtomNowUserAct});
-			this.MainStatusGroup.Location = new System.Drawing.Point(0, 506);
+			this.MainStatusGroup.Location = new System.Drawing.Point(0, 473);
 			this.MainStatusGroup.Name = "MainStatusGroup";
-			this.MainStatusGroup.Size = new System.Drawing.Size(691, 22);
+			this.MainStatusGroup.Size = new System.Drawing.Size(811, 22);
 			this.MainStatusGroup.TabIndex = 5;
 			this.MainStatusGroup.Text = "statusStrip1";
 			// 
@@ -298,9 +311,9 @@
 			this.SysNotiGroup.Controls.Add(this.NotificationContentLabel);
 			this.SysNotiGroup.Controls.Add(this.NotificationTitleLabel);
 			this.SysNotiGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.SysNotiGroup.Location = new System.Drawing.Point(471, 137);
+			this.SysNotiGroup.Location = new System.Drawing.Point(591, 137);
 			this.SysNotiGroup.Name = "SysNotiGroup";
-			this.SysNotiGroup.Size = new System.Drawing.Size(208, 366);
+			this.SysNotiGroup.Size = new System.Drawing.Size(208, 333);
 			this.SysNotiGroup.TabIndex = 6;
 			this.SysNotiGroup.TabStop = false;
 			this.SysNotiGroup.Text = "通知区域";
@@ -313,7 +326,7 @@
 			this.NotificationContentLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.NotificationContentLabel.Location = new System.Drawing.Point(14, 68);
 			this.NotificationContentLabel.Name = "NotificationContentLabel";
-			this.NotificationContentLabel.Size = new System.Drawing.Size(177, 295);
+			this.NotificationContentLabel.Size = new System.Drawing.Size(177, 262);
 			this.NotificationContentLabel.TabIndex = 1;
 			this.NotificationContentLabel.Text = "内容";
 			// 
@@ -339,24 +352,54 @@
 			// 
 			this.ProcessExcelGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ProcessExcelGroup.Controls.Add(this.listView1);
+			this.ProcessExcelGroup.Controls.Add(this.groupBox1);
+			this.ProcessExcelGroup.Controls.Add(this.StudentData);
+			this.ProcessExcelGroup.Controls.Add(this.SureAndUploadBtn);
 			this.ProcessExcelGroup.Controls.Add(this.ExcelFilePathTxt);
 			this.ProcessExcelGroup.Controls.Add(this.ExcelFileOpenBtn);
 			this.ProcessExcelGroup.Location = new System.Drawing.Point(12, 28);
 			this.ProcessExcelGroup.Name = "ProcessExcelGroup";
-			this.ProcessExcelGroup.Size = new System.Drawing.Size(453, 218);
+			this.ProcessExcelGroup.Size = new System.Drawing.Size(573, 244);
 			this.ProcessExcelGroup.TabIndex = 7;
 			this.ProcessExcelGroup.TabStop = false;
 			this.ProcessExcelGroup.Text = "从 Excel 导入信息";
+			// 
+			// StudentData
+			// 
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			this.StudentData.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this.StudentData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.StudentData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DataStuName,
+            this.DataStuDirection,
+            this.DataStuIsBWeek});
+			this.StudentData.Location = new System.Drawing.Point(7, 56);
+			this.StudentData.Name = "StudentData";
+			this.StudentData.RowTemplate.Height = 23;
+			this.StudentData.Size = new System.Drawing.Size(448, 182);
+			this.StudentData.TabIndex = 4;
+			// 
+			// SureAndUploadBtn
+			// 
+			this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.SureAndUploadBtn.Location = new System.Drawing.Point(461, 194);
+			this.SureAndUploadBtn.Name = "SureAndUploadBtn";
+			this.SureAndUploadBtn.Size = new System.Drawing.Size(106, 44);
+			this.SureAndUploadBtn.TabIndex = 3;
+			this.SureAndUploadBtn.Text = "确认并上传(&S)";
+			this.SureAndUploadBtn.UseVisualStyleBackColor = true;
+			this.SureAndUploadBtn.Click += new System.EventHandler(this.SureAndUpload);
 			// 
 			// ExcelFilePathTxt
 			// 
 			this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 21);
+			this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 22);
 			this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
 			this.ExcelFilePathTxt.ReadOnly = true;
-			this.ExcelFilePathTxt.Size = new System.Drawing.Size(316, 21);
+			this.ExcelFilePathTxt.Size = new System.Drawing.Size(436, 21);
 			this.ExcelFilePathTxt.TabIndex = 1;
 			// 
 			// ExcelFileOpenBtn
@@ -375,45 +418,91 @@
 			this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
 			this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
 			// 
-			// listView1
+			// 显示日志LToolStripMenuItem
 			// 
-			this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ExcelStudentNameCol,
-            this.ExcelStudentSBusStation,
-            this.ExcelStudentBSWeek});
-			this.listView1.Location = new System.Drawing.Point(7, 50);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(440, 162);
-			this.listView1.TabIndex = 2;
-			this.listView1.UseCompatibleStateImageBehavior = false;
-			this.listView1.View = System.Windows.Forms.View.Details;
+			this.显示日志LToolStripMenuItem.Name = "显示日志LToolStripMenuItem";
+			this.显示日志LToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.显示日志LToolStripMenuItem.Text = "显示日志(&L)";
+			this.显示日志LToolStripMenuItem.Click += new System.EventHandler(this.显示日志LToolStripMenuItem_Click);
 			// 
-			// ExcelStudentNameCol
+			// toolStripSeparator2
 			// 
-			this.ExcelStudentNameCol.Text = "学生姓名";
-			this.ExcelStudentNameCol.Width = 119;
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
 			// 
-			// ExcelStudentSBusStation
+			// groupBox1
 			// 
-			this.ExcelStudentSBusStation.Text = "校车路线";
-			this.ExcelStudentSBusStation.Width = 165;
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.NowPartOSchoolLbl);
+			this.groupBox1.Controls.Add(this.NowClassLbl);
+			this.groupBox1.Controls.Add(this.label7);
+			this.groupBox1.Controls.Add(this.label6);
+			this.groupBox1.Location = new System.Drawing.Point(461, 56);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(106, 132);
+			this.groupBox1.TabIndex = 5;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "班级和学部";
 			// 
-			// ExcelStudentBSWeek
+			// label6
 			// 
-			this.ExcelStudentBSWeek.Text = "大小周";
-			this.ExcelStudentBSWeek.Width = 81;
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(7, 21);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(29, 12);
+			this.label6.TabIndex = 0;
+			this.label6.Text = "班级";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(7, 70);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(29, 12);
+			this.label7.TabIndex = 1;
+			this.label7.Text = "学部";
+			// 
+			// NowClassLbl
+			// 
+			this.NowClassLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
+			this.NowClassLbl.Location = new System.Drawing.Point(6, 35);
+			this.NowClassLbl.Name = "NowClassLbl";
+			this.NowClassLbl.Size = new System.Drawing.Size(94, 35);
+			this.NowClassLbl.TabIndex = 2;
+			this.NowClassLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// NowPartOSchoolLbl
+			// 
+			this.NowPartOSchoolLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
+			this.NowPartOSchoolLbl.Location = new System.Drawing.Point(6, 86);
+			this.NowPartOSchoolLbl.Name = "NowPartOSchoolLbl";
+			this.NowPartOSchoolLbl.Size = new System.Drawing.Size(94, 35);
+			this.NowPartOSchoolLbl.TabIndex = 2;
+			this.NowPartOSchoolLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// DataStuName
+			// 
+			this.DataStuName.HeaderText = "学生姓名";
+			this.DataStuName.Name = "DataStuName";
+			// 
+			// DataStuDirection
+			// 
+			this.DataStuDirection.HeaderText = "校车路线";
+			this.DataStuDirection.Name = "DataStuDirection";
+			// 
+			// DataStuIsBWeek
+			// 
+			this.DataStuIsBWeek.HeaderText = "小周？";
+			this.DataStuIsBWeek.Name = "DataStuIsBWeek";
 			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(691, 528);
+			this.ClientSize = new System.Drawing.Size(811, 495);
+			this.Controls.Add(this.MainStatusGroup);
 			this.Controls.Add(this.ProcessExcelGroup);
 			this.Controls.Add(this.SysNotiGroup);
-			this.Controls.Add(this.MainStatusGroup);
 			this.Controls.Add(this.NowUsrDataGroup);
 			this.Controls.Add(this.TopMenu);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -431,6 +520,9 @@
 			this.SysNotiGroup.ResumeLayout(false);
 			this.ProcessExcelGroup.ResumeLayout(false);
 			this.ProcessExcelGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -469,9 +561,17 @@
 		private System.Windows.Forms.OpenFileDialog OpenExcelFileDialog;
 		private System.Windows.Forms.TextBox ExcelFilePathTxt;
 		private System.Windows.Forms.Button ExcelFileOpenBtn;
-		private System.Windows.Forms.ListView listView1;
-		private System.Windows.Forms.ColumnHeader ExcelStudentNameCol;
-		private System.Windows.Forms.ColumnHeader ExcelStudentSBusStation;
-		private System.Windows.Forms.ColumnHeader ExcelStudentBSWeek;
+		private System.Windows.Forms.Button SureAndUploadBtn;
+		private System.Windows.Forms.DataGridView StudentData;
+		private System.Windows.Forms.ToolStripMenuItem 显示日志LToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label NowPartOSchoolLbl;
+		private System.Windows.Forms.Label NowClassLbl;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DataStuName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DataStuDirection;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DataStuIsBWeek;
 	}
 }

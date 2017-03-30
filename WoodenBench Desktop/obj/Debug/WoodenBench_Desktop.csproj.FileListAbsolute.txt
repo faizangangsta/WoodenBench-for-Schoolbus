@@ -11,6 +11,8 @@ C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\W
 C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench Desktop.pdb
 C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Views.MainWindow.resources
 C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Views.ChangeUserData.resources
-C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.csprojResolveAssemblyReference.cache
 C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Views.CreateUser.resources
 C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.csproj.ResolveComReference.cache
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\bin\Debug\WoodenBench Desktop.xml
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.csprojResolveAssemblyReference.cache
+C:\Users\浩宇\Desktop\YH-SchoolBus-WoodenBench\WoodenBench Desktop\obj\Debug\WoodenBench_Desktop.Views.Logs.resources

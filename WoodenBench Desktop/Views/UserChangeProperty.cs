@@ -16,7 +16,7 @@ namespace WoodenBench_Desktop.Views
 {
 	public partial class ChangeUserData : Form
 	{
-		public UserController NowUser;
+		UserController NowUser;
 		public ChangeUserData(UserController ValController)
 		{
 			Bmob = new BmobWindows();
