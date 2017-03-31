@@ -51,10 +51,9 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label1.Location = new System.Drawing.Point(24, 23);
+			this.label1.Location = new System.Drawing.Point(26, 26);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(56, 17);
+			this.label1.Size = new System.Drawing.Size(53, 12);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "用户名：";
 			// 
@@ -74,7 +73,6 @@
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.CancelBtn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.CancelBtn.Location = new System.Drawing.Point(191, 86);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(75, 23);
@@ -86,7 +84,6 @@
 			// DoLoginBtn
 			// 
 			this.DoLoginBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.DoLoginBtn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.DoLoginBtn.Location = new System.Drawing.Point(272, 86);
 			this.DoLoginBtn.Name = "DoLoginBtn";
 			this.DoLoginBtn.Size = new System.Drawing.Size(75, 23);
@@ -98,10 +95,9 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label2.Location = new System.Drawing.Point(36, 50);
+			this.label2.Location = new System.Drawing.Point(38, 53);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(44, 17);
+			this.label2.Size = new System.Drawing.Size(41, 12);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "密码：";
 			// 
@@ -117,10 +113,9 @@
 			// NewUserLabel
 			// 
 			this.NewUserLabel.AutoSize = true;
-			this.NewUserLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.NewUserLabel.Location = new System.Drawing.Point(24, 89);
 			this.NewUserLabel.Name = "NewUserLabel";
-			this.NewUserLabel.Size = new System.Drawing.Size(54, 17);
+			this.NewUserLabel.Size = new System.Drawing.Size(53, 12);
 			this.NewUserLabel.TabIndex = 7;
 			this.NewUserLabel.TabStop = true;
 			this.NewUserLabel.Text = "新用户 ?";
@@ -141,6 +136,7 @@
 			this.Controls.Add(this.PswdTxt);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.UserNameTxt);
+			this.Font = new System.Drawing.Font("宋体", 9F);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MaximizeBox = false;

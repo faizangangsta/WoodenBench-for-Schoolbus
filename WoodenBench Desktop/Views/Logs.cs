@@ -39,7 +39,6 @@ namespace WoodenBench_Desktop.Views
 
 		private void Logs_Load(object sender, EventArgs e)
 		{
-			Hide();
 		}
 
 		private void button1_Click(object sender, EventArgs e)

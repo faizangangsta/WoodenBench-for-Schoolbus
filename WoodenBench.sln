@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_Desktop", "WoodenBench Desktop\WoodenBench_Desktop.csproj", "{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}"
 EndProject
@@ -14,6 +14,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		WoodenBench Mobile\WoodenBench_Mobile\WoodenBench_Mobile.projitems*{77fc63ad-94ba-4142-8873-fdd6f95176e3}*SharedItemsImports = 4
+		WoodenBench Mobile\WoodenBench_Mobile\WoodenBench_Mobile.projitems*{7ea1ca60-8df1-4430-9049-c0a434a4ca4e}*SharedItemsImports = 4
 		WoodenBench Mobile\WoodenBench_Mobile\WoodenBench_Mobile.projitems*{c9d63462-d1b9-4015-a123-718a42af9614}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
