@@ -18,6 +18,7 @@ namespace WoodenBench_Desktop.Views
 		Microsoft.Office.Interop.Excel.Workbook xWorkbook;
 
 		UserController NowUser;
+		int Hi = 0;
 		EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
 		string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess,NowPartOfSchool;
 		public MainWindow(UserController ValController) : base()
@@ -32,8 +33,6 @@ namespace WoodenBench_Desktop.Views
 
 		private void MainWindow_Load(object sender, EventArgs e)
 		{
-			Logs.Default.Show();
-			Logs.Default.Hide();
 			BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
 			BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;
 			TopNowUserLoginName.Text = NowUser.LoginTime;
@@ -75,6 +74,20 @@ namespace WoodenBench_Desktop.Views
 			{ case DialogResult.Yes: Application.Restart(); break; }
 		}
 
+		private void toolStripSeparator2_Click(object sender, EventArgs e)
+		{
+			Hi++;
+			if (Hi == 5)
+			{
+				(new Mysterious()).ShowMys(NowUser);
+			}
+		}
+
+		private void MainWindow_Click(object sender, EventArgs e)
+		{
+			Hi = 0;
+		}
+
 		private void Button1_Click(object sender, EventArgs e)
 		{
 			OpenExcelFileDialog.FileName = "";
@@ -83,6 +96,7 @@ namespace WoodenBench_Desktop.Views
 			{
 				ExcelFilePath = OpenExcelFileDialog.FileName;
 				ExcelFilePathTxt.Text = ExcelFilePath;
+				// Solve File Missing 
 				xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
 
 				for (int LineNum = 4; LineNum <= (GetLastLineOfExcel() - 1); LineNum++)
@@ -98,11 +112,6 @@ namespace WoodenBench_Desktop.Views
 				NowPartOSchoolLbl.Text = NowPartOfSchool;
 				NowClassLbl.Text = NowClassProcess;
 			}
-		}
-
-		private void 显示日志LToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Logs.Default.Show();
 		}
 
 		private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,12 +135,14 @@ namespace WoodenBench_Desktop.Views
 				Thread.Sleep(50);
 				try
 				{
-					Logs.Default.OutputText.Text += future.Result.ToString();
-					Logs.Default.OutputText.Text += future.Status.ToString();
 				}
 				catch (Exception ex)
 				{
-					Logs.Default.OutputText.Text += ex.Message;
+					if (ex.InnerException.Message.Contains("401"))
+					{
+						string Inner = ex.InnerException.Message;
+						MessageBox.Show("出现错误，错误代码:  401"+Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
+					}
 				}
 			}
 			this.SureAndUploadBtn.Text = "确认并上传(&S)";

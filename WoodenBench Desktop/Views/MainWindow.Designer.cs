@@ -32,6 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.TopMenu = new System.Windows.Forms.MenuStrip();
 			this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.退出EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.用户UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.更改用户信息DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,28 +60,26 @@
 			this.NotificationTitleLabel = new System.Windows.Forms.Label();
 			this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
 			this.ProcessExcelGroup = new System.Windows.Forms.GroupBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.NowPartOSchoolLbl = new System.Windows.Forms.Label();
+			this.NowClassLbl = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.StudentData = new System.Windows.Forms.DataGridView();
+			this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DataStuIsBWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.SureAndUploadBtn = new System.Windows.Forms.Button();
 			this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
 			this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
 			this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.显示日志LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
-			this.NowClassLbl = new System.Windows.Forms.Label();
-			this.NowPartOSchoolLbl = new System.Windows.Forms.Label();
-			this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataStuIsBWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.TopMenu.SuspendLayout();
 			this.NowUsrDataGroup.SuspendLayout();
 			this.MainStatusGroup.SuspendLayout();
 			this.SysNotiGroup.SuspendLayout();
 			this.ProcessExcelGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
 			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// TopMenu
@@ -98,13 +97,18 @@
 			// 文件ToolStripMenuItem
 			// 
 			this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.显示日志LToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.退出EToolStripMenuItem});
+            this.退出EToolStripMenuItem,
+            this.toolStripSeparator2});
 			this.文件ToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
 			this.文件ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
 			this.文件ToolStripMenuItem.Text = "文件(&F)";
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparator2.Click += new System.EventHandler(this.toolStripSeparator2_Click);
 			// 
 			// 退出EToolStripMenuItem
 			// 
@@ -121,25 +125,25 @@
             this.toolStripSeparator1,
             this.退出用户EToolStripMenuItem});
 			this.用户UToolStripMenuItem.Name = "用户UToolStripMenuItem";
-			this.用户UToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
+			this.用户UToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
 			this.用户UToolStripMenuItem.Text = "用户(&U)";
 			// 
 			// 更改用户信息DToolStripMenuItem
 			// 
 			this.更改用户信息DToolStripMenuItem.Name = "更改用户信息DToolStripMenuItem";
-			this.更改用户信息DToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.更改用户信息DToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
 			this.更改用户信息DToolStripMenuItem.Text = "更改用户信息(&D)";
 			this.更改用户信息DToolStripMenuItem.Click += new System.EventHandler(this.更改用户信息DToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
 			// 
 			// 退出用户EToolStripMenuItem
 			// 
 			this.退出用户EToolStripMenuItem.Name = "退出用户EToolStripMenuItem";
-			this.退出用户EToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.退出用户EToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
 			this.退出用户EToolStripMenuItem.Text = "退出用户(&E)";
 			this.退出用户EToolStripMenuItem.Click += new System.EventHandler(this.退出用户EToolStripMenuItem_Click);
 			// 
@@ -364,6 +368,56 @@
 			this.ProcessExcelGroup.TabStop = false;
 			this.ProcessExcelGroup.Text = "从 Excel 导入信息";
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.NowPartOSchoolLbl);
+			this.groupBox1.Controls.Add(this.NowClassLbl);
+			this.groupBox1.Controls.Add(this.label7);
+			this.groupBox1.Controls.Add(this.label6);
+			this.groupBox1.Location = new System.Drawing.Point(461, 56);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(106, 132);
+			this.groupBox1.TabIndex = 5;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "班级和学部";
+			// 
+			// NowPartOSchoolLbl
+			// 
+			this.NowPartOSchoolLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
+			this.NowPartOSchoolLbl.Location = new System.Drawing.Point(6, 86);
+			this.NowPartOSchoolLbl.Name = "NowPartOSchoolLbl";
+			this.NowPartOSchoolLbl.Size = new System.Drawing.Size(94, 35);
+			this.NowPartOSchoolLbl.TabIndex = 2;
+			this.NowPartOSchoolLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// NowClassLbl
+			// 
+			this.NowClassLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
+			this.NowClassLbl.Location = new System.Drawing.Point(6, 35);
+			this.NowClassLbl.Name = "NowClassLbl";
+			this.NowClassLbl.Size = new System.Drawing.Size(94, 35);
+			this.NowClassLbl.TabIndex = 2;
+			this.NowClassLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(7, 70);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(29, 12);
+			this.label7.TabIndex = 1;
+			this.label7.Text = "学部";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(7, 21);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(29, 12);
+			this.label6.TabIndex = 0;
+			this.label6.Text = "班级";
+			// 
 			// StudentData
 			// 
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -380,6 +434,21 @@
 			this.StudentData.RowTemplate.Height = 23;
 			this.StudentData.Size = new System.Drawing.Size(448, 182);
 			this.StudentData.TabIndex = 4;
+			// 
+			// DataStuName
+			// 
+			this.DataStuName.HeaderText = "学生姓名";
+			this.DataStuName.Name = "DataStuName";
+			// 
+			// DataStuDirection
+			// 
+			this.DataStuDirection.HeaderText = "校车路线";
+			this.DataStuDirection.Name = "DataStuDirection";
+			// 
+			// DataStuIsBWeek
+			// 
+			this.DataStuIsBWeek.HeaderText = "小周？";
+			this.DataStuIsBWeek.Name = "DataStuIsBWeek";
 			// 
 			// SureAndUploadBtn
 			// 
@@ -418,83 +487,6 @@
 			this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
 			this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
 			// 
-			// 显示日志LToolStripMenuItem
-			// 
-			this.显示日志LToolStripMenuItem.Name = "显示日志LToolStripMenuItem";
-			this.显示日志LToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.显示日志LToolStripMenuItem.Text = "显示日志(&L)";
-			this.显示日志LToolStripMenuItem.Click += new System.EventHandler(this.显示日志LToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.NowPartOSchoolLbl);
-			this.groupBox1.Controls.Add(this.NowClassLbl);
-			this.groupBox1.Controls.Add(this.label7);
-			this.groupBox1.Controls.Add(this.label6);
-			this.groupBox1.Location = new System.Drawing.Point(461, 56);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(106, 132);
-			this.groupBox1.TabIndex = 5;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "班级和学部";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(7, 21);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(29, 12);
-			this.label6.TabIndex = 0;
-			this.label6.Text = "班级";
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(7, 70);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(29, 12);
-			this.label7.TabIndex = 1;
-			this.label7.Text = "学部";
-			// 
-			// NowClassLbl
-			// 
-			this.NowClassLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
-			this.NowClassLbl.Location = new System.Drawing.Point(6, 35);
-			this.NowClassLbl.Name = "NowClassLbl";
-			this.NowClassLbl.Size = new System.Drawing.Size(94, 35);
-			this.NowClassLbl.TabIndex = 2;
-			this.NowClassLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// NowPartOSchoolLbl
-			// 
-			this.NowPartOSchoolLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
-			this.NowPartOSchoolLbl.Location = new System.Drawing.Point(6, 86);
-			this.NowPartOSchoolLbl.Name = "NowPartOSchoolLbl";
-			this.NowPartOSchoolLbl.Size = new System.Drawing.Size(94, 35);
-			this.NowPartOSchoolLbl.TabIndex = 2;
-			this.NowPartOSchoolLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// DataStuName
-			// 
-			this.DataStuName.HeaderText = "学生姓名";
-			this.DataStuName.Name = "DataStuName";
-			// 
-			// DataStuDirection
-			// 
-			this.DataStuDirection.HeaderText = "校车路线";
-			this.DataStuDirection.Name = "DataStuDirection";
-			// 
-			// DataStuIsBWeek
-			// 
-			this.DataStuIsBWeek.HeaderText = "小周？";
-			this.DataStuIsBWeek.Name = "DataStuIsBWeek";
-			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -511,6 +503,7 @@
 			this.Text = "管理小板凳";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
 			this.Load += new System.EventHandler(this.MainWindow_Load);
+			this.Click += new System.EventHandler(this.MainWindow_Click);
 			this.TopMenu.ResumeLayout(false);
 			this.TopMenu.PerformLayout();
 			this.NowUsrDataGroup.ResumeLayout(false);
@@ -520,9 +513,9 @@
 			this.SysNotiGroup.ResumeLayout(false);
 			this.ProcessExcelGroup.ResumeLayout(false);
 			this.ProcessExcelGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -563,7 +556,6 @@
 		private System.Windows.Forms.Button ExcelFileOpenBtn;
 		private System.Windows.Forms.Button SureAndUploadBtn;
 		private System.Windows.Forms.DataGridView StudentData;
-		private System.Windows.Forms.ToolStripMenuItem 显示日志LToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label label7;

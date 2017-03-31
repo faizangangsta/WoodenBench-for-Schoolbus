@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Controls\Consts.cs" />
     <Compile Include="Controls\EveryStudentObject.cs" />
+    <Compile Include="Controls\Mysterious.cs" />
     <Compile Include="Controls\NotificationObject.cs" />
     <Compile Include="Controls\UserController.cs" />
     <Compile Include="Controls\UserObject.cs" />
@@ -94,12 +95,6 @@
     </Compile>
     <Compile Include="Views\CreateUser.Designer.cs">
       <DependentUpon>CreateUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Logs.Designer.cs">
-      <DependentUpon>Logs.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.cs">
       <SubType>Form</SubType>
@@ -128,9 +123,6 @@
     </Compile>
     <EmbeddedResource Include="Views\CreateUser.resx">
       <DependentUpon>CreateUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Logs.resx">
-      <DependentUpon>Logs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
