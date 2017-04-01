@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("WoodenBench_Mobile.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("WoodenBench.Mobile.Droid.Resource", IsApplication=true)]
 
-namespace WoodenBench_Mobile.Droid
+namespace WoodenBench.Mobile.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace WoodenBench_Mobile.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::WoodenBench_Mobile.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::WoodenBench.Mobile.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

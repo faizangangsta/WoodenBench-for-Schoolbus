@@ -37,6 +37,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.LoginResult = new System.Windows.Forms.Label();
 			this.NewUserLabel = new System.Windows.Forms.LinkLabel();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// UserNameTxt
@@ -121,6 +122,16 @@
 			this.NewUserLabel.Text = "新用户 ?";
 			this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
 			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.Location = new System.Drawing.Point(78, 89);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(65, 12);
+			this.linkLabel1.TabIndex = 0;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "///invisi家长登录";
+			this.linkLabel1.Visible = false;
+			// 
 			// UsrLoginForm
 			// 
 			this.AcceptButton = this.DoLoginBtn;
@@ -128,6 +139,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.CancelBtn;
 			this.ClientSize = new System.Drawing.Size(359, 121);
+			this.Controls.Add(this.linkLabel1);
 			this.Controls.Add(this.NewUserLabel);
 			this.Controls.Add(this.LoginResult);
 			this.Controls.Add(this.label2);
@@ -162,6 +174,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label LoginResult;
 		private System.Windows.Forms.LinkLabel NewUserLabel;
+		private System.Windows.Forms.LinkLabel linkLabel1;
 	}
 }
 

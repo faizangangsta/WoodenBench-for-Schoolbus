@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WoodenBench_Desktop</RootNamespace>
+    <RootNamespace>WoodenBench.Desktop</RootNamespace>
     <AssemblyName>WoodenBench Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -186,6 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QRCode\WoodenBench_QRCode.csproj">
+      <Project>{e98126b2-af17-4783-96b9-856d6744dca3}</Project>
+      <Name>WoodenBench_QRCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

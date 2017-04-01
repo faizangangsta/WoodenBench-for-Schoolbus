@@ -88,11 +88,11 @@ namespace WoodenBench_Desktop.Views
 			Hi = 0;
 		}
 
-		private void Button1_Click(object sender, EventArgs e)
+		private void OpenExcel(object sender, EventArgs e)
 		{
 			OpenExcelFileDialog.FileName = "";
 			OpenExcelFileDialog.ShowDialog();
-			if (OpenExcelFileDialog != null)
+			if (OpenExcelFileDialog.FileName != "")
 			{
 				ExcelFilePath = OpenExcelFileDialog.FileName;
 				ExcelFilePathTxt.Text = ExcelFilePath;
@@ -133,15 +133,13 @@ namespace WoodenBench_Desktop.Views
 				StudentObj.StudentPartOfSchool = NowPartOfSchool;
 				var future = Bmob.CreateTaskAsync(StudentObj);
 				Thread.Sleep(50);
-				try
-				{
-				}
+				try { future.Result.ToString(); }
 				catch (Exception ex)
 				{
 					if (ex.InnerException.Message.Contains("401"))
 					{
 						string Inner = ex.InnerException.Message;
-						MessageBox.Show("出现错误，错误代码:  401"+Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
+						MessageBox.Show("出现错误，错误代码:  401" + Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
 					}
 				}
 			}

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>WoodenBench_Mobile</string>
+	<string>WoodenBench.Mobile</string>
 	<key>CFBundleName</key>
 	<string>WoodenBench_Mobile</string>
 	<key>CFBundleIdentifier</key>
@@ -40,7 +40,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

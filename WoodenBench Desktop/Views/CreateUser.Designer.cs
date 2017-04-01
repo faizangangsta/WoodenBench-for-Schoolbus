@@ -248,6 +248,7 @@
 			this.Name = "CreateUser";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "创建用户";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CreateUser_FormClosed);
 			this.Load += new System.EventHandler(this.CreateUser_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();

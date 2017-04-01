@@ -6,7 +6,7 @@
     <ProjectGuid>{7EA1CA60-8DF1-4430-9049-C0A434A4CA4E}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>WoodenBench_Mobile.Droid</RootNamespace>
+    <RootNamespace>WoodenBench.Mobile.Droid</RootNamespace>
     <AssemblyName>WoodenBench_Mobile.Android</AssemblyName>
     <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
