@@ -188,9 +188,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QRCode\WoodenBench_QRCode.csproj">
+    <ProjectReference Include="..\QRCode\QRCode.csproj">
       <Project>{e98126b2-af17-4783-96b9-856d6744dca3}</Project>
-      <Name>WoodenBench_QRCode</Name>
+      <Name>QRCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

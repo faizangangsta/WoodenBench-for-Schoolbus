@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_Desktop", "WoodenBench Desktop\WoodenBench_Desktop.csproj", "{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}"
 EndProject
@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_Mobile.Android"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_Mobile.iOS", "WoodenBench Mobile\WoodenBench_Mobile.iOS\WoodenBench_Mobile.iOS.csproj", "{77FC63AD-94BA-4142-8873-FDD6F95176E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_QRCode", "QRCode\WoodenBench_QRCode.csproj", "{E98126B2-AF17-4783-96B9-856D6744DCA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCode", "QRCode\QRCode.csproj", "{E98126B2-AF17-4783-96B9-856D6744DCA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPinyin", "PinYin\NPinyin.csproj", "{265ED519-5902-4798-A817-B8295C91DD8F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -134,6 +136,30 @@ Global
 		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Release|x64.Build.0 = Release|Any CPU
 		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Release|x86.ActiveCfg = Release|Any CPU
 		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Release|x86.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|x64.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Debug|x86.Build.0 = Debug|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|ARM.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|iPhone.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|x64.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|x64.Build.0 = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|x86.ActiveCfg = Release|Any CPU
+		{265ED519-5902-4798-A817-B8295C91DD8F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
