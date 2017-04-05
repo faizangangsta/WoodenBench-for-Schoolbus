@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="点击这里扫描二维码"
+        android:layout_width="match_parent"
+        android:layout_height="18.5dp"
+        android:id="@+id/textView1" />
+    <Button
+        android:text="AaBbCc"
+        android:layout_width="162.0dp"
+        android:layout_height="54.0dp"
+        android:id="@+id/button1"
+        android:layout_marginRight="37.5dp"
+        android:clickable="true"
+        android:visibility="visible"
+        android:textColor="@android:color/holo_orange_light"
+        android:textAllCaps="false" />
+</LinearLayout>

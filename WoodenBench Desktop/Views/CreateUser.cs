@@ -6,9 +6,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench_Desktop.Controls;
+using WoodenBench_Desktop.Controls.Users;
 
 namespace WoodenBench_Desktop.Views
-{
+{ 
 	public partial class CreateUser : Form
 	{
 		private UserObject NewUserObj = new UserObject(Consts.TABLE_NAME_General_AllUser);

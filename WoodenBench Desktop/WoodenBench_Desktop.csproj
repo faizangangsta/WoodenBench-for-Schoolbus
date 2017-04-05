@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WoodenBench.Desktop</RootNamespace>
+    <RootNamespace>WoodenBench_Desktop</RootNamespace>
     <AssemblyName>WoodenBench Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,7 +62,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,8 +73,20 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AULWriter1.0\Form1.Designer.cs" />
+    <Compile Include="AULWriter1.0\frmAULWriter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoUpdate\AppUpdater.cs" />
+    <Compile Include="AutoUpdate\FrmUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoUpdate\XmlFiles.cs" />
     <Compile Include="Controls\Consts.cs" />
     <Compile Include="Controls\EveryStudentObject.cs" />
     <Compile Include="Controls\Mysterious.cs" />
@@ -108,6 +120,12 @@
     <Compile Include="Views\UserChangeProperty.Designer.cs">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AULWriter1.0\frmAULWriter.resx">
+      <DependentUpon>frmAULWriter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoUpdate\FrmUpdate.resx">
+      <DependentUpon>FrmUpdate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,12 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QRCode\QRCode.csproj">
-      <Project>{e98126b2-af17-4783-96b9-856d6744dca3}</Project>
-      <Name>QRCode</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

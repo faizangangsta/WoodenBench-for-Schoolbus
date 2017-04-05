@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WoodenBench_Desktop.Controls;
+using WoodenBench_Desktop.Controls.Users;
 
 namespace WoodenBench_Desktop
 {

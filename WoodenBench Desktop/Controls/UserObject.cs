@@ -2,47 +2,50 @@
 using cn.bmob.io;
 using System;
 
-class UserObject : BmobTable
+namespace WoodenBench_Desktop.Controls.Users
 {
-	private string PriTable;
-	//以下对应云端字段名称
-	public string UserName { get; set; }
-	public string Password { get; set; }
-	public int UserActAs { get; set; }
-	public int UserPartOfSchool { get; set; }
-
-	//构造函数
-	public UserObject() { }
-
-	//构造函数
-	public UserObject(String TableName)
+	class UserObject : BmobTable
 	{
-		PriTable = TableName;
-	}
+		private string PriTable;
+		//以下对应云端字段名称
+		public string UserName { get; set; }
+		public string Password { get; set; }
+		public int UserActAs { get; set; }
+		public int UserPartOfSchool { get; set; }
 
-	public override string table
-	{
-		get
+		//构造函数
+		public UserObject() { }
+
+		//构造函数
+		public UserObject(String TableName)
 		{
-			if (PriTable != null) { return PriTable; }
-			return base.table;
+			PriTable = TableName;
 		}
-	}
-	public override void readFields(BmobInput input)
-	{
-		base.readFields(input);
-		UserName = input.getString("Username");
-		Password = input.getString("Password");
-		UserActAs = input.getInt("UserActAs").Get();
-		UserPartOfSchool = input.getInt("PartOfSchool").Get();
-	}
-	
-	public override void write(BmobOutput output, bool all)
-	{
-		base.write(output, all);
-		output.Put("Username", this.UserName);
-		output.Put("Password", this.Password);
-		output.Put("UserActAs", this.UserActAs);
-		output.Put("PartOfSchool", UserPartOfSchool);
+
+		public override string table
+		{
+			get
+			{
+				if (PriTable != null) { return PriTable; }
+				return base.table;
+			}
+		}
+		public override void readFields(BmobInput input)
+		{
+			base.readFields(input);
+			UserName = input.getString("Username");
+			Password = input.getString("Password");
+			UserActAs = input.getInt("UserActAs").Get();
+			UserPartOfSchool = input.getInt("PartOfSchool").Get();
+		}
+
+		public override void write(BmobOutput output, bool all)
+		{
+			base.write(output, all);
+			output.Put("Username", this.UserName);
+			output.Put("Password", this.Password);
+			output.Put("UserActAs", this.UserActAs);
+			output.Put("PartOfSchool", UserPartOfSchool);
+		}
 	}
 }
