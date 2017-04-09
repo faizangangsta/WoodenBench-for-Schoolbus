@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace WoodenBench_Desktop.Controls.Update
+namespace Desktop_Updater
 {
 	/// <summary>
 	/// XmlFiles 的摘要说明。
@@ -12,15 +12,16 @@ namespace WoodenBench_Desktop.Controls.Update
 		private string _xmlFileName;
 		public string XmlFileName
 		{
-			set { _xmlFileName = value; }
-			get { return _xmlFileName; }
+			set { XmlFileName1 = value; }
+			get { return XmlFileName1; }
 		}
+
+		public string XmlFileName1 { get => _xmlFileName; set => _xmlFileName = value; }
 
 		public XmlFiles(string xmlFile)
 		{
 			XmlFileName = xmlFile;
-
-			this.Load(xmlFile);
+			Load(xmlFile);
 		}
 		/// <summary>
 		/// 给定一个节点的xPath表达式并返回一个节点
@@ -29,7 +30,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// <returns></returns>
 		public XmlNode FindNode(string xPath)
 		{
-			XmlNode xmlNode = this.SelectSingleNode(xPath);
+			XmlNode xmlNode = SelectSingleNode(xPath);
 			return xmlNode;
 		}
 		/// <summary>
@@ -39,7 +40,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// <returns></returns>
 		public string GetNodeValue(string xPath)
 		{
-			XmlNode xmlNode = this.SelectSingleNode(xPath);
+			XmlNode xmlNode = SelectSingleNode(xPath);
 			return xmlNode.InnerText;
 		}
 		/// <summary>
@@ -49,7 +50,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// <returns></returns>
 		public XmlNodeList GetNodeList(string xPath)
 		{
-			XmlNodeList nodeList = this.SelectSingleNode(xPath).ChildNodes;
+			XmlNodeList nodeList = SelectSingleNode(xPath).ChildNodes;
 			return nodeList;
 		}
 	}

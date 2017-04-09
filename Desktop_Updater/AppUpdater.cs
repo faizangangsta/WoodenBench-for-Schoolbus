@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Net.Http;
 
-namespace WoodenBench_Desktop.Controls.Update
+namespace Desktop_Updater
 {
 	/// <summary>
 	/// updater 的摘要说明。
@@ -16,19 +16,10 @@ namespace WoodenBench_Desktop.Controls.Update
 	public class AppUpdater : IDisposable
 	{
 		#region 成员与字段属性
-		private string _updaterUrl;
 		private bool disposed = false;
 		private IntPtr Handle;
 		private Component component = new Component();
-		[System.Runtime.InteropServices.DllImport("Kernel32")]
-		private extern static Boolean CloseHandle(IntPtr handle);
-
-
-		public string UpdaterUrl
-		{
-			set { _updaterUrl = value; }
-			get { return this._updaterUrl; }
-		}
+		public static string UpdaterUrl;
 		#endregion
 
 		/// <summary>
@@ -36,7 +27,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// </summary>
 		public AppUpdater()
 		{
-			this.Handle = Handle;
+			Handle = Handle;
 		}
 		public void Dispose()
 		{
@@ -49,11 +40,8 @@ namespace WoodenBench_Desktop.Controls.Update
 			{
 				if (disposing)
 				{
-
 					component.Dispose();
 				}
-				CloseHandle(Handle);
-				Handle = IntPtr.Zero;
 			}
 			disposed = true;
 		}
@@ -71,7 +59,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// <param name="localXmlFile"></param>
 		/// <param name="updateFileList"></param>
 		/// <returns></returns>
-		public int CheckForUpdate(string serverXmlFile, string localXmlFile, out Hashtable updateFileList)
+		public static int CheckForUpdate(string serverXmlFile, string localXmlFile, out Hashtable updateFileList)
 		{
 			updateFileList = new Hashtable();
 			if (!File.Exists(localXmlFile) || !File.Exists(serverXmlFile)) return -1;
@@ -126,13 +114,12 @@ namespace WoodenBench_Desktop.Controls.Update
 		/// <param name="localXmlFile"></param>
 		/// <param name="updateFileList"></param>
 		/// <returns></returns>
-		public int CheckForUpdate()
+		public static int CheckForUpdate()
 		{
 			string localXmlFile = Application.StartupPath + "\\UpdateList.xml";
 			if (!File.Exists(localXmlFile)) return -1;
 
 			XmlFiles updaterXmlFiles = new XmlFiles(localXmlFile);
-
 
 			string tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" + "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_" + "y" + "_" + "x" + "_" + "m" + "_" + "\\";
 			UpdaterUrl = updaterXmlFiles.GetNodeValue("//Url") + "/UpdateList.xml";
@@ -185,29 +172,30 @@ namespace WoodenBench_Desktop.Controls.Update
 			}
 			return k;
 		}
+
 		/// <summary>
 		/// 下载文件
 		/// </summary>
 		/// <returns>
 		/// 啥也不返回
 		/// </returns>
-		public void DownAutoUpdateFile(string downpath)
+		public static void DownAutoUpdateFile(string downpath)
 		{
 			if (!System.IO.Directory.Exists(downpath)) System.IO.Directory.CreateDirectory(downpath);
 			string serverXmlFile = downpath + @"/UpdateList.xml";
 
 			try
 			{
-				WebRequest req = WebRequest.Create(this.UpdaterUrl);
-				Microsoft.VisualBasic.Devices.Network NNtWk = new Microsoft.VisualBasic.Devices.Network();
+				//WebRequest req = WebRequest.Create(UpdaterUrl);
+				//Microsoft.VisualBasic.Devices.Network NetWk = new Microsoft.VisualBasic.Devices.Network();
 				//NNtWk.DownloadFile(UpdaterUrl, serverXmlFile, "", "", true, 10000, true, Microsoft.VisualBasic.FileIO.UICancelOption.DoNothing);
 				//iWebResponse res = req.GetResponse();
 				//if (res.ContentLength > 0)
 				//{
 				//	try
 				//	{
-						WebClient wClient = new WebClient();
-						wClient.DownloadFile(this.UpdaterUrl, serverXmlFile);
+				WebClient wClient = new WebClient();
+				wClient.DownloadFile(UpdaterUrl, serverXmlFile);
 				//	}
 				//	catch (Exception EX)
 				//	{
@@ -217,9 +205,8 @@ namespace WoodenBench_Desktop.Controls.Update
 
 				//}
 			}
-			catch (Exception ex)
+			catch
 			{
-				throw ex;
 				return;
 			}
 		}

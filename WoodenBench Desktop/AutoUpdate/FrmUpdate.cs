@@ -9,8 +9,9 @@ using System.Net;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using WoodenBench_Desktop.Controls.Update;
 
-namespace WoodenBench_Desktop.Controls.Update
+namespace WoodenBench_Desktop.Views
 {
 	/// <summary>
 	/// Form1 的摘要说明。
@@ -36,17 +37,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		private System.ComponentModel.Container components = null;
 
 
-		public FrmUpdate()
-		{
-			//
-			// Windows 窗体设计器支持所必需的
-			//
-			InitializeComponent();
-
-			//
-			// TODO: 在 InitializeComponent 调用后添加任何构造函数代码
-			//
-		}
+		public FrmUpdate() { InitializeComponent(); }
 
 		/// <summary>
 		/// 清理所有正在使用的资源。
@@ -55,10 +46,7 @@ namespace WoodenBench_Desktop.Controls.Update
 		{
 			if (disposing)
 			{
-				if (components != null)
-				{
-					components.Dispose();
-				}
+				if (components != null) { components.Dispose(); }
 			}
 			base.Dispose(disposing);
 		}
@@ -189,7 +177,7 @@ namespace WoodenBench_Desktop.Controls.Update
 			// FrmUpdate
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-			this.ClientSize = new System.Drawing.Size(329, 303);
+			this.ClientSize = new System.Drawing.Size(303, 303);
 			this.ControlBox = false;
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnNext);
@@ -201,7 +189,7 @@ namespace WoodenBench_Desktop.Controls.Update
 			this.MinimizeBox = false;
 			this.Name = "FrmUpdate";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "自动更新";
+			this.Text = "检查更新";
 			this.Load += new System.EventHandler(this.FrmUpdate_Load);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -215,15 +203,6 @@ namespace WoodenBench_Desktop.Controls.Update
 		private int availableUpdate = 0;
 		bool isRun = false;
 		string mainAppExe = "";
-
-		/// <summary>
-		/// 应用程序的主入口点。
-		/// </summary>
-		[STAThread]
-		static void Main()
-		{
-			Application.Run(new FrmUpdate());
-		}
 
 		private void FrmUpdate_Load(object sender, System.EventArgs e)
 		{
@@ -285,8 +264,6 @@ namespace WoodenBench_Desktop.Controls.Update
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			this.Close();
-			Application.ExitThread();
-			Application.Exit();
 		}
 
 		private void btnNext_Click(object sender, System.EventArgs e)
@@ -314,7 +291,7 @@ namespace WoodenBench_Desktop.Controls.Update
 				{
 					for (int i = 0; i < p.Threads.Count; i++)
 						p.Threads[i].Dispose();
-					p.Kill();
+					//p.Kill();
 					isRun = true;
 					//break;
 				}
@@ -352,10 +329,9 @@ namespace WoodenBench_Desktop.Controls.Update
 
 						float part = (float)startByte / 1024;
 						float total = (float)bufferbyte.Length / 1024;
-						int percent = Convert.ToInt32((part / total) * 100);
+						int percent = (int)((part / total) * 100);
 
 						this.lvUpdateList.Items[i].SubItems[2].Text = percent.ToString() + "%";
-
 					}
 
 					string tempPath = tempUpdatePath + UpdateFile;
