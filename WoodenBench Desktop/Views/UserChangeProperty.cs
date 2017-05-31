@@ -12,13 +12,15 @@ using System.Text;
 using System.Windows.Forms;
 using WoodenBench_Desktop.Controls;
 using WoodenBench_Desktop.Controls.Users;
+using WoodenBench_Desktop.Operation;
+using static WoodenBench_Desktop.Controls.Users.UserTableElements;
 
 namespace WoodenBench_Desktop.Views
 {
 	public partial class ChangeUserData : Form
 	{
-		UserController NowUser;
-		public ChangeUserData(UserController ValController)
+		UserTableElements NowUser;
+		public ChangeUserData(UserTableElements ValController)
 		{
 			Bmob = new BmobWindows();
 			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
@@ -36,7 +38,7 @@ namespace WoodenBench_Desktop.Views
 		{
 			if (UserGroupChangeDrop.SelectedIndex + 1 != 0 && PartOfSchoolDrop.SelectedIndex + 1 != 0)
 			{
-				UserObject Obj = new UserObject(Consts.TABLE_NAME_General_AllUser)
+				UserTableElements Obj = new UserTableElements(Consts.TABLE_NAME_General_AllUser)
 				{
 					objectId = NowUser.UserID,
 					UserActAs = UserGroupChangeDrop.SelectedIndex + 1,
@@ -57,7 +59,7 @@ namespace WoodenBench_Desktop.Views
 
 		private void ChangeUserData_Load(object sender, EventArgs e)
 		{
-			if (NowUser.UserGroup == UserGroup.管理组用户)
+			if (NowUser.UserGroup == UserGroupEnum.管理组用户)
 			{
 				SuperuserRefuse.Visible = true;
 				ChangePartOfSchool.Enabled = false;
@@ -65,7 +67,7 @@ namespace WoodenBench_Desktop.Views
 			}
 			UsrNameLbl.Text = NowUser.UserName;
 			UsrIDLbl.Text = NowUser.UserID;
-			UsrPartLbl.Text = NowUser.UserPartOfSchool.ToString();
+            UsrPartLbl.Text = ((UserPartOSEnum)NowUser.UserPartOfSchool).ToString();
 			UsrGroup.Text = NowUser.UserGroup.ToString();
 		}
 
@@ -90,15 +92,7 @@ namespace WoodenBench_Desktop.Views
 				{
 					if (NPasswrodTxt1.Text != "")
 					{
-						UserObject Obj = new UserObject(Consts.TABLE_NAME_General_AllUser)
-						{
-							objectId = NowUser.UserID,
-							UserActAs = (int)NowUser.UserGroup,
-							UserPartOfSchool = (int)NowUser.UserGroup,
-							Password = NPasswrodTxt2.Text,
-							UserName = NowUser.UserName
-						};
-						Bmob.UpdateTaskAsync(Obj);
+                        UserActivity.ChangePassWord(NowUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
 						MessageBox.Show($"为重载用户配置，当前用户 {NowUser.UserName} 将被注销，请重新登陆");
 						Application.Restart();
 						return;

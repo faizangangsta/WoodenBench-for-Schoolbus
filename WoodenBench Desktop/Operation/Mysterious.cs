@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WoodenBench_Desktop.Controls.Users;
 
-namespace WoodenBench_Desktop.Controls
+namespace WoodenBench_Desktop.Operation
 {
-	class Mysterious
+    static class Mysterious
 	{
-		public void ShowMys(UserController NowUser)
+		public static void ShowMys(UserTableElements NowUser)
 		{
 			MessageBox.Show("Hello From Leroy!");
 			MessageBox.Show("Nice to meet you in the split bar!");
@@ -18,6 +19,8 @@ namespace WoodenBench_Desktop.Controls
 			MessageBox.Show("First, verify your password is " + NowUser.Password);
 			MessageBox.Show("Then, Remenber your User ID " + NowUser.UserID);
 
+            MessageBox.Show("Finally, this is to show my REAL heart....");
+            MessageBox.Show("Have you found any spelling mistakes?");
 		}
 	}
 }

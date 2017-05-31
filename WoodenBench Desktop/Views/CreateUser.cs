@@ -12,7 +12,7 @@ namespace WoodenBench_Desktop.Views
 { 
 	public partial class CreateUser : Form
 	{
-		private UserObject NewUserObj = new UserObject(Consts.TABLE_NAME_General_AllUser);
+		private UserTableElements NewUserObj = new UserTableElements(Consts.TABLE_NAME_General_AllUser);
 		public BmobWindows Bmob { get; }
 		public CreateUser()
 		{

@@ -116,7 +116,7 @@
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
-			this.toolStripSeparator2.Click += new System.EventHandler(this.toolStripSeparator2_Click);
+			this.toolStripSeparator2.Click += new System.EventHandler(this.StrangeBar);
 			// 
 			// 用户UToolStripMenuItem
 			// 

@@ -4,29 +4,34 @@ using System;
 
 namespace WoodenBench_Desktop.Controls.Users
 {
-	class UserObject : BmobTable
+	public class UserTableElements : BmobTable
 	{
-		private string PriTable;
-		//以下对应云端字段名称
-		public string UserName { get; set; }
+		private string MyTable;
+        
+        public string UserID { get; set; }
+        public UserGroupEnum UserGroup { get; set; }
+        public string LoginTime { get; set; }
+        public UserPartOSEnum _UserPartOfSchool { get; set; }
+        //以下对应云端字段名称
+        public string UserName { get; set; }
 		public string Password { get; set; }
 		public int UserActAs { get; set; }
 		public int UserPartOfSchool { get; set; }
 
-		//构造函数
-		public UserObject() { }
+        //构造函数
+        public UserTableElements() { }
 
-		//构造函数
-		public UserObject(String TableName)
+        //构造函数
+        public UserTableElements(String TableName)
 		{
-			PriTable = TableName;
+			MyTable = TableName;
 		}
 
 		public override string table
 		{
 			get
 			{
-				if (PriTable != null) { return PriTable; }
+				if (MyTable != null) { return MyTable; }
 				return base.table;
 			}
 		}
@@ -47,5 +52,23 @@ namespace WoodenBench_Desktop.Controls.Users
 			output.Put("UserActAs", this.UserActAs);
 			output.Put("PartOfSchool", UserPartOfSchool);
 		}
-	}
+        public enum UserGroupEnum
+        {
+            管理组用户,
+            班主任或一般老师,
+            校车管理老师,
+            家长
+        }
+        public enum UserPartOSEnum
+        {
+            管理组用户,
+            小学部,
+            初中部,
+            普通高中部,
+            中加高中部,
+            留学生部,
+            剑桥高中部,
+            家长
+        }
+    }
 }

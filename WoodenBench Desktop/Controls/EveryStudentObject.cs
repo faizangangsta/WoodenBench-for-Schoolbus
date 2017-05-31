@@ -12,21 +12,22 @@ namespace WoodenBench_Desktop.Controls
 		public string StudentDirection { get; set; }
 		public string StudentIsBWeek { get; set; }
 		public string StudentClass { get; set; }
-		public string StudentPartOfSchool { get; set; }
-
+        public string StudentPartOfSchool { get; set; }
+        public string StudentNamePinYin { get; set; }
 		private string PriTable;
-
 		public EveryStudentData(String TableName) { PriTable = TableName; }
-
 		public EveryStudentData() { }
 		public override string table
-		{
-			get
-			{
-				if (PriTable != null) { return PriTable; }
-				return base.table;
-			}
-		}
+        {
+            get
+            {
+                if (PriTable != null)
+                {
+                    return PriTable;
+                }
+                return base.table;
+            }
+        }	
 		public override void readFields(BmobInput input)
 		{
 			base.readFields(input);
@@ -35,12 +36,13 @@ namespace WoodenBench_Desktop.Controls
 			StudentIsBWeek = input.getBoolean("StuIsBigWeek").ToString();
 			StudentClass = input.getString("StuClass");
 			StudentPartOfSchool = input.getString("StuPartOfSchool");
-
+            StudentNamePinYin = input.getString("StuNamePinin");
 		}
 
 		public override void write(BmobOutput output, bool all)
 		{
 			base.write(output, all);
+            output.Put("StuNamePinyin", this.StudentNamePinYin);
 			output.Put("StuName", this.StudentName);
 			output.Put("StuDirection", this.StudentDirection);
 			output.Put("StuIsBigWeek", this.StudentIsBWeek);

@@ -8,26 +8,27 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench_Desktop.Controls;
+using WoodenBench_Desktop.Controls.Users;
+using WoodenBench_Desktop.Operation;
 
 namespace WoodenBench_Desktop.Views
 {
 	public partial class MainWindow : Form
 	{
 		Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-
 		Microsoft.Office.Interop.Excel.Workbook xWorkbook;
-
-		UserController NowUser;
-		int Hi = 0;
+        UserTableElements NowUser;
+		int Hiint = 0;
 		EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
-		string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess,NowPartOfSchool;
-		public MainWindow(UserController ValController) : base()
+        string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess, NowPartOfSchool;
+		public MainWindow(UserTableElements ValController) : base()
 		{
 			Bmob = new BmobWindows();
 			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
 			InitializeComponent();
 			BmobDebug.Register(Message => { Debug.WriteLine(Message); });
 			NowUser = ValController;
+            Debug.WriteLine("MainWindow Loaded");
 		}
 		BmobWindows Bmob { get; }
 
@@ -66,26 +67,30 @@ namespace WoodenBench_Desktop.Views
 			new ChangeUserData(NowUser).ShowDialog();
 		}
 
-		private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			switch (MessageBox.Show($"确定要退出当前账户 " +
-				$"{NowUser.UserName} " +
-				$"吗？", "询问", MessageBoxButtons.YesNo))
-			{ case DialogResult.Yes: Application.Restart(); break; }
-		}
+        private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switch (MessageBox.Show($"确定要退出当前账户 {NowUser.UserName} 吗？", "询问", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.Yes:
+                    UserActivity.LogOut();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
 
-		private void toolStripSeparator2_Click(object sender, EventArgs e)
-		{
-			Hi++;
-			if (Hi == 5)
-			{
-				(new Mysterious()).ShowMys(NowUser);
-			}
-		}
+        private void StrangeBar(object sender, EventArgs e)
+        {
+            Hiint++;
+            if (Hiint == 5)
+            {
+                Mysterious.ShowMys(NowUser);
+            }
+        }
 
 		private void MainWindow_Click(object sender, EventArgs e)
 		{
-			Hi = 0;
+			Hiint = 0; //Clean Strange THING
 		}
 
 		private void OpenExcel(object sender, EventArgs e)
@@ -98,13 +103,14 @@ namespace WoodenBench_Desktop.Views
 				ExcelFilePathTxt.Text = ExcelFilePath;
 				// Solve File Missing 
 				xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
-
-				for (int LineNum = 4; LineNum <= (GetLastLineOfExcel() - 1); LineNum++)
+                int LastLine = GetLastLineOfExcel();
+				for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
 				{
 					string a = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 2].Value);
 					string b = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 3].Value);
 					string c = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 4].Value);
-					string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value);
+					string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value); 
+                    //Redundant Data Field For Future Use
 					StudentData.Rows.Add(a, b, c, d);
 				}
 				NowPartOfSchool = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 4].Value);
@@ -141,8 +147,14 @@ namespace WoodenBench_Desktop.Views
 						string Inner = ex.InnerException.Message;
 						MessageBox.Show("出现错误，错误代码:  401" + Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
 					}
+                    else
+                    {
+                        MessageBox.Show($"出现其它错误 {ex.Message}");
+
+                    }
 				}
 			}
+            MessageBox.Show("所有项目已上传!");
 			this.SureAndUploadBtn.Text = "确认并上传(&S)";
 			this.Enabled = true;
 		}
