@@ -86,13 +86,13 @@
     <Compile Include="Operation\Mysterious.cs" />
     <Compile Include="Controls\NotificationObject.cs" />
     <Compile Include="Controls\UserObject.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="UsrLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UsrLogin.Designer.cs">
+      <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneralFunctions.cs" />
+    <Compile Include="Operation\GeneralFunctions.cs" />
     <Compile Include="Operation\UserActivity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,8 +114,8 @@
     <Compile Include="Views\UserChangeProperty.Designer.cs">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="UsrLogin.resx">
+      <DependentUpon>UsrLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

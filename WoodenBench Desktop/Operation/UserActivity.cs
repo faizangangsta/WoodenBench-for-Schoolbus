@@ -24,12 +24,12 @@ namespace WoodenBench_Desktop.Operation
                 Bmob = new BmobWindows();
                 Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
                 Init = true;
+                BmobDebug.Register(Message => { Debug.WriteLine(Message); });
             }
         }
         public static bool ChangePassWord(UserTableElements NowUser, string OriginPasswrd, string NewPasswrd)
         {
             InitBmob();
-            BmobDebug.Register(Message => { Debug.WriteLine(Message); });
             UserTableElements Obj = new UserTableElements(Consts.TABLE_NAME_General_AllUser)
             {
                 objectId = NowUser.UserID,
@@ -45,7 +45,10 @@ namespace WoodenBench_Desktop.Operation
         public static void LogOut()
         {
             InitBmob();
-
+            Views.MainWindow.NowUser = null;
+            UsrLoginForm.Default.Show();
+            Views.MainWindow.Default.Close();
+            Views.ChangeUserData.Close();
         }
     }
 }

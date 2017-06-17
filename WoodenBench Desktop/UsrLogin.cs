@@ -90,7 +90,7 @@ namespace WoodenBench_Desktop
             }
             if (PswdTxt.Text == Password)
             {
-               UserTableElements UsrCtrl = new UserTableElements()
+               UserTableElements NowUser = new UserTableElements()
                 {
                     Password = Password,
                     UserID = StrObjectID,
@@ -99,7 +99,7 @@ namespace WoodenBench_Desktop
                     UserPartOfSchool = UserPartOfSchool,
                     LoginTime = DateTime.Now.TimeOfDay.ToString()
                 };
-                (new Views.MainWindow(UsrCtrl)).Show();
+                (new Views.MainWindow(NowUser)).Show();
                 Hide();
             }
             else

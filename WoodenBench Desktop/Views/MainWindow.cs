@@ -17,7 +17,7 @@ namespace WoodenBench_Desktop.Views
 	{
 		Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 		Microsoft.Office.Interop.Excel.Workbook xWorkbook;
-        UserTableElements NowUser;
+        public static UserTableElements NowUser;
 		int Hiint = 0;
 		EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
         string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess, NowPartOfSchool;
@@ -26,13 +26,27 @@ namespace WoodenBench_Desktop.Views
 			Bmob = new BmobWindows();
 			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
 			InitializeComponent();
-			BmobDebug.Register(Message => { Debug.WriteLine(Message); });
+            if (defaultInstance == null) defaultInstance = this;
+            BmobDebug.Register(Message => { Debug.WriteLine(Message); });
 			NowUser = ValController;
             Debug.WriteLine("MainWindow Loaded");
 		}
 		BmobWindows Bmob { get; }
-
-		private void MainWindow_Load(object sender, EventArgs e)
+        private static MainWindow defaultInstance;
+        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+        public static MainWindow Default
+        {
+            get
+            {
+                if (defaultInstance == null)
+                {
+                    defaultInstance = new MainWindow(NowUser);
+                    defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+                }
+                return defaultInstance;
+            }
+        }
+        private void MainWindow_Load(object sender, EventArgs e)
 		{
 			BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
 			BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;

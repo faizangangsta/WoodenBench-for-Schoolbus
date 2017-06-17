@@ -196,7 +196,8 @@ namespace Desktop_Updater
 			//与服务器连接,下载更新配置文件
 			try
 			{
-				tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" + "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_y_x_m_\\";
+				tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" +
+                    "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_y_x_m_\\";
 				AppUpdater.DownAutoUpdateFile(tempUpdatePath);
 			}
 			catch(Exception ExpTion)

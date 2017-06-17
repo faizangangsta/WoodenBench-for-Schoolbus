@@ -19,13 +19,14 @@ namespace WoodenBench_Desktop.Views
 {
 	public partial class ChangeUserData : Form
 	{
-		UserTableElements NowUser;
+		static UserTableElements NowUser;
 		public ChangeUserData(UserTableElements ValController)
 		{
 			Bmob = new BmobWindows();
 			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
 			InitializeComponent();
-			BmobDebug.Register(Message =>
+            if (defaultInstance == null) defaultInstance = this;
+            BmobDebug.Register(Message =>
 			{
 				Debug.WriteLine(Message);
 				//Console.WriteLine(Message);
@@ -34,7 +35,21 @@ namespace WoodenBench_Desktop.Views
 		}
 		public BmobWindows Bmob { get; }
 
-		private void SureChangeUserData(object sender, EventArgs e)
+        private static ChangeUserData defaultInstance;
+        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+        public static ChangeUserData Default
+        {
+            get
+            {
+                if (defaultInstance == null)
+                {
+                    defaultInstance = new ChangeUserData(NowUser);
+                    defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+                }
+                return defaultInstance;
+            }
+        }
+        private void SureChangeUserData(object sender, EventArgs e)
 		{
 			if (UserGroupChangeDrop.SelectedIndex + 1 != 0 && PartOfSchoolDrop.SelectedIndex + 1 != 0)
 			{
