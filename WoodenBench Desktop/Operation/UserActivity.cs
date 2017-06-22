@@ -33,8 +33,7 @@ namespace WoodenBench_Desktop.Operation
             UserTableElements Obj = new UserTableElements(Consts.TABLE_NAME_General_AllUser)
             {
                 objectId = NowUser.UserID,
-                UserActAs = (int)NowUser.UserGroup,
-                UserPartOfSchool = (int)NowUser.UserGroup,
+                CUserGroup = (int)NowUser.UserGroup,
                 Password = NewPasswrd,
                 UserName = NowUser.UserName
             };
@@ -48,7 +47,7 @@ namespace WoodenBench_Desktop.Operation
             Views.MainWindow.NowUser = null;
             UsrLoginForm.Default.Show();
             Views.MainWindow.Default.Close();
-            Views.ChangeUserData.Close();
+            Views.ChangeUserData.Default.Close();
         }
     }
 }

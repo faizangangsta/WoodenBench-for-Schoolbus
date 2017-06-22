@@ -51,25 +51,17 @@ namespace WoodenBench_Desktop.Views
         }
         private void SureChangeUserData(object sender, EventArgs e)
 		{
-			if (UserGroupChangeDrop.SelectedIndex + 1 != 0 && PartOfSchoolDrop.SelectedIndex + 1 != 0)
-			{
 				UserTableElements Obj = new UserTableElements(Consts.TABLE_NAME_General_AllUser)
 				{
 					objectId = NowUser.UserID,
-					UserActAs = UserGroupChangeDrop.SelectedIndex + 1,
-					UserPartOfSchool = PartOfSchoolDrop.SelectedIndex + 1,
+					CUserGroup = UsrGroupDrop.SelectedIndex + 1,
 					Password = NowUser.Password,
 					UserName = NowUser.UserName
 				};
 				Bmob.UpdateTaskAsync(Obj);
 				MessageBox.Show("为重新载入用户配置，应用将会重启");
 				Application.Restart();
-			}
-			else
-			{
-				MessageBox.Show("请重新选择用户组");
-				return;
-			}
+			
 		}
 
 		private void ChangeUserData_Load(object sender, EventArgs e)
@@ -82,24 +74,16 @@ namespace WoodenBench_Desktop.Views
 			}
 			UsrNameLbl.Text = NowUser.UserName;
 			UsrIDLbl.Text = NowUser.UserID;
-            UsrPartLbl.Text = ((UserPartOSEnum)NowUser.UserPartOfSchool).ToString();
 			UsrGroup.Text = NowUser.UserGroup.ToString();
 		}
 
 		private void ChangePartOfSchool_Click(object sender, EventArgs e)
 		{
 			ChangePartOfSchool.Visible = false;
-			PartOfSchoolDrop.Visible = true;
+			UsrGroupDrop.Visible = true;
 			UserActChangeBtn.Visible = true;
-			UserGroupChangeDrop.Visible = true;
 		}
-
-		private void PartOfSchoolDrop_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void DoChange(object sender, EventArgs e)
+        private void DoChange(object sender, EventArgs e)
 		{
 			if (FPasswordTxt.Text == null || FPasswordTxt.Text == NowUser.Password)
 			{

@@ -42,14 +42,12 @@ namespace WoodenBench_Desktop.Views
 				PasswordT2.Text != "" &&
 				KeyT.Text == randomlabel.Text &&
 				GroupT.SelectedIndex + 1 != 0 &&
-				ActT.SelectedIndex + 1 != 0 &&
 				CheckT.Checked &&
 				PasswordT.Text == PasswordT2.Text)
 			{
 				NewUserObj.UserName = UserNameT.Text;
 				NewUserObj.Password = PasswordT2.Text;
-				NewUserObj.UserActAs = ActT.SelectedIndex + 1;
-				NewUserObj.UserPartOfSchool = GroupT.SelectedIndex + 1;
+				NewUserObj.CUserGroup = GroupT.SelectedIndex + 1;
 				var future = Bmob.CreateTaskAsync(NewUserObj);
 				Thread.Sleep(500);
 				try
@@ -68,6 +66,7 @@ namespace WoodenBench_Desktop.Views
 				}
 			}
 			button1.Text = "用户已创建";
+            Application.DoEvents();
 			Enabled = true;
 		}
 

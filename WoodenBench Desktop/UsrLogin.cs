@@ -17,7 +17,6 @@ namespace WoodenBench_Desktop
 		private string StrObjectID;
 		private string Password;
 		private int UserGroup;
-		private int UserPartOfSchool;
 		private void button1_Click(object sender, EventArgs e) => Application.Exit();
 		private void UserNameTxt_TextChanged(object sender, EventArgs e)
 		{
@@ -62,7 +61,7 @@ namespace WoodenBench_Desktop
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            try
+           try
             {
                 BmobQuery UserNameQuery = new BmobQuery();
                 UserNameQuery.WhereContainedIn("Username", UserNameTxt.Text);
@@ -77,14 +76,13 @@ namespace WoodenBench_Desktop
                 DoLoginBtn.Enabled = true;
                 CancelBtn.Enabled = true;
                 DoLoginBtn.Text = "登陆(&L)";
-                UserGroup = Convert.ToInt32(JsonNowUsrResult["UserActAs"].ToString());
-                UserPartOfSchool = Convert.ToInt32(JsonNowUsrResult["PartOfSchool"].ToString());
+                UserGroup = Convert.ToInt32(JsonNowUsrResult["UsrGroup"].ToString());
             }
-            catch (Exception)
+           catch (Exception ex)
             {
                 LoginResult.Text = "用户名或密码不正确";
                 DoLoginBtn.Enabled = true;
-                CancelBtn.Enabled = true;
+               CancelBtn.Enabled = true;
                 DoLoginBtn.Text = "登陆(&L)";
                 return;
             }
@@ -96,7 +94,6 @@ namespace WoodenBench_Desktop
                     UserID = StrObjectID,
                     UserName = UserNameTxt.Text,
                     UserGroup = (UserGroupEnum)UserGroup,
-                    UserPartOfSchool = UserPartOfSchool,
                     LoginTime = DateTime.Now.TimeOfDay.ToString()
                 };
                 (new Views.MainWindow(NowUser)).Show();
@@ -120,9 +117,10 @@ namespace WoodenBench_Desktop
 		{
 
 		}
+        
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
 
-		private void button1_Click_1(object sender, EventArgs e)
-		{
-		}
-	}
+        }
+    }
 }
