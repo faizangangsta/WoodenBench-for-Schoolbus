@@ -66,7 +66,7 @@ namespace WoodenBench_Desktop.Views
 			var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
 			JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
 			NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
-			string NotSplitedContent = JsonNowUsrResult["NContent"].ToString();
+			string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
 			NotificationContent = NotSplitedContent.Replace("/NL", Environment.NewLine);
 		}
 

@@ -6,8 +6,10 @@ using Android.Views;
 using Android.Webkit;
 using Android.Widget;
 using Android.OS;
-using WoodenBench_Android.Views;
-using WoodenBench_Android.Models;
+using cn.bmob.api;
+using cn.bmob.tools;
+using Newtonsoft.Json.Linq;
+using cn.bmob.json;
 
 namespace WoodenBench_Android
 {
@@ -16,62 +18,47 @@ namespace WoodenBench_Android
     {
         protected override void OnCreate(Bundle bundle)
         {
+            bmob = new BmobWindows();
+            Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+            BmobDebug.Register(msg => { });
             base.OnCreate(bundle);
+            var Resulta = Bmob.GetTaskAsync<Model.GeneralDataTable>("GeneralData", "oRr7000l");
+            JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
+            string varContent = JsonNowUsrResult["DataContent"].ToString();
+            
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            String appCachePath = ApplicationContext.CacheDir.AbsolutePath;
             var webView = FindViewById<WebView>(Resource.Id.webView);
             webView.Settings.JavaScriptEnabled = true;
+            webView.Settings.DomStorageEnabled = true;
+            webView.Settings.SetAppCacheMaxSize(1024 * 1024 * 8);
+            webView.Settings.SetAppCachePath(appCachePath);
+            webView.Settings.AllowFileAccess = true;
+            webView.Settings.SetAppCacheEnabled(true);
+            webView.BuildDrawingCache(true);
 
-            // Use subclassed WebViewClient to intercept hybrid native calls
-            webView.SetWebViewClient(new HybridWebViewClient());
+            webView.SetWebViewClient(new HybridWVC());
 
-            // Render the view from the type generated from RazorView.cshtml
-            var model = new Model1() { Text = "Text goes here" };
-            var template = new RazorView() { Model = model };
-            var page = template.GenerateString();
-
-            // Load the rendered HTML into the view with a base URL 
-            // that points to the root of the bundled Assets folder
-            webView.LoadDataWithBaseURL("file:///android_asset/", page, "text/html", "UTF-8", null);
-
+            webView.LoadUrl("https://lhy0403.github.io/SchoolBusMgr/index.html");
         }
+        private BmobWindows bmob;
+        public BmobWindows Bmob { get { return bmob; } }
 
-        private class HybridWebViewClient : WebViewClient
+        private class HybridWVC : WebViewClient
         {
             public override bool ShouldOverrideUrlLoading(WebView webView, string url)
             {
-
                 // If the URL is not our own custom scheme, just let the webView load the URL as usual
                 var scheme = "hybrid:";
-
                 if (!url.StartsWith(scheme))
-                    return false;
-
-                // This handler will treat everything between the protocol and "?"
-                // as the method name.  The querystring has all of the parameters.
-                var resources = url.Substring(scheme.Length).Split('?');
-                var method = resources[0];
-                var parameters = System.Web.HttpUtility.ParseQueryString(resources[1]);
-
-                if (method == "UpdateLabel")
                 {
-                    var textbox = parameters["textbox"];
-
-                    // Add some text to our string here so that we know something
-                    // happened on the native part of the round trip.
-                    var prepended = string.Format("C# says \"{0}\"", textbox);
-
-                    // Build some javascript using the C#-modified result
-                    var js = string.Format("SetLabelText('{0}');", prepended);
-
-                    webView.LoadUrl("javascript:" + js);
+                    return false;
                 }
-
+                webView.LoadUrl(url);
                 return true;
             }
         }
     }
 }
-

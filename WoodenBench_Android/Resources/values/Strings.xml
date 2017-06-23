@@ -2,4 +2,5 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">WoodenBench_Android</string>
+    <string name="GeneralDataTableName">GeneralData</string>
 </resources>

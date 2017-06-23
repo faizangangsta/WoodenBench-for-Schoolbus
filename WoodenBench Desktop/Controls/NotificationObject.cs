@@ -34,7 +34,7 @@ namespace WoodenBench_Desktop.Controls
 		{
 			base.readFields(input);
 			Notification_Title = input.getString("NTitle");
-			Notification_Content = input.getString("NContent");
+			Notification_Content = input.getString("DataContent");
 
 		}
 
@@ -43,7 +43,7 @@ namespace WoodenBench_Desktop.Controls
 		{
 			base.write(output, all);
 			output.Put("NTitle", this.Notification_Title);
-			output.Put("NContent", this.Notification_Content);
+			output.Put("DataContent", this.Notification_Content);
 		}
 	}
 
