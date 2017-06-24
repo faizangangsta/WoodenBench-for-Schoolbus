@@ -45,9 +45,11 @@ namespace WoodenBench_Desktop.Operation
         {
             InitBmob();
             Views.MainWindow.NowUser = null;
-            UsrLoginForm.Default.Show();
+            Views.UsrLoginForm.Default.Show();
             Views.MainWindow.Default.Close();
             Views.ChangeUserData.Default.Close();
+            //Clean User Data
+
         }
     }
 }

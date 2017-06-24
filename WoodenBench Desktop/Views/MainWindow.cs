@@ -13,26 +13,25 @@ using WoodenBench_Desktop.Operation;
 
 namespace WoodenBench_Desktop.Views
 {
-	public partial class MainWindow : Form
-	{
-		Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-		Microsoft.Office.Interop.Excel.Workbook xWorkbook;
+    public partial class MainWindow : Form
+    {
+        Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+        Microsoft.Office.Interop.Excel.Workbook xWorkbook;
         public static UserTableElements NowUser;
-		int Hiint = 0;
-		EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
+        int Hiint = 0;
+        BmobWindows Bmob = new BmobWindows();
+        private static MainWindow defaultInstance;
+        EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
         string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess, NowPartOfSchool;
-		public MainWindow(UserTableElements ValController) : base()
-		{
-			Bmob = new BmobWindows();
-			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-			InitializeComponent();
+        public MainWindow(UserTableElements ValController) : base()
+        {
+            Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+            InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
             BmobDebug.Register(Message => { Debug.WriteLine(Message); });
-			NowUser = ValController;
+            NowUser = ValController;
             Debug.WriteLine("MainWindow Loaded");
-		}
-		BmobWindows Bmob { get; }
-        private static MainWindow defaultInstance;
+        }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
         public static MainWindow Default
         {
@@ -47,39 +46,37 @@ namespace WoodenBench_Desktop.Views
             }
         }
         private void MainWindow_Load(object sender, EventArgs e)
-		{
-			BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
-			BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;
-			TopNowUserLoginName.Text = NowUser.LoginTime;
-			BtomNowUserAct.Text = TopNowUserGroup.Text = NowUser.UserGroup.ToString();
-			NotificationWorker.RunWorkerAsync();
-		}
+        {
+            BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
+            BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;
+            TopNowUserLoginName.Text = NowUser.LoginTime;
+            BtomNowUserAct.Text = TopNowUserGroup.Text = NowUser.UserGroup.ToString();
+            NotificationWorker.RunWorkerAsync();
+        }
 
-		private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			ExcelApp.Quit();
-			Application.Exit();
-		}
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ExcelApp.Quit();
+            Application.Exit();
+        }
 
-		private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
-		{
-			var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
-			JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
-			NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
-			string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
-			NotificationContent = NotSplitedContent.Replace("/NL", Environment.NewLine);
-		}
+        private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
+            JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
+            NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
+            string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
+            NotificationContent = NotSplitedContent.Replace("/NL", Environment.NewLine);
+        }
 
-		private void GetNotificationWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			NotificationContentLabel.Text = NotificationContent;
-			NotificationTitleLabel.Text = NotificationTitle;
-		}
+        private void GetNotificationWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            NotificationContentLabel.Text = NotificationContent;
+            NotificationTitleLabel.Text = NotificationTitle;
+        }
 
-		private void 更改用户信息DToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			new ChangeUserData(NowUser).ShowDialog();
-		}
+        private void 更改用户信息DToolStripMenuItem_Click(object sender, EventArgs e)
+        { new ChangeUserData(NowUser).ShowDialog(); }
 
         private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -96,93 +93,90 @@ namespace WoodenBench_Desktop.Views
         private void StrangeBar(object sender, EventArgs e)
         {
             Hiint++;
-            if (Hiint == 5)
+            if (Hiint == 5) Mysterious.ShowMys(NowUser);
+        }
+
+        private void MainWindow_Click(object sender, EventArgs e)
+        {
+            Hiint = 0; //Clean Strange THING
+        }
+
+        private void OpenExcel(object sender, EventArgs e)
+        {
+            OpenExcelFileDialog.FileName = "";
+            OpenExcelFileDialog.ShowDialog();
+            if (OpenExcelFileDialog.FileName != "")
             {
-                Mysterious.ShowMys(NowUser);
+                ExcelFilePath = OpenExcelFileDialog.FileName;
+                ExcelFilePathTxt.Text = ExcelFilePath;
+                // Solve File Missing 
+                xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
+                int LastLine = GetLastLineOfExcel();
+                for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
+                {
+                    string a = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 2].Value);
+                    string b = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 3].Value);
+                    string c = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 4].Value);
+                    string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value);
+                    //Redundant Data Field For Future Use
+                    StudentData.Rows.Add(a, b, c, d);
+                }
+                NowPartOfSchool = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 4].Value);
+                NowClassProcess = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 2].Value);
+                NowPartOSchoolLbl.Text = NowPartOfSchool;
+                NowClassLbl.Text = NowClassProcess;
             }
         }
 
-		private void MainWindow_Click(object sender, EventArgs e)
-		{
-			Hiint = 0; //Clean Strange THING
-		}
+        private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
-		private void OpenExcel(object sender, EventArgs e)
-		{
-			OpenExcelFileDialog.FileName = "";
-			OpenExcelFileDialog.ShowDialog();
-			if (OpenExcelFileDialog.FileName != "")
-			{
-				ExcelFilePath = OpenExcelFileDialog.FileName;
-				ExcelFilePathTxt.Text = ExcelFilePath;
-				// Solve File Missing 
-				xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
-                int LastLine = GetLastLineOfExcel();
-				for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
-				{
-					string a = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 2].Value);
-					string b = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 3].Value);
-					string c = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 4].Value);
-					string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value); 
-                    //Redundant Data Field For Future Use
-					StudentData.Rows.Add(a, b, c, d);
-				}
-				NowPartOfSchool = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 4].Value);
-				NowClassProcess = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 2].Value);
-				NowPartOSchoolLbl.Text = NowPartOfSchool;
-				NowClassLbl.Text = NowClassProcess;
-			}
-		}
-
-		private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Application.Exit();
-		}
-
-		private void SureAndUpload(object sender, EventArgs e)
-		{
-			this.Enabled = false;
-			this.SureAndUploadBtn.Text = "上传中……";
-			Application.DoEvents();
-			for (int RowNum = 0; RowNum <= (StudentData.RowCount - 2); RowNum++)
-			{
-				StudentObj.StudentName = StudentData.Rows[RowNum].Cells[0].Value.ToString();
-				StudentObj.StudentDirection = StudentData.Rows[RowNum].Cells[1].Value.ToString();
-				StudentObj.StudentIsBWeek = StudentData.Rows[RowNum].Cells[2].Value.ToString();
-				StudentObj.StudentClass = NowClassProcess;
-				StudentObj.StudentPartOfSchool = NowPartOfSchool;
-				var future = Bmob.CreateTaskAsync(StudentObj);
-				Thread.Sleep(50);
-				try { future.Result.ToString(); }
-				catch (Exception ex)
-				{
-					if (ex.InnerException.Message.Contains("401"))
-					{
-						string Inner = ex.InnerException.Message;
-						MessageBox.Show("出现错误，错误代码:  401" + Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
-					}
+        private void SureAndUpload(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            this.SureAndUploadBtn.Text = "上传中……";
+            Application.DoEvents();
+            for (int RowNum = 0; RowNum <= (StudentData.RowCount - 2); RowNum++)
+            {
+                StudentObj.StudentName = StudentData.Rows[RowNum].Cells[0].Value.ToString();
+                StudentObj.StudentDirection = StudentData.Rows[RowNum].Cells[1].Value.ToString();
+                StudentObj.StudentIsBWeek = StudentData.Rows[RowNum].Cells[2].Value.ToString();
+                StudentObj.StudentClass = NowClassProcess;
+                StudentObj.StudentPartOfSchool = NowPartOfSchool;
+                var future = Bmob.CreateTaskAsync(StudentObj);
+                Thread.Sleep(50);
+                try { future.Result.ToString(); }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.Message.Contains("401"))
+                    {
+                        string Inner = ex.InnerException.Message;
+                        MessageBox.Show("出现错误，错误代码:  401" + Environment.NewLine + "学生姓名有重复项" + Environment.NewLine + Inner.Substring(Inner.Length - (StudentObj.StudentName.Length + 5), StudentObj.StudentName.Length));
+                    }
                     else
                     {
                         MessageBox.Show($"出现其它错误 {ex.Message}");
 
                     }
-				}
-			}
+                }
+            }
             MessageBox.Show("所有项目已上传!");
-			this.SureAndUploadBtn.Text = "确认并上传(&S)";
-			this.Enabled = true;
-		}
-		private int GetLastLineOfExcel()
-		{
-			int LineNum;
-			for (LineNum = 1; LineNum <= 100; LineNum++)
-			{
-				if (Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 1].Value) == null)
-					return LineNum;
-			}
-			return 0;
-		}
-	}
+            this.SureAndUploadBtn.Text = "确认并上传(&S)";
+            this.Enabled = true;
+        }
+        private int GetLastLineOfExcel()
+        {
+            int LineNum;
+            for (LineNum = 1; LineNum <= 100; LineNum++)
+            {
+                if (Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 1].Value) == null)
+                    return LineNum;
+            }
+            return 0;
+        }
+    }
 }
 
 //var query = new BmobQuery();

@@ -1,4 +1,4 @@
-﻿namespace WoodenBench_Desktop
+﻿namespace WoodenBench_Desktop.Views
 {
 	partial class UsrLoginForm
 	{

@@ -16,7 +16,7 @@ namespace WoodenBench_Desktop
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new UsrLoginForm());
+			Application.Run(new Views.UsrLoginForm());
 		}
 	}
 }

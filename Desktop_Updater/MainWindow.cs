@@ -197,7 +197,9 @@ namespace Desktop_Updater
 			try
 			{
 				tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" +
-                    "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_y_x_m_\\";
+                    "_" + updaterXmlFiles.FindNode("//A" +
+                    "pplication").Attributes["applicati" +
+                    "onId"].Value + "_y_x_m_\\";
 				AppUpdater.DownAutoUpdateFile(tempUpdatePath);
 			}
 			catch(Exception ExpTion)

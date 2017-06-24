@@ -82,13 +82,14 @@
   <ItemGroup>
     <Compile Include="Controls\Consts.cs" />
     <Compile Include="Controls\EveryStudentObject.cs" />
+    <Compile Include="Operation\ErrorProcess.cs" />
     <Compile Include="Operation\Mysterious.cs" />
     <Compile Include="Controls\NotificationObject.cs" />
     <Compile Include="Controls\UserObject.cs" />
-    <Compile Include="UsrLogin.cs">
+    <Compile Include="Views\UsrLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UsrLogin.Designer.cs">
+    <Compile Include="Views\UsrLogin.Designer.cs">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Operation\GeneralFunctions.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="Views\UserChangeProperty.Designer.cs">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UsrLogin.resx">
+    <EmbeddedResource Include="Views\UsrLogin.resx">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
