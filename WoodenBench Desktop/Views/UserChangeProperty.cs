@@ -1,7 +1,4 @@
-﻿using cn.bmob.api;
-using cn.bmob.io;
-using cn.bmob.tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,30 +7,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench_Desktop.Controls;
-using WoodenBench_Desktop.Controls.Users;
-using WoodenBench_Desktop.Operation;
-using static WoodenBench_Desktop.Controls.Users.UserTableElements;
+using WoodenBench_Desktop.staClass;
+using WoodenBench_Desktop.TableObjects;
 
-namespace WoodenBench_Desktop.Views
+namespace WoodenBench_Desktop
 {
 	public partial class ChangeUserData : Form
 	{
-		static UserTableElements NowUser;
-		public ChangeUserData(UserTableElements ValController)
+		public ChangeUserData()
 		{
-			Bmob = new BmobWindows();
-			Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-			InitializeComponent();
+            InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
-            BmobDebug.Register(Message =>
-			{
-				Debug.WriteLine(Message);
-				//Console.WriteLine(Message);
-			});
-			NowUser = ValController;
 		}
-		public BmobWindows Bmob { get; }
 
         private static ChangeUserData defaultInstance;
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
@@ -43,7 +28,7 @@ namespace WoodenBench_Desktop.Views
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new ChangeUserData(NowUser);
+                    defaultInstance = new ChangeUserData();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -51,30 +36,29 @@ namespace WoodenBench_Desktop.Views
         }
         private void SureChangeUserData(object sender, EventArgs e)
 		{
-				UserTableElements Obj = new UserTableElements(Consts.TABLE_NAME_General_AllUser)
+				UserTableObj Obj = new UserTableObj(Consts.TABLE_NAME_General_AllUser)
 				{
-					objectId = NowUser.UserID,
+					objectId = UserActivity.NowUser.UserID,
 					CUserGroup = UsrGroupDrop.SelectedIndex + 1,
-					Password = NowUser.Password,
-					UserName = NowUser.UserName
+					Password = UserActivity.NowUser.Password,
+					UserName = UserActivity.NowUser.UserName
 				};
-				Bmob.UpdateTaskAsync(Obj);
+				BmobObject.Bmob.UpdateTaskAsync(Obj);
 				MessageBox.Show("为重新载入用户配置，应用将会重启");
-				Application.Restart();
-			
+				Application.Restart();			
 		}
 
 		private void ChangeUserData_Load(object sender, EventArgs e)
 		{
-			if (NowUser.UserGroup == UserGroupEnum.管理组用户)
+			if (UserActivity.NowUser.UserGroup == UserGroupEnum.管理组用户)
 			{
 				SuperuserRefuse.Visible = true;
 				ChangePartOfSchool.Enabled = false;
 				ChangePartOfSchool.Visible = false;
 			}
-			UsrNameLbl.Text = NowUser.UserName;
-			UsrIDLbl.Text = NowUser.UserID;
-			UsrGroup.Text = NowUser.UserGroup.ToString();
+			UsrNameLbl.Text = UserActivity.NowUser.UserName;
+			UsrIDLbl.Text = UserActivity.NowUser.UserID;
+			UsrGroup.Text = UserActivity.NowUser.UserGroup.ToString();
 		}
 
 		private void ChangePartOfSchool_Click(object sender, EventArgs e)
@@ -85,14 +69,14 @@ namespace WoodenBench_Desktop.Views
 		}
         private void DoChange(object sender, EventArgs e)
 		{
-			if (FPasswordTxt.Text == null || FPasswordTxt.Text == NowUser.Password)
+			if (FPasswordTxt.Text == null || FPasswordTxt.Text == UserActivity.NowUser.Password)
 			{
 				if (NPasswrodTxt1.Text == NPasswrodTxt2.Text)
 				{
 					if (NPasswrodTxt1.Text != "")
 					{
-                        UserActivity.ChangePassWord(NowUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
-						MessageBox.Show($"为重载用户配置，当前用户 {NowUser.UserName} 将被注销，请重新登陆");
+                        UserActivity.ChangePassWord(staClass.UserActivity.NowUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
+						MessageBox.Show($"为重载用户配置，当前用户 {UserActivity.NowUser.UserName} 将被注销，请重新登陆");
 						Application.Restart();
 						return;
 					}

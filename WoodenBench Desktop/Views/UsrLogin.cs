@@ -1,16 +1,14 @@
-﻿using cn.bmob.api;
+﻿
 using cn.bmob.io;
 using cn.bmob.json;
-using cn.bmob.tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using WoodenBench_Desktop.Controls;
-using WoodenBench_Desktop.Controls.Users;
-using static WoodenBench_Desktop.Controls.Users.UserTableElements;
+using WoodenBench_Desktop.staClass;
+using WoodenBench_Desktop.TableObjects;
 
-namespace WoodenBench_Desktop.Views
+namespace WoodenBench_Desktop
 {
     public partial class UsrLoginForm : Form
     {
@@ -23,15 +21,8 @@ namespace WoodenBench_Desktop.Views
         private void PswdTxt_TextChanged(object sender, EventArgs e) => LoginResult.Text = "";
         public UsrLoginForm() : base()
         {
-            Bmob = new BmobWindows();
-            Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
-            BmobDebug.Register(Message =>
-            {
-                Debug.WriteLine(Message);
-                //Console.WriteLine(Message);
-            });
         }
         private static UsrLoginForm defaultInstance;
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
@@ -47,64 +38,18 @@ namespace WoodenBench_Desktop.Views
                 return defaultInstance;
             }
         }
-
-        public BmobWindows Bmob { get; }
-
         private void DoLogin(object sender, EventArgs e)
         {
-            string StrObjectID;
-            string Password;
-            int UserGroup;
+
             NewUserLabel.Visible = false;
             LoginResult.Text = "";
             DoLoginBtn.Enabled = false;
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            try
-            {
-                BmobQuery UserNameQuery = new BmobQuery();
-                UserNameQuery.WhereContainedIn("Username", UserNameTxt.Text);
-                var UsrNameResult = Bmob.FindTaskAsync<UserTableElements>(Consts.TABLE_NAME_General_AllUser, UserNameQuery);
-                JObject JsonUserNameResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result));
-
-                JToken StuJObj = JsonUserNameResult["results"].First;
-
-                StrObjectID = StuJObj["objectId"].ToString();
-                //var NowUserResult = Bmob.GetTaskAsync<UserTableElements>(Consts.TABLE_NAME_General_AllUser, StrObjectID);
-                //JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(NowUserResult.Result));
-
-                Password = StuJObj["Password"].ToString();
-                DoLoginBtn.Enabled = true;
-                CancelBtn.Enabled = true;
-                DoLoginBtn.Text = "登陆(&L)";
-                UserGroup = Convert.ToInt32(StuJObj["UsrGroup"].ToString());
-            }
-            catch (Exception ex)
-            {
-                LoginResult.Text = "用户名或密码不正确";
-                DoLoginBtn.Enabled = true;
-                CancelBtn.Enabled = true;
-                DoLoginBtn.Text = "登陆(&L)";
-                return;
-            }
-            if (PswdTxt.Text == Password)
-            {
-                UserTableElements NowUser = new UserTableElements()
-                {
-                    Password = Password,
-                    UserID = StrObjectID,
-                    UserName = UserNameTxt.Text,
-                    UserGroup = (UserGroupEnum)UserGroup,
-                    LoginTime = DateTime.Now.TimeOfDay.ToString()
-                };
-                (new Views.MainWindow(NowUser)).Show();
-                Hide();
-            }
-            else
-            {
-                LoginResult.Text = "用户名或密码不正确";
-            }
+            UserActivity.Login(UserNameTxt.Text, PswdTxt.Text);
+            (new MainWindow()).Show();
+            Hide();
             DoLoginBtn.Enabled = true;
             CancelBtn.Enabled = true;
             DoLoginBtn.Text = "登陆(&L)";
@@ -112,15 +57,15 @@ namespace WoodenBench_Desktop.Views
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new Views.CreateUser().ShowDialog();
+            new CreateUser().ShowDialog();
         }
-
-        private void UsrLoginForm_Load(object sender, EventArgs e)
+        
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
         }
 
-        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        private void UsrLoginForm_Load(object sender, EventArgs e)
         {
 
         }

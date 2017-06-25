@@ -7,39 +7,32 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench_Desktop.Controls;
-using WoodenBench_Desktop.Controls.Users;
-using WoodenBench_Desktop.Operation;
+using WoodenBench_Desktop.staClass;
+using WoodenBench_Desktop.TableObjects;
 
-namespace WoodenBench_Desktop.Views
+namespace WoodenBench_Desktop
 {
     public partial class MainWindow : Form
     {
         Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
         Microsoft.Office.Interop.Excel.Workbook xWorkbook;
-        public static UserTableElements NowUser;
         int Hiint = 0;
-        BmobWindows Bmob = new BmobWindows();
         private static MainWindow defaultInstance;
         EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
         string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess, NowPartOfSchool;
-        public MainWindow(UserTableElements ValController) : base()
+        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+        public MainWindow() : base()
         {
-            Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
-            BmobDebug.Register(Message => { Debug.WriteLine(Message); });
-            NowUser = ValController;
-            Debug.WriteLine("MainWindow Loaded");
         }
-        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
         public static MainWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new MainWindow(NowUser);
+                    defaultInstance = new MainWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -47,10 +40,10 @@ namespace WoodenBench_Desktop.Views
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            BtomNowUsrName.Text = TopNowUserName.Text = NowUser.UserName;
-            BtomNowUsrID.Text = TopNowUserID.Text = NowUser.UserID;
-            TopNowUserLoginName.Text = NowUser.LoginTime;
-            BtomNowUserAct.Text = TopNowUserGroup.Text = NowUser.UserGroup.ToString();
+            BtomNowUsrName.Text = TopNowUserName.Text = UserActivity.NowUser.UserName;
+            BtomNowUsrID.Text = TopNowUserID.Text = UserActivity.NowUser.UserID;
+            TopNowUserLoginName.Text = UserActivity.NowUser.LoginTime;
+            BtomNowUserAct.Text = TopNowUserGroup.Text = UserActivity.NowUser.UserGroup.ToString();
             NotificationWorker.RunWorkerAsync();
         }
 
@@ -62,7 +55,7 @@ namespace WoodenBench_Desktop.Views
 
         private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var Resulta = Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
+            var Resulta = BmobObject.Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
             JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
             NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
             string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
@@ -76,11 +69,11 @@ namespace WoodenBench_Desktop.Views
         }
 
         private void 更改用户信息DToolStripMenuItem_Click(object sender, EventArgs e)
-        { new ChangeUserData(NowUser).ShowDialog(); }
+        { new ChangeUserData().ShowDialog(); }
 
         private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (MessageBox.Show($"确定要退出当前账户 {NowUser.UserName} 吗？", "询问", MessageBoxButtons.YesNo))
+            switch (MessageBox.Show($"确定要退出当前账户 {UserActivity.NowUser.UserName} 吗？", "询问", MessageBoxButtons.YesNo))
             {
                 case DialogResult.Yes:
                     UserActivity.LogOut();
@@ -93,7 +86,7 @@ namespace WoodenBench_Desktop.Views
         private void StrangeBar(object sender, EventArgs e)
         {
             Hiint++;
-            if (Hiint == 5) Mysterious.ShowMys(NowUser);
+            if (Hiint == 5) Mysterious.ShowMys();
         }
 
         private void MainWindow_Click(object sender, EventArgs e)
@@ -145,7 +138,7 @@ namespace WoodenBench_Desktop.Views
                 StudentObj.StudentIsBWeek = StudentData.Rows[RowNum].Cells[2].Value.ToString();
                 StudentObj.StudentClass = NowClassProcess;
                 StudentObj.StudentPartOfSchool = NowPartOfSchool;
-                var future = Bmob.CreateTaskAsync(StudentObj);
+                var future = BmobObject.Bmob.CreateTaskAsync(StudentObj);
                 Thread.Sleep(50);
                 try { future.Result.ToString(); }
                 catch (Exception ex)
