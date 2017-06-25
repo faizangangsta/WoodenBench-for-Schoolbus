@@ -14,9 +14,11 @@ namespace WoodenBench_Desktop
 		[STAThread]
 		static void Main()
 		{
+            //Initialize bmob client
+            staClass.BmobObject.InitBmobObject();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Views.UsrLoginForm());
+			Application.Run(new UsrLoginForm());
 		}
 	}
 }

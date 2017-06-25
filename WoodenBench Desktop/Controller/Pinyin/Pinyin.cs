@@ -6,7 +6,7 @@
  */
 
 using System.Text;
-namespace NPinyin
+namespace WoodenBench_Desktop.staClass.Pinyin
 {
     public static class Pinyin
 	{

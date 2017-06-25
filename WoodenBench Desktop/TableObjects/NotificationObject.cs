@@ -2,7 +2,7 @@
 using cn.bmob.io;
 using System;
 
-namespace WoodenBench_Desktop.Controls
+namespace WoodenBench_Desktop.TableObjects
 {
 	class NotificationObject : BmobTable
 	{
