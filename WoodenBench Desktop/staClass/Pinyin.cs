@@ -6,7 +6,7 @@
  */
 
 using System.Text;
-namespace WoodenBench_Desktop.staClass
+namespace WoodenBench.staClass
 {
     public static partial class PinYin
     {

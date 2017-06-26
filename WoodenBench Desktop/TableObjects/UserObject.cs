@@ -1,8 +1,8 @@
 ﻿using cn.bmob.io;
 using System;
-using WoodenBench_Desktop.staClass;
+using WoodenBench.staClass;
 
-namespace WoodenBench_Desktop.TableObjects
+namespace WoodenBench.TableObjects
 {
     /// <summary>
     /// DON'T CHANGE CLASS NAME  'AllUsersTable'

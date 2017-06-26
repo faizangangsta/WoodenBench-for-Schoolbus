@@ -8,11 +8,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench_Desktop.TableObjects;
-using WoodenBench_Desktop.View;
-using static WoodenBench_Desktop.staClass.GlobalFunc;
+using WoodenBench.TableObjects;
+using WoodenBench.View;
+using static WoodenBench.staClass.GlobalFunc;
 
-namespace WoodenBench_Desktop.staClass
+namespace WoodenBench.staClass
 {
     public class UserActivity
     {

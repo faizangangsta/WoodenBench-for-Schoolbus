@@ -1,4 +1,4 @@
-﻿namespace WoodenBench_Desktop.View
+﻿namespace WoodenBench.View
 {
     partial class MainWindow
     {

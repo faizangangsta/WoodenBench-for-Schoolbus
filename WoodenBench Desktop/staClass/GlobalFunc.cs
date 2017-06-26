@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench_Desktop.TableObjects;
-using WoodenBench_Desktop.View;
+using WoodenBench.TableObjects;
+using WoodenBench.View;
 
-namespace WoodenBench_Desktop.staClass
+namespace WoodenBench.staClass
 {
     /// <summary>
     /// The public static class which contains Bmob variable, to be called

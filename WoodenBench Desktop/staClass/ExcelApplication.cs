@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WoodenBench_Desktop.staClass
+namespace WoodenBench.staClass
 {
     public static class ExcelApplication
     {

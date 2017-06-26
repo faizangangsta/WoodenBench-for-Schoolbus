@@ -5,12 +5,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench_Desktop.staClass;
-using WoodenBench_Desktop.TableObjects;
-using static WoodenBench_Desktop.staClass.GlobalFunc;
-using static WoodenBench_Desktop.staClass.UserActivity;
+using WoodenBench.staClass;
+using WoodenBench.TableObjects;
+using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.staClass.UserActivity;
 
-namespace WoodenBench_Desktop.View
+namespace WoodenBench.View
 {
     public partial class MainWindow : Form
     {

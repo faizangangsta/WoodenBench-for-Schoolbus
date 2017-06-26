@@ -7,11 +7,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench_Desktop.TableObjects;
-using static WoodenBench_Desktop.staClass.GlobalFunc;
-using static WoodenBench_Desktop.staClass.UserActivity;
+using WoodenBench.TableObjects;
+using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.staClass.UserActivity;
 
-namespace WoodenBench_Desktop.View
+namespace WoodenBench.View
 {
     public partial class ChangeUserData : Form
 	{

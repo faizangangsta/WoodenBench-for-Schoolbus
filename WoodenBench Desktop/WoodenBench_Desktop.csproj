@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WoodenBench_Desktop.staClass.GlobalFunc</StartupObject>
+    <StartupObject>WoodenBench.staClass.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -136,8 +136,6 @@
     <EmbeddedResource Include="Views\UserChangeProperty.resx">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </EmbeddedResource>
-    <Fakes Include="Fakes\System.fakes" />
-    <Fakes Include="Fakes\mscorlib.fakes" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\WoodenBench_Desktop.Controls.EveryStudentDataSource.datasource" />
     <None Include="Properties\Settings.settings">

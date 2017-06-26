@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WoodenBench_Desktop.TableObjects
+namespace WoodenBench.TableObjects
 {
 	public class EveryStudentData : BmobTable
 	{
