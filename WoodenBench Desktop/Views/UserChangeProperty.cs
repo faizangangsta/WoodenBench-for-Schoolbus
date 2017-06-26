@@ -7,12 +7,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench_Desktop.staClass;
 using WoodenBench_Desktop.TableObjects;
+using static WoodenBench_Desktop.staClass.GlobalFunc;
+using static WoodenBench_Desktop.staClass.UserActivity;
 
-namespace WoodenBench_Desktop
+namespace WoodenBench_Desktop.View
 {
-	public partial class ChangeUserData : Form
+    public partial class ChangeUserData : Form
 	{
 		public ChangeUserData()
 		{
@@ -36,29 +37,29 @@ namespace WoodenBench_Desktop
         }
         private void SureChangeUserData(object sender, EventArgs e)
 		{
-				UserTableObj Obj = new UserTableObj(Consts.TABLE_NAME_General_AllUser)
+				AllUsersTable Obj = new AllUsersTable()
 				{
-					objectId = UserActivity.NowUser.UserID,
-					CUserGroup = UsrGroupDrop.SelectedIndex + 1,
-					Password = UserActivity.NowUser.Password,
-					UserName = UserActivity.NowUser.UserName
+					objectId = CurrentUser.objectId,
+					UserGroup = UsrGroupDrop.SelectedIndex + 1,
+					Password = CurrentUser.Password,
+					UserName = CurrentUser.UserName
 				};
-				BmobObject.Bmob.UpdateTaskAsync(Obj);
+				Bmob.UpdateTaskAsync(Obj);
 				MessageBox.Show("为重新载入用户配置，应用将会重启");
 				Application.Restart();			
 		}
 
 		private void ChangeUserData_Load(object sender, EventArgs e)
 		{
-			if (UserActivity.NowUser.UserGroup == UserGroupEnum.管理组用户)
+			if ((UserGroupEnum)CurrentUser.UserGroup == UserGroupEnum.管理组用户)
 			{
 				SuperuserRefuse.Visible = true;
 				ChangePartOfSchool.Enabled = false;
 				ChangePartOfSchool.Visible = false;
 			}
-			UsrNameLbl.Text = UserActivity.NowUser.UserName;
-			UsrIDLbl.Text = UserActivity.NowUser.UserID;
-			UsrGroup.Text = UserActivity.NowUser.UserGroup.ToString();
+			UsrNameLbl.Text = CurrentUser.UserName;
+			UsrIDLbl.Text = CurrentUser.objectId;
+			UsrGroup.Text = CurrentUser.UserGroup.ToString();
 		}
 
 		private void ChangePartOfSchool_Click(object sender, EventArgs e)
@@ -69,14 +70,15 @@ namespace WoodenBench_Desktop
 		}
         private void DoChange(object sender, EventArgs e)
 		{
-			if (FPasswordTxt.Text == null || FPasswordTxt.Text == UserActivity.NowUser.Password)
+			if (FPasswordTxt.Text == null || FPasswordTxt.Text == CurrentUser.Password)
 			{
 				if (NPasswrodTxt1.Text == NPasswrodTxt2.Text)
 				{
 					if (NPasswrodTxt1.Text != "")
 					{
-                        UserActivity.ChangePassWord(staClass.UserActivity.NowUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
-						MessageBox.Show($"为重载用户配置，当前用户 {UserActivity.NowUser.UserName} 将被注销，请重新登陆");
+                        ChangePassWord(CurrentUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
+                        //TODO: Set ReLog In
+                        MessageBox.Show($"为重载用户配置，当前用户 {CurrentUser.UserName} 将被注销，请重新登陆");
 						Application.Restart();
 						return;
 					}

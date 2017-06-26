@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WoodenBench_Desktop</RootNamespace>
-    <AssemblyName>WoodenBench Desktop</AssemblyName>
+    <RootNamespace>WoodenBench</RootNamespace>
+    <AssemblyName>校车小板凳</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -38,8 +38,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
-    <DocumentationFile>bin\Debug\WoodenBench Desktop.xml</DocumentationFile>
-    <FileAlignment>1024</FileAlignment>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>512</FileAlignment>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WoodenBench_Desktop.Program</StartupObject>
+    <StartupObject>WoodenBench_Desktop.staClass.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -69,7 +71,6 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -78,13 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\Consts.cs" />
+    <Compile Include="staClass\Consts.cs" />
+    <Compile Include="staClass\ExcelApplication.cs" />
     <Compile Include="TableObjects\EveryStudentObject.cs" />
-    <Compile Include="Controller\Pinyin\Pinyin.cs" />
-    <Compile Include="Controller\Pinyin\PyCode.cs" />
-    <Compile Include="Controller\Pinyin\PyHash.cs" />
-    <Compile Include="Controller\ErrorProcess.cs" />
-    <Compile Include="Controller\Mysterious.cs" />
+    <Compile Include="staClass\Pinyin.cs" />
+    <Compile Include="staClass\PyData.cs" />
+    <Compile Include="staClass\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="Views\UsrLogin.cs">
@@ -93,9 +93,8 @@
     <Compile Include="Views\UsrLogin.Designer.cs">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\Bmob.cs" />
-    <Compile Include="Controller\UserActivity.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="staClass\GlobalFunc.cs" />
+    <Compile Include="staClass\UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CreateUser.cs">
       <SubType>Form</SubType>
@@ -137,6 +136,8 @@
     <EmbeddedResource Include="Views\UserChangeProperty.resx">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </EmbeddedResource>
+    <Fakes Include="Fakes\System.fakes" />
+    <Fakes Include="Fakes\mscorlib.fakes" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\WoodenBench_Desktop.Controls.EveryStudentDataSource.datasource" />
     <None Include="Properties\Settings.settings">

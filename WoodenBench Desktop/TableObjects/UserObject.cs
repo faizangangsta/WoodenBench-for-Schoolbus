@@ -1,64 +1,47 @@
-﻿//Game表对应的模型类
-using cn.bmob.io;
+﻿using cn.bmob.io;
 using System;
+using WoodenBench_Desktop.staClass;
 
 namespace WoodenBench_Desktop.TableObjects
 {
-    public class UserTableObj : BmobTable
+    /// <summary>
+    /// DON'T CHANGE CLASS NAME  'AllUsersTable'
+    /// </summary>
+    public class AllUsersTable : BmobTable
     {
-        private string MyTable;
-
-        public string UserID { get; set; }
-        public UserGroupEnum UserGroup { get; set; }
-        public string LoginTime { get; set; }
-        //以下对应云端字段名称
+        public string table = GlobalFunc.TABLE_N_Gen_AllUsr;
+        private string MyTable = GlobalFunc.TABLE_N_Gen_AllUsr;
+        public string objectId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int CUserGroup { get; set; }
-
-        //构造函数
-        public UserTableObj() { }
-
-        //构造函数
-        public UserTableObj(String TableName)
-        {
-            MyTable = TableName;
-        }
-
-        public override string table
-        {
-            get
-            {
-                if (MyTable != null) { return MyTable; }
-                return base.table;
-            }
-        }
+        public int UserGroup { get; set; }
+        public bool WebNotiSeen { get; set; } 
+        public BmobDate LastLoginTime { get; set; }
+        public string WeChatID { get; set; }
+        public string RealName { get; set; }        
+        public AllUsersTable() { }
         public override void readFields(BmobInput input)
         {
             base.readFields(input);
             UserName = input.getString("Username");
             Password = input.getString("Password");
-            CUserGroup = input.getInt("UsrGroup").Get();
+            WeChatID = input.getString("WeChatID");
+            LastLoginTime = input.getDate("LastLoginTime");
+            UserGroup = input.getInt("UsrGroup").Get();
+            WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
+            RealName = input.getString("RealName");
         }
 
         public override void write(BmobOutput output, bool all)
         {
             base.write(output, all);
+            output.Put("WebNotiSeen", WebNotiSeen);
+            output.Put("LastLoginTime", LastLoginTime);
             output.Put("Username", this.UserName);
             output.Put("Password", this.Password);
-            output.Put("UsrGroup", this.CUserGroup);
+            output.Put("WeChatID", this.WeChatID);
+            output.Put("UsrGroup", this.UserGroup);
+            output.Put("RealName", this.RealName);
         }
-    }
-    public enum UserGroupEnum
-    {
-        管理组用户,
-        小学部_班主任,
-        初中部_班主任,
-        普通高中部_班主任,
-        中加高中部_班主任,
-        留学生部_班主任,
-        剑桥高中部_班主任,
-        校车管理老师,
-        家长
     }
 }

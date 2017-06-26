@@ -1,33 +1,33 @@
-﻿namespace WoodenBench_Desktop
+﻿namespace WoodenBench_Desktop.View
 {
-	partial class UsrLoginForm
-	{
-		/// <summary>
-		/// 必需的设计器变量。
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class UsrLoginForm
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// 清理所有正在使用的资源。
-		/// </summary>
-		/// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows 窗体设计器生成的代码
+        #region Windows 窗体设计器生成的代码
 
-		/// <summary>
-		/// 设计器支持所需的方法 - 不要修改
-		/// 使用代码编辑器修改此方法的内容。
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要修改
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsrLoginForm));
             this.UserNameTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -120,7 +120,7 @@
             this.NewUserLabel.TabIndex = 7;
             this.NewUserLabel.TabStop = true;
             this.NewUserLabel.Text = "新用户 ?";
-            this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreateUsr);
             // 
             // linkLabel1
             // 
@@ -131,7 +131,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "///invisi家长登录";
             this.linkLabel1.Visible = false;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ParentsLogin);
             // 
             // UsrLoginForm
             // 
@@ -163,19 +163,19 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.TextBox UserNameTxt;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox PswdTxt;
-		private System.Windows.Forms.Button CancelBtn;
-		private System.Windows.Forms.Button DoLoginBtn;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label LoginResult;
-		private System.Windows.Forms.LinkLabel NewUserLabel;
-		private System.Windows.Forms.LinkLabel linkLabel1;
-	}
+        private System.Windows.Forms.TextBox UserNameTxt;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox PswdTxt;
+        private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.Button DoLoginBtn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LoginResult;
+        private System.Windows.Forms.LinkLabel NewUserLabel;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+    }
 }
 

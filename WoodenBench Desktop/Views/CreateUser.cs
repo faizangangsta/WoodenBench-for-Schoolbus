@@ -6,11 +6,11 @@ using System.Windows.Forms;
 using WoodenBench_Desktop.staClass;
 using WoodenBench_Desktop.TableObjects;
 
-namespace WoodenBench_Desktop
+namespace WoodenBench_Desktop.View
 { 
 	public partial class CreateUser : Form
 	{
-		private UserTableObj NewUserObj = new UserTableObj(Consts.TABLE_NAME_General_AllUser);
+		private AllUsersTable NewUserObj = new AllUsersTable();
 		public CreateUser()
 		{
             InitializeComponent();
@@ -35,20 +35,24 @@ namespace WoodenBench_Desktop
 				PasswordT.Text == PasswordT2.Text)
 			{
 				NewUserObj.UserName = UserNameT.Text;
+                NewUserObj.RealName = RealNameT.Text;
+                NewUserObj.WebNotiSeen = false;
+                NewUserObj.WeChatID = "";
 				NewUserObj.Password = PasswordT2.Text;
-				NewUserObj.CUserGroup = GroupT.SelectedIndex + 1;
-				var future = BmobObject.Bmob.CreateTaskAsync(NewUserObj);
+				NewUserObj.UserGroup = GroupT.SelectedIndex + 1;
+				var future = GlobalFunc.Bmob.CreateTaskAsync(NewUserObj);
 				Thread.Sleep(500);
                 try
                 {
                     ResultLabel.Text = JsonAdapter.JSON.ToDebugJsonString(future.Result);
+                    Application.DoEvents();
                     MessageBox.Show("用户创建成功");
                     Close();
                     return;
                 }
                 catch (Exception Exc)
                 {
-                    MessageBox.Show($"用户创建失败，请稍后z再试 " +
+                    MessageBox.Show($"用户创建失败，请稍后再试 " +
                     //$"{Environment.NewLine + future.Status.ToString()}" +
                     //$"{Environment.NewLine + future.Result.ToString()}" +
                     $"{Environment.NewLine + Environment.NewLine + Exc.Message}");

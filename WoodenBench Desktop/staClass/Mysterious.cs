@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using static WoodenBench_Desktop.staClass.GlobalFunc;
 
 namespace WoodenBench_Desktop.staClass
 {
-    static class Mysterious
+    public static class Mysterious
 	{
 		public static void ShowMys()
 		{
@@ -15,8 +13,8 @@ namespace WoodenBench_Desktop.staClass
 			MessageBox.Show("I will leed you to the MYSTERIOUS Place");
 			MessageBox.Show("Don't worry, this will be a peaceful journey.");
 
-			MessageBox.Show("First, verify your password is " + UserActivity.NowUser.Password);
-			MessageBox.Show("Then, Remenber your User ID " + UserActivity.NowUser.UserID);
+			MessageBox.Show("First, verify your password is " + CurrentUser.Password);
+			MessageBox.Show("Then, Remenber your User ID " + CurrentUser.objectId);
 
             MessageBox.Show("Finally, this is to show my REAL heart....");
             MessageBox.Show("Have you found any spelling mistakes?");

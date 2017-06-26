@@ -1,5 +1,4 @@
-﻿
-using cn.bmob.io;
+﻿using cn.bmob.io;
 using cn.bmob.json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,12 +6,13 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using WoodenBench_Desktop.staClass;
 using WoodenBench_Desktop.TableObjects;
+using static WoodenBench_Desktop.staClass.GlobalFunc;
 
-namespace WoodenBench_Desktop
+namespace WoodenBench_Desktop.View
 {
     public partial class UsrLoginForm : Form
     {
-        private void button1_Click(object sender, EventArgs e) => Application.Exit();
+        private void button1_Click(object sender, EventArgs e) => ApplicationExit();
         private void UserNameTxt_TextChanged(object sender, EventArgs e)
         {
             LoginResult.Text = "";
@@ -47,20 +47,26 @@ namespace WoodenBench_Desktop
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            UserActivity.Login(UserNameTxt.Text, PswdTxt.Text);
-            (new MainWindow()).Show();
-            Hide();
+            if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text))
+            {
+                (new MainWindow()).Show();
+                Hide();
+            }
+            else
+            {
+                DebugMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
+                LoginResult.Text = "用户名或密码不正确";
+            }
+
             DoLoginBtn.Enabled = true;
             CancelBtn.Enabled = true;
             DoLoginBtn.Text = "登陆(&L)";
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            new CreateUser().ShowDialog();
-        }
+        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e)
+        { new CreateUser().ShowDialog(); }
         
-        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
         }

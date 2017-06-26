@@ -1,6 +1,4 @@
-﻿using cn.bmob.api;
-using cn.bmob.json;
-using cn.bmob.tools;
+﻿using cn.bmob.json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
@@ -9,8 +7,10 @@ using System.Threading;
 using System.Windows.Forms;
 using WoodenBench_Desktop.staClass;
 using WoodenBench_Desktop.TableObjects;
+using static WoodenBench_Desktop.staClass.GlobalFunc;
+using static WoodenBench_Desktop.staClass.UserActivity;
 
-namespace WoodenBench_Desktop
+namespace WoodenBench_Desktop.View
 {
     public partial class MainWindow : Form
     {
@@ -18,8 +18,9 @@ namespace WoodenBench_Desktop
         Microsoft.Office.Interop.Excel.Workbook xWorkbook;
         int Hiint = 0;
         private static MainWindow defaultInstance;
-        EveryStudentData StudentObj = new EveryStudentData(Consts.TABLE_NAME_AllStudentsData);
-        string NotificationTitle, NotificationContent, ExcelFilePath, NowClassProcess, NowPartOfSchool;
+        EveryStudentData StudentObj = new EveryStudentData(TABLE_N_AllStuData);
+        string NotificationTitle, NotificationContent;
+            string ExcelFilePath, NowClassProcess, NowPartOfSchool;
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
         public MainWindow() : base()
         {
@@ -40,22 +41,24 @@ namespace WoodenBench_Desktop
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            BtomNowUsrName.Text = TopNowUserName.Text = UserActivity.NowUser.UserName;
-            BtomNowUsrID.Text = TopNowUserID.Text = UserActivity.NowUser.UserID;
-            TopNowUserLoginName.Text = UserActivity.NowUser.LoginTime;
-            BtomNowUserAct.Text = TopNowUserGroup.Text = UserActivity.NowUser.UserGroup.ToString();
             NotificationWorker.RunWorkerAsync();
+            Text = Text + " - " + CurrentUser.RealName;
+            TUsrLgnTimeL.Text = CurrentUser.LastLoginTime.iso;
+            BUsrNameL.Text = TUsrNameL.Text = CurrentUser.UserName;
+            BUsrIDL.Text = TUsrIDL.Text = CurrentUser.objectId;
+            BUsrGroupL.Text = TUsrGroupL.Text = ((UserGroupEnum)CurrentUser.UserGroup).ToString();
+            BUsrRNameL.Text = TUsrRNameL.Text = CurrentUser.RealName;
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             ExcelApp.Quit();
-            Application.Exit();
+            
         }
 
         private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var Resulta = BmobObject.Bmob.GetTaskAsync<NotificationObject>(Consts.TABLE_NAME_General_Notification, Consts.OBJECT_ID_Notification);
+            var Resulta = Bmob.GetTaskAsync<NotificationObject>(TABLE_N_Gen_Notifi, OBJ_ID_Notifi);
             JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
             NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
             string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
@@ -73,10 +76,10 @@ namespace WoodenBench_Desktop
 
         private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (MessageBox.Show($"确定要退出当前账户 {UserActivity.NowUser.UserName} 吗？", "询问", MessageBoxButtons.YesNo))
+            switch (MessageBox.Show($"确定要退出当前账户 {CurrentUser.UserName} 吗？", "询问", MessageBoxButtons.YesNo))
             {
                 case DialogResult.Yes:
-                    UserActivity.LogOut();
+                    LogOut();
                     break;
                 case DialogResult.No:
                     break;
@@ -123,13 +126,13 @@ namespace WoodenBench_Desktop
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            ApplicationExit();
         }
 
         private void SureAndUpload(object sender, EventArgs e)
         {
             this.Enabled = false;
-            this.SureAndUploadBtn.Text = "上传中……";
+            this.SureAndUploadBtn.Text = "上传中...";
             Application.DoEvents();
             for (int RowNum = 0; RowNum <= (StudentData.RowCount - 2); RowNum++)
             {
@@ -138,8 +141,8 @@ namespace WoodenBench_Desktop
                 StudentObj.StudentIsBWeek = StudentData.Rows[RowNum].Cells[2].Value.ToString();
                 StudentObj.StudentClass = NowClassProcess;
                 StudentObj.StudentPartOfSchool = NowPartOfSchool;
-                var future = BmobObject.Bmob.CreateTaskAsync(StudentObj);
-                Thread.Sleep(50);
+                var future = Bmob.CreateTaskAsync(StudentObj);
+                future.Wait();
                 try { future.Result.ToString(); }
                 catch (Exception ex)
                 {

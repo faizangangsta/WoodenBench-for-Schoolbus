@@ -1,33 +1,33 @@
-﻿namespace WoodenBench_Desktop
+﻿namespace WoodenBench_Desktop.View
 {
-	partial class ChangeUserData
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ChangeUserData
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeUserData));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SuperuserRefuse = new System.Windows.Forms.Label();
@@ -55,8 +55,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.SuperuserRefuse);
             this.groupBox1.Controls.Add(this.ChangePartOfSchool);
@@ -183,7 +183,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.NPasswrodTxt2);
@@ -213,7 +213,7 @@
             // 
             // NPasswrodTxt2
             // 
-            this.NPasswrodTxt2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.NPasswrodTxt2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NPasswrodTxt2.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.NPasswrodTxt2.Location = new System.Drawing.Point(77, 76);
@@ -224,7 +224,7 @@
             // 
             // NPasswrodTxt1
             // 
-            this.NPasswrodTxt1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.NPasswrodTxt1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NPasswrodTxt1.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.NPasswrodTxt1.Location = new System.Drawing.Point(77, 49);
@@ -236,7 +236,7 @@
             // 
             // FPasswordTxt
             // 
-            this.FPasswordTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.FPasswordTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FPasswordTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.FPasswordTxt.Location = new System.Drawing.Point(77, 23);
@@ -308,29 +308,29 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.Label UsrGroup;
-		private System.Windows.Forms.Label UsrIDLbl;
-		private System.Windows.Forms.Label UsrNameLbl;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button UserActChangeBtn;
-		private System.Windows.Forms.TextBox NPasswrodTxt2;
-		private System.Windows.Forms.TextBox NPasswrodTxt1;
-		private System.Windows.Forms.TextBox FPasswordTxt;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.ComboBox UsrGroupDrop;
-		private System.Windows.Forms.Button ChangePartOfSchool;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Label SuperuserRefuse;
-	}
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label UsrGroup;
+        private System.Windows.Forms.Label UsrIDLbl;
+        private System.Windows.Forms.Label UsrNameLbl;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button UserActChangeBtn;
+        private System.Windows.Forms.TextBox NPasswrodTxt2;
+        private System.Windows.Forms.TextBox NPasswrodTxt1;
+        private System.Windows.Forms.TextBox FPasswordTxt;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox UsrGroupDrop;
+        private System.Windows.Forms.Button ChangePartOfSchool;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label SuperuserRefuse;
+    }
 }
