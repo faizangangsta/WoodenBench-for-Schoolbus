@@ -10,7 +10,6 @@ namespace WoodenBench.TableObjects
 	{
 		public string StudentName { get; set; }
 		public string StudentDirection { get; set; }
-		public string StudentIsBWeek { get; set; }
 		public string StudentClass { get; set; }
         public string StudentPartOfSchool { get; set; }
         public string StudentNamePinYin { get; set; }
