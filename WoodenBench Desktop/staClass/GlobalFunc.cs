@@ -48,7 +48,7 @@ namespace WoodenBench.staClass
         public static void InitBmobObject()
         {
             Bmob = new BmobWindows();
-            // Nobody can use bmob, before initialize it.
+            // Nobody can use bmob.... before initialize it.
             Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
             //Write Debug message into Debu.Writeline()
             BmobDebug.level = BmobDebug.Level.TRACE;

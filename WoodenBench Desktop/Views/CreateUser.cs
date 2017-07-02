@@ -56,7 +56,7 @@ namespace WoodenBench.View
 				NewUserObj.UserName = UserNameT.Text;
                 NewUserObj.RealName = RealNameT.Text;
                 NewUserObj.WebNotiSeen = false;
-                NewUserObj.WeChatID = "";
+                NewUserObj.WeChatID = "####";
                 NewUserObj.Password = PasswordT2.Text;
                 NewUserObj.UserGroup = GroupT.SelectedIndex + 1;
                 ///Give values to the new user object
@@ -77,10 +77,10 @@ namespace WoodenBench.View
                 catch (Exception Exc)
                 {
                     ///Failed, write to debug log
-                    DebugMessage($"Failed create user, " +
-                        $"name is {NewUserObj.UserName}, " +
-                        $"password is {NewUserObj.Password}" +
-                        $"usergroup number is {NewUserObj.UserGroup}" +
+                    DebugMessage($"Failed create user, " + Environment.NewLine +
+                        $"name is {NewUserObj.UserName}, " + Environment.NewLine +
+                        $"password is {NewUserObj.Password}" + Environment.NewLine +
+                        $"usergroup number is {NewUserObj.UserGroup}" + Environment.NewLine +
                         $"realname is {NewUserObj.RealName}");
                     MessageBox.Show($"用户创建失败，请稍后再试 " +
                     $"{Environment.NewLine + Environment.NewLine + Exc.Message}");
