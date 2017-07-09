@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="SchBCSS.css">
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
-<body style="background-image: url(Backgrounds/back1.jpg);">
+<body style="background-image: url('Backgrounds/back1.jpg');">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -88,12 +88,12 @@
 
     $('#UsrNameTx').keydown(function (e)
     {
-        if (e.keyCode == 13) DoLoginCheck();
+        if (e.keyCode === 13) DoLoginCheck();
         else $("#faileddetail").text("请输入用户名和密码");
     });
     $('#PsWdTx').keydown(function (e)
     {
-        if (e.keyCode == 13) DoLoginCheck();
+        if (e.keyCode === 13) DoLoginCheck();
         else $("#faileddetail").text("请输入用户名和密码");
     });
 

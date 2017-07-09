@@ -65,7 +65,7 @@ function ProcLogin(object)
     if (getCookie("SBCallBackAddress") !== null)
     {
         console.log(getCookie("SBCallBackAddress"));
-        var RDireURL = "../jumpto.html?ToURL=schoolbusmgr/" + getCookie("SBCallBackAddress");
+        var RDireURL = "../jumpto.html?ToURL=SchoolBusMgr/" + getCookie("SBCallBackAddress");
         
         if (location.href.indexOf("UnBonding=force") > -1)
         {
@@ -83,6 +83,6 @@ function ProcLogin(object)
     }
     else
     {
-        location.href = "../jumpto.html?ToURL=schoolbusmgr/index.html"
+        location.href = "../jumpto.html?ToURL=SchoolBusBgr/index.html"
     }
 }
