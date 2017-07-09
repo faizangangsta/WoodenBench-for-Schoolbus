@@ -22,7 +22,7 @@ function ReDirectToLogin(CallBackAddress, TargetOption)
 {
     setCookie("SBCallBackAddress", CallBackAddress);
     if (TargetOption === undefined) TargetOption = "";
-    location.href = "../jumpto.html?ToURL=SchoolBusBgr/loginusr.html" + TargetOption;
+    location.href = "../jumpto.html?ToURL=SchoolBusMgr/loginusr.html" + TargetOption;
 }
 
 function CheckCookiesExist()
@@ -83,6 +83,6 @@ function ProcLogin(object)
     }
     else
     {
-        location.href = "../jumpto.html?ToURL=SchoolBusBgr/index.html"
+        location.href = "../jumpto.html?ToURL=SchoolBusMgr/index.html"
     }
 }
