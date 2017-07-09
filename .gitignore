@@ -1,7 +1,4 @@
 
-bin/
-tmp/
-
 #################
 ## Visual Studio
 #################
@@ -16,4 +13,3 @@ tmp/
 build/
 [Bb]in/
 [Oo]bj/
-PinYin/NPinyin.sln
