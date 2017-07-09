@@ -1,0 +1,14 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>重定向中……</title>
+    <script language="JavaScript">
+        window.history.forward(1);
+        String.prototype.getQuery = function (name)
+        { return this.substr(this.indexOf("?" + name + "=") + name.length + 2); };
+        location.href = window.location.href.getQuery("ToURL");
+    </script>
+</head>
+<body></body>
+</html>
