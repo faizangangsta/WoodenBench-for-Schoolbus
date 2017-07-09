@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c1d480a4-abcb-4c7f-a767-51aedd9398e2" name="Default" comment="FixHide">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/YH-SchoolBus-WoodenBench.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/workspace.xml" afterPath="" />
+    </list>
+    <ignored path="lhy0403.github.io.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="lhy0403.github.io" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="101" column="9" lean-forward="true" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>emotion</find>
+      <find>edui-separator</find>
+      <find>格式</find>
+      <find>/******/</find>
+      <find>getcon</find>
+      <find>ql-font-monospace</find>
+      <find>standalone-container</find>
+      <find>reado</find>
+      <find>readonly</find>
+      <find>&quot;华文行楷&quot;,</find>
+      <find>italic</find>
+      <find>&quot;Adobe 楷体 Std R&quot;,</find>
+      <find>bootstrap.js</find>
+      <find>&lt;/p&gt;</find>
+      <find>snap</find>
+      <find>n.mozGetUserMedia({video: options, audio: false}, qrcode.vidSuccess, qrcode.vidError);</find>
+      <find>refrence</find>
+      <find>Detec</find>
+      <find>isurl</find>
+      <find>callback</find>
+      <find>gUM</find>
+      <find>ViewPersons</find>
+      <find>location.</find>
+      <find />
+      <find>==</find>
+      <find>alert</find>
+      <find>$</find>
+      <find>SBIEUserConfig</find>
+      <find>set</find>
+      <find>startre</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>&quot;微软雅黑&quot;,  &quot;Comic Sans MS&quot;</replace>
+      <replace />
+      <replace>===</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Leroy" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/js/MD%.js" />
+        <option value="$PROJECT_DIR$/js/MD5.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SHAHash.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeiXinModule.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo.htm" />
+        <option value="$PROJECT_DIR$/node_modules/JSV/jsdoc-toolkit/app/test/globals.js" />
+        <option value="$PROJECT_DIR$/js/jquery-3.2.1.js" />
+        <option value="$PROJECT_DIR$/ModernBlog/usrlogin.html" />
+        <option value="$PROJECT_DIR$/js/Base64.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeChatInitializationProvider.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/InitJSFiles.js" />
+        <option value="$PROJECT_DIR$/Web.config" />
+        <option value="$PROJECT_DIR$/.editorconfig" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeChatServicesProvider.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCInitProvider.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/WeChatJsDemo.htm" />
+        <option value="$PROJECT_DIR$/css/bootstrap.css" />
+        <option value="$PROJECT_DIR$/ModernBlog/ImageCoding.html" />
+        <option value="$PROJECT_DIR$/js/ImgCoding_js/ImgCodingMain.js" />
+        <option value="$PROJECT_DIR$/jumpto.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/lusrmgr.html" />
+        <option value="chrome-extension://kmdldgcmokdpmacblnehppgkjphcbpnn/video/content.js" />
+        <option value="$PROJECT_DIR$/js/bmob.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/usermange.html" />
+        <option value="$PROJECT_DIR$/js/Cookie.js" />
+        <option value="$PROJECT_DIR$/js/ModernBlog_LoginServices.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/InitDiffUsr.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SecKeyMgr.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/demo.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/qrscanreg.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/reportissue.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/GlobalFunctions.js" />
+        <option value="$PROJECT_DIR$/css/MyCsss.css" />
+        <option value="$PROJECT_DIR$/css/MyCss.css" />
+        <option value="$PROJECT_DIR$/css/font-awesome.min.css" />
+        <option value="$PROJECT_DIR$/js/countUp.js" />
+        <option value="$PROJECT_DIR$/js/custom.js" />
+        <option value="$PROJECT_DIR$/js/bootstrap.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/index.html" />
+        <option value="$PROJECT_DIR$/js/FoFPage/countUp.js" />
+        <option value="$PROJECT_DIR$/js/FoFPage/custom.js" />
+        <option value="$PROJECT_DIR$/js/FoFPage/jquery-1.10.2.js" />
+        <option value="$PROJECT_DIR$/404.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCServicesProvider.js" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/loginusr.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/WeChatUserCodeReceiver.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBCSS.css" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/usermanage.html" />
+        <option value="$PROJECT_DIR$/ModernBlog/edit.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/RptBug.html" />
+        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SCHLoginServices.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="333" />
+    <option name="y" value="245" />
+    <option name="width" value="914" />
+    <option name="height" value="1017" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Data flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>JSON</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript function metricsJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>RegExp</id>
+          </State>
+          <State>
+            <id>TypeScript</id>
+          </State>
+          <State>
+            <id>Vue</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>JSDuplicatedDeclaration</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource ProjectPane="true" />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="YH-SBusMgr" type="b2602c69:ProjectViewProjectNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="SearchEverywhereHistoryKey" value="plugin&#9;ACTION&#9;WelcomeScreen.Plugins&#10;             Small&#9;null&#9;null&#10;Small&#9;null&#9;null&#10;set&#9;null&#9;null&#10;Redire&#9;null&#9;null&#10;ref&#9;ACTION&#9;RefactoringMenu&#10;refrence error&#9;null&#9;null" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="settings.editor.splitter.proportion" value="0.19912472" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.selected.package.jscs" value="D:\Projects\lhy0403.github.io\node_modules\jscs" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/../NodeModule/node_modules/stylelint" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\lhy0403.github.io\js" />
+      <recent name="D:\Projects\lhy0403.github.io" />
+      <recent name="D:\Projects\lhy0403.github.io\css" />
+      <recent name="D:\Projects\lhy0403.github.io\SchBManagement" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\lhy0403.github.io\Sources" />
+      <recent name="D:\Projects\lhy0403.github.io\js\Encryption" />
+      <recent name="D:\Projects\lhy0403.github.io\js\FoFPage" />
+      <recent name="D:\Projects\lhy0403.github.io\js" />
+      <recent name="D:\Projects\lhy0403.github.io\schoolbusmgr\WeChatJsDemo_files" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.404.html">
+    <configuration name="404.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/404.html" />
+    <configuration name="RptBug.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/RptBug.html" />
+    <configuration name="WeChatUserCodeReceiver.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/WeChatUserCodeReceiver.html" />
+    <configuration default="true" type="FirefoxRemoteDebugType" factoryName="Firefox Remote" editBeforeRun="true" />
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter />
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+    </configuration>
+    <configuration default="true" type="ChromiumRemoteDebugType" factoryName="Chromium Remote">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration name="loginusr.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/loginusr.html" />
+    <configuration name="usermanage.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/usermanage.html" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.WeChatUserCodeReceiver.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.WeChatUserCodeReceiver.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+    <option name="ACTIVE_ACTIONS" value=",SHOW_CLASSES,HIDE_INHERITED_FROM_OBJECT" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c1d480a4-abcb-4c7f-a767-51aedd9398e2" name="Default" comment="" />
+      <created>1493182878272</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1493182878272</updated>
+      <workItem from="1493183755392" duration="290000" />
+      <workItem from="1493184229682" duration="93000" />
+      <workItem from="1493184366360" duration="1169000" />
+      <workItem from="1493185855080" duration="33000" />
+      <workItem from="1493191362467" duration="1750000" />
+      <workItem from="1493255659649" duration="429000" />
+      <workItem from="1493261049290" duration="3068000" />
+      <workItem from="1493276921202" duration="40000" />
+      <workItem from="1493276990708" duration="26000" />
+      <workItem from="1493277075508" duration="91000" />
+      <workItem from="1493277555235" duration="418000" />
+      <workItem from="1493278223443" duration="256000" />
+      <workItem from="1493278907537" duration="26000" />
+      <workItem from="1493341041054" duration="870000" />
+      <workItem from="1493458732028" duration="760000" />
+      <workItem from="1493465635830" duration="822000" />
+      <workItem from="1493535508996" duration="1711000" />
+      <workItem from="1493537393859" duration="830000" />
+      <workItem from="1493538509253" duration="222000" />
+      <workItem from="1493539073237" duration="314000" />
+      <workItem from="1493539658978" duration="1412000" />
+      <workItem from="1493559972693" duration="3249000" />
+      <workItem from="1493599079896" duration="4198000" />
+      <workItem from="1493632685660" duration="2805000" />
+      <workItem from="1493636809051" duration="616000" />
+      <workItem from="1493696309182" duration="1541000" />
+      <workItem from="1493714007219" duration="1359000" />
+      <workItem from="1493719049290" duration="2430000" />
+      <workItem from="1493721520282" duration="111000" />
+      <workItem from="1493721656373" duration="307000" />
+      <workItem from="1493813604279" duration="267000" />
+      <workItem from="1493859066804" duration="7937000" />
+      <workItem from="1493876312101" duration="113000" />
+      <workItem from="1493877577007" duration="1501000" />
+      <workItem from="1493879625241" duration="5198000" />
+      <workItem from="1493896382785" duration="3245000" />
+      <workItem from="1493900046107" duration="567000" />
+      <workItem from="1493942253660" duration="1867000" />
+      <workItem from="1493949458893" duration="967000" />
+      <workItem from="1493958931972" duration="345000" />
+      <workItem from="1493959492636" duration="970000" />
+      <workItem from="1493962043318" duration="881000" />
+      <workItem from="1493989822035" duration="16000" />
+      <workItem from="1493990029660" duration="3874000" />
+      <workItem from="1493994382799" duration="57000" />
+      <workItem from="1493994648367" duration="529000" />
+      <workItem from="1493995892322" duration="50000" />
+      <workItem from="1494030266305" duration="8630000" />
+      <workItem from="1494041020814" duration="21000" />
+      <workItem from="1494047526007" duration="3458000" />
+      <workItem from="1494051343320" duration="58000" />
+      <workItem from="1494122109037" duration="1636000" />
+      <workItem from="1494150676398" duration="1202000" />
+      <workItem from="1494242311908" duration="745000" />
+      <workItem from="1494244666163" duration="705000" />
+      <workItem from="1494286774840" duration="706000" />
+      <workItem from="1494316550205" duration="2069000" />
+      <workItem from="1494328060237" duration="2594000" />
+      <workItem from="1494407505728" duration="1904000" />
+      <workItem from="1494410553141" duration="1530000" />
+      <workItem from="1494921916166" duration="229000" />
+      <workItem from="1494977837345" duration="433000" />
+      <workItem from="1494978292759" duration="48000" />
+      <workItem from="1494978362451" duration="97000" />
+      <workItem from="1495331298277" duration="980000" />
+      <workItem from="1495457744291" duration="6000" />
+      <workItem from="1495527625966" duration="1301000" />
+      <workItem from="1495534605863" duration="2256000" />
+      <workItem from="1495809474963" duration="1121000" />
+      <workItem from="1495840786751" duration="174000" />
+      <workItem from="1495842455767" duration="5436000" />
+      <workItem from="1495850932576" duration="70000" />
+      <workItem from="1495852995818" duration="381000" />
+      <workItem from="1495854230289" duration="15000" />
+      <workItem from="1495864749607" duration="8000" />
+      <workItem from="1495868420027" duration="2596000" />
+      <workItem from="1495876905964" duration="801000" />
+      <workItem from="1495877899986" duration="1169000" />
+      <workItem from="1495879361375" duration="27000" />
+      <workItem from="1495879553828" duration="31000" />
+      <workItem from="1495887676261" duration="2339000" />
+      <workItem from="1496187672162" duration="282000" />
+      <workItem from="1496217410738" duration="8356000" />
+      <workItem from="1496226079597" duration="298000" />
+      <workItem from="1496226747047" duration="152000" />
+      <workItem from="1496228396710" duration="53000" />
+      <workItem from="1496290171028" duration="154000" />
+      <workItem from="1496564400197" duration="1012000" />
+      <workItem from="1496664835296" duration="2510000" />
+      <workItem from="1496803011831" duration="1023000" />
+      <workItem from="1496822780843" duration="1194000" />
+      <workItem from="1496823994126" duration="2584000" />
+      <workItem from="1496827000222" duration="45000" />
+      <workItem from="1496827392960" duration="133000" />
+      <workItem from="1496827813348" duration="891000" />
+      <workItem from="1496830940252" duration="84000" />
+      <workItem from="1496831148651" duration="87000" />
+      <workItem from="1496831993595" duration="1344000" />
+      <workItem from="1496918525000" duration="1474000" />
+      <workItem from="1497710907016" duration="820000" />
+      <workItem from="1497711750078" duration="1018000" />
+      <workItem from="1497772210098" duration="111000" />
+      <workItem from="1497772340041" duration="331000" />
+      <workItem from="1497793716679" duration="339000" />
+      <workItem from="1497838088803" duration="1453000" />
+      <workItem from="1497851323785" duration="616000" />
+      <workItem from="1497856222050" duration="2696000" />
+      <workItem from="1497919733378" duration="4688000" />
+      <workItem from="1497942725539" duration="310000" />
+      <workItem from="1498004227254" duration="960000" />
+      <workItem from="1498005465962" duration="10466000" />
+      <workItem from="1498026017180" duration="10702000" />
+      <workItem from="1498037923053" duration="83000" />
+      <workItem from="1498039008147" duration="106000" />
+      <workItem from="1498039128872" duration="58000" />
+      <workItem from="1498044988099" duration="3008000" />
+      <workItem from="1498048126415" duration="46000" />
+      <workItem from="1498051650338" duration="6000" />
+      <workItem from="1498051677781" duration="2000" />
+      <workItem from="1498051866362" duration="2933000" />
+      <workItem from="1498091984771" duration="3640000" />
+      <workItem from="1498115698884" duration="7127000" />
+      <workItem from="1498129814562" duration="469000" />
+      <workItem from="1498131534821" duration="832000" />
+      <workItem from="1498132866557" duration="253000" />
+      <workItem from="1498187679087" duration="374000" />
+      <workItem from="1498188145005" duration="642000" />
+      <workItem from="1498189319078" duration="766000" />
+      <workItem from="1498227894223" duration="160000" />
+      <workItem from="1498294772544" duration="101000" />
+      <workItem from="1498303444691" duration="609000" />
+      <workItem from="1498398550679" duration="115000" />
+      <workItem from="1498399184324" duration="461000" />
+      <workItem from="1498467631508" duration="53000" />
+      <workItem from="1498481016610" duration="925000" />
+      <workItem from="1498482983196" duration="327000" />
+      <workItem from="1498485335715" duration="2476000" />
+      <workItem from="1498527354660" duration="6175000" />
+      <workItem from="1498554997087" duration="2596000" />
+      <workItem from="1498571516987" duration="5012000" />
+      <workItem from="1498607529746" duration="16763000" />
+      <workItem from="1498634317000" duration="5071000" />
+      <workItem from="1498647770757" duration="9000" />
+      <workItem from="1498655360791" duration="3867000" />
+      <workItem from="1498661767201" duration="126000" />
+      <workItem from="1498696378407" duration="5201000" />
+      <workItem from="1498701607485" duration="34000" />
+      <workItem from="1498702026619" duration="170000" />
+      <workItem from="1498702207596" duration="1892000" />
+      <workItem from="1498704120978" duration="3492000" />
+      <workItem from="1498707971734" duration="356000" />
+      <workItem from="1498708950416" duration="640000" />
+      <workItem from="1498713927220" duration="5704000" />
+      <workItem from="1498726357178" duration="4154000" />
+      <workItem from="1498733857234" duration="612000" />
+      <workItem from="1498734480311" duration="6445000" />
+      <workItem from="1498742391398" duration="2633000" />
+      <workItem from="1498745038977" duration="5234000" />
+      <workItem from="1498780061560" duration="11286000" />
+      <workItem from="1498792618051" duration="1892000" />
+      <workItem from="1498802085814" duration="11817000" />
+      <workItem from="1498825685157" duration="880000" />
+      <workItem from="1498834614797" duration="78000" />
+      <workItem from="1498874601735" duration="53000" />
+      <workItem from="1498874673118" duration="112000" />
+      <workItem from="1498875154224" duration="25000" />
+      <workItem from="1498875194789" duration="481000" />
+      <workItem from="1498880986824" duration="1358000" />
+      <workItem from="1498956067206" duration="6539000" />
+      <workItem from="1498976324000" duration="5488000" />
+      <workItem from="1498993886853" duration="3970000" />
+      <workItem from="1499067205354" duration="211000" />
+      <workItem from="1499076918017" duration="5902000" />
+      <workItem from="1499087209036" duration="5389000" />
+      <workItem from="1499166555463" duration="118000" />
+      <workItem from="1499230500152" duration="1845000" />
+      <workItem from="1499235732278" duration="95000" />
+      <workItem from="1499264154761" duration="4643000" />
+      <workItem from="1499308416765" duration="516000" />
+      <workItem from="1499329747562" duration="1884000" />
+      <workItem from="1499389987073" duration="3333000" />
+      <workItem from="1499394173601" duration="794000" />
+      <workItem from="1499481377882" duration="377000" />
+      <workItem from="1499484022683" duration="10323000" />
+      <workItem from="1499521413635" duration="4215000" />
+      <workItem from="1499525849903" duration="69000" />
+      <workItem from="1499579370851" duration="96000" />
+      <workItem from="1499579787812" duration="9275000" />
+      <workItem from="1499604992974" duration="397000" />
+      <workItem from="1499606667913" duration="45000" />
+      <workItem from="1499606724430" duration="37000" />
+      <workItem from="1499606813658" duration="68000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="355961000" />
+  </component>
+  <component name="TodoView" selected-index="3">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1589242" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3280899" sideWeight="0.4966249" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26233184" sideWeight="0.32408324" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269663" sideWeight="0.4947313" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19124424" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1364" y="209" width="319" height="388" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690126" sideWeight="0.4966249" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23655257" sideWeight="0.50623053" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1367713" sideWeight="0.67591673" order="3" side_tool="false" content_ui="tabs" x="89" y="316" width="1013" height="385" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="检验" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30368763" sideWeight="0.4252652" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4809417" sideWeight="0.4924012" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3280899" sideWeight="0.4966249" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="检验" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30368763" sideWeight="0.4252652" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2633371" sideWeight="0.32408324" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269663" sideWeight="0.4947313" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690126" sideWeight="0.4966249" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19621027" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48202246" sideWeight="0.4924012" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19124424" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1364" y="209" width="319" height="388" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23655257" sideWeight="0.50623053" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1367713" sideWeight="0.67591673" order="4" side_tool="false" content_ui="tabs" x="89" y="316" width="1013" height="385" />
+      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275488" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Default" />
+    <MESSAGE value="FixHide" />
+    <option name="LAST_COMMIT_MESSAGE" value="FixHide" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <default-breakpoints>
+        <breakpoint log-message="true" suspend="NONE" type="javascript-exception">
+          <properties />
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="47" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JavascriptDebugType">
+        <watch expression="results" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitattributes" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/InitJSFiles.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCInitProvider.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/sectional.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/ImgCodingStyles.css" />
+    <entry file="file://$PROJECT_DIR$/ModernBlog/ImageCoding.html" />
+    <entry file="file://$PROJECT_DIR$/js/ImgCoding_js/ImgCodingMain.js" />
+    <entry file="file://$PROJECT_DIR$/jumpto.html" />
+    <entry file="file://$PROJECT_DIR$/js/bmob.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Encryption/SHAHash.js" />
+    <entry file="file://$PROJECT_DIR$/lhy0403.github.io.sln" />
+    <entry file="file://$PROJECT_DIR$/js/ModernBlog_LoginServices.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SecKeyMgr.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/sixrr/inspectjs/exception/EmptyTryBlockJSInspection.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="730" column="32" lean-forward="false" selection-start-line="730" selection-start-column="32" selection-end-line="730" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="1190" column="13" lean-forward="false" selection-start-line="1190" selection-start-column="13" selection-end-line="1190" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/dupLocator/JSDuplicatesPresentation.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/WeChatJsDemo.htm" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/demo.js" />
+    <entry file="file://$PROJECT_DIR$/Sources/Backgrounds/back3.jpg" />
+    <entry file="file://$PROJECT_DIR$/Sources/Backgrounds/404-2.bmp" />
+    <entry file="file://$PROJECT_DIR$/css/style.css" />
+    <entry file="file://$PROJECT_DIR$/css/bootstrap.css" />
+    <entry file="file://$PROJECT_DIR$/js/bootstrap.js" />
+    <entry file="file://$PROJECT_DIR$/css/MyCss.css" />
+    <entry file="file://$PROJECT_DIR$/.editorconfig" />
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/js/jquery-3.2.1.js" />
+    <entry file="file://$PROJECT_DIR$/js/FoFPage/jquery-1.10.2.js" />
+    <entry file="file://$PROJECT_DIR$/js/FoFPage/custom.js" />
+    <entry file="file://$PROJECT_DIR$/js/FoFPage/countUp.js" />
+    <entry file="file://$PROJECT_DIR$/fonts/fontawesome-webfont.eot" />
+    <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css" />
+    <entry file="file://$PROJECT_DIR$/404.html" />
+    <entry file="file://$PROJECT_DIR$/js/Encryption/Cookie.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/meta.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ModernBlog/edit.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/GlobalFunctions.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SCHLoginServices.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCServicesProvider.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeiXinModule.js" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/index.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/loginusr.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/qrscanreg.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/RptBug.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBCSS.css" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/usermanage.html" />
+    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatUserCodeReceiver.html" />
+    <entry file="file://$PROJECT_DIR$/docs.lnk" />
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="101" column="9" lean-forward="true" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
