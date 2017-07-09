@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>管理页面</title>
+    <script src="../js/bmob.js"></script>
+    <script src="../js/Encryption/Cookie.js"></script>
+    <script src="../js/Encryption/Base64.js"></script>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script src="../js/Bootstrap-3.3.7.js"></script>
+    <script src="../js/Encryption/SHAHash.js"></script>
+    <script src="../js/Encryption/MD5.js"></script>
+    <script src="SchBMgr_js/SecKeyMgr.js"></script>
+    <script src="SchBMgr_js/WeiXinModule.js"></script>
+    <script src="SchBMgr_js/SCHLoginServices.js"></script>
+    <script src="SchBMgr_js/GlobalFunctions.js"></script>
+    <script src="SchBMgr_js/WCServicesProvider.js"></script>
+    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="SchBCSS.css">
+</head>
+<body class="BodyStyle">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html" id="PgTitleBar">管理页面-概述</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="defaultNavbar1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">概述</a></li>
+                <li><a href="qrscanreg.html">登记</a></li>
+                <li><a href="report.html">汇报问题</a></li>
+                <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="usermanage.html">用户管理</a></li>
+                <li><a href="RptBug.html">反馈Bug</a></li>
+                <li><a href="" id="navUsrName" onclick="RemoveLoginData()">注销当前账户</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>概述</h1>
+    <input class="btn btn-default btn-sm col-md-7" id="OpenNoti" type=button onclick="showOutNotifi()" value="打开通知"/>
+    <a href="WeChatJsDemo_files/WeChatJsDemo.htm">WeChatJsDemo</a>
+</div>
+
+<!-- It is Notification area Below-->
+<div id="NotificationDiv" class="pop-box container" style="display: none">
+    <br>
+    <h1 class="container center-all" id="NotiTitle">通知</h1>
+    <div class="pop-box-body container">
+        <div id="NotiContent" class="container" style="width: 80%;">
+            <p></p>
+        </div>
+        <br>
+        <div class="container" style="width: 90%">
+            <input class="checkbox-inline" type="checkbox" id="WebNotiSeen">
+            <label for="WebNotiSeen">不再提示</label>
+        </div>
+    </div>
+    <input id="CloseNoti" class="btn btn-success text-center"
+           type="button" style="width: 80%; margin-left: 10%; margin-bottom: 25px" onclick="closeNotifi();" value="关闭"/>
+    <br>
+</div>
+<script>
+    Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+    Maininit("index.html", mainInitCallback);
+    InitWeixin();
+    var currentUser;
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+        document.getElementById("navUsrName").innerHTML = "注销当前账户  -  " + currentUser[8];
+        var query = new Bmob.Query(Bmob.Object.extend("GeneralData"));
+        query.get("AMZgHHHK", function (objectGet)
+        {
+            var reg = new RegExp("/NL", "g")
+            var notiStr = objectGet.get("DataContent").replace(reg, "<br>");
+            notiStr += "<br>";
+            document.getElementById("NotiContent").innerHTML = notiStr;
+            document.getElementById("NotiTitle").innerHTML = objectGet.get("NTitle");
+        }, null);
+        if (currentUser[5] === false)
+        {
+            document.getElementById("WebNotiSeen").checked = false;
+            showOutNotifi();
+        }
+        if (currentUser[5])
+        {
+            document.getElementById("WebNotiSeen").checked = true;
+        }
+    }
+
+    function showOutNotifi()
+    {
+        var elementX = $("#NotificationDiv");
+        var windowWidth = document.body.clientWidth;
+        var windowHeight = document.body.clientHeight;
+        var popupWidth = elementX.width();
+        elementX.css({"top": 0});
+        elementX.css({"position": "absolute"}).animate({
+            top: windowHeight * 0.3,
+            opacity: "show"
+        }, "normal");
+    }
+
+    function closeNotifi()
+    {
+        var elementX = $("#NotificationDiv");
+        var windowWidth = document.body.clientWidth;
+        var windowHeight = document.body.clientHeight;
+        var popupWidth = elementX.width();
+        $("#mask").remove();
+        elementX.animate(
+            {
+                top: windowHeight,
+                opacity: "hide"
+            }, "normal");
+        BmobWriteUserData(currentUser[0], "WebNotiSeen",
+            document.getElementById("WebNotiSeen").checked, function (result)
+            {
+                currentUser = result;
+            });
+    }
+
+    wx.ready(function ()
+    {
+        wx.hideOptionMenu();
+    });
+</script>
+</body>
+</html>
