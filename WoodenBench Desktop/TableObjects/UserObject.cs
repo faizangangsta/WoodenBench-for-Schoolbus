@@ -9,16 +9,14 @@ namespace WoodenBench.TableObjects
     /// </summary>
     public class AllUsersTable : BmobTable
     {
-        public string table = GlobalFunc.TABLE_N_Gen_AllUsr;
-        private string MyTable = GlobalFunc.TABLE_N_Gen_AllUsr;
+        public override string table { get { return GlobalFunc.TABLE_N_Gen_UsrTable; } }
         public string objectId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public int UserGroup { get; set; }
-        public bool WebNotiSeen { get; set; } 
-        public BmobDate LastLoginTime { get; set; }
+        public bool WebNotiSeen { get; set; }
         public string WeChatID { get; set; }
-        public string RealName { get; set; }        
+        public string RealName { get; set; }
         public AllUsersTable() { }
         public override void readFields(BmobInput input)
         {
@@ -26,7 +24,6 @@ namespace WoodenBench.TableObjects
             UserName = input.getString("Username");
             Password = input.getString("Password");
             WeChatID = input.getString("WeChatID");
-            LastLoginTime = input.getDate("LastLoginTime");
             UserGroup = input.getInt("UsrGroup").Get();
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
@@ -36,7 +33,6 @@ namespace WoodenBench.TableObjects
         {
             base.write(output, all);
             output.Put("WebNotiSeen", WebNotiSeen);
-            output.Put("LastLoginTime", LastLoginTime);
             output.Put("Username", this.UserName);
             output.Put("Password", this.Password);
             output.Put("WeChatID", this.WeChatID);

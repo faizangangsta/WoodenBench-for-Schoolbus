@@ -159,7 +159,6 @@
             this.Name = "UsrLoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "用户登录";
-            this.Load += new System.EventHandler(this.UsrLoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

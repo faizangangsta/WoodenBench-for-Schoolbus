@@ -45,7 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.TUsrLgnTimeL = new System.Windows.Forms.Label();
+            this.TUsrWCIDL = new System.Windows.Forms.Label();
             this.TUsrGroupL = new System.Windows.Forms.Label();
             this.TUsrIDL = new System.Windows.Forms.Label();
             this.TUsrRNameL = new System.Windows.Forms.Label();
@@ -70,12 +70,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.StudentData = new System.Windows.Forms.DataGridView();
+            this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SureAndUploadBtn = new System.Windows.Forms.Button();
             this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
             this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
             this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理员页面MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.NowUsrDataGroup.SuspendLayout();
             this.MainStatusGroup.SuspendLayout();
@@ -111,14 +112,14 @@
             // 
             this.退出EToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.退出EToolStripMenuItem.Name = "退出EToolStripMenuItem";
-            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出EToolStripMenuItem.Text = "退出(&E)";
             this.退出EToolStripMenuItem.Click += new System.EventHandler(this.退出EToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(112, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             this.toolStripSeparator2.Click += new System.EventHandler(this.StrangeBar);
             // 
             // 用户UToolStripMenuItem
@@ -126,7 +127,8 @@
             this.用户UToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.更改用户信息DToolStripMenuItem,
             this.toolStripSeparator1,
-            this.退出用户EToolStripMenuItem});
+            this.退出用户EToolStripMenuItem,
+            this.管理员页面MToolStripMenuItem});
             this.用户UToolStripMenuItem.Name = "用户UToolStripMenuItem";
             this.用户UToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.用户UToolStripMenuItem.Text = "用户(&U)";
@@ -165,7 +167,7 @@
             this.NowUsrDataGroup.Controls.Add(this.label2);
             this.NowUsrDataGroup.Controls.Add(this.label5);
             this.NowUsrDataGroup.Controls.Add(this.label1);
-            this.NowUsrDataGroup.Controls.Add(this.TUsrLgnTimeL);
+            this.NowUsrDataGroup.Controls.Add(this.TUsrWCIDL);
             this.NowUsrDataGroup.Controls.Add(this.TUsrGroupL);
             this.NowUsrDataGroup.Controls.Add(this.TUsrIDL);
             this.NowUsrDataGroup.Controls.Add(this.TUsrRNameL);
@@ -177,20 +179,21 @@
             this.NowUsrDataGroup.TabIndex = 4;
             this.NowUsrDataGroup.TabStop = false;
             this.NowUsrDataGroup.Text = "当前用户信息";
+            this.NowUsrDataGroup.Enter += new System.EventHandler(this.NowUsrDataGroup_Enter);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 98);
+            this.label4.Location = new System.Drawing.Point(30, 109);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 17);
+            this.label4.Size = new System.Drawing.Size(44, 17);
             this.label4.TabIndex = 7;
-            this.label4.Text = "登陆时间";
+            this.label4.Text = "微信号";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 78);
+            this.label3.Location = new System.Drawing.Point(7, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 17);
             this.label3.TabIndex = 6;
@@ -199,7 +202,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 59);
+            this.label2.Location = new System.Drawing.Point(6, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 5;
@@ -208,7 +211,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 39);
+            this.label5.Location = new System.Drawing.Point(18, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 17);
             this.label5.TabIndex = 4;
@@ -217,27 +220,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 19);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "当前用户名";
             // 
-            // TUsrLgnTimeL
+            // TUsrWCIDL
             // 
-            this.TUsrLgnTimeL.AutoSize = true;
-            this.TUsrLgnTimeL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TUsrLgnTimeL.Location = new System.Drawing.Point(80, 98);
-            this.TUsrLgnTimeL.Name = "TUsrLgnTimeL";
-            this.TUsrLgnTimeL.Size = new System.Drawing.Size(72, 17);
-            this.TUsrLgnTimeL.TabIndex = 3;
-            this.TUsrLgnTimeL.Text = "Login Time";
+            this.TUsrWCIDL.AutoSize = true;
+            this.TUsrWCIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrWCIDL.Location = new System.Drawing.Point(80, 109);
+            this.TUsrWCIDL.Name = "TUsrWCIDL";
+            this.TUsrWCIDL.Size = new System.Drawing.Size(59, 17);
+            this.TUsrWCIDL.TabIndex = 3;
+            this.TUsrWCIDL.Text = "WChatID";
             // 
             // TUsrGroupL
             // 
             this.TUsrGroupL.AutoSize = true;
             this.TUsrGroupL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TUsrGroupL.Location = new System.Drawing.Point(80, 78);
+            this.TUsrGroupL.Location = new System.Drawing.Point(80, 87);
             this.TUsrGroupL.Name = "TUsrGroupL";
             this.TUsrGroupL.Size = new System.Drawing.Size(76, 17);
             this.TUsrGroupL.TabIndex = 2;
@@ -247,7 +250,7 @@
             // 
             this.TUsrIDL.AutoSize = true;
             this.TUsrIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TUsrIDL.Location = new System.Drawing.Point(80, 59);
+            this.TUsrIDL.Location = new System.Drawing.Point(80, 66);
             this.TUsrIDL.Name = "TUsrIDL";
             this.TUsrIDL.Size = new System.Drawing.Size(48, 17);
             this.TUsrIDL.TabIndex = 1;
@@ -257,7 +260,7 @@
             // 
             this.TUsrRNameL.AutoSize = true;
             this.TUsrRNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TUsrRNameL.Location = new System.Drawing.Point(80, 39);
+            this.TUsrRNameL.Location = new System.Drawing.Point(80, 44);
             this.TUsrRNameL.Name = "TUsrRNameL";
             this.TUsrRNameL.Size = new System.Drawing.Size(78, 17);
             this.TUsrRNameL.TabIndex = 0;
@@ -267,7 +270,7 @@
             // 
             this.TUsrNameL.AutoSize = true;
             this.TUsrNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TUsrNameL.Location = new System.Drawing.Point(80, 19);
+            this.TUsrNameL.Location = new System.Drawing.Point(80, 22);
             this.TUsrNameL.Name = "TUsrNameL";
             this.TUsrNameL.Size = new System.Drawing.Size(70, 17);
             this.TUsrNameL.TabIndex = 0;
@@ -487,6 +490,18 @@
             this.StudentData.Size = new System.Drawing.Size(497, 184);
             this.StudentData.TabIndex = 4;
             // 
+            // DataStuName
+            // 
+            this.DataStuName.HeaderText = "学生姓名";
+            this.DataStuName.Name = "DataStuName";
+            this.DataStuName.Width = 130;
+            // 
+            // DataStuDirection
+            // 
+            this.DataStuDirection.HeaderText = "校车路线";
+            this.DataStuDirection.Name = "DataStuDirection";
+            this.DataStuDirection.Width = 130;
+            // 
             // SureAndUploadBtn
             // 
             this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -524,17 +539,12 @@
             this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
             this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
             // 
-            // DataStuName
+            // 管理员页面MToolStripMenuItem
             // 
-            this.DataStuName.HeaderText = "学生姓名";
-            this.DataStuName.Name = "DataStuName";
-            this.DataStuName.Width = 130;
-            // 
-            // DataStuDirection
-            // 
-            this.DataStuDirection.HeaderText = "校车路线";
-            this.DataStuDirection.Name = "DataStuDirection";
-            this.DataStuDirection.Width = 130;
+            this.管理员页面MToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
+            this.管理员页面MToolStripMenuItem.Name = "管理员页面MToolStripMenuItem";
+            this.管理员页面MToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.管理员页面MToolStripMenuItem.Text = "管理员页面(&M)";
             // 
             // MainWindow
             // 
@@ -583,7 +593,7 @@
         private System.Windows.Forms.ToolStripStatusLabel BUsrIDL;
         private System.Windows.Forms.ToolStripStatusLabel BtomStaLabel3;
         private System.Windows.Forms.ToolStripStatusLabel BUsrGroupL;
-        private System.Windows.Forms.Label TUsrLgnTimeL;
+        private System.Windows.Forms.Label TUsrWCIDL;
         private System.Windows.Forms.Label TUsrGroupL;
         private System.Windows.Forms.Label TUsrIDL;
         private System.Windows.Forms.Label TUsrNameL;
@@ -617,5 +627,6 @@
         private System.Windows.Forms.ToolStripStatusLabel BUsrRNameL;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataStuName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataStuDirection;
+        private System.Windows.Forms.ToolStripMenuItem 管理员页面MToolStripMenuItem;
     }
 }

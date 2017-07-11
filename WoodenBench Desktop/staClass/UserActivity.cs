@@ -19,28 +19,25 @@ namespace WoodenBench.staClass
         public enum UserGroupEnum
         {
             管理组用户,
-            小学部_班主任,
-            初中部_班主任,
-            普通高中部_班主任,
-            中加高中部_班主任,
-            留学生部_班主任,
-            剑桥高中部_班主任,
+            班主任,
             校车管理老师,
             家长
         }
         public static bool ChangePassWord(AllUsersTable NowUser, string OriPasswrd, string NewPasswrd)
         {
-            AllUsersTable Obj = new AllUsersTable()
+            AllUsersTable game = new AllUsersTable();
+            game.Password = NewPasswrd;
+            Bmob.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, game, (resp, exception) =>
             {
-                objectId = NowUser.objectId,
-                UserGroup = (int)NowUser.UserGroup,
-                Password = NewPasswrd,
-                UserName = NowUser.UserName
-            };
-            var Result = GlobalFunc.Bmob.UpdateTaskAsync(Obj);
-            JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Result.Result));
+                if (exception != null)
+                {
+                    MessageBox.Show("修改失败, 失败原因为： " + exception.Message);
+                    return;
+                }
+            });
             return true;
         }
+
         public static void LogOut()
         {
             CurrentUser = null;
@@ -48,14 +45,15 @@ namespace WoodenBench.staClass
             MainWindow.Default.Close();
             ChangeUserData.Default.Close();
         }
+
         public static bool Login(string xUserName, string xPassword)
         {
             string StrObjectID;
-            int UserGroup;
             string Password;
+            string RealName;
+            int UserGroup;
             bool WebNotiSeen;
             string WeChatID;
-            string RealName;
 
             bool BRtn = false;
             BmobQuery UserNameQuery = new BmobQuery();
@@ -63,25 +61,26 @@ namespace WoodenBench.staClass
             try
             {
                 System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUsersTable>> UsrNameResult;
-                UsrNameResult = GlobalFunc.Bmob.FindTaskAsync<AllUsersTable>(GlobalFunc.TABLE_N_Gen_AllUsr, UserNameQuery);
+                UsrNameResult = GlobalFunc.Bmob.FindTaskAsync<AllUsersTable>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
-                JToken JsonUserNameResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
+                JToken JsonUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
 
-                WebNotiSeen = Convert.ToBoolean(JsonUserNameResult["WebNotiSeen"].ToString());
-                StrObjectID = JsonUserNameResult["objectId"].ToString();
-                Password = JsonUserNameResult["Password"].ToString();
-                UserGroup = Convert.ToInt32(JsonUserNameResult["UsrGroup"].ToString());
-                WeChatID = JsonUserNameResult["WeChatID"].ToString();
-                RealName = JsonUserNameResult["RealName"].ToString();
+                WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
+                StrObjectID = JsonUsrResult["objectId"].ToString();
+                Password = JsonUsrResult["Password"].ToString();
+                UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
+                WeChatID = JsonUsrResult["WeChatID"].ToString();
+                RealName = JsonUsrResult["RealName"].ToString();
 
                 AllUsersTable FoundUser = new AllUsersTable()
                 {
                     objectId = StrObjectID,
-                    Password = Password,
                     UserName = xUserName,
+                    Password = Password,
+                    RealName = RealName,
                     UserGroup = UserGroup,
-                    LastLoginTime = DateTime.Now,
-                    WeChatID = WeChatID,
+                    WebNotiSeen = WebNotiSeen,
+                    WeChatID = WeChatID
                 };
 
                 if (FoundUser.Password == xPassword)
@@ -89,10 +88,7 @@ namespace WoodenBench.staClass
                     CurrentUser = FoundUser;
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                else return false;
             }
             catch (Exception e)
             {

@@ -11,22 +11,11 @@ namespace WoodenBench.View
 {
     public partial class CreateUser : Form
     {
-        /// <summary>
-        /// <see cref="NewUserObj"/> is a new variable,
-        /// its type is <seealso cref="AllUsersTable"/>
-        /// the <see cref="AllUsersTable"/> is not static, so use "new"
-        /// </summary>
-		private AllUsersTable NewUserObj = new AllUsersTable();
-        public CreateUser()
-        {
-            //Auto generated, initialize the objects inside the window
-            InitializeComponent();
-        }
+        private AllUsersTable NewUserObj = new AllUsersTable();
+        public CreateUser() { InitializeComponent(); }
 
         private void CreateUser_Load(object sender, EventArgs e)
         {
-            ///Generate the <see cref="Random"/> number
-            ///we use 'new' because this <see cref="Random"/> is not static
             randomlabel.Text = (new Random()).Next(10000, 99999).ToString();
         }
 
@@ -35,15 +24,6 @@ namespace WoodenBench.View
             button1.Text = "正在提交请求";
             Enabled = false;
             Application.DoEvents();
-
-            ///if
-            /// <see cref="UserNameT"/> has not a empty value
-            /// <seealso cref="PasswordT"/> and <seealso cref="PasswordT2"/> aren't empty, 
-            /// the <see cref="KeyT"/> equals to the randpm number in <see cref="randomlabel"/>
-            /// the user has already chosen a <see cref="GroupT"/>
-            /// and the user has accepted the use policy <see cref="CheckT"/>
-            /// <see cref="PasswordT"/> and <see cref="PasswordT2"/> are same.
-
             if (UserNameT.Text != "" &&
                 PasswordT.Text != "" &&
                 PasswordT2.Text != "" &&
@@ -52,18 +32,13 @@ namespace WoodenBench.View
                 CheckT.Checked &&
                 PasswordT.Text == PasswordT2.Text)
             {
-                ///<see cref="NewUserObj"/>
-				NewUserObj.UserName = UserNameT.Text;
+                NewUserObj.UserName = UserNameT.Text;
                 NewUserObj.RealName = RealNameT.Text;
                 NewUserObj.WebNotiSeen = false;
                 NewUserObj.WeChatID = "####";
                 NewUserObj.Password = PasswordT2.Text;
                 NewUserObj.UserGroup = GroupT.SelectedIndex + 1;
-                ///Give values to the new user object
-                ///Then <see cref="Bmob"/> will create a record
-                ///in <see cref="TABLE_N_AllStuData"/> table.
-				var future = Bmob.CreateTaskAsync(NewUserObj);
-                ///Wait for the BMOB to be finished
+                var future = Bmob.CreateTaskAsync(NewUserObj);
                 future.Wait();
                 try
                 {
@@ -76,7 +51,6 @@ namespace WoodenBench.View
                 }
                 catch (Exception Exc)
                 {
-                    ///Failed, write to debug log
                     DebugMessage($"Failed create user, " + Environment.NewLine +
                         $"name is {NewUserObj.UserName}, " + Environment.NewLine +
                         $"password is {NewUserObj.Password}" + Environment.NewLine +
