@@ -16,23 +16,22 @@ namespace WoodenBench.staClass
 {
     public class UserActivity
     {
-        public enum UserGroupEnum
-        {
-            管理组用户,
-            班主任,
-            校车管理老师,
-            家长
-        }
+
         public static bool ChangePassWord(AllUsersTable NowUser, string OriPasswrd, string NewPasswrd)
         {
-            AllUsersTable game = new AllUsersTable();
-            game.Password = NewPasswrd;
-            Bmob.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, game, (resp, exception) =>
+            AllUsersTable Change = new AllUsersTable();
+            Change.Password = NewPasswrd;
+            Bmob.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
                 {
                     MessageBox.Show("修改失败, 失败原因为： " + exception.Message);
+                    DebugMessage(exception.Message);
                     return;
+                }
+                else
+                {
+                    MessageBox.Show($"为重载用户配置，当前用户 {CurrentUser.RealName} 将被注销，请重新登陆");
                 }
             });
             return true;
@@ -44,9 +43,10 @@ namespace WoodenBench.staClass
             UsrLoginForm.Default.Show();
             MainWindow.Default.Close();
             ChangeUserData.Default.Close();
+            GC.Collect();
         }
 
-        public static bool Login(string xUserName, string xPassword)
+        public static bool Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
             string StrObjectID;
             string Password;
@@ -85,10 +85,17 @@ namespace WoodenBench.staClass
 
                 if (FoundUser.Password == xPassword)
                 {
-                    CurrentUser = FoundUser;
-                    return true;
+                    if (OnlyVerify)
+                    {
+                        return FoundUser.RealName == RealN;
+                    }
+                    else
+                    {
+                        CurrentUser = FoundUser;
+                        return true;
+                    }
                 }
-                else return false;
+                return false;
             }
             catch (Exception e)
             {

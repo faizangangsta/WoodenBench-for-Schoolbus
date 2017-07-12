@@ -52,12 +52,9 @@ namespace WoodenBench.View
                 {
                     if (NPasswrodTxt1.Text != "")
                     {
-                        if (ChangePassWord(CurrentUser, FPasswordTxt.Text, NPasswrodTxt1.Text))
-                        {
-                            MessageBox.Show($"为重载用户配置，当前用户 {CurrentUser.UserName} 将被注销，请重新登陆");
-                            LogOut();
-                            return;
-                        }
+                        ChangePassWord(CurrentUser, FPasswordTxt.Text, NPasswrodTxt1.Text);
+                        LogOut();
+                        return;
                     }
                     else
                     {

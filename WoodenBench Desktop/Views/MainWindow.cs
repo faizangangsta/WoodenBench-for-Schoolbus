@@ -7,15 +7,15 @@ using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.staClass;
 using WoodenBench.TableObjects;
+using WoodenBench.Views;
 using static WoodenBench.staClass.GlobalFunc;
 using static WoodenBench.staClass.UserActivity;
+using static WoodenBench.TableObjects.AllUsersTable;
 
 namespace WoodenBench.View
 {
     public partial class MainWindow : Form
     {
-        Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-        Microsoft.Office.Interop.Excel.Workbook xWorkbook;
         int Hiint = 0;
         private static MainWindow defaultInstance;
         EveryStudentData StudentObj = new EveryStudentData();
@@ -41,6 +41,11 @@ namespace WoodenBench.View
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            if (CurrentUser.UserGroup == 0 || CurrentUser.UserGroup == 2)
+            {
+                AdminManage.Visible = true;
+                AdminManage.Enabled = true;
+            }
             NotificationWorker.RunWorkerAsync();
             Text = Text + " - " + CurrentUser.RealName;
             TUsrWCIDL.Text = CurrentUser.WeChatID;
@@ -52,7 +57,6 @@ namespace WoodenBench.View
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ExcelApp.Quit();
             ApplicationExit();
         }
 
@@ -102,32 +106,33 @@ namespace WoodenBench.View
         }
         private void OpenExcel(object sender, EventArgs e)
         {
+            Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook xWorkbook;
+
             OpenExcelFileDialog.FileName = "";
             OpenExcelFileDialog.ShowDialog();
-            if (OpenExcelFileDialog.FileName != "")
+            if (OpenExcelFileDialog.FileName == "") return;
+            ExcelFilePath = OpenExcelFileDialog.FileName;
+            ExcelFilePathTxt.Text = ExcelFilePath;
+            xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
+            int LastLine = ExcelApplication.GetLastLineOfExcel(xWorkbook);
+            for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
             {
-                ExcelFilePath = OpenExcelFileDialog.FileName;
-                ExcelFilePathTxt.Text = ExcelFilePath;
-                xWorkbook = ExcelApp.Workbooks._Open(ExcelFilePath);
-                int LastLine = GetLastLineOfExcel();
-                for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
-                {
-                    string a = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 2].Value);
-                    string b = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 3].Value);
-                    string c = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 4].Value);
-                    string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value);
-                    StudentData.Rows.Add(a, b, c, d);
-                }
-                NowPartOfSchool = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 4].Value);
-                NowClassProcess = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 2].Value);
-                NowPartOSchoolLbl.Text = NowPartOfSchool;
-                NowClassLbl.Text = NowClassProcess;
+                string a = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 2].Value);
+                string b = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 3].Value);
+                string c = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 4].Value);
+                string d = Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 5].Value);
+                StudentData.Rows.Add(a, b, c, d);
             }
+            NowPartOfSchool = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 4].Value);
+            NowClassProcess = Convert.ToString(xWorkbook.Worksheets[1].Cells[2, 2].Value);
+            NowPartOSchoolLbl.Text = NowPartOfSchool;
+            NowClassLbl.Text = NowClassProcess;
         }
 
-        private void NowUsrDataGroup_Enter(object sender, EventArgs e)
+        private void 管理员页面MToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Management.Default.Show(this);
         }
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
@@ -172,20 +177,6 @@ namespace WoodenBench.View
             this.SureAndUploadBtn.Text = "确认并上传(&S)";
             this.Enabled = true;
         }
-        private int GetLastLineOfExcel()
-        {
-            int LineNum;
-            for (LineNum = 1; LineNum <= 100; LineNum++)
-            {
-                if (Convert.ToString(xWorkbook.Worksheets[1].Cells[LineNum, 1].Value) == null)
-                    return LineNum;
-            }
-            return 0;
-        }
+
     }
 }
-
-//var query = new BmobQuery();
-//query.WhereContainedIn<string>("playerName", "123");
-//var future = Bmob.FindTaskAsync<GameObject>(TABLE_NAME, query);
-//FinishedCallback(future.Result, resultText);

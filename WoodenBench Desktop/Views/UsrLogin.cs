@@ -55,7 +55,7 @@ namespace WoodenBench.View
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text))
+            if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false))
             {
                 MainWindow.Default.Show();
                 Hide();

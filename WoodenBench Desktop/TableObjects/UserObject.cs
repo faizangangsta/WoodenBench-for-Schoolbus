@@ -9,6 +9,7 @@ namespace WoodenBench.TableObjects
     /// </summary>
     public class AllUsersTable : BmobTable
     {
+        public enum UserGroupEnum { 管理组用户, 班主任, 高层管理, 家长 }
         public override string table { get { return GlobalFunc.TABLE_N_Gen_UsrTable; } }
         public string objectId { get; set; }
         public string UserName { get; set; }

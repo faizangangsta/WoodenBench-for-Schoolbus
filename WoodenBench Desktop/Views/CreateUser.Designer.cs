@@ -160,7 +160,8 @@
             this.GroupT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.GroupT.FormattingEnabled = true;
             this.GroupT.Items.AddRange(new object[] {
-            "班主任",
+            "老师",
+            "高层管理",
             "家长"});
             this.GroupT.Location = new System.Drawing.Point(100, 119);
             this.GroupT.Name = "GroupT";

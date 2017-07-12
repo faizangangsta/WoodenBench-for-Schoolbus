@@ -87,6 +87,12 @@
     <Compile Include="staClass\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
+    <Compile Include="Views\Management.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Management.Designer.cs">
+      <DependentUpon>Management.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UsrLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     <Compile Include="Views\UserChangeProperty.Designer.cs">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Management.resx">
+      <DependentUpon>Management.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\UsrLogin.resx">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </EmbeddedResource>

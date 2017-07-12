@@ -40,7 +40,7 @@ namespace WoodenBench.staClass
         }
         public static void ApplicationExit()
         {
-            DebugMessage("Application Exits.");
+            DebugMessage("Application Exit");
             Application.Exit();
         }
     }

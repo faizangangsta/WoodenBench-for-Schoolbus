@@ -38,6 +38,7 @@
             this.更改用户信息DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.退出用户EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AdminManage = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NowUsrDataGroup = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -76,7 +77,6 @@
             this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
             this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
             this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.管理员页面MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.NowUsrDataGroup.SuspendLayout();
             this.MainStatusGroup.SuspendLayout();
@@ -112,14 +112,14 @@
             // 
             this.退出EToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.退出EToolStripMenuItem.Name = "退出EToolStripMenuItem";
-            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.退出EToolStripMenuItem.Text = "退出(&E)";
             this.退出EToolStripMenuItem.Click += new System.EventHandler(this.退出EToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(112, 6);
             this.toolStripSeparator2.Click += new System.EventHandler(this.StrangeBar);
             // 
             // 用户UToolStripMenuItem
@@ -128,7 +128,7 @@
             this.更改用户信息DToolStripMenuItem,
             this.toolStripSeparator1,
             this.退出用户EToolStripMenuItem,
-            this.管理员页面MToolStripMenuItem});
+            this.AdminManage});
             this.用户UToolStripMenuItem.Name = "用户UToolStripMenuItem";
             this.用户UToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.用户UToolStripMenuItem.Text = "用户(&U)";
@@ -151,6 +151,16 @@
             this.退出用户EToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.退出用户EToolStripMenuItem.Text = "退出用户(&E)";
             this.退出用户EToolStripMenuItem.Click += new System.EventHandler(this.退出用户EToolStripMenuItem_Click);
+            // 
+            // AdminManage
+            // 
+            this.AdminManage.Enabled = false;
+            this.AdminManage.ForeColor = System.Drawing.Color.Red;
+            this.AdminManage.Name = "AdminManage";
+            this.AdminManage.Size = new System.Drawing.Size(165, 22);
+            this.AdminManage.Text = "管理员页面(&M)";
+            this.AdminManage.Visible = false;
+            this.AdminManage.Click += new System.EventHandler(this.管理员页面MToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem
             // 
@@ -179,7 +189,6 @@
             this.NowUsrDataGroup.TabIndex = 4;
             this.NowUsrDataGroup.TabStop = false;
             this.NowUsrDataGroup.Text = "当前用户信息";
-            this.NowUsrDataGroup.Enter += new System.EventHandler(this.NowUsrDataGroup_Enter);
             // 
             // label4
             // 
@@ -539,13 +548,6 @@
             this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
             this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
             // 
-            // 管理员页面MToolStripMenuItem
-            // 
-            this.管理员页面MToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
-            this.管理员页面MToolStripMenuItem.Name = "管理员页面MToolStripMenuItem";
-            this.管理员页面MToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.管理员页面MToolStripMenuItem.Text = "管理员页面(&M)";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -627,6 +629,6 @@
         private System.Windows.Forms.ToolStripStatusLabel BUsrRNameL;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataStuName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataStuDirection;
-        private System.Windows.Forms.ToolStripMenuItem 管理员页面MToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AdminManage;
     }
 }
