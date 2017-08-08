@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using WoodenBench.staClass;
 
-namespace WoodenBench.TableObjects
+namespace WoodenBench.TableObject
 {
     public class EveryStudentData : BmobTable
     {

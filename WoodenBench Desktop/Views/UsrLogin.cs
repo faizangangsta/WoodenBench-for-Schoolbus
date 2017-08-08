@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WoodenBench.staClass;
-using WoodenBench.TableObjects;
+using WoodenBench.TableObject;
 using static WoodenBench.staClass.GlobalFunc;
 
 namespace WoodenBench.View

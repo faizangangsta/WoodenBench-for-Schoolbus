@@ -8,9 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.TableObjects;
+using WoodenBench.TableObject;
 using WoodenBench.View;
 using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.TableObject.AllUsersTable;
 
 namespace WoodenBench.staClass
 {
@@ -39,10 +40,10 @@ namespace WoodenBench.staClass
 
         public static void LogOut()
         {
-            CurrentUser = null;
             UsrLoginForm.Default.Show();
             MainWindow.Default.Close();
             ChangeUserData.Default.Close();
+            CurrentUser = null;
             GC.Collect();
         }
 
@@ -78,7 +79,7 @@ namespace WoodenBench.staClass
                     UserName = xUserName,
                     Password = Password,
                     RealName = RealName,
-                    UserGroup = UserGroup,
+                    UserGroup = (UserGroupEnum)UserGroup,
                     WebNotiSeen = WebNotiSeen,
                     WeChatID = WeChatID
                 };

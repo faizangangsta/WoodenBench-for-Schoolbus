@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.staClass;
-using WoodenBench.TableObjects;
+using WoodenBench.TableObject;
 using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.TableObject.AllUsersTable;
 
 namespace WoodenBench.View
 {
@@ -37,7 +38,7 @@ namespace WoodenBench.View
                 NewUserObj.WebNotiSeen = false;
                 NewUserObj.WeChatID = "####";
                 NewUserObj.Password = PasswordT2.Text;
-                NewUserObj.UserGroup = GroupT.SelectedIndex + 1;
+                NewUserObj.UserGroup = (UserGroupEnum)(GroupT.SelectedIndex + 1);
                 var future = Bmob.CreateTaskAsync(NewUserObj);
                 future.Wait();
                 try

@@ -1,20 +1,20 @@
 ﻿using cn.bmob.io;
 using System;
 using WoodenBench.staClass;
+using static WoodenBench.staClass.GlobalFunc;
 
-namespace WoodenBench.TableObjects
+namespace WoodenBench.TableObject
 {
     /// <summary>
     /// DON'T CHANGE CLASS NAME  'AllUsersTable'
     /// </summary>
     public class AllUsersTable : BmobTable
     {
-        public enum UserGroupEnum { 管理组用户, 班主任, 高层管理, 家长 }
         public override string table { get { return GlobalFunc.TABLE_N_Gen_UsrTable; } }
         public string objectId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int UserGroup { get; set; }
+        public UserGroupEnum UserGroup { get; set; }
         public bool WebNotiSeen { get; set; }
         public string WeChatID { get; set; }
         public string RealName { get; set; }
@@ -25,7 +25,7 @@ namespace WoodenBench.TableObjects
             UserName = input.getString("Username");
             Password = input.getString("Password");
             WeChatID = input.getString("WeChatID");
-            UserGroup = input.getInt("UsrGroup").Get();
+            UserGroup = (UserGroupEnum)input.getInt("UsrGroup").Get();
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
         }
@@ -37,7 +37,7 @@ namespace WoodenBench.TableObjects
             output.Put("Username", this.UserName);
             output.Put("Password", this.Password);
             output.Put("WeChatID", this.WeChatID);
-            output.Put("UsrGroup", this.UserGroup);
+            output.Put("UsrGroup", (int)this.UserGroup);
             output.Put("RealName", this.RealName);
         }
     }

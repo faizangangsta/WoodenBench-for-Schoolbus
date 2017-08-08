@@ -94,7 +94,7 @@
             this.关于ToolStripMenuItem});
             this.TopMenu.Location = new System.Drawing.Point(0, 0);
             this.TopMenu.Name = "TopMenu";
-            this.TopMenu.Size = new System.Drawing.Size(859, 25);
+            this.TopMenu.Size = new System.Drawing.Size(952, 25);
             this.TopMenu.TabIndex = 3;
             this.TopMenu.Text = "menuStrip1";
             // 
@@ -183,9 +183,9 @@
             this.NowUsrDataGroup.Controls.Add(this.TUsrRNameL);
             this.NowUsrDataGroup.Controls.Add(this.TUsrNameL);
             this.NowUsrDataGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.NowUsrDataGroup.Location = new System.Drawing.Point(639, 27);
+            this.NowUsrDataGroup.Location = new System.Drawing.Point(732, 27);
             this.NowUsrDataGroup.Name = "NowUsrDataGroup";
-            this.NowUsrDataGroup.Size = new System.Drawing.Size(208, 162);
+            this.NowUsrDataGroup.Size = new System.Drawing.Size(208, 143);
             this.NowUsrDataGroup.TabIndex = 4;
             this.NowUsrDataGroup.TabStop = false;
             this.NowUsrDataGroup.Text = "当前用户信息";
@@ -296,10 +296,10 @@
             this.BUsrIDL,
             this.BtomStaLabel3,
             this.BUsrGroupL});
-            this.MainStatusGroup.Location = new System.Drawing.Point(0, 591);
+            this.MainStatusGroup.Location = new System.Drawing.Point(0, 634);
             this.MainStatusGroup.Name = "MainStatusGroup";
             this.MainStatusGroup.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.MainStatusGroup.Size = new System.Drawing.Size(859, 22);
+            this.MainStatusGroup.Size = new System.Drawing.Size(952, 22);
             this.MainStatusGroup.TabIndex = 5;
             this.MainStatusGroup.Text = "statusStrip1";
             // 
@@ -314,7 +314,7 @@
             // 
             this.BUsrNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrNameL.Name = "BUsrNameL";
-            this.BUsrNameL.Size = new System.Drawing.Size(115, 17);
+            this.BUsrNameL.Size = new System.Drawing.Size(139, 17);
             this.BUsrNameL.Spring = true;
             this.BUsrNameL.Text = "NowUser";
             this.BUsrNameL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -328,7 +328,7 @@
             // BUsrRNameL
             // 
             this.BUsrRNameL.Name = "BUsrRNameL";
-            this.BUsrRNameL.Size = new System.Drawing.Size(115, 17);
+            this.BUsrRNameL.Size = new System.Drawing.Size(139, 17);
             this.BUsrRNameL.Spring = true;
             this.BUsrRNameL.Text = "UserRName";
             this.BUsrRNameL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -345,7 +345,7 @@
             // 
             this.BUsrIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrIDL.Name = "BUsrIDL";
-            this.BUsrIDL.Size = new System.Drawing.Size(115, 17);
+            this.BUsrIDL.Size = new System.Drawing.Size(139, 17);
             this.BUsrIDL.Spring = true;
             this.BUsrIDL.Text = "NowUserID";
             this.BUsrIDL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -363,7 +363,7 @@
             this.BUsrGroupL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.BUsrGroupL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrGroupL.Name = "BUsrGroupL";
-            this.BUsrGroupL.Size = new System.Drawing.Size(115, 17);
+            this.BUsrGroupL.Size = new System.Drawing.Size(139, 17);
             this.BUsrGroupL.Spring = true;
             this.BUsrGroupL.Text = "NowUserGroup";
             this.BUsrGroupL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -375,9 +375,9 @@
             this.SysNotiGroup.Controls.Add(this.NotificationContentLabel);
             this.SysNotiGroup.Controls.Add(this.NotificationTitleLabel);
             this.SysNotiGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SysNotiGroup.Location = new System.Drawing.Point(639, 195);
+            this.SysNotiGroup.Location = new System.Drawing.Point(732, 176);
             this.SysNotiGroup.Name = "SysNotiGroup";
-            this.SysNotiGroup.Size = new System.Drawing.Size(208, 393);
+            this.SysNotiGroup.Size = new System.Drawing.Size(208, 455);
             this.SysNotiGroup.TabIndex = 6;
             this.SysNotiGroup.TabStop = false;
             this.SysNotiGroup.Text = "通知区域";
@@ -390,7 +390,7 @@
             this.NotificationContentLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.NotificationContentLabel.Location = new System.Drawing.Point(14, 68);
             this.NotificationContentLabel.Name = "NotificationContentLabel";
-            this.NotificationContentLabel.Size = new System.Drawing.Size(177, 322);
+            this.NotificationContentLabel.Size = new System.Drawing.Size(177, 384);
             this.NotificationContentLabel.TabIndex = 1;
             this.NotificationContentLabel.Text = "内容";
             // 
@@ -423,7 +423,7 @@
             this.TutorProcessExcelGroup.Controls.Add(this.ExcelFileOpenBtn);
             this.TutorProcessExcelGroup.Location = new System.Drawing.Point(12, 28);
             this.TutorProcessExcelGroup.Name = "TutorProcessExcelGroup";
-            this.TutorProcessExcelGroup.Size = new System.Drawing.Size(621, 250);
+            this.TutorProcessExcelGroup.Size = new System.Drawing.Size(714, 250);
             this.TutorProcessExcelGroup.TabIndex = 7;
             this.TutorProcessExcelGroup.TabStop = false;
             this.TutorProcessExcelGroup.Text = "从 Excel 导入信息";
@@ -436,7 +436,7 @@
             this.groupBox1.Controls.Add(this.NowClassLbl);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(509, 56);
+            this.groupBox1.Location = new System.Drawing.Point(602, 56);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(106, 134);
             this.groupBox1.TabIndex = 5;
@@ -496,7 +496,7 @@
             this.StudentData.Location = new System.Drawing.Point(6, 56);
             this.StudentData.Name = "StudentData";
             this.StudentData.RowTemplate.Height = 23;
-            this.StudentData.Size = new System.Drawing.Size(497, 184);
+            this.StudentData.Size = new System.Drawing.Size(590, 184);
             this.StudentData.TabIndex = 4;
             // 
             // DataStuName
@@ -514,7 +514,7 @@
             // SureAndUploadBtn
             // 
             this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SureAndUploadBtn.Location = new System.Drawing.Point(509, 196);
+            this.SureAndUploadBtn.Location = new System.Drawing.Point(602, 196);
             this.SureAndUploadBtn.Name = "SureAndUploadBtn";
             this.SureAndUploadBtn.Size = new System.Drawing.Size(106, 44);
             this.SureAndUploadBtn.TabIndex = 3;
@@ -529,7 +529,7 @@
             this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 22);
             this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
             this.ExcelFilePathTxt.ReadOnly = true;
-            this.ExcelFilePathTxt.Size = new System.Drawing.Size(484, 21);
+            this.ExcelFilePathTxt.Size = new System.Drawing.Size(577, 21);
             this.ExcelFilePathTxt.TabIndex = 1;
             // 
             // ExcelFileOpenBtn
@@ -552,7 +552,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 613);
+            this.ClientSize = new System.Drawing.Size(952, 656);
             this.Controls.Add(this.MainStatusGroup);
             this.Controls.Add(this.TutorProcessExcelGroup);
             this.Controls.Add(this.SysNotiGroup);

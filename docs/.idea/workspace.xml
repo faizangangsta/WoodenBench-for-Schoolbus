@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c1d480a4-abcb-4c7f-a767-51aedd9398e2" name="Default" comment="FixHide">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.vs/WoodenBench/v15/.suo" afterPath="$PROJECT_DIR$/../.vs/WoodenBench/v15/.suo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/TableObjects/EveryStudentObject.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/TableObjects/EveryStudentObject.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/CreateUser.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/CreateUser.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/MainWindow.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/MainWindow.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.Designer.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.Designer.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/staClass/GlobalFunc.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/staClass/GlobalFunc.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.Designer.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.Designer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="lhy0403.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +28,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="93" column="68" lean-forward="true" selection-start-line="93" selection-start-column="68" selection-end-line="93" selection-end-column="68" />
+            <state relative-caret-position="240">
+              <caret line="87" column="21" lean-forward="true" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -40,7 +38,7 @@
       <file leaf-file-name="SCHLoginServices.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SchBMgr_js/SCHLoginServices.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
+            <state relative-caret-position="557">
               <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
@@ -176,10 +174,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="333" />
-    <option name="y" value="245" />
-    <option name="width" value="914" />
-    <option name="height" value="1017" />
+    <option name="x" value="279" />
+    <option name="y" value="147" />
+    <option name="width" value="1192" />
+    <option name="height" value="818" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -267,6 +265,11 @@
               <item name="YH-SBusMgr" type="b2602c69:ProjectViewProjectNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="YH-SBusMgr" type="b2602c69:ProjectViewProjectNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="Backgrounds" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -277,10 +280,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../lhy0403.github.io" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -630,11 +633,14 @@
       <workItem from="1499607228117" duration="12000" />
       <workItem from="1499690595334" duration="54000" />
       <workItem from="1499690735730" duration="631000" />
+      <workItem from="1501485859597" duration="3000" />
+      <workItem from="1501499158960" duration="15000" />
+      <workItem from="1501505932571" duration="89000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="356686000" />
+    <option name="totallyTimeSpent" value="356793000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -647,8 +653,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1589242" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1589242" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3280899" sideWeight="0.4966249" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26233184" sideWeight="0.32408324" order="13" side_tool="true" content_ui="tabs" />
@@ -735,6 +742,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="Default" />
     <MESSAGE value="FixHide" />
     <option name="LAST_COMMIT_MESSAGE" value="FixHide" />
@@ -856,7 +866,7 @@
     <entry file="file://$PROJECT_DIR$/docs.lnk" />
     <entry file="file://$PROJECT_DIR$/SchBMgr_js/SCHLoginServices.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
+        <state relative-caret-position="557">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
@@ -864,8 +874,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="93" column="68" lean-forward="true" selection-start-line="93" selection-start-column="68" selection-end-line="93" selection-end-column="68" />
+        <state relative-caret-position="240">
+          <caret line="87" column="21" lean-forward="true" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
           <folding />
         </state>
       </provider>

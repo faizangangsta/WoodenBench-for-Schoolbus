@@ -6,11 +6,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.staClass;
-using WoodenBench.TableObjects;
-using WoodenBench.Views;
+using WoodenBench.TableObject;
+using WoodenBench.View;
 using static WoodenBench.staClass.GlobalFunc;
 using static WoodenBench.staClass.UserActivity;
-using static WoodenBench.TableObjects.AllUsersTable;
+using static WoodenBench.TableObject.AllUsersTable;
 
 namespace WoodenBench.View
 {
@@ -41,7 +41,7 @@ namespace WoodenBench.View
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            if (CurrentUser.UserGroup == 0 || CurrentUser.UserGroup == 2)
+            if ((int)CurrentUser.UserGroup == 0 || (int)CurrentUser.UserGroup == 2)
             {
                 AdminManage.Visible = true;
                 AdminManage.Enabled = true;
@@ -132,7 +132,7 @@ namespace WoodenBench.View
 
         private void 管理员页面MToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Management.Default.Show(this);
+            //MGRLogin.Default.Show(this);
         }
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)

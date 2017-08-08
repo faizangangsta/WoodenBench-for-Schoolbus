@@ -41,5 +41,16 @@ namespace WoodenBench.staClass
         /// Windows Client Version String
         /// </summary>
         public const string OBJ_ID_WinClientVer = "oRr7000l";
+
+        /// <summary>
+        /// The User Group Enum
+        /// </summary>
+        public enum UserGroupEnum
+        {
+            管理组用户,
+            老师,
+            高层管理,
+            家长
+        }
     }
 }
