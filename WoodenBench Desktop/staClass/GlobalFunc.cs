@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WoodenBench.TableObject;
-using WoodenBench.View;
+using WoodenBench.Views;
 
 namespace WoodenBench.staClass
 {
@@ -24,11 +24,11 @@ namespace WoodenBench.staClass
             Application.Run(new UsrLoginForm());
         }
         public static AllUsersTable CurrentUser { get; set; }
-        public static BmobWindows Bmob { get; set; }
+        public static BmobWindows _BmobWin { get; set; }
         public static void InitBmobObject()
         {
-            Bmob = new BmobWindows();
-            Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+            _BmobWin = new BmobWindows();
+            _BmobWin.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
             BmobDebug.level = BmobDebug.Level.TRACE;
             DebugMessage("Bmob log level is set to 'trace'");
             BmobDebug.Register(Message => { Console.WriteLine(Message); });

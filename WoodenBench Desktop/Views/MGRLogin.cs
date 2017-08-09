@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.View;
+using WoodenBench.Views;
 using static WoodenBench.staClass.GlobalFunc;
 using static WoodenBench.staClass.UserActivity;
 
-namespace WoodenBench.View
+namespace WoodenBench.Views
 {
     public partial class MGRLogin : Form
     {

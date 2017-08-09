@@ -11,7 +11,7 @@ using WoodenBench.TableObject;
 using static WoodenBench.staClass.GlobalFunc;
 using static WoodenBench.staClass.UserActivity;
 
-namespace WoodenBench.View
+namespace WoodenBench.Views
 {
     public partial class ChangeUserData : Form
     {

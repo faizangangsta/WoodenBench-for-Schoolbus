@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.View
+﻿namespace WoodenBench.Views
 {
     partial class UsrLoginForm
     {
@@ -124,9 +124,10 @@
             // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(83, 71);
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(24, 73);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(139, 12);
+            this.linkLabel1.Size = new System.Drawing.Size(107, 12);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "///invisi家长登录";
@@ -159,6 +160,7 @@
             this.Name = "UsrLoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "用户登录";
+            this.Load += new System.EventHandler(this.UsrLoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

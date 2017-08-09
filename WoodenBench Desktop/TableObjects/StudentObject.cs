@@ -7,15 +7,17 @@ using WoodenBench.staClass;
 
 namespace WoodenBench.TableObject
 {
-    public class EveryStudentData : BmobTable
+    public class StudentData : BmobTable
     {
         public string StudentName { get; set; }
-        public string StudentDirection { get; set; }
-        public string StudentClass { get; set; }
-        public string StudentPartOfSchool { get; set; }
         public string StudentNamePinYin { get; set; }
+        public string StudentClass { get; set; }
+        public string StudentDirection { get; set; }
+        public string StudentPartOfSchool { get; set; }
+        public string OtherStuData { get; set; }
+        public string StuIdentity { get; set; }
         private string PriTable = GlobalFunc.TABLE_N_Mgr_StuData;
-        public EveryStudentData() { }
+        public StudentData() { }
         public override string table
         {
             get
@@ -35,6 +37,8 @@ namespace WoodenBench.TableObject
             StudentClass = input.getString("StuClass");
             StudentPartOfSchool = input.getString("StuPartOfSchool");
             StudentNamePinYin = input.getString("StuNamePinin");
+            OtherStuData = input.getString("OtherData");
+            StuIdentity = input.getString("StuIdentity");
         }
 
         public override void write(BmobOutput output, bool all)
@@ -45,6 +49,8 @@ namespace WoodenBench.TableObject
             output.Put("StuDirection", this.StudentDirection);
             output.Put("StuClass", this.StudentClass);
             output.Put("StuPartOfSchool", this.StudentPartOfSchool);
+            output.Put("OtherData", this.OtherStuData);
+            output.Put("StuIdentity", this.StuIdentity);
         }
     }
 }

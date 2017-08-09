@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.View
+﻿namespace WoodenBench.Views
 {
     partial class Management
     {

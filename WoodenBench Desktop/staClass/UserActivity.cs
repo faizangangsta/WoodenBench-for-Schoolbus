@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WoodenBench.TableObject;
-using WoodenBench.View;
+using WoodenBench.Views;
 using static WoodenBench.staClass.GlobalFunc;
 using static WoodenBench.TableObject.AllUsersTable;
 
@@ -22,7 +22,7 @@ namespace WoodenBench.staClass
         {
             AllUsersTable Change = new AllUsersTable();
             Change.Password = NewPasswrd;
-            Bmob.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
+            _BmobWin.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
                 {
@@ -56,22 +56,22 @@ namespace WoodenBench.staClass
             bool WebNotiSeen;
             string WeChatID;
 
-            bool BRtn = false;
             BmobQuery UserNameQuery = new BmobQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
                 System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUsersTable>> UsrNameResult;
-                UsrNameResult = GlobalFunc.Bmob.FindTaskAsync<AllUsersTable>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUsersTable>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
                 JToken JsonUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
 
-                WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
                 StrObjectID = JsonUsrResult["objectId"].ToString();
+                //UserName doesn't need 
                 Password = JsonUsrResult["Password"].ToString();
-                UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
-                WeChatID = JsonUsrResult["WeChatID"].ToString();
                 RealName = JsonUsrResult["RealName"].ToString();
+                UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
+                WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
+                WeChatID = JsonUsrResult["WeChatID"].ToString();
 
                 AllUsersTable FoundUser = new AllUsersTable()
                 {
@@ -86,10 +86,7 @@ namespace WoodenBench.staClass
 
                 if (FoundUser.Password == xPassword)
                 {
-                    if (OnlyVerify)
-                    {
-                        return FoundUser.RealName == RealN;
-                    }
+                    if (OnlyVerify) return FoundUser.RealName == RealN;
                     else
                     {
                         CurrentUser = FoundUser;

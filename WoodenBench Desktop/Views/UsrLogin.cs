@@ -8,7 +8,7 @@ using WoodenBench.staClass;
 using WoodenBench.TableObject;
 using static WoodenBench.staClass.GlobalFunc;
 
-namespace WoodenBench.View
+namespace WoodenBench.Views
 {
     public partial class UsrLoginForm : Form
     {
@@ -70,14 +70,16 @@ namespace WoodenBench.View
             DoLoginBtn.Text = "登陆(&L)";
         }
 
-        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            new CreateUser().ShowDialog();
-        }
+        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUser().ShowDialog(); }
 
         private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //TODO: Parents Login
+        }
+
+        private void UsrLoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

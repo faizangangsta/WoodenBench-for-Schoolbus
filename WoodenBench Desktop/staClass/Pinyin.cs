@@ -10,11 +10,6 @@ namespace WoodenBench.staClass
 {
     public static partial class PinYin
     {
-        /// <summary>
-        /// Get PinYin First Lettern as Upper Case
-        /// </summary>
-        /// <param name="ChineseString">Chinese string</param>
-        /// <returns>first PinYin string</returns>
         public static string GetInitials(string ChineseString)
         {
             ChineseString = ChineseString.Trim();
@@ -28,11 +23,6 @@ namespace WoodenBench.staClass
             return chars.ToString().ToUpper();
         }
 
-        /// <summary>
-        /// Get Full Pinyin of given <paramref name="ChineseString"/>
-        /// </summary>
-        /// <param name="ChineseString">given text</param>
-        /// <returns>PinYin string</returns>
         public static string GetPinyin(string ChineseString)
         {
             StringBuilder sbPinyin = new StringBuilder();
@@ -40,18 +30,12 @@ namespace WoodenBench.staClass
             {
                 string py = GetPinyin(ChineseString[i]);
                 if (py != "") sbPinyin.Append(py);
-                sbPinyin.Append(" ");
+                sbPinyin.Append("_");
             }
 
             return sbPinyin.ToString().Trim();
         }
-
-
-        /// <summary>
-        /// Get Full Pinyin of given <paramref name="text"/>
-        /// </summary>
-        /// <param name="ChineseChar"></param>
-        /// <returns>PinYin string</returns>
+        
         public static string GetPinyin(char ChineseChar)
         {
             short hash = GetHashIndex(ChineseChar);
@@ -65,11 +49,6 @@ namespace WoodenBench.staClass
             return ChineseChar.ToString();
         }
 
-        /// <summary>
-        /// Get index of the <paramref name="ChineseChar"/>
-        /// </summary>
-        /// <param name="ChineseChar">Chinese Char</param>
-        /// <returns>HashIndex of this char</returns>
         private static short GetHashIndex(char ChineseChar)
         {
             return (short)((uint)ChineseChar % PinYinCode.Length);

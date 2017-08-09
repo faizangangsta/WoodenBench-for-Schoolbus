@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.View
+﻿namespace WoodenBench.Views
 {
     partial class CreateUser
     {
@@ -34,14 +34,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.CheckT = new System.Windows.Forms.CheckBox();
-            this.randomlabel = new System.Windows.Forms.Label();
-            this.KeyT = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.UserNameT = new System.Windows.Forms.TextBox();
             this.PasswordT = new System.Windows.Forms.TextBox();
             this.PasswordT2 = new System.Windows.Forms.TextBox();
             this.GroupT = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.ResultLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.RealNameT = new System.Windows.Forms.TextBox();
@@ -91,30 +88,12 @@
             // 
             this.CheckT.AutoSize = true;
             this.CheckT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CheckT.Location = new System.Drawing.Point(38, 229);
+            this.CheckT.Location = new System.Drawing.Point(38, 175);
             this.CheckT.Name = "CheckT";
             this.CheckT.Size = new System.Drawing.Size(207, 55);
             this.CheckT.TabIndex = 7;
             this.CheckT.Text = "我已经同意使用小板凳，\r\n任何使用中的误操作所造成的后果\r\n均由用户（我）承担";
             this.CheckT.UseVisualStyleBackColor = true;
-            // 
-            // randomlabel
-            // 
-            this.randomlabel.AutoSize = true;
-            this.randomlabel.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.randomlabel.Location = new System.Drawing.Point(58, 173);
-            this.randomlabel.Name = "randomlabel";
-            this.randomlabel.Size = new System.Drawing.Size(46, 21);
-            this.randomlabel.TabIndex = 6;
-            this.randomlabel.Text = "1234";
-            // 
-            // KeyT
-            // 
-            this.KeyT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.KeyT.Location = new System.Drawing.Point(62, 197);
-            this.KeyT.Name = "KeyT";
-            this.KeyT.Size = new System.Drawing.Size(159, 23);
-            this.KeyT.TabIndex = 6;
             // 
             // button1
             // 
@@ -168,22 +147,12 @@
             this.GroupT.Size = new System.Drawing.Size(145, 25);
             this.GroupT.TabIndex = 4;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(60, 152);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(164, 17);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "请在下面输入你看到的验证码";
-            // 
             // ResultLabel
             // 
             this.ResultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResultLabel.Location = new System.Drawing.Point(12, 284);
+            this.ResultLabel.Location = new System.Drawing.Point(12, 249);
             this.ResultLabel.Name = "ResultLabel";
             this.ResultLabel.Size = new System.Drawing.Size(247, 46);
             this.ResultLabel.TabIndex = 15;
@@ -214,15 +183,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 380);
             this.Controls.Add(this.ResultLabel);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.GroupT);
             this.Controls.Add(this.PasswordT2);
             this.Controls.Add(this.PasswordT);
             this.Controls.Add(this.RealNameT);
             this.Controls.Add(this.UserNameT);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.KeyT);
-            this.Controls.Add(this.randomlabel);
             this.Controls.Add(this.CheckT);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -252,14 +218,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox CheckT;
-        private System.Windows.Forms.Label randomlabel;
-        private System.Windows.Forms.TextBox KeyT;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox UserNameT;
         private System.Windows.Forms.TextBox PasswordT;
         private System.Windows.Forms.TextBox PasswordT2;
         private System.Windows.Forms.ComboBox GroupT;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox RealNameT;

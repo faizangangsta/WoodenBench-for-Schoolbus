@@ -81,12 +81,18 @@
   <ItemGroup>
     <Compile Include="staClass\Consts.cs" />
     <Compile Include="staClass\ExcelApplication.cs" />
-    <Compile Include="TableObjects\EveryStudentObject.cs" />
+    <Compile Include="TableObjects\StudentObject.cs" />
     <Compile Include="staClass\Pinyin.cs" />
     <Compile Include="staClass\PyData.cs" />
     <Compile Include="staClass\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
+    <Compile Include="Views\ExcelOperation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ExcelOperation.Designer.cs">
+      <DependentUpon>ExcelOperation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Management.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="Views\UserChangeProperty.Designer.cs">
       <DependentUpon>UserChangeProperty.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\ExcelOperation.resx">
+      <DependentUpon>ExcelOperation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Management.resx">
       <DependentUpon>Management.cs</DependentUpon>
     </EmbeddedResource>
