@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench.staClass;
+using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
-using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
-    public partial class ExcelOperation : Form
+    public partial class ExcelOperationWindow : Form
     {
         string ExcelFilePath, NowClassProcess, NowPartOfSchool;
-        public ExcelOperation() { InitializeComponent(); }
+        public ExcelOperationWindow() { InitializeComponent(); }
 
         private void ExcelOperation_Load(object sender, EventArgs e)
         {
@@ -52,7 +52,7 @@ namespace WoodenBench.Views
         private void SureAndUpload(object sender, EventArgs e)
         {
             string LastErrPerson = "";
-            StudentData StudentObj = new StudentData();
+            StudentDataObject StudentObj = new StudentDataObject();
             this.Enabled = false;
             bool IsSucceed = false;
             this.SureAndUploadBtn.Text = "上传中...";

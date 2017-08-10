@@ -1,6 +1,6 @@
 ﻿namespace WoodenBench.Views
 {
-    partial class MGRLogin
+    partial class MGRLoginWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MGRLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MGRLoginWindow));
             this.LoginMgrBtn = new System.Windows.Forms.Button();
             this.RealNameTxt = new System.Windows.Forms.TextBox();
             this.PasswordTxt = new System.Windows.Forms.TextBox();

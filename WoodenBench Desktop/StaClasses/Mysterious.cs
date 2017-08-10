@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.StaClasses.GlobalFunc;
 
-namespace WoodenBench.staClass
+namespace WoodenBench.StaClasses
 {
     public static class Mysterious
 	{

@@ -10,21 +10,24 @@ using System.Windows.Forms;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
 
-namespace WoodenBench.staClass
+namespace WoodenBench.StaClasses
 {
     public static partial class GlobalFunc
     {
-        [STAThread]
+        [MTAThread]
         static void Main()
         {
             DebugMessage("Application Started");
-            staClass.GlobalFunc.InitBmobObject();
+            StaClasses.GlobalFunc.InitBmobObject();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UsrLoginForm());
+            Application.Run(new UsrLoginWindow());
         }
-        public static AllUsersTable CurrentUser { get; set; }
+
+        public static AllUserObject CurrentUser { get; set; }
+
         public static BmobWindows _BmobWin { get; set; }
+
         public static void InitBmobObject()
         {
             _BmobWin = new BmobWindows();
@@ -33,11 +36,13 @@ namespace WoodenBench.staClass
             DebugMessage("Bmob log level is set to 'trace'");
             BmobDebug.Register(Message => { Console.WriteLine(Message); });
         }
+
         public static void DebugMessage(object Message)
         {
             Debug.Write(DateTime.Now.ToLongTimeString());
             Debug.WriteLine(Message);
         }
+
         public static void ApplicationExit()
         {
             DebugMessage("Application Exit");

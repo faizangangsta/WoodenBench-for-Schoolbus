@@ -1,14 +1,14 @@
 ﻿using cn.bmob.io;
 using System;
-using WoodenBench.staClass;
-using static WoodenBench.staClass.GlobalFunc;
+using WoodenBench.StaClasses;
+using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.TableObject
 {
     /// <summary>
     /// DON'T CHANGE CLASS NAME  'AllUsersTable'
     /// </summary>
-    public class AllUsersTable : BmobTable
+    public class AllUserObject : BmobTable
     {
         public override string table { get { return GlobalFunc.TABLE_N_Gen_UsrTable; } }
         public string objectId { get; set; }
@@ -18,7 +18,7 @@ namespace WoodenBench.TableObject
         public bool WebNotiSeen { get; set; }
         public string WeChatID { get; set; }
         public string RealName { get; set; }
-        public AllUsersTable() { }
+        public AllUserObject() { }
         public override void readFields(BmobInput input)
         {
             base.readFields(input);

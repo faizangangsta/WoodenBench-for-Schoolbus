@@ -10,17 +10,17 @@ using System.Text;
 using System.Windows.Forms;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.TableObject.AllUsersTable;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.TableObject.AllUserObject;
 
-namespace WoodenBench.staClass
+namespace WoodenBench.StaClasses
 {
     public class UserActivity
     {
 
-        public static bool ChangePassWord(AllUsersTable NowUser, string OriPasswrd, string NewPasswrd)
+        public static bool ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
-            AllUsersTable Change = new AllUsersTable();
+            AllUserObject Change = new AllUserObject();
             Change.Password = NewPasswrd;
             _BmobWin.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
             {
@@ -40,9 +40,9 @@ namespace WoodenBench.staClass
 
         public static void LogOut()
         {
-            UsrLoginForm.Default.Show();
+            UsrLoginWindow.Default.Show();
             MainWindow.Default.Close();
-            ChangeUserData.Default.Close();
+            ChangeUserDataWindow.Default.Close();
             CurrentUser = null;
             GC.Collect();
         }
@@ -60,8 +60,8 @@ namespace WoodenBench.staClass
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
-                System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUsersTable>> UsrNameResult;
-                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUsersTable>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
+                System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUserObject>> UsrNameResult;
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
                 JToken JsonUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
 
@@ -73,7 +73,7 @@ namespace WoodenBench.staClass
                 WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
                 WeChatID = JsonUsrResult["WeChatID"].ToString();
 
-                AllUsersTable FoundUser = new AllUsersTable()
+                AllUserObject FoundUser = new AllUserObject()
                 {
                     objectId = StrObjectID,
                     UserName = xUserName,

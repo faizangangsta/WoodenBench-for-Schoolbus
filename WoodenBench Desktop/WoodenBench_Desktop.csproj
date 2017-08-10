@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WoodenBench.staClass.GlobalFunc</StartupObject>
+    <StartupObject>WoodenBench.StaClasses.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -79,12 +79,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="staClass\Consts.cs" />
-    <Compile Include="staClass\ExcelApplication.cs" />
+    <Compile Include="DelegateClasses\DelegateClasses.cs" />
+    <Compile Include="GlobalEvents\EventRegister.cs" />
+    <Compile Include="StaClasses\Consts.cs" />
+    <Compile Include="StaClasses\ExcelApplication.cs" />
+    <Compile Include="GlobalEvents\GlobalEvents.cs" />
     <Compile Include="TableObjects\StudentObject.cs" />
-    <Compile Include="staClass\Pinyin.cs" />
-    <Compile Include="staClass\PyData.cs" />
-    <Compile Include="staClass\Mysterious.cs" />
+    <Compile Include="StaClasses\PinYin\Pinyin.cs" />
+    <Compile Include="StaClasses\PinYin\PyData.cs" />
+    <Compile Include="StaClasses\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="Views\ExcelOperation.cs">
@@ -111,8 +114,8 @@
     <Compile Include="Views\UsrLogin.Designer.cs">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="staClass\GlobalFunc.cs" />
-    <Compile Include="staClass\UserActivity.cs" />
+    <Compile Include="StaClasses\GlobalFunc.cs" />
+    <Compile Include="StaClasses\UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CreateUser.cs">
       <SubType>Form</SubType>

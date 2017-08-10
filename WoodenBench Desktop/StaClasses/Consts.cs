@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WoodenBench.staClass
+namespace WoodenBench.StaClasses
 {
     public static partial class GlobalFunc
     {
@@ -45,12 +45,26 @@ namespace WoodenBench.staClass
         /// <summary>
         /// The User Group Enum
         /// </summary>
-        public enum UserGroupEnum
-        {
-            管理组用户,
-            老师,
-            高层管理,
-            家长
-        }
+    }
+    public enum UserGroupEnum
+    {
+        管理组用户,
+        老师,
+        高层管理,
+        家长
+    }
+
+    public enum ProcStatusEnum
+    {
+        Unknown,
+        Completed,
+        Failed
+    }
+
+    public enum UserActivityEnum
+    {
+        UserLogin,
+        UserLogOff,
+        UserChangePassword
     }
 }

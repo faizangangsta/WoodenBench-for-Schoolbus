@@ -3,16 +3,16 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench.staClass;
+using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.TableObject.AllUsersTable;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.TableObject.AllUserObject;
 
 namespace WoodenBench.Views
 {
-    public partial class CreateUser : Form
+    public partial class CreateUserWindow : Form
     {
-        public CreateUser() { InitializeComponent(); }
+        public CreateUserWindow() { InitializeComponent(); }
 
         private void CreateUser_Load(object sender, EventArgs e) { }
 
@@ -25,7 +25,7 @@ namespace WoodenBench.Views
                 GroupT.SelectedIndex + 1 != 0 &&
                 CheckT.Checked && PasswordT.Text == PasswordT2.Text)
             {
-                AllUsersTable NewUserObj = new AllUsersTable
+                AllUserObject NewUserObj = new AllUserObject
                 {
                     UserName = UserNameT.Text,
                     RealName = RealNameT.Text,

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WoodenBench.staClass
+namespace WoodenBench.StaClasses
 {
     public static partial class PinYin
     {

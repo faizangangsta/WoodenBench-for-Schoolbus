@@ -5,12 +5,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench.staClass;
+using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.staClass.UserActivity;
-using static WoodenBench.TableObject.AllUsersTable;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaClasses.UserActivity;
+using static WoodenBench.TableObject.AllUserObject;
 
 namespace WoodenBench.Views
 {
@@ -75,7 +75,7 @@ namespace WoodenBench.Views
 
         private void 更改用户信息DToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new ChangeUserData().ShowDialog();
+            new ChangeUserDataWindow().ShowDialog();
         }
 
         private void 退出用户EToolStripMenuItem_Click(object sender, EventArgs e)
@@ -111,12 +111,12 @@ namespace WoodenBench.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Views.ExcelOperation().ShowDialog(this);
+            new Views.ExcelOperationWindow().ShowDialog(this);
         }
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UsrLoginForm.Default.Show();
+            UsrLoginWindow.Default.Show();
         }
     }
 }

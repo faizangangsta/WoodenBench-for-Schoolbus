@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WoodenBench.staClass;
+using WoodenBench.StaClasses;
 
 namespace WoodenBench.TableObject
 {
-    public class StudentData : BmobTable
+    public class StudentDataObject : BmobTable
     {
         public string StudentName { get; set; }
         public string StudentNamePinYin { get; set; }
@@ -17,7 +17,7 @@ namespace WoodenBench.TableObject
         public string OtherStuData { get; set; }
         public string StuIdentity { get; set; }
         private string PriTable = GlobalFunc.TABLE_N_Mgr_StuData;
-        public StudentData() { }
+        public StudentDataObject() { }
         public override string table
         {
             get

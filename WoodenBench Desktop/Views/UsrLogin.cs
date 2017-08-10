@@ -3,14 +3,17 @@ using cn.bmob.json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
-using WoodenBench.staClass;
+using WoodenBench.DelegateClasses;
+using WoodenBench.GlobalEvents;
+using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
-using static WoodenBench.staClass.GlobalFunc;
+using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
-    public partial class UsrLoginForm : Form
+    public partial class UsrLoginWindow : Form
     {
         private void button1_Click(object sender, EventArgs e)
         {
@@ -25,21 +28,21 @@ namespace WoodenBench.Views
         {
             LoginResult.Text = "";
         }
-        public UsrLoginForm() : base()
+        public UsrLoginWindow() : base()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static UsrLoginForm defaultInstance { get; set; }
+        private static UsrLoginWindow defaultInstance { get; set; }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
-        public static UsrLoginForm Default
+        public static UsrLoginWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new UsrLoginForm();
+                    defaultInstance = new UsrLoginWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -55,7 +58,7 @@ namespace WoodenBench.Views
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false))
+            if (StaClasses.UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false))
             {
                 MainWindow.Default.Show();
                 Hide();
@@ -70,7 +73,7 @@ namespace WoodenBench.Views
             DoLoginBtn.Text = "登陆(&L)";
         }
 
-        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUser().ShowDialog(); }
+        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUserWindow().ShowDialog(); }
 
         private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -80,6 +83,37 @@ namespace WoodenBench.Views
         private void UsrLoginForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Thread a = new Thread(P);
+            a.Start();
+        }
+        private void P()
+        {
+            UserActivityEventArgs e = new UserActivityEventArgs(UserActivityEnum.UserLogin, null, null, ProcStatusEnum.Completed);
+            AppEvents.onUserActivity(this, e);
+        }
+
+        public void EventRegister_Test(object sender, UserActivityEventArgs e)
+        {
+            SetTextBoxValue(Text, "");
+        }
+
+        private static void SetTextBoxValue(object obj, string s)
+        {
+            if (UsrLoginWindow.Default.InvokeRequired)
+            {
+                UsrLoginWindow.Default.Invoke(new onUserLoginDelegateVoid((e) =>
+                {
+                    UsrLoginWindow.Default.Text = e;
+                }), obj.ToString());
+            }
+            else
+            {
+
+            }
         }
     }
 }

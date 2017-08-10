@@ -8,28 +8,28 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WoodenBench.TableObject;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.staClass.UserActivity;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class ChangeUserData : Form
+    public partial class ChangeUserDataWindow : Form
     {
-        public ChangeUserData()
+        public ChangeUserDataWindow()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
 
-        private static ChangeUserData defaultInstance;
+        private static ChangeUserDataWindow defaultInstance;
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
-        public static ChangeUserData Default
+        public static ChangeUserDataWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new ChangeUserData();
+                    defaultInstance = new ChangeUserDataWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;

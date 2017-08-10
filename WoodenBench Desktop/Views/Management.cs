@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WoodenBench.Views;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.staClass.UserActivity;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class Management : Form
+    public partial class ManagementWindow : Form
     {
         static int UsrLevel;
 
-        public Management(int UserLevel) : base()
+        public ManagementWindow(int UserLevel) : base()
         {
             InitializeComponent();
             UsrLevel = UserLevel;

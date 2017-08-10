@@ -6,28 +6,29 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WoodenBench.StaClasses;
 using WoodenBench.Views;
-using static WoodenBench.staClass.GlobalFunc;
-using static WoodenBench.staClass.UserActivity;
+using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class MGRLogin : Form
+    public partial class MGRLoginWindow : Form
     {
-        private static MGRLogin defaultInstance;
-        public MGRLogin() : base()
+        private static MGRLoginWindow defaultInstance;
+        public MGRLoginWindow() : base()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
-        public static MGRLogin Default
+        public static MGRLoginWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new MGRLogin();
+                    defaultInstance = new MGRLoginWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -49,12 +50,12 @@ namespace WoodenBench.Views
                     {
                         case UserGroupEnum.高层管理:
                             //Administrator
-                            new Management(0).Show(MainWindow.Default);
+                            new ManagementWindow(0).Show(MainWindow.Default);
                             Close();
                             break;
                         case  UserGroupEnum.管理组用户:
                             //Higher Management
-                            new Management(1).Show(MainWindow.Default);
+                            new ManagementWindow(1).Show(MainWindow.Default);
                             Close();
                             break;
                         default:

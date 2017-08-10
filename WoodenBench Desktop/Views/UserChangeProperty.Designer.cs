@@ -1,6 +1,6 @@
 ﻿namespace WoodenBench.Views
 {
-    partial class ChangeUserData
+    partial class ChangeUserDataWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeUserData));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeUserDataWindow));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.UsrWCID = new System.Windows.Forms.Label();
             this.UsrGroup = new System.Windows.Forms.Label();

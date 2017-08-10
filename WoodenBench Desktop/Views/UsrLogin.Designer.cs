@@ -1,6 +1,6 @@
 ﻿namespace WoodenBench.Views
 {
-    partial class UsrLoginForm
+    partial class UsrLoginWindow
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsrLoginForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsrLoginWindow));
             this.UserNameTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.PswdTxt = new System.Windows.Forms.TextBox();
@@ -38,6 +38,7 @@
             this.LoginResult = new System.Windows.Forms.Label();
             this.NewUserLabel = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserNameTxt
@@ -134,6 +135,16 @@
             this.linkLabel1.Visible = false;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ParentsLogin);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(134, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // UsrLoginForm
             // 
             this.AcceptButton = this.DoLoginBtn;
@@ -141,6 +152,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(359, 121);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.NewUserLabel);
             this.Controls.Add(this.LoginResult);
@@ -177,6 +189,7 @@
         private System.Windows.Forms.Label LoginResult;
         private System.Windows.Forms.LinkLabel NewUserLabel;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
