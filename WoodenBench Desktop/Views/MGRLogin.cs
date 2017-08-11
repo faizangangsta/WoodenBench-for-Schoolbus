@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using WoodenBench.StaClasses;
 using WoodenBench.Views;
 using static WoodenBench.StaClasses.GlobalFunc;
-using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {

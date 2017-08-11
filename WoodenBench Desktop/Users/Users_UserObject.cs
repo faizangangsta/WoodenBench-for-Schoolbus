@@ -3,7 +3,7 @@ using System;
 using WoodenBench.StaClasses;
 using static WoodenBench.StaClasses.GlobalFunc;
 
-namespace WoodenBench.TableObject
+namespace WoodenBench.Users
 {
     /// <summary>
     /// DON'T CHANGE CLASS NAME  'AllUsersTable'

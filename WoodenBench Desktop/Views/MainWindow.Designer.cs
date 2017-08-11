@@ -64,18 +64,12 @@
             this.NotificationTitleLabel = new System.Windows.Forms.Label();
             this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.contextMenuBar1 = new DevComponents.DotNetBar.ContextMenuBar();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
-            this.textBoxItem1 = new DevComponents.DotNetBar.TextBoxItem();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.TopMenu.SuspendLayout();
             this.NowUsrDataGroup.SuspendLayout();
             this.MainStatusGroup.SuspendLayout();
             this.SysNotiGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // TopMenu
@@ -106,14 +100,14 @@
             // 
             this.退出EToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.退出EToolStripMenuItem.Name = "退出EToolStripMenuItem";
-            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.退出EToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出EToolStripMenuItem.Text = "退出(&E)";
             this.退出EToolStripMenuItem.Click += new System.EventHandler(this.退出EToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(112, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             this.toolStripSeparator2.Click += new System.EventHandler(this.StrangeBar);
             // 
             // 用户UToolStripMenuItem
@@ -450,57 +444,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "上传学生信息";
             // 
-            // contextMenuBar1
-            // 
-            this.contextMenuBar1.AntiAlias = true;
-            this.contextMenuBar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.contextMenuBar1.IsMaximized = false;
-            this.contextMenuBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem1});
-            this.contextMenuBar1.Location = new System.Drawing.Point(282, 0);
-            this.contextMenuBar1.Name = "contextMenuBar1";
-            this.contextMenuBar1.Size = new System.Drawing.Size(393, 26);
-            this.contextMenuBar1.Stretch = true;
-            this.contextMenuBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.contextMenuBar1.TabIndex = 8;
-            this.contextMenuBar1.TabStop = false;
-            this.contextMenuBar1.Text = "contextMenuBar1";
-            // 
-            // buttonItem1
-            // 
-            this.buttonItem1.AutoExpandOnClick = true;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem2,
-            this.labelItem1});
-            this.buttonItem1.Text = "buttonItem1";
-            // 
-            // buttonItem2
-            // 
-            this.buttonItem2.Name = "buttonItem2";
-            this.buttonItem2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.textBoxItem1});
-            this.buttonItem2.Text = "buttonItem2";
-            // 
-            // textBoxItem1
-            // 
-            this.textBoxItem1.Name = "textBoxItem1";
-            this.textBoxItem1.Text = "textBoxItem1";
-            this.textBoxItem1.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
-            // labelItem1
-            // 
-            this.labelItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(231)))), ((int)(((byte)(238)))));
-            this.labelItem1.BorderSide = DevComponents.DotNetBar.eBorderSide.Bottom;
-            this.labelItem1.BorderType = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.labelItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(21)))), ((int)(((byte)(110)))));
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.PaddingBottom = 1;
-            this.labelItem1.PaddingLeft = 10;
-            this.labelItem1.PaddingTop = 1;
-            this.labelItem1.SingleLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
-            this.labelItem1.Text = "labelItem1";
-            // 
             // buttonX1
             // 
             this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -518,13 +461,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 574);
-            this.Controls.Add(this.contextMenuBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.MainStatusGroup);
             this.Controls.Add(this.SysNotiGroup);
             this.Controls.Add(this.NowUsrDataGroup);
             this.Controls.Add(this.TopMenu);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.TopMenu;
             this.Name = "MainWindow";
@@ -540,7 +483,6 @@
             this.MainStatusGroup.PerformLayout();
             this.SysNotiGroup.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,11 +524,6 @@
         private System.Windows.Forms.ToolStripStatusLabel BUsrRNameL;
         private System.Windows.Forms.ToolStripMenuItem AdminManage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevComponents.DotNetBar.ContextMenuBar contextMenuBar1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem2;
-        private DevComponents.DotNetBar.TextBoxItem textBoxItem1;
-        private DevComponents.DotNetBar.LabelItem labelItem1;
         private DevComponents.DotNetBar.ButtonX buttonX1;
     }
 }

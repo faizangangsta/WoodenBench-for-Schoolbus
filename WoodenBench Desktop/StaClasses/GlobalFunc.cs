@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WoodenBench.Events;
 using WoodenBench.TableObject;
+using WoodenBench.Users;
 using WoodenBench.Views;
 
 namespace WoodenBench.StaClasses
@@ -18,10 +20,11 @@ namespace WoodenBench.StaClasses
         static void Main()
         {
             DebugMessage("Application Started");
-            StaClasses.GlobalFunc.InitBmobObject();
+            InitBmobObject();
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UsrLoginWindow());
+            AppEvents.RegEvents();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(UsrLoginWindow.Default);
         }
 
         public static AllUserObject CurrentUser { get; set; }

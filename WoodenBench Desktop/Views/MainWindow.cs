@@ -9,8 +9,7 @@ using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
 using static WoodenBench.StaClasses.GlobalFunc;
-using static WoodenBench.StaClasses.UserActivity;
-using static WoodenBench.TableObject.AllUserObject;
+using static WoodenBench.Users.UserActivity;
 
 namespace WoodenBench.Views
 {

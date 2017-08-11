@@ -5,8 +5,8 @@ using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
+using WoodenBench.Users;
 using static WoodenBench.StaClasses.GlobalFunc;
-using static WoodenBench.TableObject.AllUserObject;
 
 namespace WoodenBench.Views
 {

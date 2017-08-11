@@ -58,13 +58,15 @@ namespace WoodenBench.StaClasses
     {
         Unknown,
         Completed,
-        Failed
+        Failed,
+        FailedWithErr
     }
 
     public enum UserActivityEnum
     {
         UserLogin,
         UserLogOff,
-        UserChangePassword
+        UserChangePassword,
+        UserCompare
     }
 }

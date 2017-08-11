@@ -6,9 +6,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
-using WoodenBench.GlobalEvents;
+using WoodenBench.Events;
 using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
+using WoodenBench.Users;
 using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Views
@@ -35,7 +36,10 @@ namespace WoodenBench.Views
         }
         #region For us easier to call
         private static UsrLoginWindow defaultInstance { get; set; }
-        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            defaultInstance = null;
+        }
         public static UsrLoginWindow Default
         {
             get
@@ -58,19 +62,8 @@ namespace WoodenBench.Views
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
-            if (StaClasses.UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false))
-            {
-                MainWindow.Default.Show();
-                Hide();
-            }
-            else
-            {
-                DebugMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
-                LoginResult.Text = "用户名或密码不正确";
-            }
-            DoLoginBtn.Enabled = true;
-            CancelBtn.Enabled = true;
-            DoLoginBtn.Text = "登陆(&L)";
+            UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
+
         }
 
         private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUserWindow().ShowDialog(); }
@@ -85,34 +78,35 @@ namespace WoodenBench.Views
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        public void onUsrLgn(UserActivityEventArgs e)
         {
-            Thread a = new Thread(P);
-            a.Start();
-        }
-        private void P()
-        {
-            UserActivityEventArgs e = new UserActivityEventArgs(UserActivityEnum.UserLogin, null, null, ProcStatusEnum.Completed);
-            AppEvents.onUserActivity(this, e);
-        }
-
-        public void EventRegister_Test(object sender, UserActivityEventArgs e)
-        {
-            SetTextBoxValue(Text, "");
-        }
-
-        private static void SetTextBoxValue(object obj, string s)
-        {
-            if (UsrLoginWindow.Default.InvokeRequired)
+            if (e.Activity == UserActivityEnum.UserLogin)
             {
-                UsrLoginWindow.Default.Invoke(new onUserLoginDelegateVoid((e) =>
+                if (e.ProcessStatus == ProcStatusEnum.Completed)
                 {
-                    UsrLoginWindow.Default.Text = e;
-                }), obj.ToString());
-            }
-            else
-            {
-
+                    Invoke(new onUserLoginDelegateVoid(() =>
+                    {
+                        DoLoginBtn.Enabled = true;
+                        CancelBtn.Enabled = true;
+                        DoLoginBtn.Text = "登陆(&L)";
+                        MainWindow.Default.Show();
+                        Hide();
+                    }));
+                }
+                else if (e.ProcessStatus == ProcStatusEnum.Failed || e.ProcessStatus == ProcStatusEnum.FailedWithErr)
+                {
+                    if (InvokeRequired)
+                    {
+                        Invoke(new onUserLoginDelegateVoid(() =>
+                        {
+                            DebugMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
+                            LoginResult.Text = "用户名或密码不正确";
+                            DoLoginBtn.Enabled = true;
+                            CancelBtn.Enabled = true;
+                            DoLoginBtn.Text = "登陆(&L)";
+                        }));
+                    }
+                }
             }
         }
     }

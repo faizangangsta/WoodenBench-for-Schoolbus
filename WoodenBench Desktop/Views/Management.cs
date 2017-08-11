@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using WoodenBench.Views;
 using static WoodenBench.StaClasses.GlobalFunc;
-using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {

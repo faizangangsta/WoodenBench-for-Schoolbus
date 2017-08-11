@@ -7,18 +7,21 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using WoodenBench.DelegateClasses;
+using WoodenBench.Events;
+using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
 using static WoodenBench.StaClasses.GlobalFunc;
-using static WoodenBench.TableObject.AllUserObject;
 
-namespace WoodenBench.StaClasses
+namespace WoodenBench.Users
 {
-    public class UserActivity
+    public class _UserActivity
     {
-
-        public static bool ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
+        public static event onUserActivityHandler onUserActivityEvent;
+        protected static void _ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             AllUserObject Change = new AllUserObject();
             Change.Password = NewPasswrd;
@@ -26,28 +29,23 @@ namespace WoodenBench.StaClasses
             {
                 if (exception != null)
                 {
-                    MessageBox.Show("修改失败, 失败原因为： " + exception.Message);
-                    DebugMessage(exception.Message);
-                    return;
+                    onUserActivity(UserActivityEnum.UserChangePassword, null, ProcStatusEnum.FailedWithErr, Detail: exception.Message);
                 }
                 else
                 {
-                    MessageBox.Show($"为重载用户配置，当前用户 {CurrentUser.RealName} 将被注销，请重新登陆");
+                    onUserActivity(UserActivityEnum.UserChangePassword, null, ProcStatusEnum.Completed);
                 }
             });
-            return true;
         }
 
-        public static void LogOut()
+        protected static void _LogOut()
         {
-            UsrLoginWindow.Default.Show();
-            MainWindow.Default.Close();
-            ChangeUserDataWindow.Default.Close();
             CurrentUser = null;
             GC.Collect();
+            onUserActivity(UserActivityEnum.UserLogOff, CurrentUser, ProcStatusEnum.Completed);
         }
 
-        public static bool Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
+        protected static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
             string StrObjectID;
             string Password;
@@ -86,21 +84,47 @@ namespace WoodenBench.StaClasses
 
                 if (FoundUser.Password == xPassword)
                 {
-                    if (OnlyVerify) return FoundUser.RealName == RealN;
+                    if (OnlyVerify)
+                    {
+                        if (FoundUser.RealName == RealN)
+                        {
+                            onUserActivity(UserActivityEnum.UserCompare, null, ProcStatusEnum.Completed);
+                        }
+                        else
+                        {
+                            onUserActivity(UserActivityEnum.UserCompare, null, ProcStatusEnum.Failed, Detail: "RealName Doesn't Match");
+                        }
+                    }
                     else
                     {
                         CurrentUser = FoundUser;
-                        return true;
+                        onUserActivity(UserActivityEnum.UserLogin, CurrentUser, ProcStatusEnum.Completed);
                     }
                 }
-                return false;
+                else
+                {
+                    onUserActivity(UserActivityEnum.UserLogin, CurrentUser, ProcStatusEnum.Failed, Detail: "PsWd Wrong");
+                }
             }
             catch (Exception e)
             {
                 DebugMessage(e);
                 DebugMessage(e.InnerException);
-                return false;
+                onUserActivity(UserActivityEnum.UserLogin, null, ProcStatusEnum.FailedWithErr, Detail: e.Message);
             }
+        }
+
+        private static void onUserActivity(UserActivityEnum Act, AllUserObject AChange, ProcStatusEnum Status, string Detail = "")
+        {
+            UserActivityEventArgs e = new UserActivityEventArgs()
+            {
+                Activity = Act,
+                AfterChange = AChange,
+                ProcessStatus = Status,
+                Describe = Detail
+            };
+            if (onUserActivityEvent != null) { onUserActivityEvent(e); }
+            e = null;
         }
     }
 }
