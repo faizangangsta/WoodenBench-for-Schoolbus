@@ -13,7 +13,7 @@ using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
-    public partial class UsrLoginWindow : Form
+    public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         private void button1_Click(object sender, EventArgs e)
         {

@@ -13,7 +13,7 @@ using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class MGRLoginWindow : Form
+    public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         private static MGRLoginWindow defaultInstance;
         public MGRLoginWindow() : base()

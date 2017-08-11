@@ -13,7 +13,7 @@ using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
-    public partial class ExcelOperationWindow : Form
+    public partial class ExcelOperationWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         string ExcelFilePath, NowClassProcess, NowPartOfSchool;
         public ExcelOperationWindow() { InitializeComponent(); }

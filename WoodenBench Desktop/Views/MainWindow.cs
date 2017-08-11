@@ -14,7 +14,7 @@ using static WoodenBench.TableObject.AllUserObject;
 
 namespace WoodenBench.Views
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         int Hiint = 0;
         private static MainWindow defaultInstance;

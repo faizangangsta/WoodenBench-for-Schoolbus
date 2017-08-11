@@ -12,7 +12,7 @@ using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class ManagementWindow : Form
+    public partial class ManagementWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         static int UsrLevel;
 

@@ -62,12 +62,23 @@
     <Reference Include="Bmob-Windows">
       <HintPath>..\BmobDataBase\Windows\Bmob-Windows.dll</HintPath>
     </Reference>
+    <Reference Include="DevComponents.Charts.Design, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Charts, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Keyboard, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Layout, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.SuperGrid.Design, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.TreeGX, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />

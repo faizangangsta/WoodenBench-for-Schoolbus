@@ -10,7 +10,7 @@ using static WoodenBench.TableObject.AllUserObject;
 
 namespace WoodenBench.Views
 {
-    public partial class CreateUserWindow : Form
+    public partial class CreateUserWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         public CreateUserWindow() { InitializeComponent(); }
 

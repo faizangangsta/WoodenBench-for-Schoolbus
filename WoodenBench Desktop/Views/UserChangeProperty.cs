@@ -13,7 +13,7 @@ using static WoodenBench.StaClasses.UserActivity;
 
 namespace WoodenBench.Views
 {
-    public partial class ChangeUserDataWindow : Form
+    public partial class ChangeUserDataWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         public ChangeUserDataWindow()
         {

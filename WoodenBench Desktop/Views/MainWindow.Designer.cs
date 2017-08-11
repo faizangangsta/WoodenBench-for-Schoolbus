@@ -64,23 +64,31 @@
             this.NotificationTitleLabel = new System.Windows.Forms.Label();
             this.NotificationWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.contextMenuBar1 = new DevComponents.DotNetBar.ContextMenuBar();
+            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
+            this.textBoxItem1 = new DevComponents.DotNetBar.TextBoxItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.TopMenu.SuspendLayout();
             this.NowUsrDataGroup.SuspendLayout();
             this.MainStatusGroup.SuspendLayout();
             this.SysNotiGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // TopMenu
             // 
+            this.TopMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.TopMenu.ForeColor = System.Drawing.Color.Black;
             this.TopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
             this.用户UToolStripMenuItem,
             this.关于ToolStripMenuItem});
             this.TopMenu.Location = new System.Drawing.Point(0, 0);
             this.TopMenu.Name = "TopMenu";
-            this.TopMenu.Size = new System.Drawing.Size(819, 25);
+            this.TopMenu.Size = new System.Drawing.Size(867, 25);
             this.TopMenu.TabIndex = 3;
             this.TopMenu.Text = "menuStrip1";
             // 
@@ -158,6 +166,7 @@
             // NowUsrDataGroup
             // 
             this.NowUsrDataGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NowUsrDataGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.NowUsrDataGroup.Controls.Add(this.label4);
             this.NowUsrDataGroup.Controls.Add(this.label3);
             this.NowUsrDataGroup.Controls.Add(this.label2);
@@ -169,7 +178,8 @@
             this.NowUsrDataGroup.Controls.Add(this.TUsrRNameL);
             this.NowUsrDataGroup.Controls.Add(this.TUsrNameL);
             this.NowUsrDataGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.NowUsrDataGroup.Location = new System.Drawing.Point(599, 27);
+            this.NowUsrDataGroup.ForeColor = System.Drawing.Color.Black;
+            this.NowUsrDataGroup.Location = new System.Drawing.Point(647, 27);
             this.NowUsrDataGroup.Name = "NowUsrDataGroup";
             this.NowUsrDataGroup.Size = new System.Drawing.Size(208, 143);
             this.NowUsrDataGroup.TabIndex = 4;
@@ -179,6 +189,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(30, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 17);
@@ -188,6 +200,8 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(7, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 17);
@@ -197,6 +211,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(6, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 17);
@@ -206,6 +222,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(18, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 17);
@@ -215,6 +233,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
@@ -224,7 +244,9 @@
             // TUsrWCIDL
             // 
             this.TUsrWCIDL.AutoSize = true;
+            this.TUsrWCIDL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.TUsrWCIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrWCIDL.ForeColor = System.Drawing.Color.Black;
             this.TUsrWCIDL.Location = new System.Drawing.Point(80, 109);
             this.TUsrWCIDL.Name = "TUsrWCIDL";
             this.TUsrWCIDL.Size = new System.Drawing.Size(59, 17);
@@ -234,7 +256,9 @@
             // TUsrGroupL
             // 
             this.TUsrGroupL.AutoSize = true;
+            this.TUsrGroupL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.TUsrGroupL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrGroupL.ForeColor = System.Drawing.Color.Black;
             this.TUsrGroupL.Location = new System.Drawing.Point(80, 87);
             this.TUsrGroupL.Name = "TUsrGroupL";
             this.TUsrGroupL.Size = new System.Drawing.Size(76, 17);
@@ -244,7 +268,9 @@
             // TUsrIDL
             // 
             this.TUsrIDL.AutoSize = true;
+            this.TUsrIDL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.TUsrIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrIDL.ForeColor = System.Drawing.Color.Black;
             this.TUsrIDL.Location = new System.Drawing.Point(80, 66);
             this.TUsrIDL.Name = "TUsrIDL";
             this.TUsrIDL.Size = new System.Drawing.Size(48, 17);
@@ -254,7 +280,9 @@
             // TUsrRNameL
             // 
             this.TUsrRNameL.AutoSize = true;
+            this.TUsrRNameL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.TUsrRNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrRNameL.ForeColor = System.Drawing.Color.Black;
             this.TUsrRNameL.Location = new System.Drawing.Point(80, 44);
             this.TUsrRNameL.Name = "TUsrRNameL";
             this.TUsrRNameL.Size = new System.Drawing.Size(78, 17);
@@ -264,7 +292,9 @@
             // TUsrNameL
             // 
             this.TUsrNameL.AutoSize = true;
+            this.TUsrNameL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.TUsrNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TUsrNameL.ForeColor = System.Drawing.Color.Black;
             this.TUsrNameL.Location = new System.Drawing.Point(80, 22);
             this.TUsrNameL.Name = "TUsrNameL";
             this.TUsrNameL.Size = new System.Drawing.Size(70, 17);
@@ -273,6 +303,8 @@
             // 
             // MainStatusGroup
             // 
+            this.MainStatusGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.MainStatusGroup.ForeColor = System.Drawing.Color.Black;
             this.MainStatusGroup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtomStaLabel1,
             this.BUsrNameL,
@@ -282,10 +314,10 @@
             this.BUsrIDL,
             this.BtomStaLabel3,
             this.BUsrGroupL});
-            this.MainStatusGroup.Location = new System.Drawing.Point(0, 471);
+            this.MainStatusGroup.Location = new System.Drawing.Point(0, 552);
             this.MainStatusGroup.Name = "MainStatusGroup";
             this.MainStatusGroup.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.MainStatusGroup.Size = new System.Drawing.Size(819, 22);
+            this.MainStatusGroup.Size = new System.Drawing.Size(867, 22);
             this.MainStatusGroup.TabIndex = 5;
             this.MainStatusGroup.Text = "statusStrip1";
             // 
@@ -300,7 +332,7 @@
             // 
             this.BUsrNameL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrNameL.Name = "BUsrNameL";
-            this.BUsrNameL.Size = new System.Drawing.Size(105, 17);
+            this.BUsrNameL.Size = new System.Drawing.Size(117, 17);
             this.BUsrNameL.Spring = true;
             this.BUsrNameL.Text = "NowUser";
             this.BUsrNameL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -314,7 +346,7 @@
             // BUsrRNameL
             // 
             this.BUsrRNameL.Name = "BUsrRNameL";
-            this.BUsrRNameL.Size = new System.Drawing.Size(105, 17);
+            this.BUsrRNameL.Size = new System.Drawing.Size(117, 17);
             this.BUsrRNameL.Spring = true;
             this.BUsrRNameL.Text = "UserRName";
             this.BUsrRNameL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -331,7 +363,7 @@
             // 
             this.BUsrIDL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrIDL.Name = "BUsrIDL";
-            this.BUsrIDL.Size = new System.Drawing.Size(105, 17);
+            this.BUsrIDL.Size = new System.Drawing.Size(117, 17);
             this.BUsrIDL.Spring = true;
             this.BUsrIDL.Text = "NowUserID";
             this.BUsrIDL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -349,7 +381,7 @@
             this.BUsrGroupL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.BUsrGroupL.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BUsrGroupL.Name = "BUsrGroupL";
-            this.BUsrGroupL.Size = new System.Drawing.Size(105, 17);
+            this.BUsrGroupL.Size = new System.Drawing.Size(117, 17);
             this.BUsrGroupL.Spring = true;
             this.BUsrGroupL.Text = "NowUserGroup";
             this.BUsrGroupL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -358,12 +390,14 @@
             // 
             this.SysNotiGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SysNotiGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.SysNotiGroup.Controls.Add(this.NotificationContentLabel);
             this.SysNotiGroup.Controls.Add(this.NotificationTitleLabel);
             this.SysNotiGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SysNotiGroup.Location = new System.Drawing.Point(599, 176);
+            this.SysNotiGroup.ForeColor = System.Drawing.Color.Black;
+            this.SysNotiGroup.Location = new System.Drawing.Point(647, 176);
             this.SysNotiGroup.Name = "SysNotiGroup";
-            this.SysNotiGroup.Size = new System.Drawing.Size(208, 292);
+            this.SysNotiGroup.Size = new System.Drawing.Size(208, 373);
             this.SysNotiGroup.TabIndex = 6;
             this.SysNotiGroup.TabStop = false;
             this.SysNotiGroup.Text = "通知区域";
@@ -373,10 +407,12 @@
             this.NotificationContentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.NotificationContentLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.NotificationContentLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.NotificationContentLabel.ForeColor = System.Drawing.Color.Black;
             this.NotificationContentLabel.Location = new System.Drawing.Point(14, 68);
             this.NotificationContentLabel.Name = "NotificationContentLabel";
-            this.NotificationContentLabel.Size = new System.Drawing.Size(177, 221);
+            this.NotificationContentLabel.Size = new System.Drawing.Size(177, 302);
             this.NotificationContentLabel.TabIndex = 1;
             this.NotificationContentLabel.Text = "内容";
             // 
@@ -384,7 +420,9 @@
             // 
             this.NotificationTitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.NotificationTitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.NotificationTitleLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.NotificationTitleLabel.ForeColor = System.Drawing.Color.Black;
             this.NotificationTitleLabel.Location = new System.Drawing.Point(9, 17);
             this.NotificationTitleLabel.Name = "NotificationTitleLabel";
             this.NotificationTitleLabel.Size = new System.Drawing.Size(193, 51);
@@ -402,34 +440,91 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.buttonX1);
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(13, 29);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(580, 168);
+            this.groupBox1.Size = new System.Drawing.Size(628, 168);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "上传学生信息";
             // 
-            // button1
+            // contextMenuBar1
             // 
-            this.button1.Location = new System.Drawing.Point(358, 58);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "开始";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.contextMenuBar1.AntiAlias = true;
+            this.contextMenuBar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.contextMenuBar1.IsMaximized = false;
+            this.contextMenuBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem1});
+            this.contextMenuBar1.Location = new System.Drawing.Point(282, 0);
+            this.contextMenuBar1.Name = "contextMenuBar1";
+            this.contextMenuBar1.Size = new System.Drawing.Size(393, 26);
+            this.contextMenuBar1.Stretch = true;
+            this.contextMenuBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.contextMenuBar1.TabIndex = 8;
+            this.contextMenuBar1.TabStop = false;
+            this.contextMenuBar1.Text = "contextMenuBar1";
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.AutoExpandOnClick = true;
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem2,
+            this.labelItem1});
+            this.buttonItem1.Text = "buttonItem1";
+            // 
+            // buttonItem2
+            // 
+            this.buttonItem2.Name = "buttonItem2";
+            this.buttonItem2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.textBoxItem1});
+            this.buttonItem2.Text = "buttonItem2";
+            // 
+            // textBoxItem1
+            // 
+            this.textBoxItem1.Name = "textBoxItem1";
+            this.textBoxItem1.Text = "textBoxItem1";
+            this.textBoxItem1.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(231)))), ((int)(((byte)(238)))));
+            this.labelItem1.BorderSide = DevComponents.DotNetBar.eBorderSide.Bottom;
+            this.labelItem1.BorderType = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.labelItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(21)))), ((int)(((byte)(110)))));
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.PaddingBottom = 1;
+            this.labelItem1.PaddingLeft = 10;
+            this.labelItem1.PaddingTop = 1;
+            this.labelItem1.SingleLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
+            this.labelItem1.Text = "labelItem1";
+            // 
+            // buttonX1
+            // 
+            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1.Location = new System.Drawing.Point(279, 64);
+            this.buttonX1.Name = "buttonX1";
+            this.buttonX1.Size = new System.Drawing.Size(115, 38);
+            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1.TabIndex = 0;
+            this.buttonX1.Text = "buttonX1";
+            this.buttonX1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(819, 493);
+            this.ClientSize = new System.Drawing.Size(867, 574);
+            this.Controls.Add(this.contextMenuBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.MainStatusGroup);
             this.Controls.Add(this.SysNotiGroup);
             this.Controls.Add(this.NowUsrDataGroup);
             this.Controls.Add(this.TopMenu);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.TopMenu;
             this.Name = "MainWindow";
@@ -445,6 +540,7 @@
             this.MainStatusGroup.PerformLayout();
             this.SysNotiGroup.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,6 +582,11 @@
         private System.Windows.Forms.ToolStripStatusLabel BUsrRNameL;
         private System.Windows.Forms.ToolStripMenuItem AdminManage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private DevComponents.DotNetBar.ContextMenuBar contextMenuBar1;
+        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonItem buttonItem2;
+        private DevComponents.DotNetBar.TextBoxItem textBoxItem1;
+        private DevComponents.DotNetBar.LabelItem labelItem1;
+        private DevComponents.DotNetBar.ButtonX buttonX1;
     }
 }
