@@ -8,7 +8,9 @@ using WoodenBench.StaClasses;
 
 namespace WoodenBench.DelegateClasses
 {
-    public delegate void onUserLoginDelegateVoid();
+    public delegate void nullArgDelegate();
+
+    public delegate void nullArgDelegate();
 
     public delegate void onUserActivityHandler(UserActivityEventArgs e);
 

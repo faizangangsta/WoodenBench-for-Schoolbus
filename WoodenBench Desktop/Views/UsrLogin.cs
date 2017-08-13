@@ -84,7 +84,7 @@ namespace WoodenBench.Views
             {
                 if (e.ProcessStatus == ProcStatusEnum.Completed)
                 {
-                    Invoke(new onUserLoginDelegateVoid(() =>
+                    Invoke(new nullArgDelegate(() =>
                     {
                         DoLoginBtn.Enabled = true;
                         CancelBtn.Enabled = true;
@@ -97,7 +97,7 @@ namespace WoodenBench.Views
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(new onUserLoginDelegateVoid(() =>
+                        Invoke(new nullArgDelegate(() =>
                         {
                             DebugMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
                             LoginResult.Text = "用户名或密码不正确";
