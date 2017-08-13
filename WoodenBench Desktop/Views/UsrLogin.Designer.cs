@@ -44,12 +44,14 @@
             // 
             // UserNameTxt
             // 
+            this.UserNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.UserNameTxt.BackColor = System.Drawing.Color.White;
             this.UserNameTxt.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.UserNameTxt.ForeColor = System.Drawing.Color.Black;
             this.UserNameTxt.Location = new System.Drawing.Point(85, 20);
             this.UserNameTxt.Name = "UserNameTxt";
-            this.UserNameTxt.Size = new System.Drawing.Size(237, 23);
+            this.UserNameTxt.Size = new System.Drawing.Size(262, 23);
             this.UserNameTxt.TabIndex = 0;
             this.UserNameTxt.TextChanged += new System.EventHandler(this.UserNameTxt_TextChanged);
             // 
@@ -66,6 +68,8 @@
             // 
             // PswdTxt
             // 
+            this.PswdTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PswdTxt.BackColor = System.Drawing.Color.White;
             this.PswdTxt.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.PswdTxt.ForeColor = System.Drawing.Color.Black;
@@ -73,7 +77,7 @@
             this.PswdTxt.Name = "PswdTxt";
             this.PswdTxt.PasswordChar = '●';
             this.PswdTxt.ShortcutsEnabled = false;
-            this.PswdTxt.Size = new System.Drawing.Size(237, 23);
+            this.PswdTxt.Size = new System.Drawing.Size(262, 23);
             this.PswdTxt.TabIndex = 2;
             this.PswdTxt.WordWrap = false;
             this.PswdTxt.TextChanged += new System.EventHandler(this.PswdTxt_TextChanged);
@@ -83,9 +87,11 @@
             this.CancelBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(191, 86);
+            this.CancelBtn.Location = new System.Drawing.Point(147, 83);
             this.CancelBtn.Name = "CancelBtn";
-            this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelBtn.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2);
+            this.CancelBtn.Size = new System.Drawing.Size(97, 29);
+            this.CancelBtn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.CancelBtn.TabIndex = 3;
             this.CancelBtn.Text = "取消(&C)";
             this.CancelBtn.Click += new System.EventHandler(this.button1_Click);
@@ -94,9 +100,13 @@
             // 
             this.DoLoginBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.DoLoginBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DoLoginBtn.Location = new System.Drawing.Point(272, 86);
+            this.DoLoginBtn.Location = new System.Drawing.Point(250, 83);
             this.DoLoginBtn.Name = "DoLoginBtn";
-            this.DoLoginBtn.Size = new System.Drawing.Size(75, 23);
+            this.DoLoginBtn.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2);
+            this.DoLoginBtn.Size = new System.Drawing.Size(97, 29);
+            this.DoLoginBtn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.DoLoginBtn.Symbol = "";
+            this.DoLoginBtn.SymbolSize = 15F;
             this.DoLoginBtn.TabIndex = 4;
             this.DoLoginBtn.Text = "登陆(&L)";
             this.DoLoginBtn.Click += new System.EventHandler(this.DoLogin);
@@ -124,10 +134,11 @@
             // 
             // NewUserLabel
             // 
+            this.NewUserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewUserLabel.AutoSize = true;
             this.NewUserLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.NewUserLabel.ForeColor = System.Drawing.Color.Black;
-            this.NewUserLabel.Location = new System.Drawing.Point(24, 89);
+            this.NewUserLabel.Location = new System.Drawing.Point(12, 100);
             this.NewUserLabel.Name = "NewUserLabel";
             this.NewUserLabel.Size = new System.Drawing.Size(53, 12);
             this.NewUserLabel.TabIndex = 7;
@@ -137,15 +148,16 @@
             // 
             // linkLabel1
             // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.linkLabel1.ForeColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(26, 73);
+            this.linkLabel1.Location = new System.Drawing.Point(12, 83);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(107, 12);
+            this.linkLabel1.Size = new System.Drawing.Size(53, 12);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "///invisi家长登录";
+            this.linkLabel1.Text = "家长登录";
             this.linkLabel1.Visible = false;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ParentsLogin);
             // 
@@ -175,7 +187,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(375, 160);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 160);
             this.Name = "UsrLoginWindow";

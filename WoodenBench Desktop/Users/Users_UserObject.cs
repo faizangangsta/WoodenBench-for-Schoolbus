@@ -40,5 +40,15 @@ namespace WoodenBench.Users
             output.Put("UsrGroup", (int)this.UserGroup);
             output.Put("RealName", this.RealName);
         }
+        public void SetEveryThingNull()
+        {
+            objectId = RandomString(10, true, CustomStr: RandomString(5, true));
+            UserName = RandomString(10, true, CustomStr: RandomString(5, true));
+            Password = RandomString(10, true, CustomStr: RandomString(5, true));
+            WeChatID = RandomString(10, true, CustomStr: RandomString(5, true));
+            RealName = RandomString(10, true, CustomStr: RandomString(5, true));
+            UserGroup = UserGroupEnum.老师;
+            WebNotiSeen = false;
+        }
     }
 }

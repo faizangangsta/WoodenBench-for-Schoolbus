@@ -10,7 +10,7 @@ namespace WoodenBench.DelegateClasses
 {
     public delegate void nullArgDelegate();
 
-    public delegate void nullArgDelegate();
+    public delegate void _nullArgDelegate();
 
     public delegate void onUserActivityHandler(UserActivityEventArgs e);
 

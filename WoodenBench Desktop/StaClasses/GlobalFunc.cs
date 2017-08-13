@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using WoodenBench.Events;
@@ -24,7 +25,7 @@ namespace WoodenBench.StaClasses
             Application.EnableVisualStyles();
             AppEvents.RegEvents();
             //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(UsrLoginWindow.Default);
+            Application.Run(new MainForm());
         }
 
         public static AllUserObject CurrentUser { get; set; }
@@ -50,6 +51,23 @@ namespace WoodenBench.StaClasses
         {
             DebugMessage("Application Exit");
             Application.Exit();
+        }
+
+        public static string RandomString(int Length, bool Symbols, string CustomStr = "")
+        {
+            byte[] b = new byte[4];
+            new RNGCryptoServiceProvider().GetBytes(b);
+            Random r = new Random(BitConverter.ToInt32(b, 0));
+            string s = null, f = CustomStr;
+            f += "0123456789";
+            f += "abcdefghijklmnopqrstuvwxyz";
+            f += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (Symbols) f += "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}（）_——-~·、，。；‘“’”《》￥……~";
+            for (int i = 0; i < Length; i++)
+            {
+                s += f.Substring(r.Next(0, f.Length - 1), 1);
+            }
+            return s;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WoodenBench.Users
 
         protected static void _LogOut()
         {
-            CurrentUser = null;
+            CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
             onUserActivity(UserActivityEnum.UserLogOff, CurrentUser, ProcStatusEnum.Completed);
         }

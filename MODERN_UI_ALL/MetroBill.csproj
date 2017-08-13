@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetroBill</RootNamespace>
     <AssemblyName>MetroBill</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -30,6 +30,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,30 +54,21 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MetroBill.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=9.9.9.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ClientControl.Designer.cs">
-      <DependentUpon>ClientControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InvoiceControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="InvoiceControl.Designer.cs">
-      <DependentUpon>InvoiceControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,22 +87,8 @@
     <Compile Include="StartControl.Designer.cs">
       <DependentUpon>StartControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StartupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StartupForm.Designer.cs">
-      <DependentUpon>StartupForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ClientControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ClientControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InvoiceControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>InvoiceControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -124,10 +102,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>StartControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StartupForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>StartupForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
