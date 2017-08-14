@@ -3,7 +3,7 @@ function WriteNotification(CUser)
 
 }
 
-function BmobWriteUserData(TableName, ObjID, DatField, DataContent, CallBackFunction)
+function BmobWriteUserData(ObjID, DatField, DataContent, CallBackFunction)
 {
     var query = new Bmob.Query(Bmob.Object.extend("AllUsersTable"));
     query.get(ObjID, {

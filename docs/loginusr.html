@@ -20,6 +20,55 @@
     <script src="SchBMgr_js/WCServicesProvider.js"></script>
     <link rel="stylesheet" href="SchBCSS.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+
+    <script src="js/CryptoJS/core.js"></script>
+    <script src="js/CryptoJS/crypto-js.js"></script>
+    <script src="js/CryptoJS/enc-base64.js"></script>
+    <script src="js/CryptoJS/enc-hex.js"></script>
+    <script src="js/CryptoJS/enc-latin1.js"></script>
+    <script src="js/CryptoJS/enc-utf8.js"></script>
+    <script src="js/CryptoJS/enc-utf16.js"></script>
+    <script src="js/CryptoJS/evpkdf.js"></script>
+    <script src="js/CryptoJS/format-hex.js"></script>
+    <script src="js/CryptoJS/format-openssl.js"></script>
+    <script src="js/CryptoJS/hmac-md5.js"></script>
+    <script src="js/CryptoJS/hmac.js"></script>
+    <script src="js/CryptoJS/hmac-ripemd160.js"></script>
+    <script src="js/CryptoJS/hmac-sha1.js"></script>
+    <script src="js/CryptoJS/hmac-sha3.js"></script>
+    <script src="js/CryptoJS/hmac-sha224.js"></script>
+    <script src="js/CryptoJS/hmac-sha256.js"></script>
+    <script src="js/CryptoJS/hmac-sha384.js"></script>
+    <script src="js/CryptoJS/hmac-sha512.js"></script>
+    <script src="js/CryptoJS/index.js"></script>
+    <script src="js/CryptoJS/lib-typedarrays.js"></script>
+    <script src="js/CryptoJS/md5.js"></script>
+    <script src="js/CryptoJS/mode-cfb.js"></script>
+    <script src="js/CryptoJS/mode-ctr.js"></script>
+    <script src="js/CryptoJS/mode-ctr-gladman.js"></script>
+    <script src="js/CryptoJS/mode-ecb.js"></script>
+    <script src="js/CryptoJS/mode-ofb.js"></script>
+    <script src="js/CryptoJS/pad-ansix923.js"></script>
+    <script src="js/CryptoJS/pad-iso10126.js"></script>
+    <script src="js/CryptoJS/pad-iso97971.js"></script>
+    <script src="js/CryptoJS/pad-nopadding.js"></script>
+    <script src="js/CryptoJS/pad-pkcs7.js"></script>
+    <script src="js/CryptoJS/pad-zeropadding.js"></script>
+    <script src="js/CryptoJS/pbkdf2.js"></script>
+    <script src="js/CryptoJS/rabbit.js"></script>
+    <script src="js/CryptoJS/rabbit-legacy.js"></script>
+    <script src="js/CryptoJS/rc4.js"></script>
+    <script src="js/CryptoJS/ripemd160.js"></script>
+    <script src="js/CryptoJS/sha1.js"></script>
+    <script src="js/CryptoJS/sha3.js"></script>
+    <script src="js/CryptoJS/sha224.js"></script>
+    <script src="js/CryptoJS/sha256.js"></script>
+    <script src="js/CryptoJS/sha384.js"></script>
+    <script src="js/CryptoJS/sha512.js"></script>
+    <script src="js/CryptoJS/tripledes.js"></script>
+    <script src="js/CryptoJS/x64-core.js"></script>
+
+
 </head>
 <body style="background-image: url('Backgrounds/back1.jpg');">
 <nav class="navbar navbar-default">
@@ -65,6 +114,7 @@
     {
         var query = new Bmob.Query(Bmob.Object.extend("AllUsersTable"));
         query.equalTo("Username", document.getElementById("UsrNameTx").value);
+        var p = CryptoJS.SHA256(document.getElementById("PsWdTx").value);
         query.find({
             success: function (results)
             {
@@ -75,7 +125,7 @@
                 for (var i = 0; i < results.length; i++)
                 {
                     var object = results[i];
-                    if (object.get("Password") === document.getElementById("PsWdTx").value) ProcLogin(object);
+                    if (object.get("Password") == p) ProcLogin(object);
                     else $("#faileddetail").text("登陆失败，用户名或密码不正确");
                 }
             },

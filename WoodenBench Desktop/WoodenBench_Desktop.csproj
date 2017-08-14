@@ -97,14 +97,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StaClasses\Consts.cs" />
+    <Compile Include="StaClasses\CryptoGraphy.cs" />
     <Compile Include="StaClasses\ExcelApplication.cs" />
-    <Compile Include="GlobalEvents\GlobalEvents.cs" />
     <Compile Include="TableObjects\StudentObject.cs" />
     <Compile Include="StaClasses\PinYin\Pinyin.cs" />
     <Compile Include="StaClasses\PinYin\PyData.cs" />
     <Compile Include="StaClasses\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
-    <Compile Include="Users\Users_UserObject.cs" />
+    <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="Users\UserActivities.cs" />
     <Compile Include="Views\ExcelOperation.cs">
       <SubType>Form</SubType>
@@ -137,10 +137,10 @@
     <Compile Include="Views\ModernUI\StartControl.Designer.cs">
       <DependentUpon>StartControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UsrLogin.cs">
+    <Compile Include="Views\ModernUI\UsrLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\UsrLogin.Designer.cs">
+    <Compile Include="Views\ModernUI\UsrLogin.Designer.cs">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="StaClasses\GlobalFunc.cs" />
@@ -185,7 +185,7 @@
       <DependentUpon>StartControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UsrLogin.resx">
+    <EmbeddedResource Include="Views\ModernUI\UsrLogin.resx">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CreateUser.resx">
@@ -213,44 +213,44 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainICON.ico" />
-    <None Include="Resources\Web.png" />
-    <None Include="Resources\UserWhite1.png" />
-    <None Include="Resources\UserWhite.png" />
-    <None Include="Resources\User3.png" />
-    <None Include="Resources\User1.png" />
-    <None Include="Resources\User.png" />
-    <None Include="Resources\Unpaid.png" />
-    <None Include="Resources\TableWhite1.png" />
-    <None Include="Resources\TableWhite.png" />
-    <None Include="Resources\TableSelectRow.png" />
-    <None Include="Resources\TableReportt.png" />
-    <None Include="Resources\Table1.png" />
-    <None Include="Resources\Table.png" />
-    <None Include="Resources\PrintWhite.png" />
-    <None Include="Resources\Print1.png" />
-    <None Include="Resources\Print.png" />
-    <None Include="Resources\Person.png" />
-    <None Include="Resources\PaperClipWhite.png" />
-    <None Include="Resources\PaperClip.png" />
-    <None Include="Resources\NewNote.png" />
-    <None Include="Resources\NewInvoiceWhite.png" />
-    <None Include="Resources\NewInvoice1.png" />
-    <None Include="Resources\NewInvoice.png" />
-    <None Include="Resources\MarkAsPaidWhite.png" />
-    <None Include="Resources\MarkAsPaid.png" />
-    <None Include="Resources\Invoice.png" />
-    <None Include="Resources\Help.png" />
-    <None Include="Resources\Details.png" />
-    <None Include="Resources\DeleteWhite.png" />
-    <None Include="Resources\Delete1.png" />
-    <None Include="Resources\Delete.png" />
-    <None Include="Resources\contact.png" />
-    <None Include="Resources\ColorScheme.png" />
-    <None Include="Resources\CheckMark.png" />
-    <None Include="Resources\Charts.png" />
-    <None Include="Resources\BookNoteWhite.png" />
-    <None Include="Resources\BookNote.png" />
-    <None Include="Resources\AttachFile.png" />
+    <None Include="Properties\Resources\Web.png" />
+    <None Include="Properties\Resources\UserWhite1.png" />
+    <None Include="Properties\Resources\UserWhite.png" />
+    <None Include="Properties\Resources\User3.png" />
+    <None Include="Properties\Resources\User1.png" />
+    <None Include="Properties\Resources\User.png" />
+    <None Include="Properties\Resources\Unpaid.png" />
+    <None Include="Properties\Resources\TableWhite1.png" />
+    <None Include="Properties\Resources\TableWhite.png" />
+    <None Include="Properties\Resources\TableSelectRow.png" />
+    <None Include="Properties\Resources\TableReportt.png" />
+    <None Include="Properties\Resources\Table1.png" />
+    <None Include="Properties\Resources\Table.png" />
+    <None Include="Properties\Resources\PrintWhite.png" />
+    <None Include="Properties\Resources\Print1.png" />
+    <None Include="Properties\Resources\Print.png" />
+    <None Include="Properties\Resources\Person.png" />
+    <None Include="Properties\Resources\PaperClipWhite.png" />
+    <None Include="Properties\Resources\PaperClip.png" />
+    <None Include="Properties\Resources\NewNote.png" />
+    <None Include="Properties\Resources\NewInvoiceWhite.png" />
+    <None Include="Properties\Resources\NewInvoice1.png" />
+    <None Include="Properties\Resources\NewInvoice.png" />
+    <None Include="Properties\Resources\MarkAsPaidWhite.png" />
+    <None Include="Properties\Resources\MarkAsPaid.png" />
+    <None Include="Properties\Resources\Invoice.png" />
+    <None Include="Properties\Resources\Help.png" />
+    <None Include="Properties\Resources\Details.png" />
+    <None Include="Properties\Resources\DeleteWhite.png" />
+    <None Include="Properties\Resources\Delete1.png" />
+    <None Include="Properties\Resources\Delete.png" />
+    <None Include="Properties\Resources\contact.png" />
+    <None Include="Properties\Resources\ColorScheme.png" />
+    <None Include="Properties\Resources\CheckMark.png" />
+    <None Include="Properties\Resources\Charts.png" />
+    <None Include="Properties\Resources\BookNoteWhite.png" />
+    <None Include="Properties\Resources\BookNote.png" />
+    <None Include="Properties\Resources\AttachFile.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -2,11 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1d480a4-abcb-4c7f-a767-51aedd9398e2" name="Default" comment="FixHide">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Users/Users_UserObject.cs" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.vs/WoodenBench/v15/.suo" afterPath="$PROJECT_DIR$/../.vs/WoodenBench/v15/.suo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.Designer.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.Designer.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/Management.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/StaClasses/GlobalFunc.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/StaClasses/GlobalFunc.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/StaClasses/Mysterious.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/StaClasses/Mysterious.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Users/_UserActivity.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Users/_UserActivity.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/CreateUser.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/CreateUser.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/MGRLogin.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/MGRLogin.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/ModernUI/StartControl.Designer.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/ModernUI/StartControl.Designer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/ModernUI/StartControl.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/ModernUI/StartControl.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UserChangeProperty.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UserChangeProperty.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.Designer.cs" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/Views/UsrLogin.Designer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WoodenBench Desktop/WoodenBench_Desktop.csproj" afterPath="$PROJECT_DIR$/../WoodenBench Desktop/WoodenBench_Desktop.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SchBMgr_js/GlobalFunctions.js" afterPath="$PROJECT_DIR$/SchBMgr_js/GlobalFunctions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loginusr.html" afterPath="$PROJECT_DIR$/loginusr.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/usermanage.html" afterPath="$PROJECT_DIR$/usermanage.html" />
     </list>
     <ignored path="lhy0403.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,21 +36,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="usermanage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usermanage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="87" column="21" lean-forward="true" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+            <state relative-caret-position="506">
+              <caret line="301" column="26" lean-forward="false" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SCHLoginServices.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SchBMgr_js/SCHLoginServices.js">
+      <file leaf-file-name="GlobalFunctions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SchBMgr_js/GlobalFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="264">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeiXinModule.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SchBMgr_js/WeiXinModule.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WCServicesProvider.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SchBMgr_js/WCServicesProvider.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginusr.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/loginusr.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="126" column="44" lean-forward="false" selection-start-line="126" selection-start-column="44" selection-end-line="126" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -106,13 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/js/MD5.js" />
-        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SHAHash.js" />
-        <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeiXinModule.js" />
-        <option value="$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo.htm" />
-        <option value="$PROJECT_DIR$/node_modules/JSV/jsdoc-toolkit/app/test/globals.js" />
-        <option value="$PROJECT_DIR$/js/jquery-3.2.1.js" />
-        <option value="$PROJECT_DIR$/ModernBlog/usrlogin.html" />
         <option value="$PROJECT_DIR$/js/Base64.js" />
         <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeChatInitializationProvider.js" />
         <option value="$PROJECT_DIR$/schoolbusmgr/InitJSFiles.js" />
@@ -157,6 +191,13 @@
         <option value="$PROJECT_DIR$/schoolbusmgr/RptBug.html" />
         <option value="$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SCHLoginServices.js" />
         <option value="$PROJECT_DIR$/SchBMgr_js/SCHLoginServices.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/CryptoJS/sha256.js" />
+        <option value="$PROJECT_DIR$/js/CryptoJS/index.js" />
+        <option value="$PROJECT_DIR$/js/CryptoJS/core.js" />
+        <option value="$PROJECT_DIR$/usermanage.html" />
+        <option value="$PROJECT_DIR$/SchBMgr_js/GlobalFunctions.js" />
+        <option value="$PROJECT_DIR$/loginusr.html" />
       </list>
     </option>
   </component>
@@ -256,8 +297,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -268,12 +307,19 @@
             <path>
               <item name="YH-SBusMgr" type="b2602c69:ProjectViewProjectNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="Backgrounds" type="462c0819:PsiDirectoryNode" />
+              <item name="SchBMgr_js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YH-SBusMgr" type="b2602c69:ProjectViewProjectNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="WeChatJsDemo_files" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,7 +329,7 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../lhy0403.github.io" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -303,18 +349,18 @@
     <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/../NodeModule/node_modules/stylelint" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\lhy0403.github.io\js" />
-      <recent name="D:\Projects\lhy0403.github.io" />
-      <recent name="D:\Projects\lhy0403.github.io\css" />
-      <recent name="D:\Projects\lhy0403.github.io\SchBManagement" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\lhy0403.github.io\Sources" />
       <recent name="D:\Projects\lhy0403.github.io\js\Encryption" />
       <recent name="D:\Projects\lhy0403.github.io\js\FoFPage" />
       <recent name="D:\Projects\lhy0403.github.io\js" />
       <recent name="D:\Projects\lhy0403.github.io\schoolbusmgr\WeChatJsDemo_files" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\lhy0403.github.io\js" />
+      <recent name="D:\Projects\lhy0403.github.io" />
+      <recent name="D:\Projects\lhy0403.github.io\css" />
+      <recent name="D:\Projects\lhy0403.github.io\SchBManagement" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -329,10 +375,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.404.html">
+  <component name="RunManager" selected="JavaScript Debug.loginusr.html (1)">
     <configuration name="404.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/404.html" />
     <configuration name="RptBug.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/RptBug.html" />
-    <configuration name="WeChatUserCodeReceiver.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/WeChatUserCodeReceiver.html" />
     <configuration default="true" type="FirefoxRemoteDebugType" factoryName="Firefox Remote" editBeforeRun="true" />
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-interpreter>project</node-interpreter>
@@ -401,22 +446,23 @@
       <envs />
       <method />
     </configuration>
+    <configuration name="loginusr.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/YH-SBusMgr/loginusr.html" />
     <configuration name="loginusr.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/loginusr.html" />
     <configuration name="usermanage.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/lhy0403.github.io/schoolbusmgr/usermanage.html" />
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.WeChatUserCodeReceiver.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html (1)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.WeChatUserCodeReceiver.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html (1)" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.loginusr.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.404.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.RptBug.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.usermanage.html" />
       </list>
     </recent_temporary>
   </component>
@@ -636,11 +682,12 @@
       <workItem from="1501485859597" duration="3000" />
       <workItem from="1501499158960" duration="15000" />
       <workItem from="1501505932571" duration="89000" />
+      <workItem from="1502711337352" duration="2934000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="356793000" />
+    <option name="totallyTimeSpent" value="359727000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -655,16 +702,15 @@
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1589242" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1589242" sideWeight="0.49376947" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3280899" sideWeight="0.4966249" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26233184" sideWeight="0.32408324" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269663" sideWeight="0.4947313" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1367713" sideWeight="0.32776162" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269663" sideWeight="0.4947313" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19124424" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1364" y="209" width="319" height="388" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690126" sideWeight="0.4966249" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1367713" sideWeight="0.67223835" order="3" side_tool="false" content_ui="tabs" x="89" y="316" width="1013" height="385" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23655257" sideWeight="0.50623053" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1367713" sideWeight="0.67591673" order="3" side_tool="false" content_ui="tabs" x="89" y="316" width="1013" height="385" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="检验" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910052" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30368763" sideWeight="0.4252652" order="8" side_tool="false" content_ui="tabs" />
@@ -673,6 +719,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4809417" sideWeight="0.4924012" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -773,109 +820,410 @@
     <find-history />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/InitJSFiles.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCInitProvider.js" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/sectional.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/ImgCodingStyles.css" />
-    <entry file="file://$PROJECT_DIR$/ModernBlog/ImageCoding.html" />
-    <entry file="file://$PROJECT_DIR$/js/ImgCoding_js/ImgCodingMain.js" />
-    <entry file="file://$PROJECT_DIR$/jumpto.html" />
-    <entry file="file://$PROJECT_DIR$/js/bmob.js" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/Encryption/SHAHash.js" />
-    <entry file="file://$PROJECT_DIR$/lhy0403.github.io.sln" />
-    <entry file="file://$PROJECT_DIR$/js/ModernBlog_LoginServices.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SecKeyMgr.js" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/sixrr/inspectjs/exception/EmptyTryBlockJSInspection.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="730" column="32" lean-forward="false" selection-start-line="730" selection-start-column="32" selection-end-line="730" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="1190" column="13" lean-forward="false" selection-start-line="1190" selection-start-column="13" selection-end-line="1190" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/dupLocator/JSDuplicatesPresentation.class">
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/crypto-js.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/WeChatJsDemo.htm" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatJsDemo_files/demo.js" />
-    <entry file="file://$PROJECT_DIR$/Sources/Backgrounds/back3.jpg" />
-    <entry file="file://$PROJECT_DIR$/Sources/Backgrounds/404-2.bmp" />
-    <entry file="file://$PROJECT_DIR$/css/style.css" />
-    <entry file="file://$PROJECT_DIR$/css/bootstrap.css" />
-    <entry file="file://$PROJECT_DIR$/js/bootstrap.js" />
-    <entry file="file://$PROJECT_DIR$/css/MyCss.css" />
-    <entry file="file://$PROJECT_DIR$/.editorconfig" />
-    <entry file="file://$PROJECT_DIR$/README.md" />
-    <entry file="file://$PROJECT_DIR$/js/jquery-3.2.1.js" />
-    <entry file="file://$PROJECT_DIR$/js/FoFPage/jquery-1.10.2.js" />
-    <entry file="file://$PROJECT_DIR$/js/FoFPage/custom.js" />
-    <entry file="file://$PROJECT_DIR$/js/FoFPage/countUp.js" />
-    <entry file="file://$PROJECT_DIR$/fonts/fontawesome-webfont.eot" />
-    <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css" />
-    <entry file="file://$PROJECT_DIR$/404.html" />
-    <entry file="file://$PROJECT_DIR$/js/Encryption/Cookie.js" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/meta.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ModernBlog/edit.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/GlobalFunctions.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/SCHLoginServices.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WCServicesProvider.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBMgr_js/WeiXinModule.js" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/index.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/loginusr.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/qrscanreg.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/RptBug.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/SchBCSS.css" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/usermanage.html" />
-    <entry file="file://$PROJECT_DIR$/schoolbusmgr/WeChatUserCodeReceiver.html" />
-    <entry file="file://$PROJECT_DIR$/docs.lnk" />
-    <entry file="file://$PROJECT_DIR$/SchBMgr_js/SCHLoginServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/enc-base64.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="87" column="21" lean-forward="true" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/enc-hex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/enc-latin1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/enc-utf8.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/enc-utf16.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/evpkdf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/format-hex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/format-openssl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-md5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-ripemd160.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha224.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha256.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha384.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/hmac-sha512.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/lib-typedarrays.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/md5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/mode-cfb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/mode-ctr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/mode-ctr-gladman.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/mode-ecb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/mode-ofb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-ansix923.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-iso10126.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-iso97971.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-nopadding.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-pkcs7.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pad-zeropadding.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/pbkdf2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/rabbit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/rabbit-legacy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/rc4.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/ripemd160.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/sha1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/sha3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/sha224.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/sha384.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/sha512.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/tripledes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/x64-core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="82" column="31" lean-forward="true" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/CryptoJS/cipher-core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="21" column="24" lean-forward="false" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usermanage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="301" column="26" lean-forward="false" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SchBMgr_js/GlobalFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SchBMgr_js/WeiXinModule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SchBMgr_js/WCServicesProvider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loginusr.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="126" column="44" lean-forward="false" selection-start-line="126" selection-start-column="44" selection-end-line="126" selection-end-column="44" />
           <folding />
         </state>
       </provider>

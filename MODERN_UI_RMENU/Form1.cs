@@ -82,8 +82,7 @@ namespace RadialMenu
 
         private void RadialMenuItemClick(object sender, EventArgs e)
         {
-            RadialMenuItem item = sender as RadialMenuItem;
-            if (item != null && !string.IsNullOrEmpty(item.Text))
+            if (sender is RadialMenuItem item && !string.IsNullOrEmpty(item.Text))
             {
                 textBoxLog.AppendText(string.Format("{0} Menu item clicked: {1}\r\n", DateTime.Now, item.Text));
             }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.Events;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
 using WoodenBench.Views;
@@ -23,14 +22,19 @@ namespace WoodenBench.StaClasses
             DebugMessage("Application Started");
             InitBmobObject();
             Application.EnableVisualStyles();
-            AppEvents.RegEvents();
+            RegEvents();
             //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(UsrLoginWindow.Default);
         }
 
         public static AllUserObject CurrentUser { get; set; }
 
         public static BmobWindows _BmobWin { get; set; }
+        
+        public static void RegEvents()
+        {
+            UserActivity.onUserActivityEvent += UsrLoginWindow.Default.onUsrLgn;
+        }
 
         public static void InitBmobObject()
         {

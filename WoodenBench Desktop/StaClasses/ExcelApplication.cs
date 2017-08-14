@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WoodenBench.DelegateClasses;
 
 namespace WoodenBench.StaClasses
 {
     public static class ExcelApplication
     {
+        public static event onExcelProcFinishedHandler onExcelProcFinishedEvent;
+
+        public static void onExcelProcFinished(object sender, ExcelProcFinishedEventArgs e)
+        {
+            if (onExcelProcFinishedEvent != null) { onExcelProcFinishedEvent(sender, e); }
+        }
+
         public static int GetLastLineOfExcel(Microsoft.Office.Interop.Excel.Workbook xWorkbook)
         {
             int LineNum;
@@ -19,4 +27,9 @@ namespace WoodenBench.StaClasses
         }
     }
 
+    public class ExcelProcFinishedEventArgs : EventArgs
+    {
+        public ExcelProcFinishedEventArgs() { }
+        public ProcStatusEnum ProcessStatus { get; set; }
+    }
 }

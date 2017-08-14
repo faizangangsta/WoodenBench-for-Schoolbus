@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
-using WoodenBench.Events;
 using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
@@ -63,7 +62,6 @@ namespace WoodenBench.Views
             DoLoginBtn.Text = "登陆中...";
             Application.DoEvents();
             UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
-
         }
 
         private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUserWindow().ShowDialog(); }

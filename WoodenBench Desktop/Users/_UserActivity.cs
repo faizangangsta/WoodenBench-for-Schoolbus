@@ -4,13 +4,14 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
-using WoodenBench.Events;
 using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
@@ -25,7 +26,7 @@ namespace WoodenBench.Users
         {
             AllUserObject Change = new AllUserObject();
             Change.Password = NewPasswrd;
-            _BmobWin.Update(TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
+            _BmobWin.Update(Consts.TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
                 {
@@ -45,31 +46,39 @@ namespace WoodenBench.Users
             onUserActivity(UserActivityEnum.UserLogOff, CurrentUser, ProcStatusEnum.Completed);
         }
 
+        protected static void _UserChangeHeadImage(Image newImage, string UserName)
+        {
+            Bitmap p = new Bitmap(newImage);
+            MemoryStream ms = new MemoryStream();
+            p.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            byte[] ImageBytes = ms.GetBuffer();
+            ms.Close();
+
+            var ffuture = _BmobWin.FileUploadTaskAsync(new BmobLocalFile(ImageBytes, UserName + DateTime.Now + ".png"));
+        }
+
         protected static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
-            string StrObjectID;
-            string Password;
-            string RealName;
-            int UserGroup;
-            bool WebNotiSeen;
-            string WeChatID;
+            string HashedPs = CryptoGraphy.SHA256Encrypt(xPassword);
 
             BmobQuery UserNameQuery = new BmobQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
                 System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUserObject>> UsrNameResult;
-                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(GlobalFunc.TABLE_N_Gen_UsrTable, UserNameQuery);
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
                 JToken JsonUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
 
-                StrObjectID = JsonUsrResult["objectId"].ToString();
+                string StrObjectID = JsonUsrResult["objectId"].ToString();
                 //UserName doesn't need 
-                Password = JsonUsrResult["Password"].ToString();
-                RealName = JsonUsrResult["RealName"].ToString();
-                UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
-                WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
-                WeChatID = JsonUsrResult["WeChatID"].ToString();
+                string Password = JsonUsrResult["Password"].ToString();
+                string RealName = JsonUsrResult["RealName"].ToString();
+                string RealPassword = JsonUsrResult["RealPasswrord"].ToString();
+                int UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
+                bool WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
+                string WeChatID = JsonUsrResult["WeChatID"].ToString();
+                string HeadImageURL = JsonUsrResult[""].ToString();
 
                 AllUserObject FoundUser = new AllUserObject()
                 {
@@ -79,10 +88,16 @@ namespace WoodenBench.Users
                     RealName = RealName,
                     UserGroup = (UserGroupEnum)UserGroup,
                     WebNotiSeen = WebNotiSeen,
-                    WeChatID = WeChatID
+                    WeChatID = WeChatID,
+                    RealPassword = RealPassword,
+                    UserImage = new BmobFile()
+                    {
+                        url = HeadImageURL; 
+                    }
+                    
                 };
 
-                if (FoundUser.Password == xPassword)
+                if (FoundUser.Password == HashedPs)
                 {
                     if (OnlyVerify)
                     {
@@ -126,5 +141,13 @@ namespace WoodenBench.Users
             if (onUserActivityEvent != null) { onUserActivityEvent(e); }
             e = null;
         }
+    }
+    public class UserActivityEventArgs : EventArgs
+    {
+        public UserActivityEventArgs() { }
+        public ProcStatusEnum ProcessStatus { get; set; }
+        public UserActivityEnum Activity { get; set; }
+        public AllUserObject AfterChange { get; set; }
+        public string Describe { get; set; }
     }
 }

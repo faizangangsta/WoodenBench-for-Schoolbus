@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WoodenBench.StaClasses
 {
-    public static partial class GlobalFunc
+    public static partial class Consts
     {
         /// <summary>
         /// All students Table

@@ -43,7 +43,7 @@
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.metroTileItem2 = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.symbolBox1 = new DevComponents.DotNetBar.Controls.SymbolBox();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("微软雅黑", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelX1.Location = new System.Drawing.Point(70, 11);
+            this.labelX1.Location = new System.Drawing.Point(55, 69);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(289, 40);
             this.labelX1.TabIndex = 2;
@@ -71,10 +71,10 @@
             this.itemPanel1.DragDropSupport = true;
             this.itemPanel1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.itemContainer1});
-            this.itemPanel1.Location = new System.Drawing.Point(55, 77);
+            this.itemPanel1.Location = new System.Drawing.Point(55, 115);
             this.itemPanel1.Name = "itemPanel1";
             this.itemPanel1.ReserveLeftSpace = false;
-            this.itemPanel1.Size = new System.Drawing.Size(594, 331);
+            this.itemPanel1.Size = new System.Drawing.Size(571, 296);
             this.itemPanel1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.itemPanel1.TabIndex = 3;
             this.itemPanel1.Text = "itemPanel1";
@@ -86,7 +86,7 @@
             // 
             this.itemContainer1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.itemContainer1.ItemSpacing = 6;
-            this.itemContainer1.MinimumSize = new System.Drawing.Size(560, 290);
+            this.itemContainer1.MinimumSize = new System.Drawing.Size(560, 0);
             this.itemContainer1.MultiLine = true;
             this.itemContainer1.Name = "itemContainer1";
             this.itemContainer1.ResizeItemsToFit = false;
@@ -305,7 +305,7 @@
             // 
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(496, 7);
+            this.labelX2.Location = new System.Drawing.Point(463, 7);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(115, 47);
             this.labelX2.TabIndex = 4;
@@ -316,7 +316,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = global::WoodenBench.Properties.Resources.Person;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(617, 14);
+            this.pictureBox1.Location = new System.Drawing.Point(584, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 33);
             this.pictureBox1.TabIndex = 5;
@@ -343,31 +343,34 @@
             this.metroTileItem2.TileStyle.TextColor = System.Drawing.Color.White;
             this.metroTileItem2.TitleText = "返回";
             // 
-            // symbolBox1
+            // buttonX1
             // 
-            // 
-            // 
-            // 
-            this.symbolBox1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.symbolBox1.Location = new System.Drawing.Point(19, 14);
-            this.symbolBox1.Name = "symbolBox1";
-            this.symbolBox1.Size = new System.Drawing.Size(45, 40);
-            this.symbolBox1.Symbol = "";
-            this.symbolBox1.TabIndex = 7;
-            this.symbolBox1.Click += new System.EventHandler(this.symbolBox1_Click);
+            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonX1.Location = new System.Drawing.Point(21, 14);
+            this.buttonX1.Name = "buttonX1";
+            this.buttonX1.Size = new System.Drawing.Size(121, 40);
+            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1.Symbol = "";
+            this.buttonX1.TabIndex = 8;
+            this.buttonX1.Text = "返回(&B)";
+            this.buttonX1.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
             // 
             // StartControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.symbolBox1);
+            this.Controls.Add(this.buttonX1);
             this.Controls.Add(this.labelX1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.itemPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.Name = "StartControl";
-            this.Size = new System.Drawing.Size(669, 429);
+            this.Size = new System.Drawing.Size(636, 420);
+            this.Load += new System.EventHandler(this.StartControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -390,6 +393,6 @@
         private DevComponents.DotNetBar.Metro.MetroTileItem helpTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem devCoTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem appViewTile;
-        private DevComponents.DotNetBar.Controls.SymbolBox symbolBox1;
+        private DevComponents.DotNetBar.ButtonX buttonX1;
     }
 }

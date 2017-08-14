@@ -59,7 +59,7 @@ namespace WoodenBench.Views
 
         private void GetNotificationWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var Resulta = _BmobWin.GetTaskAsync<NotificationObject>(TABLE_N_Gen_Notifi, OBJ_ID_Notifi);
+            var Resulta = _BmobWin.GetTaskAsync<NotificationObject>(Consts.TABLE_N_Gen_Notifi, Consts.OBJ_ID_Notifi);
             JObject JsonNowUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(Resulta.Result));
             NotificationTitle = JsonNowUsrResult["NTitle"].ToString();
             string NotSplitedContent = JsonNowUsrResult["DataContent"].ToString();
