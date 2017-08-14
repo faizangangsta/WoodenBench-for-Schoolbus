@@ -9,6 +9,7 @@ namespace WoodenBench.Users
 {
     public class UserActivity : _UserActivity
     {
+        /**/
         private static Thread TLogOffUser = new Thread(TUserLogOff)
         {
             Name = "User Logoff",
@@ -24,31 +25,48 @@ namespace WoodenBench.Users
             Name = "User Login",
             IsBackground = false
         };
+        #region Thread Operation Methods
+
         private static void TUserLogOff()
         {
             _UserActivity._LogOut();
         }
+
         private static void TUserChange(object Obj)
         {
             List<object> p = (List<object>)Obj;
             _ChangePassWord((AllUserObject)p[0], p[1].ToString(), p[2].ToString());
         }
+
         private static void TUserLogin(object Obj)
         {
             List<object> p = (List<object>)Obj;
             _Login(p[0].ToString(), p[1].ToString(), (bool)p[2], p[3].ToString());
         }
-
+        #endregion
 
         public static void LogOut()
         {
-            if (!TLogOffUser.IsAlive) { TLogOffUser.Start(); }
+            if (!TLogOffUser.IsAlive)
+            {
+                TLogOffUser = new Thread(TUserLogOff)
+                {
+                    Name = "User Logoff",
+                    IsBackground = false
+                };
+                TLogOffUser.Start();
+            }
         }
 
         public static void ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             if (!TChangeUser.IsAlive)
             {
+                TChangeUser = new Thread(new ParameterizedThreadStart(TUserChange))
+                {
+                    Name = "User Change Password",
+                    IsBackground = false
+                };
                 List<object> Para = new List<object> { NowUser, OriPasswrd, NewPasswrd };
                 TChangeUser.Start(Para);
             }
@@ -58,6 +76,11 @@ namespace WoodenBench.Users
         {
             if (!TLoginUser.IsAlive)
             {
+                TLoginUser = new Thread(new ParameterizedThreadStart(TUserLogin))
+                {
+                    Name = "User Login",
+                    IsBackground = false
+                };
                 List<object> Para = new List<object> { xUserName, xPassword, OnlyVerify, RealN };
                 TLoginUser.Start(Para);
             }

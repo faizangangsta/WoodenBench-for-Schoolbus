@@ -90,11 +90,11 @@ namespace WoodenBench.Users
                     WebNotiSeen = WebNotiSeen,
                     WeChatID = WeChatID,
                     RealPassword = RealPassword,
-                    UserImage = new BmobFile()
-                    {
-                        url = HeadImageURL; 
-                    }
-                    
+                    //UserImage = new BmobFile()
+                    //{
+                    //    url = HeadImageURL,
+                    //    filename = "p",
+                    //}
                 };
 
                 if (FoundUser.Password == HashedPs)
