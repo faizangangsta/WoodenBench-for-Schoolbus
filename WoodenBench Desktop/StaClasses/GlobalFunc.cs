@@ -24,7 +24,7 @@ namespace WoodenBench.StaClasses
             Application.EnableVisualStyles();
             RegEvents();
             //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(UsrLoginWindow.Default);
+            Application.Run(new MainForm());
         }
 
         public static AllUserObject CurrentUser { get; set; }

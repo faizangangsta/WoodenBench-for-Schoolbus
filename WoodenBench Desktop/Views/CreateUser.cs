@@ -25,8 +25,9 @@ namespace WoodenBench.Views
                 GroupT.SelectedIndex + 1 != 0 &&
                 CheckT.Checked && PasswordT.Text == PasswordT2.Text)
             {
+
                 AllUserObject NewUserObj = new AllUserObject
-                {
+                {                    
                     UserName = UserNameT.Text,
                     RealName = RealNameT.Text,
                     WebNotiSeen = false,
@@ -34,6 +35,7 @@ namespace WoodenBench.Views
                     Password = PasswordT2.Text,
                     UserGroup = (UserGroupEnum)(GroupT.SelectedIndex + 1)
                 };
+                
                 var future = _BmobWin.CreateTaskAsync(NewUserObj);
                 future.Wait();
                 //try to read the Callback data
@@ -44,7 +46,7 @@ namespace WoodenBench.Views
                 return;
                 try
                 {
-
+                    //chongxie 
                 }
                 catch (Exception Exc)
                 {

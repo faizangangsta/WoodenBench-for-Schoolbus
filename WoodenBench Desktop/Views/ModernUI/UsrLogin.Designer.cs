@@ -112,7 +112,7 @@
             this.DoLoginBtn.Symbol = "";
             this.DoLoginBtn.SymbolSize = 15F;
             this.DoLoginBtn.TabIndex = 4;
-            this.DoLoginBtn.Text = "登陆(&L)";
+            this.DoLoginBtn.Text = "登录(&L)";
             this.DoLoginBtn.Click += new System.EventHandler(this.DoLogin);
             // 
             // label2

@@ -65,6 +65,7 @@ namespace WoodenBench.Users
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
+
                 System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUserObject>> UsrNameResult;
                 UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
@@ -73,7 +74,7 @@ namespace WoodenBench.Users
                 string StrObjectID = JsonUsrResult["objectId"].ToString();
                 //UserName doesn't need 
                 string Password = JsonUsrResult["Password"].ToString();
-                string RealName = JsonUsrResult["RealName"].ToString();
+                string RealName = JsonUsrResult["RealName"].ToString();                
                 string RealPassword = JsonUsrResult["RealPasswrord"].ToString();
                 int UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
                 bool WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());

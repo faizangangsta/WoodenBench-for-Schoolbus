@@ -320,7 +320,7 @@
             this.BtomStaLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtomStaLabel1.Name = "BtomStaLabel1";
             this.BtomStaLabel1.Size = new System.Drawing.Size(104, 17);
-            this.BtomStaLabel1.Text = "   当前登陆用户：";
+            this.BtomStaLabel1.Text = "   当前登录用户：";
             // 
             // BUsrNameL
             // 

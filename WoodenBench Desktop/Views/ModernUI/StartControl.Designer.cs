@@ -282,7 +282,7 @@
             this.salesTile.Symbol = "";
             this.salesTile.SymbolColor = System.Drawing.Color.Empty;
             this.salesTile.SymbolSize = 40F;
-            this.salesTile.Text = "<font size=\"+2\">9.</font>\r\n<br/>\r\n<font size=\"+4\">注销</font>\r\n<br/>返回登陆页面";
+            this.salesTile.Text = "<font size=\"+2\">9.</font>\r\n<br/>\r\n<font size=\"+4\">注销</font>\r\n<br/>返回登录页面";
             this.salesTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Coffee;
             // 
             // 

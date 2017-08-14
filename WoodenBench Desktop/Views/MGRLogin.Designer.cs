@@ -46,7 +46,7 @@
             this.LoginMgrBtn.Name = "LoginMgrBtn";
             this.LoginMgrBtn.Size = new System.Drawing.Size(452, 26);
             this.LoginMgrBtn.TabIndex = 6;
-            this.LoginMgrBtn.Text = "登陆管理界面(&L)";
+            this.LoginMgrBtn.Text = "登录管理界面(&L)";
             this.LoginMgrBtn.UseVisualStyleBackColor = true;
             this.LoginMgrBtn.Click += new System.EventHandler(this.LoginMgrBtn_Click);
             // 

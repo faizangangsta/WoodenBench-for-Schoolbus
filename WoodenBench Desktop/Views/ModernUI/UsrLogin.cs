@@ -59,7 +59,7 @@ namespace WoodenBench.Views
             LoginResult.Text = "";
             DoLoginBtn.Enabled = false;
             CancelBtn.Enabled = false;
-            DoLoginBtn.Text = "登陆中...";
+            DoLoginBtn.Text = "登录中...";
             Application.DoEvents();
             UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
         }
@@ -86,7 +86,7 @@ namespace WoodenBench.Views
                     {
                         DoLoginBtn.Enabled = true;
                         CancelBtn.Enabled = true;
-                        DoLoginBtn.Text = "登陆(&L)";
+                        DoLoginBtn.Text = "登录(&L)";
                         MainWindow.Default.Show();
                         Hide();
                     }));
@@ -101,7 +101,7 @@ namespace WoodenBench.Views
                             LoginResult.Text = "用户名或密码不正确";
                             DoLoginBtn.Enabled = true;
                             CancelBtn.Enabled = true;
-                            DoLoginBtn.Text = "登陆(&L)";
+                            DoLoginBtn.Text = "登录(&L)";
                         }));
                     }
                 }
