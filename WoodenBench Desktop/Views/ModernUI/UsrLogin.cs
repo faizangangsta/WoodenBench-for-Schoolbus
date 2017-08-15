@@ -78,9 +78,9 @@ namespace WoodenBench.Views
 
         public void onUsrLgn(UserActivityEventArgs e)
         {
-            if (e.Activity == UserActivityEnum.UserLogin)
+            if (e.Activity == UsrActvtiE.UsrLogin)
             {
-                if (e.ProcessStatus == ProcStatusEnum.Completed)
+                if (e.ProcessStatus == ProcStatE.Completed)
                 {
                     Invoke(new nullArgDelegate(() =>
                     {
@@ -91,7 +91,7 @@ namespace WoodenBench.Views
                         Hide();
                     }));
                 }
-                else if (e.ProcessStatus == ProcStatusEnum.Failed || e.ProcessStatus == ProcStatusEnum.FailedWithErr)
+                else if (e.ProcessStatus == ProcStatE.Failed || e.ProcessStatus == ProcStatE.FailedWithErr)
                 {
                     if (InvokeRequired)
                     {

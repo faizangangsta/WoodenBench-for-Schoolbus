@@ -30,6 +30,6 @@ namespace WoodenBench.StaClasses
     public class ExcelProcFinishedEventArgs : EventArgs
     {
         public ExcelProcFinishedEventArgs() { }
-        public ProcStatusEnum ProcessStatus { get; set; }
+        public ProcStatE ProcessStatus { get; set; }
     }
 }

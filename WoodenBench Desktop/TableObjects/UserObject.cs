@@ -2,6 +2,7 @@
 using System;
 using WoodenBench.StaClasses;
 using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaClasses.CryptoGraphy;
 
 namespace WoodenBench.TableObject
 {

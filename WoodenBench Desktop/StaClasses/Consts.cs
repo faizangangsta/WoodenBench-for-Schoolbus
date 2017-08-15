@@ -54,7 +54,7 @@ namespace WoodenBench.StaClasses
         家长
     }
 
-    public enum ProcStatusEnum
+    public enum ProcStatE
     {
         Unknown,
         Completed,
@@ -62,9 +62,9 @@ namespace WoodenBench.StaClasses
         FailedWithErr
     }
 
-    public enum UserActivityEnum
+    public enum UsrActvtiE
     {
-        UserLogin,
+        UsrLogin,
         UserLogOff,
         UserChangePassword,
         UserCompare

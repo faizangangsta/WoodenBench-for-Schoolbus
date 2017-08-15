@@ -1,5 +1,6 @@
 ﻿using cn.bmob.io;
 using cn.bmob.json;
+using cn.bmob.response;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,9 @@ using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench.Users
 {
-    public class _UserActivity
+    partial class UserActivity
     {
-        public static event onUserActivityHandler onUserActivityEvent;
-        protected static void _ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
+        private static void _ChangePsW(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             AllUserObject Change = new AllUserObject();
             Change.Password = NewPasswrd;
@@ -30,23 +30,23 @@ namespace WoodenBench.Users
             {
                 if (exception != null)
                 {
-                    onUserActivity(UserActivityEnum.UserChangePassword, null, ProcStatusEnum.FailedWithErr, Detail: exception.Message);
+                    onUserActivity(UsrActvtiE.UserChangePassword, null, ProcStatE.FailedWithErr, Detail: exception.Message);
                 }
                 else
                 {
-                    onUserActivity(UserActivityEnum.UserChangePassword, null, ProcStatusEnum.Completed);
+                    onUserActivity(UsrActvtiE.UserChangePassword, null, ProcStatE.Completed);
                 }
             });
         }
 
-        protected static void _LogOut()
+        private static void _LogOut()
         {
             CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(UserActivityEnum.UserLogOff, CurrentUser, ProcStatusEnum.Completed);
+            onUserActivity(UsrActvtiE.UserLogOff, CurrentUser, ProcStatE.Completed);
         }
 
-        protected static void _UserChangeHeadImage(Image newImage, string UserName)
+        private static void _UserChangeHeadImage(Image newImage, string UserName)
         {
             Bitmap p = new Bitmap(newImage);
             MemoryStream ms = new MemoryStream();
@@ -57,80 +57,56 @@ namespace WoodenBench.Users
             var ffuture = _BmobWin.FileUploadTaskAsync(new BmobLocalFile(ImageBytes, UserName + DateTime.Now + ".png"));
         }
 
-        protected static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
+        private static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
             string HashedPs = CryptoGraphy.SHA256Encrypt(xPassword);
-
             BmobQuery UserNameQuery = new BmobQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
-
-                System.Threading.Tasks.Task<cn.bmob.response.QueryCallbackData<AllUserObject>> UsrNameResult;
+                System.Threading.Tasks.Task<QueryCallbackData<AllUserObject>> UsrNameResult;
                 UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
-                JToken JsonUsrResult = JObject.Parse(JsonAdapter.JSON.ToDebugJsonString(UsrNameResult.Result))["results"].First;
-
-                string StrObjectID = JsonUsrResult["objectId"].ToString();
-                //UserName doesn't need 
-                string Password = JsonUsrResult["Password"].ToString();
-                string RealName = JsonUsrResult["RealName"].ToString();                
-                string RealPassword = JsonUsrResult["RealPasswrord"].ToString();
-                int UserGroup = Convert.ToInt32(JsonUsrResult["UsrGroup"].ToString());
-                bool WebNotiSeen = Convert.ToBoolean(JsonUsrResult["WebNotiSeen"].ToString());
-                string WeChatID = JsonUsrResult["WeChatID"].ToString();
-                string HeadImageURL = JsonUsrResult[""].ToString();
-
-                AllUserObject FoundUser = new AllUserObject()
+                if (UsrNameResult.Result.results.Count <= 0)
                 {
-                    objectId = StrObjectID,
-                    UserName = xUserName,
-                    Password = Password,
-                    RealName = RealName,
-                    UserGroup = (UserGroupEnum)UserGroup,
-                    WebNotiSeen = WebNotiSeen,
-                    WeChatID = WeChatID,
-                    RealPassword = RealPassword,
-                    //UserImage = new BmobFile()
-                    //{
-                    //    url = HeadImageURL,
-                    //    filename = "p",
-                    //}
-                };
-
+                    onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Failed, Detail: "PsWd Wrong");
+                }
+                AllUserObject FoundUser = UsrNameResult.Result.results[0];
                 if (FoundUser.Password == HashedPs)
                 {
                     if (OnlyVerify)
                     {
                         if (FoundUser.RealName == RealN)
                         {
-                            onUserActivity(UserActivityEnum.UserCompare, null, ProcStatusEnum.Completed);
+                            onUserActivity(UsrActvtiE.UserCompare, null, ProcStatE.Completed);
                         }
                         else
                         {
-                            onUserActivity(UserActivityEnum.UserCompare, null, ProcStatusEnum.Failed, Detail: "RealName Doesn't Match");
+                            onUserActivity(UsrActvtiE.UserCompare, null, ProcStatE.Failed, Detail: "RealName Doesn't Match");
                         }
                     }
                     else
                     {
                         CurrentUser = FoundUser;
-                        onUserActivity(UserActivityEnum.UserLogin, CurrentUser, ProcStatusEnum.Completed);
+                        onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Completed);
                     }
                 }
-                else
-                {
-                    onUserActivity(UserActivityEnum.UserLogin, CurrentUser, ProcStatusEnum.Failed, Detail: "PsWd Wrong");
-                }
+                else onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Failed, Detail: "PsWd Wrong");
             }
             catch (Exception e)
             {
                 DebugMessage(e);
                 DebugMessage(e.InnerException);
-                onUserActivity(UserActivityEnum.UserLogin, null, ProcStatusEnum.FailedWithErr, Detail: e.Message);
+                onUserActivity(UsrActvtiE.UsrLogin, null, ProcStatE.FailedWithErr, Detail: e.Message);
             }
         }
 
-        private static void onUserActivity(UserActivityEnum Act, AllUserObject AChange, ProcStatusEnum Status, string Detail = "")
+        private static void _Create(string Username, string Realname, string Password, int UserGroup)
+        {
+
+        }
+
+        private static void onUserActivity(UsrActvtiE Act, AllUserObject AChange, ProcStatE Status, string Detail = "")
         {
             UserActivityEventArgs e = new UserActivityEventArgs()
             {
@@ -142,13 +118,6 @@ namespace WoodenBench.Users
             if (onUserActivityEvent != null) { onUserActivityEvent(e); }
             e = null;
         }
-    }
-    public class UserActivityEventArgs : EventArgs
-    {
-        public UserActivityEventArgs() { }
-        public ProcStatusEnum ProcessStatus { get; set; }
-        public UserActivityEnum Activity { get; set; }
-        public AllUserObject AfterChange { get; set; }
-        public string Describe { get; set; }
+
     }
 }
