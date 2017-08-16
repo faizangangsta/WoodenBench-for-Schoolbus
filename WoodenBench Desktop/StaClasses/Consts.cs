@@ -67,6 +67,7 @@ namespace WoodenBench.StaClasses
         UsrLogin,
         UserLogOff,
         UserChangePassword,
+        UserUploadHImage,
         UserCompare
     }
 }

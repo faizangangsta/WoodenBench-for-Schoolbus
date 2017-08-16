@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
 using WoodenBench.StaClasses;
@@ -99,7 +100,23 @@ namespace WoodenBench.Users
             byte[] ImageBytes = ms.GetBuffer();
             ms.Close();
 
-            var ffuture = _BmobWin.FileUploadTaskAsync(new BmobLocalFile(ImageBytes, UserName + DateTime.Now + ".png"));
+            var ffuture = _BmobWin.FileUploadTaskAsync(new BmobLocalFile(ImageBytes, UserName + "-" + DateTime.Now + "-HeadImage.png"));
+            ffuture.Wait();
+            if (ffuture.Status == TaskStatus.Faulted)
+            {
+                onUserActivity(UsrActvtiE.UserUploadHImage, null, ProcStatE.FailedWithErr);
+            }
+            else if (ffuture.Status == TaskStatus.RanToCompletion)
+            {
+                CurrentUser.UserImage.filename = ffuture.Result.filename;
+                CurrentUser.UserImage.group = ffuture.Result.group;
+                CurrentUser.UserImage.url = ffuture.Result.url;
+                onUserActivity(UsrActvtiE.UserUploadHImage, CurrentUser, ProcStatE.Completed);
+            }
+            else
+            {
+                onUserActivity(UsrActvtiE.UserUploadHImage, null, ProcStatE.Unknown);
+            }
         }
 
         private static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")

@@ -63,7 +63,7 @@ namespace WoodenBench.StaClasses
             if (!BusyThread.IsAlive || BusyThread == null)
             {
                 BusyThread = new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath); }))
-                { Name = "Loadload file", IsBackground = false };
+                { Name = "Download file", IsBackground = false };
                 BusyThread.Start();
             }
         }
