@@ -1,12 +1,15 @@
 using DevComponents.DotNetBar.Controls;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
+using static WoodenBench.StaClasses.GlobalFunc;
 
 namespace WoodenBench
 {
-    public partial class StartControl : SlidePanel
+    public partial class MenuUsrControl : SlidePanel
     {
-        public StartControl()
+
+        public MenuUsrControl() : base()
         {
             InitializeComponent();
         }
@@ -21,7 +24,8 @@ namespace WoodenBench
 
         private void StartControl_Load(object sender, EventArgs e)
         {
-
+            labelX2.Text = "<div align=\"right\"><font size=\"+4\">"
+                + CurrentUser.RealName + "</font><br/>" + CurrentUser.objectId + "</div>";
         }
 
         private void buttonX1_Click(object sender, EventArgs e)

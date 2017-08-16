@@ -1,6 +1,6 @@
 ﻿namespace WoodenBench
 {
-    partial class StartControl
+    partial class MenuUsrControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -110,8 +110,7 @@
             this.newInvoiceTile.Image = global::WoodenBench.Properties.Resources.Invoice;
             this.newInvoiceTile.Name = "newInvoiceTile";
             this.newInvoiceTile.SymbolColor = System.Drawing.Color.Empty;
-            this.newInvoiceTile.Text = "<font size=\"+2\">1.</font>\r\n<br/>\r\n<font size=\"+4\">上传学生信息</font>\r\n<br/>导入并上传校车<br/" +
-    ">\r\n数据";
+            this.newInvoiceTile.Text = "<font size=\"+2\">1.</font>\r\n<br/>\r\n<font size=\"\">上传学生信息</font>\r\n<br/>导入数据";
             this.newInvoiceTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Default;
             // 
             // 
@@ -305,20 +304,22 @@
             // 
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(463, 7);
+            this.labelX2.Location = new System.Drawing.Point(452, 14);
             this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(115, 47);
+            this.labelX2.Size = new System.Drawing.Size(124, 58);
             this.labelX2.TabIndex = 4;
             this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Wile</font><br/>E. Coyote</div>";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.labelX2.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = global::WoodenBench.Properties.Resources.Person;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(584, 14);
+            this.pictureBox1.Location = new System.Drawing.Point(582, 14);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(44, 33);
+            this.pictureBox1.Size = new System.Drawing.Size(44, 40);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
@@ -358,7 +359,7 @@
             this.buttonX1.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
             // 
-            // StartControl
+            // MenuUsrControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -367,9 +368,10 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.itemPanel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.Name = "StartControl";
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Name = "MenuUsrControl";
             this.Size = new System.Drawing.Size(636, 420);
+            this.SlideSide = DevComponents.DotNetBar.Controls.eSlideSide.Right;
             this.Load += new System.EventHandler(this.StartControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

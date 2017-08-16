@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using static WoodenBench.StaClasses.GlobalFunc;
 
-namespace WoodenBench.StaClasses
+namespace WoodenBench.Users
 {
     public static class Mysterious
 	{

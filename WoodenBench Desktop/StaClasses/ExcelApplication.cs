@@ -8,11 +8,11 @@ namespace WoodenBench.StaClasses
 {
     public static class ExcelApplication
     {
-        public static event onExcelProcFinishedHandler onExcelProcFinishedEvent;
+        public static event ExcelProcFinishedHandler onExcelProcFinishedEvent;
 
-        public static void onExcelProcFinished(object sender, ExcelProcFinishedEventArgs e)
+        public static void onExcelProcFinished(ExcelProcFinishedEventArgs e)
         {
-            if (onExcelProcFinishedEvent != null) { onExcelProcFinishedEvent(sender, e); }
+            if (onExcelProcFinishedEvent != null) { onExcelProcFinishedEvent(e); }
         }
 
         public static int GetLastLineOfExcel(Microsoft.Office.Interop.Excel.Workbook xWorkbook)
@@ -30,6 +30,5 @@ namespace WoodenBench.StaClasses
     public class ExcelProcFinishedEventArgs : EventArgs
     {
         public ExcelProcFinishedEventArgs() { }
-        public ProcStatE ProcessStatus { get; set; }
     }
 }

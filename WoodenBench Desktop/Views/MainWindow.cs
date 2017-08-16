@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
+using WoodenBench.Users;
 using WoodenBench.Views;
 using static WoodenBench.StaClasses.GlobalFunc;
 using static WoodenBench.Users.UserActivity;

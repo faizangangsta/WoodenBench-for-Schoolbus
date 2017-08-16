@@ -87,7 +87,7 @@ namespace WoodenBench.Views
                         DoLoginBtn.Enabled = true;
                         CancelBtn.Enabled = true;
                         DoLoginBtn.Text = "登录(&L)";
-                        MainWindow.Default.Show();
+                        MainForm.Default.Show();
                         Hide();
                     }));
                 }

@@ -30,53 +30,51 @@ namespace WoodenBench
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.metroShell1 = new DevComponents.DotNetBar.Metro.MetroShell();
+            this.MainShell = new DevComponents.DotNetBar.Metro.MetroShell();
             this.colorThemeButton = new DevComponents.DotNetBar.ButtonItem();
-            this.qatCustomizeItem1 = new DevComponents.DotNetBar.QatCustomizeItem();
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.SuspendLayout();
             // 
             // metroShell1
             // 
-            this.metroShell1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.MainShell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             // 
             // 
             // 
-            this.metroShell1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.metroShell1.CaptionVisible = true;
-            this.metroShell1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroShell1.ForeColor = System.Drawing.Color.Black;
-            this.metroShell1.HelpButtonText = "打开网页版";
-            this.metroShell1.KeyTipsFont = new System.Drawing.Font("Tahoma", 7F);
-            this.metroShell1.Location = new System.Drawing.Point(1, 1);
-            this.metroShell1.Name = "metroShell1";
-            this.metroShell1.QuickToolbarItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.colorThemeButton,
-            this.qatCustomizeItem1});
-            this.metroShell1.SettingsButtonText = "设置";
-            this.metroShell1.Size = new System.Drawing.Size(851, 539);
-            this.metroShell1.SystemText.MaximizeRibbonText = "&Maximize the Ribbon";
-            this.metroShell1.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon";
-            this.metroShell1.SystemText.QatAddItemText = "&Add to Quick Access Toolbar";
-            this.metroShell1.SystemText.QatCustomizeMenuLabel = "<b>Customize Quick Access Toolbar</b>";
-            this.metroShell1.SystemText.QatCustomizeText = "&Customize Quick Access Toolbar...";
-            this.metroShell1.SystemText.QatDialogAddButton = "&Add >>";
-            this.metroShell1.SystemText.QatDialogCancelButton = "Cancel";
-            this.metroShell1.SystemText.QatDialogCaption = "Customize Quick Access Toolbar";
-            this.metroShell1.SystemText.QatDialogCategoriesLabel = "&Choose commands from:";
-            this.metroShell1.SystemText.QatDialogOkButton = "OK";
-            this.metroShell1.SystemText.QatDialogPlacementCheckbox = "&Place Quick Access Toolbar below the Ribbon";
-            this.metroShell1.SystemText.QatDialogRemoveButton = "&Remove";
-            this.metroShell1.SystemText.QatPlaceAboveRibbonText = "&Place Quick Access Toolbar above the Ribbon";
-            this.metroShell1.SystemText.QatPlaceBelowRibbonText = "&Place Quick Access Toolbar below the Ribbon";
-            this.metroShell1.SystemText.QatRemoveItemText = "&Remove from Quick Access Toolbar";
-            this.metroShell1.TabIndex = 1;
-            this.metroShell1.TabStripFont = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metroShell1.Text = "metroShell1";
-            this.metroShell1.SelectedTabChanged += new System.EventHandler(this.metroShell1_SelectedTabChanged);
-            this.metroShell1.SettingsButtonClick += new System.EventHandler(this.metroShell1_SettingsButtonClick);
-            this.metroShell1.HelpButtonClick += new System.EventHandler(this.metroShell1_HelpButtonClick);
-            this.metroShell1.Click += new System.EventHandler(this.metroShell1_Click);
+            this.MainShell.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.MainShell.CaptionVisible = true;
+            this.MainShell.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainShell.ForeColor = System.Drawing.Color.Black;
+            this.MainShell.HelpButtonText = "打开网页版";
+            this.MainShell.KeyTipsFont = new System.Drawing.Font("Tahoma", 7F);
+            this.MainShell.Location = new System.Drawing.Point(1, 1);
+            this.MainShell.Name = "metroShell1";
+            this.MainShell.QuickToolbarItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.colorThemeButton});
+            this.MainShell.SettingsButtonText = "设置";
+            this.MainShell.Size = new System.Drawing.Size(877, 638);
+            this.MainShell.SystemText.MaximizeRibbonText = "&Maximize the Ribbon";
+            this.MainShell.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon";
+            this.MainShell.SystemText.QatAddItemText = "&Add to Quick Access Toolbar";
+            this.MainShell.SystemText.QatCustomizeMenuLabel = "<b>Customize Quick Access Toolbar</b>";
+            this.MainShell.SystemText.QatCustomizeText = "&Customize Quick Access Toolbar...";
+            this.MainShell.SystemText.QatDialogAddButton = "&Add >>";
+            this.MainShell.SystemText.QatDialogCancelButton = "Cancel";
+            this.MainShell.SystemText.QatDialogCaption = "Customize Quick Access Toolbar";
+            this.MainShell.SystemText.QatDialogCategoriesLabel = "&Choose commands from:";
+            this.MainShell.SystemText.QatDialogOkButton = "OK";
+            this.MainShell.SystemText.QatDialogPlacementCheckbox = "&Place Quick Access Toolbar below the Ribbon";
+            this.MainShell.SystemText.QatDialogRemoveButton = "&Remove";
+            this.MainShell.SystemText.QatPlaceAboveRibbonText = "&Place Quick Access Toolbar above the Ribbon";
+            this.MainShell.SystemText.QatPlaceBelowRibbonText = "&Place Quick Access Toolbar below the Ribbon";
+            this.MainShell.SystemText.QatRemoveItemText = "&Remove from Quick Access Toolbar";
+            this.MainShell.TabIndex = 1;
+            this.MainShell.TabStripFont = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainShell.Text = "metroShell1";
+            this.MainShell.SelectedTabChanged += new System.EventHandler(this.metroShell1_SelectedTabChanged);
+            this.MainShell.SettingsButtonClick += new System.EventHandler(this.metroShell1_SettingsButtonClick);
+            this.MainShell.HelpButtonClick += new System.EventHandler(this.metroShell1_HelpButtonClick);
+            this.MainShell.Click += new System.EventHandler(this.metroShell1_Click);
             // 
             // colorThemeButton
             // 
@@ -85,13 +83,9 @@ namespace WoodenBench
             this.colorThemeButton.Image = global::WoodenBench.Properties.Resources.ColorScheme;
             this.colorThemeButton.Name = "colorThemeButton";
             this.colorThemeButton.ShowSubItems = false;
-            this.colorThemeButton.Text = "Metro Color Themes";
-            this.colorThemeButton.Tooltip = "Choose Metro Color Theme";
-            // 
-            // qatCustomizeItem1
-            // 
-            this.qatCustomizeItem1.BeginGroup = true;
-            this.qatCustomizeItem1.Name = "qatCustomizeItem1";
+            this.colorThemeButton.Text = "颜色主题";
+            this.colorThemeButton.ThemeAware = true;
+            this.colorThemeButton.Tooltip = "选择一个主题";
             // 
             // styleManager1
             // 
@@ -102,20 +96,20 @@ namespace WoodenBench
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(853, 541);
-            this.Controls.Add(this.metroShell1);
+            this.ClientSize = new System.Drawing.Size(879, 640);
+            this.Controls.Add(this.MainShell);
             this.Font = new System.Drawing.Font("微软雅黑", 8.5F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "MainForm";
             this.Text = "管理";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private DevComponents.DotNetBar.Metro.MetroShell metroShell1;
-        private DevComponents.DotNetBar.QatCustomizeItem qatCustomizeItem1;
+        private DevComponents.DotNetBar.Metro.MetroShell MainShell;
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private DevComponents.DotNetBar.ButtonItem colorThemeButton;
     }

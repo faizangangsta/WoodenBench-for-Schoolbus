@@ -12,10 +12,8 @@ namespace WoodenBench.TableObject
     public class AllUserObject : BmobTable
     {
         public override string table { get { return Consts.TABLE_N_Gen_UsrTable; } }
-        public string objectId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string RealPassword { get; set; }
         public UserGroupEnum UserGroup { get; set; }
         public bool WebNotiSeen { get; set; }
         public string WeChatID { get; set; }
@@ -32,7 +30,6 @@ namespace WoodenBench.TableObject
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
             UserImage = input.Get<BmobFile>("HeadImage");
-            RealPassword = input.getString("RealPassword");
         }
 
         public override void write(BmobOutput output, bool all)
@@ -44,7 +41,6 @@ namespace WoodenBench.TableObject
             output.Put("WeChatID", this.WeChatID);
             output.Put("UsrGroup", (int)this.UserGroup);
             output.Put("RealName", this.RealName);
-            output.Put("RealPassword", this.RealPassword);
             output.Put("HeadImage", this.UserImage);
         }
         public void SetEveryThingNull()

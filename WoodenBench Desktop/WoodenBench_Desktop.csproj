@@ -99,10 +99,11 @@
     <Compile Include="StaClasses\Consts.cs" />
     <Compile Include="StaClasses\CryptoGraphy.cs" />
     <Compile Include="StaClasses\ExcelApplication.cs" />
+    <Compile Include="StaClasses\FileIO.cs" />
     <Compile Include="TableObjects\StudentObject.cs" />
     <Compile Include="StaClasses\PinYin\Pinyin.cs" />
     <Compile Include="StaClasses\PinYin\PyData.cs" />
-    <Compile Include="StaClasses\Mysterious.cs" />
+    <Compile Include="Users\Mysterious.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="Users\UserActivities.cs" />
@@ -144,7 +145,6 @@
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="StaClasses\GlobalFunc.cs" />
-    <Compile Include="Users\_UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CreateUser.cs">
       <SubType>Form</SubType>
