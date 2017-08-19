@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
 using WoodenBench.Views;
+using WoodenBench.Views.ModernView;
 
 namespace WoodenBench.StaClasses
 {
@@ -34,28 +35,30 @@ namespace WoodenBench.StaClasses
         public static void RegEvents()
         {
             UserActivity.onUserActivityEvent += UsrLoginWindow.Default.onUsrLgn;
+            FileIO.onFileIOCompleted += MenuUsrControl.DnFinished;
         }
 
         public static void InitBmobObject()
         {
-            _BmobWin = new BmobWindows();
-            _BmobWin.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
             BmobDebug.level = BmobDebug.Level.TRACE;
             DebugMessage("Bmob log level is set to 'trace'");
-            BmobDebug.Register(Message => { Console.WriteLine(Message); });
+            BmobDebug.Register(Message => { DebugMessage(Message); });
+            _BmobWin = new BmobWindows();
+            _BmobWin.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
         }
 
         public static void DebugMessage(object Message)
         {
             Debug.Write(DateTime.Now.ToLongTimeString());
-            Debug.WriteLine(Message);
+            Debug.WriteLine(" - " + Message);
         }
 
         public static void ApplicationExit()
         {
+            UserActivity.LogOut();
             DebugMessage("Application Exit");
             Application.Exit();
+            Environment.Exit(0);
         }
-
     }
 }

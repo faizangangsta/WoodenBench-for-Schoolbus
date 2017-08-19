@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,13 +13,14 @@ namespace WoodenBench.StaClasses
     public class FileIO
     {
         public static event FileIOCompletedEventHandler onFileIOCompleted;
-        private Thread BusyThread = new Thread(new ThreadStart(delegate { }));
-        private void _HttpDownload(string url, string path)
+
+        private static void _HttpDownload(string url, string path)
         {
-            string tempPath = Path.GetDirectoryName(path) + @"\temp";
+            string tempPath = Path.GetDirectoryName(path);
             Directory.CreateDirectory(tempPath);  //创建临时文件目录
             string tempFile = tempPath + @"\" + Path.GetFileName(path) + ".temp"; //临时文件
-            if (System.IO.File.Exists(tempFile)) System.IO.File.Delete(tempFile);
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(path)) File.Delete(path);
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -28,6 +30,7 @@ namespace WoodenBench.StaClasses
 
                 byte[] arrivedBytes = new byte[1024];
                 int size = responseStream.Read(arrivedBytes, 0, (int)arrivedBytes.Length);
+                int Length = size;
                 while (size > 0)
                 {
                     fs.Write(arrivedBytes, 0, size);
@@ -36,44 +39,63 @@ namespace WoodenBench.StaClasses
                 fs.Close();
                 responseStream.Close();
                 File.Move(tempFile, path);
-                IOCompleted(url, path, ProcStatE.Completed);
+                IOCompleted(ProcStatE.Completed, path, Length, url, null);
                 return;
             }
             catch (Exception ex)
             {
-                IOCompleted(url, path, ProcStatE.FailedWithErr, Detail: ex.Message);
+                IOCompleted(ProcStatE.FailedWithErr, path, 0, url, ex, null);
                 return;
             }
         }
-        private static void IOCompleted(string RmtURL, string LocalPath, ProcStatE Status, string Detail = "")
+
+        private static void IOCompleted(ProcStatE Status, string LocalPath, int len, string RmtURL = "", Exception exp = null, object Rtnobj = null)
         {
             fileIOCompletedEventArgs e = new fileIOCompletedEventArgs()
             {
                 RemoteURL = RmtURL,
                 LocalFilePath = LocalPath,
                 ProcessStatus = Status,
-                Description = Detail
+                Exception = exp,
+                ReturnObject = Rtnobj,
+                FileLength = len
             };
             if (onFileIOCompleted != null) { onFileIOCompleted(e); }
             e = null;
         }
 
-        public void DownloadFile(string RemoteURL, string LocalPath)
+        public  static byte[] ReadFileBytes(string filePath)
         {
-            if (!BusyThread.IsAlive || BusyThread == null)
-            {
-                BusyThread = new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath); }))
-                { Name = "Download file", IsBackground = false };
-                BusyThread.Start();
-            }
+            if(!File.Exists(filePath)) { return new byte[0]; }
+            FileStream fs = File.OpenRead(filePath);
+            int filelength = 0;
+            filelength = (int)fs.Length; //获得文件长度 
+            byte[] p = new byte[filelength]; //建立一个字节[]
+            fs.Read(p, 0, filelength);
+            return p;
         }
 
+        public static Image BytesToImage(byte[] buffer)
+        {
+            MemoryStream ms = new MemoryStream(buffer);
+            Image image = System.Drawing.Image.FromStream(ms);
+            return image;
+        }
+
+        public static void DownloadFile(string RemoteURL, string LocalPath)
+        {
+            new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath); }))
+            { Name = "Download file", IsBackground = false }.Start();
+
+        }
     }
 
     public class fileIOCompletedEventArgs : internalEventArgs
     {
         public fileIOCompletedEventArgs() { }
         public string RemoteURL { get; set; }
+        public int FileLength { get; set; }
         public string LocalFilePath { get; set; }
+        public object ReturnObject { get; set; }
     }
 }

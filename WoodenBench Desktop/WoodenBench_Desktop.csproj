@@ -90,7 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DelegateClasses\DelegateClasses.cs" />
+    <Compile Include="StaClasses\DelegateClasses.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,7 +125,6 @@
     <Compile Include="Views\Management.Designer.cs">
       <DependentUpon>Management.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ModernUI\MetroBillCommands.cs" />
     <Compile Include="Views\MGRLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +277,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DelegateClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,7 @@ using WoodenBench.StaClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
 using WoodenBench.Views;
+using WoodenBench.Views.ModernView;
 using static WoodenBench.StaClasses.GlobalFunc;
 using static WoodenBench.Users.UserActivity;
 
@@ -111,7 +112,7 @@ namespace WoodenBench.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Views.ExcelOperationWindow().ShowDialog(this);
+            new ExcelOperationWindow().ShowDialog(this);
         }
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)

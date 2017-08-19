@@ -10,8 +10,10 @@ using DevComponents.DotNetBar;
 using System.Diagnostics;
 using DevComponents.AdvTree;
 using DevComponents.DotNetBar.Metro.ColorTables;
+using static WoodenBench.StaClasses.GlobalFunc;
+using System.Security;
 
-namespace WoodenBench
+namespace WoodenBench.Views.ModernView
 {
     public partial class MainForm : MetroAppForm
     {
@@ -24,6 +26,7 @@ namespace WoodenBench
         public MainForm()
         {
             InitializeComponent();
+            this.components = new System.ComponentModel.Container();
             // Prepare commands
             _Commands = new MetroBillCommands();
             _Commands.ChangeMetroTheme = new Command(components, new EventHandler(ChangeMetroThemeExecuted));
@@ -63,7 +66,7 @@ namespace WoodenBench
             }
         }
         #endregion
-
+        
         private void ChangeMetroThemeExecuted(object sender, EventArgs e)
         {
             ICommandSource source = (ICommandSource)sender;
@@ -77,12 +80,6 @@ namespace WoodenBench
             base.OnLoad(e);
         }
 
-        private Rectangle GetStartControlBounds()
-        {
-            int captionHeight = MainShell.MetroTabStrip.GetCaptionHeight() + 3;
-            Thickness borderThickness = GetBorderThickness();
-            return new Rectangle((int)borderThickness.Left, captionHeight, Width - (int)borderThickness.Horizontal, Height - captionHeight + 20);
-        }
         private void UpdateControlsSizeAndLocation()
         {
             if (UsrMenu != null)
@@ -90,6 +87,12 @@ namespace WoodenBench
                 if (!UsrMenu.IsOpen) UsrMenu.OpenBounds = GetStartControlBounds();
                 else UsrMenu.Bounds = GetStartControlBounds();
                 if (!IsModalPanelDisplayed) UsrMenu.BringToFront();
+            }
+            Rectangle GetStartControlBounds()
+            {
+                int captionHeight = MainShell.MetroTabStrip.GetCaptionHeight() + 3;
+                Thickness borderThickness = GetBorderThickness();
+                return new Rectangle((int)borderThickness.Left, captionHeight, Width - (int)borderThickness.Horizontal, Height - captionHeight + 20);
             }
         }
         protected override void OnResize(EventArgs e)
@@ -106,7 +109,7 @@ namespace WoodenBench
 
         private void metroShell1_HelpButtonClick(object sender, EventArgs e)
         {
-            MessageBoxEx.Show(this, "MetroShell Help Button Clicked", "Metro Bill", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Process.Start("http://lhy0403.iego.net/SchoolBusMgr/");
         }
 
         private void metroShell1_SelectedTabChanged(object sender, EventArgs e)
@@ -114,9 +117,10 @@ namespace WoodenBench
             UpdateControlsSizeAndLocation();
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-
+            UsrMenu.Dispose();
+            ApplicationExit();
         }
 
         private void metroShell1_Click(object sender, EventArgs e)

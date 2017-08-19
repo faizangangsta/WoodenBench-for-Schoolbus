@@ -14,3 +14,4 @@ build/
 [Bb]in/
 [Oo]bj/
 .vs/
+*.suo

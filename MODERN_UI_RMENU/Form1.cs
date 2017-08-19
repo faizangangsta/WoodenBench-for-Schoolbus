@@ -31,38 +31,50 @@ namespace RadialMenu
             menu.MenuOpened += new EventHandler(RadialMenuOpened);
             menu.MenuClosed += new EventHandler(RadialMenuClosed);
 
-            RadialMenuItem item = new RadialMenuItem();
-            item.Text = "Item 1";
-            item.Symbol = "\uf011";
+            RadialMenuItem item = new RadialMenuItem
+            {
+                Text = "Item 1",
+                Symbol = "\uf011"
+            };
             menu.Items.Add(item);
 
-            item = new RadialMenuItem();
-            item.Text = "Item 2";
-            item.Symbol = "\uf00e";
+            item = new RadialMenuItem
+            {
+                Text = "Item 2",
+                Symbol = "\uf00e"
+            };
             menu.Items.Add(item);
 
-            item = new RadialMenuItem();
-            item.Text = "Item 3";
-            item.Symbol = "\uf010";
+            item = new RadialMenuItem
+            {
+                Text = "Item 3",
+                Symbol = "\uf010"
+            };
             menu.Items.Add(item);
 
             // Create spacer item
             item = new RadialMenuItem();
             menu.Items.Add(item);
 
-            item = new RadialMenuItem();
-            item.Text = "Item 4";
-            item.Symbol = "\uf011";
+            item = new RadialMenuItem
+            {
+                Text = "Item 4",
+                Symbol = "\uf011"
+            };
             menu.Items.Add(item);
             // Add sub items to last menu item
-            RadialMenuItem childItem = new RadialMenuItem();
-            childItem.Text = "Sub menu 1";
-            childItem.Symbol = "\uf012";
+            RadialMenuItem childItem = new RadialMenuItem
+            {
+                Text = "Sub menu 1",
+                Symbol = "\uf012"
+            };
             item.SubItems.Add(childItem); // Add sub menu to its parent
 
-            childItem = new RadialMenuItem();
-            childItem.Text = "Sub\r\nmenu 2";
-            childItem.Symbol = "\uf013";
+            childItem = new RadialMenuItem
+            {
+                Text = "Sub\r\nmenu 2",
+                Symbol = "\uf013"
+            };
             item.SubItems.Add(childItem);
 
             this.Controls.Add(menu);
@@ -155,9 +167,11 @@ namespace RadialMenu
         }
         private BaseItem CreateItem(string text, string symbol)
         {
-            RadialMenuItem item = new RadialMenuItem();
-            item.Text = text;
-            item.Symbol = symbol;
+            RadialMenuItem item = new RadialMenuItem
+            {
+                Text = text,
+                Symbol = symbol
+            };
             return item;
         }
 

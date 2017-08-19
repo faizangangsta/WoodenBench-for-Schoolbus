@@ -25,46 +25,30 @@ namespace WoodenBench.Users
     {
 
         public static event UserActivityHandler onUserActivityEvent;
-        private static Thread BusyThread = new Thread(new ThreadStart(delegate { }));
 
         public static void LogOut()
         {
-            if (!BusyThread.IsAlive || BusyThread == null)
-            {
-                BusyThread = new Thread(new ThreadStart(delegate { _LogOut(); }))
-                { Name = "User Logoff", IsBackground = false };
-                BusyThread.Start();
-            }
+            new Thread(new ThreadStart(delegate { _LogOut(); })) { Name = "User Logoff", IsBackground = false }.Start();
+
         }
 
         public static void ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
-            if (!BusyThread.IsAlive || BusyThread == null)
-            {
-                BusyThread = new Thread(new ThreadStart(delegate { _ChangePsW(NowUser, OriPasswrd, NewPasswrd); }))
-                { Name = "User Change Password", IsBackground = false };
-                BusyThread.Start();
-            }
+            new Thread(new ThreadStart(delegate { _ChangePsW(NowUser, OriPasswrd, NewPasswrd); }))
+            { Name = "User Change Password", IsBackground = false }.Start();
         }
 
         public static void Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
-            if (!BusyThread.IsAlive || BusyThread == null)
-            {
-                BusyThread = new Thread(new ThreadStart(delegate { _Login(xUserName, xPassword, OnlyVerify, RealN); }))
-                { Name = "User Login", IsBackground = false };
-                BusyThread.Start();
-            }
+            new Thread(new ThreadStart(delegate { _Login(xUserName, xPassword, OnlyVerify, RealN); }))
+            { Name = "User Login", IsBackground = false }.Start();
+
         }
 
         public static void CreateUser(string Username, string Realname, string Password, int UserGroup)
         {
-            if (!BusyThread.IsAlive || BusyThread == null)
-            {
-                BusyThread = new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup); }))
-                { Name = "User Login", IsBackground = false };
-                BusyThread.Start();
-            }
+            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup); }))
+            { Name = "User Creation", IsBackground = false }.Start();
         }
 
         #region Private Operaitons
@@ -76,11 +60,11 @@ namespace WoodenBench.Users
             {
                 if (exception != null)
                 {
-                    onUserActivity(UsrActvtiE.UserChangePassword, null, ProcStatE.FailedWithErr, Detail: exception.Message);
+                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserChangePassword, null, Detail: exception.Message);
                 }
                 else
                 {
-                    onUserActivity(UsrActvtiE.UserChangePassword, null, ProcStatE.Completed);
+                    onUserActivity(ProcStatE.Completed, UsrActvtiE.UserChangePassword, null);
                 }
             });
         }
@@ -89,7 +73,7 @@ namespace WoodenBench.Users
         {
             CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(UsrActvtiE.UserLogOff, CurrentUser, ProcStatE.Completed);
+            onUserActivity(ProcStatE.Completed, UsrActvtiE.UserLogOff, CurrentUser);
         }
 
         private static void _UserChangeHeadImage(Image newImage, string UserName)
@@ -104,18 +88,18 @@ namespace WoodenBench.Users
             ffuture.Wait();
             if (ffuture.Status == TaskStatus.Faulted)
             {
-                onUserActivity(UsrActvtiE.UserUploadHImage, null, ProcStatE.FailedWithErr);
+                onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserUploadHImage, null);
             }
             else if (ffuture.Status == TaskStatus.RanToCompletion)
             {
                 CurrentUser.UserImage.filename = ffuture.Result.filename;
                 CurrentUser.UserImage.group = ffuture.Result.group;
                 CurrentUser.UserImage.url = ffuture.Result.url;
-                onUserActivity(UsrActvtiE.UserUploadHImage, CurrentUser, ProcStatE.Completed);
+                onUserActivity(ProcStatE.Completed, UsrActvtiE.UserUploadHImage, CurrentUser);
             }
             else
             {
-                onUserActivity(UsrActvtiE.UserUploadHImage, null, ProcStatE.Unknown);
+                onUserActivity(ProcStatE.Unknown, UsrActvtiE.UserUploadHImage, null);
             }
         }
 
@@ -129,29 +113,29 @@ namespace WoodenBench.Users
                 System.Threading.Tasks.Task<QueryCallbackData<AllUserObject>> UsrNameResult;
                 UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
-                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Failed, Detail: "Username Wrong");
+                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, CurrentUser, Detail: "Username Wrong");
 
                 AllUserObject FoundUser = UsrNameResult.Result.results[0];
                 if (FoundUser.Password == HashedPs)
                 {
                     if (OnlyVerify)
                     {
-                        if (FoundUser.RealName == RealN) onUserActivity(UsrActvtiE.UserCompare, null, ProcStatE.Completed);
-                        else onUserActivity(UsrActvtiE.UserCompare, null, ProcStatE.Failed, Detail: "Realname Wrong");
+                        if (FoundUser.RealName == RealN) onUserActivity(ProcStatE.Completed, UsrActvtiE.UserCompare, null);
+                        else onUserActivity(ProcStatE.Failed, UsrActvtiE.UserCompare, null, Detail: "Realname Wrong");
                     }
                     else
                     {
                         CurrentUser = FoundUser;
-                        onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Completed);
+                        onUserActivity(ProcStatE.Completed, UsrActvtiE.UsrLogin, CurrentUser);
                     }
                 }
-                else onUserActivity(UsrActvtiE.UsrLogin, CurrentUser, ProcStatE.Failed, Detail: "Password Wrong");
+                else onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, CurrentUser, Detail: "Password Wrong");
             }
             catch (Exception e)
             {
                 DebugMessage(e);
                 DebugMessage(e.InnerException);
-                onUserActivity(UsrActvtiE.UsrLogin, null, ProcStatE.FailedWithErr, Detail: e.Message, exception: e);
+                onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UsrLogin, null, Detail: e.Message, exception: e);
             }
         }
 
@@ -160,7 +144,7 @@ namespace WoodenBench.Users
 
         }
 
-        private static void onUserActivity(UsrActvtiE Act, AllUserObject AChange, ProcStatE Status, string Detail = "", Exception exception = null)
+        private static void onUserActivity(ProcStatE Status, UsrActvtiE Act, AllUserObject AChange, string Detail = "", Exception exception = null)
         {
             UserActivityEventArgs e = new UserActivityEventArgs()
             {

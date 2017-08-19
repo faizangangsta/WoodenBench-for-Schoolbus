@@ -1,4 +1,4 @@
-﻿namespace WoodenBench
+﻿namespace WoodenBench.Views.ModernView
 {
     partial class MenuUsrControl
     {
@@ -110,7 +110,7 @@
             this.newInvoiceTile.Image = global::WoodenBench.Properties.Resources.Invoice;
             this.newInvoiceTile.Name = "newInvoiceTile";
             this.newInvoiceTile.SymbolColor = System.Drawing.Color.Empty;
-            this.newInvoiceTile.Text = "<font size=\"+2\">1.</font>\r\n<br/>\r\n<font size=\"\">上传学生信息</font>\r\n<br/>导入数据";
+            this.newInvoiceTile.Text = "<font size=\"+2\">1.</font>\r\n<br/>\r\n<font size=\"+4\">上传学生信息</font>\r\n<br/>导入数据";
             this.newInvoiceTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Default;
             // 
             // 
@@ -304,19 +304,21 @@
             // 
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelX2.Location = new System.Drawing.Point(452, 14);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(124, 58);
             this.labelX2.TabIndex = 4;
-            this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Wile</font><br/>E. Coyote</div>";
+            this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Name</font><br/>ID</div>";
             this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
             this.labelX2.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImage = global::WoodenBench.Properties.Resources.Person;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.InitialImage = global::WoodenBench.Properties.Resources.Person;
             this.pictureBox1.Location = new System.Drawing.Point(582, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 40);
@@ -368,7 +370,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.itemPanel1);
-            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "MenuUsrControl";
             this.Size = new System.Drawing.Size(636, 420);
             this.SlideSide = DevComponents.DotNetBar.Controls.eSlideSide.Right;
@@ -383,7 +384,6 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.ItemPanel itemPanel1;
         private DevComponents.DotNetBar.LabelX labelX2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private DevComponents.DotNetBar.Metro.MetroTileItem metroTileItem2;
         private DevComponents.DotNetBar.ItemContainer itemContainer1;
         private DevComponents.DotNetBar.Metro.MetroTileItem newInvoiceTile;
@@ -396,5 +396,6 @@
         private DevComponents.DotNetBar.Metro.MetroTileItem devCoTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem appViewTile;
         private DevComponents.DotNetBar.ButtonX buttonX1;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }
