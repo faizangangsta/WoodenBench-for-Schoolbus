@@ -29,7 +29,6 @@ namespace WoodenBench.Users
         public static void LogOut()
         {
             new Thread(new ThreadStart(delegate { _LogOut(); })) { Name = "User Logoff", IsBackground = false }.Start();
-
         }
 
         public static void ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
@@ -92,9 +91,8 @@ namespace WoodenBench.Users
             }
             else if (ffuture.Status == TaskStatus.RanToCompletion)
             {
-                CurrentUser.UserImage.filename = ffuture.Result.filename;
-                CurrentUser.UserImage.group = ffuture.Result.group;
-                CurrentUser.UserImage.url = ffuture.Result.url;
+                CurrentUser.HeadImgData = ffuture.Result;
+                CurrentUser.UserImage = newImage;
                 onUserActivity(ProcStatE.Completed, UsrActvtiE.UserUploadHImage, CurrentUser);
             }
             else
@@ -154,7 +152,7 @@ namespace WoodenBench.Users
                 Description = Detail,
                 Exception = exception
             };
-            if (onUserActivityEvent != null) { onUserActivityEvent(e); }
+            if (onUserActivityEvent != null) onUserActivityEvent(e);
             e = null;
         }
         #endregion
@@ -166,4 +164,3 @@ namespace WoodenBench.Users
         public AllUserObject AfterChange { get; set; }
     }
 }
-

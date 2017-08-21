@@ -1,6 +1,6 @@
-﻿namespace WoodenBench.Views.ModernView
+﻿namespace WoodenBench.Views.Controls
 {
-    partial class MenuUsrControl
+    partial class MainMenu
     {
         /// <summary> 
         /// Required designer variable.
@@ -305,7 +305,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(452, 14);
+            this.labelX2.Location = new System.Drawing.Point(482, 14);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(124, 58);
             this.labelX2.TabIndex = 4;
@@ -319,7 +319,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.InitialImage = global::WoodenBench.Properties.Resources.Person;
-            this.pictureBox1.Location = new System.Drawing.Point(582, 14);
+            this.pictureBox1.Location = new System.Drawing.Point(612, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 40);
             this.pictureBox1.TabIndex = 5;
@@ -361,7 +361,7 @@
             this.buttonX1.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
             // 
-            // MenuUsrControl
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -370,8 +370,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.itemPanel1);
-            this.Name = "MenuUsrControl";
-            this.Size = new System.Drawing.Size(636, 420);
+            this.Name = "MainMenu";
+            this.Size = new System.Drawing.Size(666, 420);
             this.SlideSide = DevComponents.DotNetBar.Controls.eSlideSide.Right;
             this.Load += new System.EventHandler(this.StartControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

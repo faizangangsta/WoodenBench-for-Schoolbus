@@ -49,12 +49,12 @@ namespace WoodenBench.Views
                     {
                         case UserGroupEnum.高层管理:
                             //Administrator
-                            new ManagementWindow(0).Show(MainWindow.Default);
+                            new ManagementWindow(0).Show(MainForm.Default);
                             Close();
                             break;
                         case  UserGroupEnum.管理组用户:
                             //Higher Management
-                            new ManagementWindow(1).Show(MainWindow.Default);
+                            new ManagementWindow(1).Show(MainForm.Default);
                             Close();
                             break;
                         default:

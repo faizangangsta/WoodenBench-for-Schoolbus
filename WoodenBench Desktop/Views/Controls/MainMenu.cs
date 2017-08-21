@@ -6,26 +6,26 @@ using static WoodenBench.StaClasses.GlobalFunc;
 using static WoodenBench.StaClasses.FileIO;
 using WoodenBench.StaClasses;
 
-namespace WoodenBench.Views.ModernView
+namespace WoodenBench.Views.Controls
 {
-    public partial class MenuUsrControl : SlidePanel
+    public partial class MainMenu : SlidePanel
     {
 
-        public MenuUsrControl() : base()
+        public MainMenu() : base()
         {
             InitializeComponent();
 
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static MenuUsrControl defaultInstance { get; set; }
-        public static MenuUsrControl Default
+        private static MainMenu defaultInstance { get; set; }
+        public static MainMenu Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new MenuUsrControl();
+                    defaultInstance = new MainMenu();
                 }
                 return defaultInstance;
             }
@@ -44,7 +44,7 @@ namespace WoodenBench.Views.ModernView
         {
             labelX2.Text = "<div align=\"right\"><font size=\"+4\">"
                 + CurrentUser.RealName + "</font><br/>" + CurrentUser.objectId + "</div>";
-            DownloadFile(CurrentUser.UserImage.url, Environment.CurrentDirectory + "//Temp//" + CurrentUser.UserName + "-HImg.png");
+            DownloadFile(CurrentUser.HeadImgData.url, Environment.CurrentDirectory + "//Temp//" + CurrentUser.UserName + "-HImg.png");
         }
 
         public static void DnFinished(fileIOCompletedEventArgs e)

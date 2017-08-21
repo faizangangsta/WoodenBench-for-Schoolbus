@@ -29,26 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MGRLoginWindow));
-            this.LoginMgrBtn = new System.Windows.Forms.Button();
             this.RealNameTxt = new System.Windows.Forms.TextBox();
             this.PasswordTxt = new System.Windows.Forms.TextBox();
             this.UsrNameTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.SuspendLayout();
-            // 
-            // LoginMgrBtn
-            // 
-            this.LoginMgrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LoginMgrBtn.Location = new System.Drawing.Point(12, 99);
-            this.LoginMgrBtn.Name = "LoginMgrBtn";
-            this.LoginMgrBtn.Size = new System.Drawing.Size(452, 26);
-            this.LoginMgrBtn.TabIndex = 6;
-            this.LoginMgrBtn.Text = "登录管理界面(&L)";
-            this.LoginMgrBtn.UseVisualStyleBackColor = true;
-            this.LoginMgrBtn.Click += new System.EventHandler(this.LoginMgrBtn_Click);
             // 
             // RealNameTxt
             // 
@@ -76,9 +64,9 @@
             this.UsrNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UsrNameTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.UsrNameTxt.Location = new System.Drawing.Point(70, 12);
+            this.UsrNameTxt.Location = new System.Drawing.Point(71, 12);
             this.UsrNameTxt.Name = "UsrNameTxt";
-            this.UsrNameTxt.Size = new System.Drawing.Size(395, 23);
+            this.UsrNameTxt.Size = new System.Drawing.Size(394, 23);
             this.UsrNameTxt.TabIndex = 3;
             // 
             // label3
@@ -108,20 +96,33 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "用户名";
             // 
-            // MGRLogin
+            // buttonX1
+            // 
+            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1.Location = new System.Drawing.Point(12, 102);
+            this.buttonX1.Name = "buttonX1";
+            this.buttonX1.Size = new System.Drawing.Size(452, 23);
+            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1.TabIndex = 6;
+            this.buttonX1.Text = "登陆管理中心";
+            this.buttonX1.Click += new System.EventHandler(this.LoginMgrBtn_Click);
+            // 
+            // MGRLoginWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 137);
-            this.Controls.Add(this.LoginMgrBtn);
+            this.Controls.Add(this.buttonX1);
             this.Controls.Add(this.RealNameTxt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PasswordTxt);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.UsrNameTxt);
             this.Controls.Add(this.label3);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MGRLogin";
+            this.Name = "MGRLoginWindow";
             this.Text = "管理页面登录";
             this.Load += new System.EventHandler(this.MGRLogin_Load);
             this.ResumeLayout(false);
@@ -130,12 +131,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button LoginMgrBtn;
         private System.Windows.Forms.TextBox RealNameTxt;
         private System.Windows.Forms.TextBox PasswordTxt;
         private System.Windows.Forms.TextBox UsrNameTxt;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private DevComponents.DotNetBar.ButtonX buttonX1;
     }
 }

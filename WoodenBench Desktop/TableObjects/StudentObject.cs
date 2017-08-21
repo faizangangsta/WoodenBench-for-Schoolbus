@@ -16,19 +16,8 @@ namespace WoodenBench.TableObject
         public string StudentPartOfSchool { get; set; }
         public string OtherStuData { get; set; }
         public string StuIdentity { get; set; }
-        private string PriTable = Consts.TABLE_N_Mgr_StuData;
         public StudentDataObject() { }
-        public override string table
-        {
-            get
-            {
-                if (PriTable != null)
-                {
-                    return PriTable;
-                }
-                return base.table;
-            }
-        }
+        public override string table { get => Consts.TABLE_N_Mgr_StuData; }
         public override void readFields(BmobInput input)
         {
             base.readFields(input);

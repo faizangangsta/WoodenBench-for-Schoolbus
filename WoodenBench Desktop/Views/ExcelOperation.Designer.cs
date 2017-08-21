@@ -30,43 +30,80 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelOperationWindow));
-            this.TutorProcessExcelGroup = new System.Windows.Forms.GroupBox();
+            this.StudentData = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StuDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BusDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.NowPartOSchoolLbl = new System.Windows.Forms.Label();
             this.NowClassLbl = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.StudentData = new System.Windows.Forms.DataGridView();
-            this.DataStuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataStuDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SureAndUploadBtn = new System.Windows.Forms.Button();
-            this.ExcelFilePathTxt = new System.Windows.Forms.TextBox();
-            this.ExcelFileOpenBtn = new System.Windows.Forms.Button();
+            this.SureAndUploadBtn = new DevComponents.DotNetBar.ButtonX();
+            this.ExcelFileOpenBtn = new DevComponents.DotNetBar.ButtonX();
             this.OpenExcelFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusBar = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TutorProcessExcelGroup.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.ExcelFilePathTxt = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.metroStatusBar1 = new DevComponents.DotNetBar.Metro.MetroStatusBar();
+            this.ExDiscription = new DevComponents.DotNetBar.LabelItem();
+            this.radialMenu2 = new DevComponents.DotNetBar.RadialMenu();
+            this.radialMenuItem1 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem2 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem3 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem4 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem5 = new DevComponents.DotNetBar.RadialMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // TutorProcessExcelGroup
+            // StudentData
             // 
-            this.TutorProcessExcelGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.StudentData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TutorProcessExcelGroup.Controls.Add(this.groupBox1);
-            this.TutorProcessExcelGroup.Controls.Add(this.StudentData);
-            this.TutorProcessExcelGroup.Controls.Add(this.SureAndUploadBtn);
-            this.TutorProcessExcelGroup.Controls.Add(this.ExcelFilePathTxt);
-            this.TutorProcessExcelGroup.Controls.Add(this.ExcelFileOpenBtn);
-            this.TutorProcessExcelGroup.Location = new System.Drawing.Point(12, 12);
-            this.TutorProcessExcelGroup.Name = "TutorProcessExcelGroup";
-            this.TutorProcessExcelGroup.Size = new System.Drawing.Size(904, 508);
-            this.TutorProcessExcelGroup.TabIndex = 8;
-            this.TutorProcessExcelGroup.TabStop = false;
-            this.TutorProcessExcelGroup.Text = "从 Excel 导入信息";
+            this.StudentData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StudentData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentName,
+            this.StudentClass,
+            this.StuDepartment,
+            this.BusDirection});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.StudentData.DefaultCellStyle = dataGridViewCellStyle1;
+            this.StudentData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.StudentData.Location = new System.Drawing.Point(12, 29);
+            this.StudentData.Name = "StudentData";
+            this.StudentData.RowTemplate.Height = 23;
+            this.StudentData.Size = new System.Drawing.Size(731, 497);
+            this.StudentData.TabIndex = 6;
+            // 
+            // StudentName
+            // 
+            this.StudentName.HeaderText = "学生姓名";
+            this.StudentName.Name = "StudentName";
+            this.StudentName.Width = 150;
+            // 
+            // StudentClass
+            // 
+            this.StudentClass.HeaderText = "班级";
+            this.StudentClass.Name = "StudentClass";
+            this.StudentClass.ReadOnly = true;
+            // 
+            // StuDepartment
+            // 
+            this.StuDepartment.HeaderText = "学部";
+            this.StuDepartment.Name = "StuDepartment";
+            // 
+            // BusDirection
+            // 
+            this.BusDirection.HeaderText = "校车方向";
+            this.BusDirection.Name = "BusDirection";
+            this.BusDirection.Width = 200;
             // 
             // groupBox1
             // 
@@ -76,9 +113,9 @@
             this.groupBox1.Controls.Add(this.NowClassLbl);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(744, 56);
+            this.groupBox1.Location = new System.Drawing.Point(749, 37);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(154, 392);
+            this.groupBox1.Size = new System.Drawing.Size(167, 345);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "班级和学部";
@@ -91,7 +128,7 @@
             this.NowPartOSchoolLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.NowPartOSchoolLbl.Location = new System.Drawing.Point(6, 86);
             this.NowPartOSchoolLbl.Name = "NowPartOSchoolLbl";
-            this.NowPartOSchoolLbl.Size = new System.Drawing.Size(142, 100);
+            this.NowPartOSchoolLbl.Size = new System.Drawing.Size(155, 106);
             this.NowPartOSchoolLbl.TabIndex = 2;
             this.NowPartOSchoolLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -102,7 +139,7 @@
             this.NowClassLbl.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.NowClassLbl.Location = new System.Drawing.Point(6, 35);
             this.NowClassLbl.Name = "NowClassLbl";
-            this.NowClassLbl.Size = new System.Drawing.Size(142, 39);
+            this.NowClassLbl.Size = new System.Drawing.Size(155, 39);
             this.NowClassLbl.TabIndex = 2;
             this.NowClassLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -124,64 +161,27 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "班级";
             // 
-            // StudentData
-            // 
-            this.StudentData.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.StudentData.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.StudentData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.StudentData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DataStuName,
-            this.DataStuDirection});
-            this.StudentData.Location = new System.Drawing.Point(6, 56);
-            this.StudentData.Name = "StudentData";
-            this.StudentData.RowTemplate.Height = 23;
-            this.StudentData.Size = new System.Drawing.Size(732, 442);
-            this.StudentData.TabIndex = 4;
-            // 
-            // DataStuName
-            // 
-            this.DataStuName.HeaderText = "学生姓名";
-            this.DataStuName.Name = "DataStuName";
-            this.DataStuName.Width = 130;
-            // 
-            // DataStuDirection
-            // 
-            this.DataStuDirection.HeaderText = "校车路线";
-            this.DataStuDirection.Name = "DataStuDirection";
-            this.DataStuDirection.Width = 130;
-            // 
             // SureAndUploadBtn
             // 
+            this.SureAndUploadBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SureAndUploadBtn.Location = new System.Drawing.Point(744, 454);
+            this.SureAndUploadBtn.Location = new System.Drawing.Point(749, 482);
             this.SureAndUploadBtn.Name = "SureAndUploadBtn";
-            this.SureAndUploadBtn.Size = new System.Drawing.Size(154, 44);
+            this.SureAndUploadBtn.Size = new System.Drawing.Size(167, 44);
+            this.SureAndUploadBtn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.SureAndUploadBtn.Symbol = "";
             this.SureAndUploadBtn.TabIndex = 3;
             this.SureAndUploadBtn.Text = "确认并上传(&S)";
-            this.SureAndUploadBtn.UseVisualStyleBackColor = true;
             this.SureAndUploadBtn.Click += new System.EventHandler(this.SureAndUpload);
-            // 
-            // ExcelFilePathTxt
-            // 
-            this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExcelFilePathTxt.Location = new System.Drawing.Point(131, 22);
-            this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
-            this.ExcelFilePathTxt.ReadOnly = true;
-            this.ExcelFilePathTxt.Size = new System.Drawing.Size(767, 21);
-            this.ExcelFilePathTxt.TabIndex = 1;
             // 
             // ExcelFileOpenBtn
             // 
-            this.ExcelFileOpenBtn.Location = new System.Drawing.Point(7, 21);
+            this.ExcelFileOpenBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.ExcelFileOpenBtn.Location = new System.Drawing.Point(12, 2);
             this.ExcelFileOpenBtn.Name = "ExcelFileOpenBtn";
-            this.ExcelFileOpenBtn.Size = new System.Drawing.Size(118, 23);
+            this.ExcelFileOpenBtn.Size = new System.Drawing.Size(118, 21);
             this.ExcelFileOpenBtn.TabIndex = 0;
-            this.ExcelFileOpenBtn.Text = "打开一个文件(&O)";
-            this.ExcelFileOpenBtn.UseVisualStyleBackColor = true;
+            this.ExcelFileOpenBtn.Text = "打开Excel文件(&O)";
             this.ExcelFileOpenBtn.Click += new System.EventHandler(this.OpenExcel);
             // 
             // OpenExcelFileDialog
@@ -190,63 +190,158 @@
             this.OpenExcelFileDialog.Filter = "Excel 表格(2007)|*.xlsx|Excel 表格(2003)|*.xls";
             this.OpenExcelFileDialog.Title = "打开一个 Excel 文件";
             // 
-            // statusStrip1
+            // ExcelFilePathTxt
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 532);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(928, 22);
-            this.statusStrip1.TabIndex = 9;
-            this.statusStrip1.Text = "statusStrip1";
+            this.ExcelFilePathTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelFilePathTxt.BackColor = System.Drawing.Color.White;
             // 
-            // StatusBar
             // 
-            this.StatusBar.Name = "StatusBar";
-            this.StatusBar.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.StatusBar.Size = new System.Drawing.Size(913, 17);
-            this.StatusBar.Spring = true;
-            this.StatusBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ExcelOperation
+            this.ExcelFilePathTxt.Border.Class = "TextBoxBorder";
+            this.ExcelFilePathTxt.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ExcelFilePathTxt.DisabledBackColor = System.Drawing.Color.White;
+            this.ExcelFilePathTxt.ForeColor = System.Drawing.Color.Black;
+            this.ExcelFilePathTxt.Location = new System.Drawing.Point(137, 2);
+            this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
+            this.ExcelFilePathTxt.PreventEnterBeep = true;
+            this.ExcelFilePathTxt.Size = new System.Drawing.Size(779, 21);
+            this.ExcelFilePathTxt.TabIndex = 7;
+            // 
+            // metroStatusBar1
+            // 
+            // 
+            // 
+            // 
+            this.metroStatusBar1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.metroStatusBar1.ContainerControlProcessDialogKey = true;
+            this.metroStatusBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.metroStatusBar1.DragDropSupport = true;
+            this.metroStatusBar1.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.metroStatusBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.ExDiscription});
+            this.metroStatusBar1.Location = new System.Drawing.Point(0, 532);
+            this.metroStatusBar1.Name = "metroStatusBar1";
+            this.metroStatusBar1.Size = new System.Drawing.Size(928, 22);
+            this.metroStatusBar1.TabIndex = 8;
+            this.metroStatusBar1.Text = "metroStatusBar1";
+            // 
+            // ExDiscription
+            // 
+            this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ExDiscription.Name = "ExDiscription";
+            this.ExDiscription.Symbol = "";
+            this.ExDiscription.SymbolSize = 13F;
+            this.ExDiscription.Text = "打开Excel文件并上传学生数据";
+            // 
+            // radialMenu2
+            // 
+            // 
+            // 
+            // 
+            this.radialMenu2.Colors.RadialMenuItemDisabledForeground = System.Drawing.Color.Empty;
+            this.radialMenu2.Diameter = 200;
+            this.radialMenu2.Image = global::WoodenBench.Properties.Resources.RadialMenuIcon;
+            this.radialMenu2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.radialMenuItem1,
+            this.radialMenuItem2,
+            this.radialMenuItem3,
+            this.radialMenuItem4,
+            this.radialMenuItem5});
+            this.radialMenu2.Location = new System.Drawing.Point(806, 419);
+            this.radialMenu2.MenuType = DevComponents.DotNetBar.eRadialMenuType.Circular;
+            this.radialMenu2.Name = "radialMenu2";
+            this.radialMenu2.Size = new System.Drawing.Size(28, 28);
+            this.radialMenu2.TabIndex = 5;
+            this.radialMenu2.Text = "radialMenu2";
+            // 
+            // radialMenuItem1
+            // 
+            this.radialMenuItem1.CircularBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(173)))), ((int)(((byte)(71)))));
+            this.radialMenuItem1.CircularMenuDiameter = 28;
+            this.radialMenuItem1.Name = "radialMenuItem1";
+            this.radialMenuItem1.Symbol = "";
+            this.radialMenuItem1.Text = "Item 1";
+            // 
+            // radialMenuItem2
+            // 
+            this.radialMenuItem2.CircularBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(72)))), ((int)(((byte)(35)))));
+            this.radialMenuItem2.CircularMenuDiameter = 28;
+            this.radialMenuItem2.Name = "radialMenuItem2";
+            this.radialMenuItem2.Symbol = "";
+            this.radialMenuItem2.Text = "Item 2";
+            // 
+            // radialMenuItem3
+            // 
+            this.radialMenuItem3.CircularBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(202)))), ((int)(((byte)(98)))));
+            this.radialMenuItem3.CircularMenuDiameter = 28;
+            this.radialMenuItem3.Name = "radialMenuItem3";
+            this.radialMenuItem3.Symbol = "";
+            this.radialMenuItem3.Text = "Item 3";
+            // 
+            // radialMenuItem4
+            // 
+            this.radialMenuItem4.CircularBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(112)))), ((int)(((byte)(22)))));
+            this.radialMenuItem4.CircularMenuDiameter = 28;
+            this.radialMenuItem4.Name = "radialMenuItem4";
+            this.radialMenuItem4.Symbol = "";
+            this.radialMenuItem4.Text = "Item 4";
+            // 
+            // radialMenuItem5
+            // 
+            this.radialMenuItem5.CircularBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(153)))), ((int)(((byte)(0)))));
+            this.radialMenuItem5.CircularMenuDiameter = 28;
+            this.radialMenuItem5.Name = "radialMenuItem5";
+            this.radialMenuItem5.Symbol = "";
+            this.radialMenuItem5.Text = "Item 5";
+            // 
+            // ExcelOperationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 554);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.TutorProcessExcelGroup);
+            this.Controls.Add(this.radialMenu2);
+            this.Controls.Add(this.metroStatusBar1);
+            this.Controls.Add(this.ExcelFilePathTxt);
+            this.Controls.Add(this.StudentData);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.ExcelFileOpenBtn);
+            this.Controls.Add(this.SureAndUploadBtn);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ExcelOperation";
-            this.Text = "上传学生信息";
+            this.Name = "ExcelOperationWindow";
+            this.Text = "上传学生数据";
             this.Load += new System.EventHandler(this.ExcelOperation_Load);
-            this.TutorProcessExcelGroup.ResumeLayout(false);
-            this.TutorProcessExcelGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox TutorProcessExcelGroup;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem1;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem2;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem3;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem4;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem5;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label NowPartOSchoolLbl;
         private System.Windows.Forms.Label NowClassLbl;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridView StudentData;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataStuName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataStuDirection;
-        private System.Windows.Forms.Button SureAndUploadBtn;
-        private System.Windows.Forms.TextBox ExcelFilePathTxt;
-        private System.Windows.Forms.Button ExcelFileOpenBtn;
+        private DevComponents.DotNetBar.ButtonX SureAndUploadBtn;
+        private DevComponents.DotNetBar.ButtonX ExcelFileOpenBtn;
         private System.Windows.Forms.OpenFileDialog OpenExcelFileDialog;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel StatusBar;
+        private DevComponents.DotNetBar.Controls.DataGridViewX StudentData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StuDepartment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StuBusDirection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BusDirection;
+        private DevComponents.DotNetBar.Controls.TextBoxX ExcelFilePathTxt;
+        private DevComponents.DotNetBar.Metro.MetroStatusBar metroStatusBar1;
+        private DevComponents.DotNetBar.LabelItem ExDiscription;
+        private DevComponents.DotNetBar.RadialMenu radialMenu2;
     }
 }

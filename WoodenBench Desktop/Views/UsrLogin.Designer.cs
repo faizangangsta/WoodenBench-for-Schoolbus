@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.Views.ModernView
+﻿namespace WoodenBench.Views
 {
     partial class UsrLoginWindow
     {

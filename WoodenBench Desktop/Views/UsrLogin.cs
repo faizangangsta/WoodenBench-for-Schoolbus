@@ -11,7 +11,7 @@ using WoodenBench.TableObject;
 using WoodenBench.Users;
 using static WoodenBench.StaClasses.GlobalFunc;
 
-namespace WoodenBench.Views.ModernView
+namespace WoodenBench.Views
 {
     public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

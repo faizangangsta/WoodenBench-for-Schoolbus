@@ -35,15 +35,7 @@ namespace WoodenBench.Views
                 return defaultInstance;
             }
         }
-
-        private void ChangeUserData_Load(object sender, EventArgs e)
-        {
-            UsrNameLbl.Text = CurrentUser.UserName;
-            UsrIDLbl.Text = CurrentUser.objectId;
-            UsrGroup.Text = CurrentUser.UserGroup.ToString();
-            UsrWCID.Text = CurrentUser.WeChatID;
-        }
-
+        
         private void DoChange(object sender, EventArgs e)
         {
             if (FPasswordTxt.Text == null || FPasswordTxt.Text == CurrentUser.Password)
@@ -90,6 +82,11 @@ namespace WoodenBench.Views
             SureChangeBtn.Text = "确定(&C)";
             NPasswrodTxt2.Clear();
             NPasswrodTxt2.ClearUndo();
+        }
+
+        private void ChangeUserDataWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

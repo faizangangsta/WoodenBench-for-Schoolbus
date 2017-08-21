@@ -3,8 +3,9 @@ using System;
 using WoodenBench.StaClasses;
 using static WoodenBench.StaClasses.GlobalFunc;
 using static WoodenBench.StaClasses.CryptoGraphy;
+using System.Drawing;
 
-namespace WoodenBench.TableObject
+namespace WoodenBench.Users
 {
     /// <summary>
     /// DON'T CHANGE CLASS NAME  'AllUsersTable'
@@ -18,7 +19,8 @@ namespace WoodenBench.TableObject
         public bool WebNotiSeen { get; set; }
         public string WeChatID { get; set; }
         public string RealName { get; set; }
-        public BmobFile UserImage { get; set; }
+        public BmobFile HeadImgData { get; set; }
+        public Image UserImage { get; set; }
         public AllUserObject() { }
         public override void readFields(BmobInput input)
         {
@@ -29,7 +31,7 @@ namespace WoodenBench.TableObject
             UserGroup = (UserGroupEnum)input.getInt("UsrGroup").Get();
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
-            UserImage = input.Get<BmobFile>("HeadImage");
+            HeadImgData = input.Get<BmobFile>("HeadImage");
         }
 
         public override void write(BmobOutput output, bool all)
@@ -41,7 +43,7 @@ namespace WoodenBench.TableObject
             output.Put("WeChatID", this.WeChatID);
             output.Put("UsrGroup", (int)this.UserGroup);
             output.Put("RealName", this.RealName);
-            output.Put("HeadImage", this.UserImage);
+            output.Put("HeadImage", this.HeadImgData);
         }
         public void SetEveryThingNull()
         {

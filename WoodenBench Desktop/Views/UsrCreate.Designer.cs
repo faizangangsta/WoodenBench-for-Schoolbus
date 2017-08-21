@@ -47,7 +47,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(48, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
@@ -57,7 +59,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(60, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 17);
@@ -67,7 +71,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(12, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 17);
@@ -77,7 +83,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.label4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(14, 124);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 17);
@@ -87,29 +95,34 @@
             // CheckT
             // 
             this.CheckT.AutoSize = true;
+            this.CheckT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.CheckT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CheckT.ForeColor = System.Drawing.Color.Black;
             this.CheckT.Location = new System.Drawing.Point(38, 175);
             this.CheckT.Name = "CheckT";
             this.CheckT.Size = new System.Drawing.Size(207, 55);
             this.CheckT.TabIndex = 7;
             this.CheckT.Text = "我已经同意使用小板凳，\r\n任何使用中的误操作所造成的后果\r\n均由用户（我）承担";
-            this.CheckT.UseVisualStyleBackColor = true;
+            this.CheckT.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(62, 333);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(159, 35);
             this.button1.TabIndex = 8;
             this.button1.Text = "确认，创建帐户";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // UserNameT
             // 
+            this.UserNameT.BackColor = System.Drawing.Color.White;
             this.UserNameT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.UserNameT.ForeColor = System.Drawing.Color.Black;
             this.UserNameT.Location = new System.Drawing.Point(100, 9);
             this.UserNameT.Name = "UserNameT";
             this.UserNameT.Size = new System.Drawing.Size(145, 23);
@@ -117,7 +130,9 @@
             // 
             // PasswordT
             // 
+            this.PasswordT.BackColor = System.Drawing.Color.White;
             this.PasswordT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.PasswordT.ForeColor = System.Drawing.Color.Black;
             this.PasswordT.Location = new System.Drawing.Point(100, 63);
             this.PasswordT.Name = "PasswordT";
             this.PasswordT.PasswordChar = '●';
@@ -126,7 +141,9 @@
             // 
             // PasswordT2
             // 
+            this.PasswordT2.BackColor = System.Drawing.Color.White;
             this.PasswordT2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.PasswordT2.ForeColor = System.Drawing.Color.Black;
             this.PasswordT2.Location = new System.Drawing.Point(100, 90);
             this.PasswordT2.Name = "PasswordT2";
             this.PasswordT2.PasswordChar = '●';
@@ -135,8 +152,10 @@
             // 
             // GroupT
             // 
+            this.GroupT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.GroupT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GroupT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.GroupT.ForeColor = System.Drawing.Color.Black;
             this.GroupT.FormattingEnabled = true;
             this.GroupT.Items.AddRange(new object[] {
             "老师",
@@ -152,6 +171,8 @@
             this.ResultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResultLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.ResultLabel.ForeColor = System.Drawing.Color.Black;
             this.ResultLabel.Location = new System.Drawing.Point(12, 249);
             this.ResultLabel.Name = "ResultLabel";
             this.ResultLabel.Size = new System.Drawing.Size(247, 46);
@@ -161,7 +182,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.label5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(35, 39);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 17);
@@ -170,13 +193,15 @@
             // 
             // RealNameT
             // 
+            this.RealNameT.BackColor = System.Drawing.Color.White;
             this.RealNameT.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RealNameT.ForeColor = System.Drawing.Color.Black;
             this.RealNameT.Location = new System.Drawing.Point(100, 36);
             this.RealNameT.Name = "RealNameT";
             this.RealNameT.Size = new System.Drawing.Size(145, 23);
             this.RealNameT.TabIndex = 1;
             // 
-            // CreateUser
+            // CreateUserWindow
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -195,13 +220,14 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(287, 419);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(287, 419);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(287, 384);
-            this.Name = "CreateUser";
+            this.Name = "CreateUserWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "创建用户";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CreateUser_FormClosed);

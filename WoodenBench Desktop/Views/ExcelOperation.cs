@@ -65,7 +65,7 @@ namespace WoodenBench.Views
                 StudentObj.StudentPartOfSchool = NowPartOfSchool;
                 StudentObj.StudentNamePinYin = PinYin.GetPinyin(StudentObj.StudentName);
                 StudentObj.StuIdentity = StudentObj.StudentNamePinYin + PinYin.GetPinyin(NowPartOfSchool);
-                StatusBar.Text = "正在处理第" + (RowNum + 1).ToString() + "条数据，学生姓名 " + StudentObj.StudentName;
+                ExDiscription.Text = "正在处理第" + (RowNum + 1).ToString() + "条数据，学生姓名 " + StudentObj.StudentName;
                 Application.DoEvents();
                 var future = _BmobWin.CreateTaskAsync(StudentObj);
                 try
@@ -86,13 +86,13 @@ namespace WoodenBench.Views
                             + "学生姓名有重复项\r\n"
                             + LastErrPerson
                             + "\r\n操作将要停止，已经上传的学生数据将不会显示");
-                        StatusBar.Text = "出现了错误，请检查 " + LastErrPerson + "的记录";
+                        ExDiscription.Text = "出现了错误，请检查 " + LastErrPerson + "的记录";
                     }
                 }
             }
             if (IsSucceed)
             {
-                StatusBar.Text = "成功完成操作！已经上传" + StudentData.RowCount.ToString() + "条数据";
+                ExDiscription.Text = "成功完成操作！已经上传" + StudentData.RowCount.ToString() + "条数据";
                 MessageBox.Show("所有项目已经成功上传！");
             }
             else

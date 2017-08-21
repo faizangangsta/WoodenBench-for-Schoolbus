@@ -1,4 +1,4 @@
-namespace WoodenBench.Views.ModernView
+namespace WoodenBench.Views
 {
     partial class MainForm
     {
@@ -36,7 +36,7 @@ namespace WoodenBench.Views.ModernView
             // 
             // MainShell
             // 
-            this.MainShell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.MainShell.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
@@ -87,7 +87,7 @@ namespace WoodenBench.Views.ModernView
             // 
             // metroStatusBar1
             // 
-            this.metroStatusBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
+            this.metroStatusBar1.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
@@ -118,6 +118,7 @@ namespace WoodenBench.Views.ModernView
             this.Padding = new System.Windows.Forms.Padding(2, 2, 2, 1);
             this.Text = "№ЬАн";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }

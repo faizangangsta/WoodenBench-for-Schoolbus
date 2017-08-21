@@ -12,12 +12,13 @@ using DevComponents.AdvTree;
 using DevComponents.DotNetBar.Metro.ColorTables;
 using static WoodenBench.StaClasses.GlobalFunc;
 using System.Security;
+using WoodenBench.Views.Controls;
 
-namespace WoodenBench.Views.ModernView
+namespace WoodenBench.Views
 {
     public partial class MainForm : MetroAppForm
     {
-        MenuUsrControl UsrMenu = null; // Start control displayed on startup
+        Controls.MainMenu UsrMenu = null; // Start control displayed on startup
         MetroBillCommands _Commands = null; // All application commands    
         public class MetroBillCommands
         {
@@ -32,7 +33,7 @@ namespace WoodenBench.Views.ModernView
             _Commands.ChangeMetroTheme = new Command(components, new EventHandler(ChangeMetroThemeExecuted));
 
             SuspendLayout();
-            UsrMenu = new MenuUsrControl();
+            UsrMenu = new Controls.MainMenu();
             Controls.Add(UsrMenu);
             UsrMenu.BringToFront();
             //UsrMenu.SlideSide = DevComponents.DotNetBar.Controls.eSlideSide.Right;
@@ -124,6 +125,11 @@ namespace WoodenBench.Views.ModernView
         }
 
         private void metroShell1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
