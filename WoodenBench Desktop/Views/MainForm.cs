@@ -1,54 +1,32 @@
+using DevComponents.AdvTree;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Metro;
+using DevComponents.DotNetBar.Metro.ColorTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using DevComponents.DotNetBar.Metro;
-using DevComponents.DotNetBar;
-using System.Diagnostics;
-using DevComponents.AdvTree;
-using DevComponents.DotNetBar.Metro.ColorTables;
-using static WoodenBench.StaClasses.GlobalFunc;
-using System.Security;
-using WoodenBench.Views.Controls;
+using WoodenBench.DelegateClasses;
+using WoodenBench.Properties;
+using WoodenBench.StaticClasses;
+using WoodenBench.Users;
+using static WoodenBench.StaticClasses.GlobalFunc;
+
 
 namespace WoodenBench.Views
 {
-    public partial class MainForm : MetroAppForm
+    public partial class MainForm : MetroForm
     {
-        Controls.MainMenu UsrMenu = null; // Start control displayed on startup
-        MetroBillCommands _Commands = null; // All application commands    
-        public class MetroBillCommands
-        {
-            public Command ChangeMetroTheme { get; set; }
-        }
+
+        int intX = 0;
         public MainForm()
         {
             InitializeComponent();
-            this.components = new System.ComponentModel.Container();
-            // Prepare commands
-            _Commands = new MetroBillCommands();
-            _Commands.ChangeMetroTheme = new Command(components, new EventHandler(ChangeMetroThemeExecuted));
-
-            SuspendLayout();
-            UsrMenu = new Controls.MainMenu();
-            Controls.Add(UsrMenu);
-            UsrMenu.BringToFront();
-            //UsrMenu.SlideSide = DevComponents.DotNetBar.Controls.eSlideSide.Right;
-            ResumeLayout(false);
-            // Add metro color themes
-            MetroColorGeneratorParameters[] metroThemes = MetroColorGeneratorParameters.GetAllPredefinedThemes();
-            foreach (MetroColorGeneratorParameters mt in metroThemes)
-            {
-                ButtonItem theme = new ButtonItem(mt.ThemeName, mt.ThemeName)
-                {
-                    Command = _Commands.ChangeMetroTheme,
-                    CommandParameter = mt
-                };
-                colorThemeButton.SubItems.Add(theme);
-            }
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
@@ -66,72 +44,96 @@ namespace WoodenBench.Views
                 return defaultInstance;
             }
         }
-        #endregion
-        
-        private void ChangeMetroThemeExecuted(object sender, EventArgs e)
-        {
-            ICommandSource source = (ICommandSource)sender;
-            MetroColorGeneratorParameters theme = (MetroColorGeneratorParameters)source.CommandParameter;
-            StyleManager.MetroColorGeneratorParameters = theme;
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            UpdateControlsSizeAndLocation();
-            base.OnLoad(e);
-        }
-
-        private void UpdateControlsSizeAndLocation()
-        {
-            if (UsrMenu != null)
-            {
-                if (!UsrMenu.IsOpen) UsrMenu.OpenBounds = GetStartControlBounds();
-                else UsrMenu.Bounds = GetStartControlBounds();
-                if (!IsModalPanelDisplayed) UsrMenu.BringToFront();
-            }
-            Rectangle GetStartControlBounds()
-            {
-                int captionHeight = MainShell.MetroTabStrip.GetCaptionHeight() + 3;
-                Thickness borderThickness = GetBorderThickness();
-                return new Rectangle((int)borderThickness.Left, captionHeight, Width - (int)borderThickness.Horizontal, Height - captionHeight + 20);
-            }
-        }
-        protected override void OnResize(EventArgs e)
-        {
-            UpdateControlsSizeAndLocation();
-            base.OnResize(e);
-        }
-
-
-        private void metroShell1_SettingsButtonClick(object sender, EventArgs e)
-        {
-            MessageBoxEx.Show(this, "MetroShell Settings Button Clicked", "Metro Bill", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void metroShell1_HelpButtonClick(object sender, EventArgs e)
-        {
-            Process.Start("http://lhy0403.iego.net/SchoolBusMgr/");
-        }
-
-        private void metroShell1_SelectedTabChanged(object sender, EventArgs e)
-        {
-            UpdateControlsSizeAndLocation();
-        }
+        #endregion                
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-            UsrMenu.Dispose();
-            ApplicationExit();
-        }
-
-        private void metroShell1_Click(object sender, EventArgs e)
-        {
-
+            GlobalFunc.ApplicationExit();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            labelX2.Text = "<div align=\"right\"><font size=\"+4\">"
+                + GlobalFunc.CurrentUser.RealName + "</font><br/>" + GlobalFunc.CurrentUser.objectId + "</div>";
+            FileIO.DownloadFile("http://res.lhy0403.top/WBUserHeadImg/" + GlobalFunc.CurrentUser.HeadImgData, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg", DownloadType.SingleUserHeadImage);
+        }
+        public void DnFinished(FileIOEventArgs e)
+        {
+            if (e.ProcessStatus == ProcStatE.Completed)
+            {
+                if (e.DownloadType == DownloadType.SingleUserHeadImage)
+                {
+                    if (pictureBox1.InvokeRequired)
+                    {
+                        Invoke(new nullArgDelegate(delegate { pictureBox1.BackgroundImage = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath)); }));
+                    }
+                }
+            }
+            else if (e.ProcessStatus == ProcStatE.FailedWithErr)
+            {
+                if (pictureBox1.InvokeRequired)
+                {
+                    Invoke(new nullArgDelegate(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
+                }
+                //MessageBox.Show("尝试获取用户头像失败，请联系网络信息中心。");
+            }
+        }
 
+        protected override void OnResize(EventArgs e)
+        {
+            itemPanel1.Location = new Point((Width - itemPanel1.Width) / 2 + 10, ((Height - labelX1.Height - 16) - itemPanel1.Height) / 2 + labelX1.Height + 16);
+            labelX1.Location = new Point((Width - itemPanel1.Width) / 2, ((Height - labelX1.Height - 16) - itemPanel1.Height) / 2 + labelX1.Height - 80);
+            base.OnResize(e);
+        }
+
+        private void LogOutUsrTile(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定要注销吗？", "注销", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                UserActivity.LogOut();
+                UsrLoginWindow.Default.Show();
+                Hide();
+            }
+        }
+
+        private void labelX2_Click(object sender, EventArgs e)
+        {
+            intX++;
+            if (intX == 25) Mysterious.ShowMys();
+        }
+
+        private void UploadStuDataTile_Click(object sender, EventArgs e)
+        {
+            ExcelOperationWindow.Default.Show();
+            Hide();
+        }
+
+        private void appSettingsTile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpTile_Click(object sender, EventArgs e)
+        {
+            LogWritter.DebugMessage("Clicked the Help Button, now navigating to the help page");
+            Process.Start("explorer.exe", " https://schoolbus.lhy0403.top/Help");
+        }
+
+        private void MgrLoginTile_Click(object sender, EventArgs e)
+        {
+            MGRLoginWindow.Default.ShowDialog(this);
+        }
+
+        private void newClientTile_Click(object sender, EventArgs e)
+        {
+            BusesManager.Default.Show();
+            Hide();
+        }
+
+        private void MyStudentData_Click(object sender, EventArgs e)
+        {
+            CheckMyStudents.Default.Show();
+            Hide();
         }
     }
 }

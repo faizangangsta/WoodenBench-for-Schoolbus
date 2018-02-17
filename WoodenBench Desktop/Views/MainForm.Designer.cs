@@ -1,4 +1,4 @@
-namespace WoodenBench.Views
+﻿namespace WoodenBench.Views
 {
     partial class MainForm
     {
@@ -29,103 +29,379 @@ namespace WoodenBench.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.MainShell = new DevComponents.DotNetBar.Metro.MetroShell();
-            this.colorThemeButton = new DevComponents.DotNetBar.ButtonItem();
-            this.metroStatusBar1 = new DevComponents.DotNetBar.Metro.MetroStatusBar();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
+            this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
+            this.UploadStuDataTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.newClientTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.MyStudentDataInfo = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.devCoTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.MgrLoginTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.StudentData = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.appSettingsTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.helpTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.LogoffTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.metroTileItem2 = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // MainShell
+            // labelX1
             // 
-            this.MainShell.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.MainShell.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.MainShell.CaptionVisible = true;
-            this.MainShell.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainShell.ForeColor = System.Drawing.Color.Black;
-            this.MainShell.HelpButtonText = "����ҳ��";
-            this.MainShell.KeyTipsFont = new System.Drawing.Font("Tahoma", 7F);
-            this.MainShell.Location = new System.Drawing.Point(2, 2);
-            this.MainShell.Name = "MainShell";
-            this.MainShell.QuickToolbarItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.colorThemeButton});
-            this.MainShell.SettingsButtonText = "����";
-            this.MainShell.Size = new System.Drawing.Size(939, 597);
-            this.MainShell.SystemText.MaximizeRibbonText = "&Maximize the Ribbon";
-            this.MainShell.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon";
-            this.MainShell.SystemText.QatAddItemText = "&Add to Quick Access Toolbar";
-            this.MainShell.SystemText.QatCustomizeMenuLabel = "<b>Customize Quick Access Toolbar</b>";
-            this.MainShell.SystemText.QatCustomizeText = "&Customize Quick Access Toolbar...";
-            this.MainShell.SystemText.QatDialogAddButton = "&Add >>";
-            this.MainShell.SystemText.QatDialogCancelButton = "Cancel";
-            this.MainShell.SystemText.QatDialogCaption = "Customize Quick Access Toolbar";
-            this.MainShell.SystemText.QatDialogCategoriesLabel = "&Choose commands from:";
-            this.MainShell.SystemText.QatDialogOkButton = "OK";
-            this.MainShell.SystemText.QatDialogPlacementCheckbox = "&Place Quick Access Toolbar below the Ribbon";
-            this.MainShell.SystemText.QatDialogRemoveButton = "&Remove";
-            this.MainShell.SystemText.QatPlaceAboveRibbonText = "&Place Quick Access Toolbar above the Ribbon";
-            this.MainShell.SystemText.QatPlaceBelowRibbonText = "&Place Quick Access Toolbar below the Ribbon";
-            this.MainShell.SystemText.QatRemoveItemText = "&Remove from Quick Access Toolbar";
-            this.MainShell.TabIndex = 1;
-            this.MainShell.TabStripFont = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MainShell.Text = "metroShell1";
-            this.MainShell.SelectedTabChanged += new System.EventHandler(this.metroShell1_SelectedTabChanged);
-            this.MainShell.SettingsButtonClick += new System.EventHandler(this.metroShell1_SettingsButtonClick);
-            this.MainShell.HelpButtonClick += new System.EventHandler(this.metroShell1_HelpButtonClick);
-            this.MainShell.Click += new System.EventHandler(this.metroShell1_Click);
-            // 
-            // colorThemeButton
-            // 
-            this.colorThemeButton.AutoExpandOnClick = true;
-            this.colorThemeButton.CanCustomize = false;
-            this.colorThemeButton.Image = global::WoodenBench.Properties.Resources.ColorScheme;
-            this.colorThemeButton.Name = "colorThemeButton";
-            this.colorThemeButton.ShowSubItems = false;
-            this.colorThemeButton.Text = "��ɫ����";
-            this.colorThemeButton.Tooltip = "ѡ��һ������";
-            // 
-            // metroStatusBar1
-            // 
-            this.metroStatusBar1.BackColor = System.Drawing.Color.White;
+            this.labelX1.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
-            this.metroStatusBar1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.metroStatusBar1.ContainerControlProcessDialogKey = true;
-            this.metroStatusBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.metroStatusBar1.DragDropSupport = true;
-            this.metroStatusBar1.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metroStatusBar1.ForeColor = System.Drawing.Color.Black;
-            this.metroStatusBar1.Location = new System.Drawing.Point(2, 577);
-            this.metroStatusBar1.Name = "metroStatusBar1";
-            this.metroStatusBar1.Size = new System.Drawing.Size(939, 22);
-            this.metroStatusBar1.TabIndex = 2;
-            this.metroStatusBar1.Text = "metroStatusBar1";
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelX1.ForeColor = System.Drawing.Color.Black;
+            this.labelX1.Location = new System.Drawing.Point(19, 5);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(289, 40);
+            this.labelX1.TabIndex = 6;
+            this.labelX1.Text = "主菜单";
+            // 
+            // itemPanel1
+            // 
+            this.itemPanel1.AutoScroll = true;
+            this.itemPanel1.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.itemPanel1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemPanel1.ContainerControlProcessDialogKey = true;
+            this.itemPanel1.DragDropSupport = true;
+            this.itemPanel1.ForeColor = System.Drawing.Color.Black;
+            this.itemPanel1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.itemContainer1});
+            this.itemPanel1.Location = new System.Drawing.Point(69, 69);
+            this.itemPanel1.Name = "itemPanel1";
+            this.itemPanel1.ReserveLeftSpace = false;
+            this.itemPanel1.Size = new System.Drawing.Size(568, 296);
+            this.itemPanel1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.itemPanel1.TabIndex = 7;
+            this.itemPanel1.Text = "itemPanel1";
+            // 
+            // itemContainer1
+            // 
+            // 
+            // 
+            // 
+            this.itemContainer1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer1.ItemSpacing = 6;
+            this.itemContainer1.MinimumSize = new System.Drawing.Size(560, 0);
+            this.itemContainer1.MultiLine = true;
+            this.itemContainer1.Name = "itemContainer1";
+            this.itemContainer1.ResizeItemsToFit = false;
+            this.itemContainer1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.UploadStuDataTile,
+            this.newClientTile,
+            this.MyStudentDataInfo,
+            this.devCoTile,
+            this.MgrLoginTile,
+            this.StudentData,
+            this.appSettingsTile,
+            this.helpTile,
+            this.LogoffTile});
+            // 
+            // 
+            // 
+            this.itemContainer1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // UploadStuDataTile
+            // 
+            this.UploadStuDataTile.Image = global::WoodenBench.Properties.Resources.Invoice;
+            this.UploadStuDataTile.Name = "UploadStuDataTile";
+            this.UploadStuDataTile.SymbolColor = System.Drawing.Color.Empty;
+            this.UploadStuDataTile.Text = "\r\n<br/>\r\n<font size=\"+4\">上传<br/>学生信息</font>";
+            this.UploadStuDataTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Default;
+            // 
+            // 
+            // 
+            this.UploadStuDataTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(83)))), ((int)(((byte)(117)))));
+            this.UploadStuDataTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(103)))), ((int)(((byte)(155)))));
+            this.UploadStuDataTile.TileStyle.BackColorGradientAngle = 45;
+            this.UploadStuDataTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.UploadStuDataTile.TileStyle.PaddingBottom = 4;
+            this.UploadStuDataTile.TileStyle.PaddingLeft = 4;
+            this.UploadStuDataTile.TileStyle.PaddingRight = 4;
+            this.UploadStuDataTile.TileStyle.PaddingTop = 4;
+            this.UploadStuDataTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.UploadStuDataTile.TitleText = "Students";
+            this.UploadStuDataTile.Click += new System.EventHandler(this.UploadStuDataTile_Click);
+            // 
+            // newClientTile
+            // 
+            this.newClientTile.Image = global::WoodenBench.Properties.Resources.contact;
+            this.newClientTile.Name = "newClientTile";
+            this.newClientTile.SymbolColor = System.Drawing.Color.Empty;
+            this.newClientTile.Text = "\r\n<br/>\r\n<font size=\"+4\">校车管理</font>\r\n<br/>\r\n调整校车信息和带\r\n<br/>车老师";
+            this.newClientTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Green;
+            // 
+            // 
+            // 
+            this.newClientTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(151)))), ((int)(((byte)(42)))));
+            this.newClientTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(177)))), ((int)(((byte)(51)))));
+            this.newClientTile.TileStyle.BackColorGradientAngle = 45;
+            this.newClientTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.newClientTile.TileStyle.PaddingBottom = 4;
+            this.newClientTile.TileStyle.PaddingLeft = 4;
+            this.newClientTile.TileStyle.PaddingRight = 4;
+            this.newClientTile.TileStyle.PaddingTop = 4;
+            this.newClientTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.newClientTile.TitleText = "Teachers";
+            this.newClientTile.Click += new System.EventHandler(this.newClientTile_Click);
+            // 
+            // MyStudentDataInfo
+            // 
+            this.MyStudentDataInfo.Image = global::WoodenBench.Properties.Resources.Web;
+            this.MyStudentDataInfo.Name = "MyStudentDataInfo";
+            this.MyStudentDataInfo.SymbolColor = System.Drawing.Color.Empty;
+            this.MyStudentDataInfo.Text = "\r\n<br/>\r\n<font size=\"+4\">登记信息<br/>查询</font>";
+            this.MyStudentDataInfo.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedOrange;
+            // 
+            // 
+            // 
+            this.MyStudentDataInfo.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(60)))), ((int)(((byte)(0)))));
+            this.MyStudentDataInfo.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(57)))), ((int)(((byte)(0)))));
+            this.MyStudentDataInfo.TileStyle.BackColorGradientAngle = 45;
+            this.MyStudentDataInfo.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.MyStudentDataInfo.TileStyle.PaddingBottom = 4;
+            this.MyStudentDataInfo.TileStyle.PaddingLeft = 4;
+            this.MyStudentDataInfo.TileStyle.PaddingRight = 4;
+            this.MyStudentDataInfo.TileStyle.PaddingTop = 4;
+            this.MyStudentDataInfo.TileStyle.TextColor = System.Drawing.Color.White;
+            this.MyStudentDataInfo.TitleText = "Check in";
+            this.MyStudentDataInfo.Click += new System.EventHandler(this.MyStudentData_Click);
+            // 
+            // devCoTile
+            // 
+            this.devCoTile.Name = "devCoTile";
+            this.devCoTile.Symbol = "";
+            this.devCoTile.SymbolColor = System.Drawing.Color.Empty;
+            this.devCoTile.SymbolSize = 42F;
+            this.devCoTile.Text = "\r\n<br/>\r\n<font size=\"+4\">我的账户</font>\r\n<br/>管理我的账户";
+            this.devCoTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedViolet;
+            // 
+            // 
+            // 
+            this.devCoTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
+            this.devCoTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(0)))), ((int)(((byte)(61)))));
+            this.devCoTile.TileStyle.BackColorGradientAngle = 45;
+            this.devCoTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.devCoTile.TileStyle.PaddingBottom = 4;
+            this.devCoTile.TileStyle.PaddingLeft = 4;
+            this.devCoTile.TileStyle.PaddingRight = 4;
+            this.devCoTile.TileStyle.PaddingTop = 4;
+            this.devCoTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.devCoTile.TitleText = "My Account";
+            // 
+            // MgrLoginTile
+            // 
+            this.MgrLoginTile.Image = global::WoodenBench.Properties.Resources.TableReportt;
+            this.MgrLoginTile.Name = "MgrLoginTile";
+            this.MgrLoginTile.SymbolColor = System.Drawing.Color.Empty;
+            this.MgrLoginTile.Text = "\r\n<br/>\r\n<font size=\"+4\">管理中心</font><br/>\r\n管理通知和用户";
+            this.MgrLoginTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Magenta;
+            // 
+            // 
+            // 
+            this.MgrLoginTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(85)))), ((int)(((byte)(148)))));
+            this.MgrLoginTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(98)))), ((int)(((byte)(185)))));
+            this.MgrLoginTile.TileStyle.BackColorGradientAngle = 45;
+            this.MgrLoginTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.MgrLoginTile.TileStyle.PaddingBottom = 4;
+            this.MgrLoginTile.TileStyle.PaddingLeft = 4;
+            this.MgrLoginTile.TileStyle.PaddingRight = 4;
+            this.MgrLoginTile.TileStyle.PaddingTop = 4;
+            this.MgrLoginTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.MgrLoginTile.TitleText = "Management";
+            this.MgrLoginTile.Click += new System.EventHandler(this.MgrLoginTile_Click);
+            // 
+            // StudentData
+            // 
+            this.StudentData.Image = global::WoodenBench.Properties.Resources.Charts;
+            this.StudentData.Name = "StudentData";
+            this.StudentData.SymbolColor = System.Drawing.Color.Empty;
+            this.StudentData.Text = "\r\n<br/>\r\n<font size=\"+4\">通知查看</font>\r\n<br/>\r\n查看使用通知";
+            this.StudentData.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Orange;
+            // 
+            // 
+            // 
+            this.StudentData.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(131)))), ((int)(((byte)(0)))));
+            this.StudentData.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(136)))), ((int)(((byte)(0)))));
+            this.StudentData.TileStyle.BackColorGradientAngle = 45;
+            this.StudentData.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.StudentData.TileStyle.PaddingBottom = 4;
+            this.StudentData.TileStyle.PaddingLeft = 4;
+            this.StudentData.TileStyle.PaddingRight = 4;
+            this.StudentData.TileStyle.PaddingTop = 4;
+            this.StudentData.TileStyle.TextColor = System.Drawing.Color.White;
+            this.StudentData.TitleText = "Notifications";
+            // 
+            // appSettingsTile
+            // 
+            this.appSettingsTile.Image = global::WoodenBench.Properties.Resources.Details;
+            this.appSettingsTile.Name = "appSettingsTile";
+            this.appSettingsTile.SymbolColor = System.Drawing.Color.Empty;
+            this.appSettingsTile.Text = "\r\n<br/>\r\n<font size=\"+4\">应用设置</font>\r\n<br/>更改首选项";
+            this.appSettingsTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.PlumWashed;
+            // 
+            // 
+            // 
+            this.appSettingsTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.appSettingsTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(46)))), ((int)(((byte)(64)))));
+            this.appSettingsTile.TileStyle.BackColorGradientAngle = 45;
+            this.appSettingsTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.appSettingsTile.TileStyle.PaddingBottom = 4;
+            this.appSettingsTile.TileStyle.PaddingLeft = 4;
+            this.appSettingsTile.TileStyle.PaddingRight = 4;
+            this.appSettingsTile.TileStyle.PaddingTop = 4;
+            this.appSettingsTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.appSettingsTile.TitleText = "Settings";
+            this.appSettingsTile.Click += new System.EventHandler(this.appSettingsTile_Click);
+            // 
+            // helpTile
+            // 
+            this.helpTile.Image = global::WoodenBench.Properties.Resources.Help;
+            this.helpTile.Name = "helpTile";
+            this.helpTile.SymbolColor = System.Drawing.Color.Empty;
+            this.helpTile.Text = "\r\n<br/>\r\n<font size=\"+4\">帮助</font>\r\n<br/>如何使用本软件";
+            this.helpTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Blue;
+            // 
+            // 
+            // 
+            this.helpTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(102)))), ((int)(((byte)(168)))));
+            this.helpTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(120)))), ((int)(((byte)(190)))));
+            this.helpTile.TileStyle.BackColorGradientAngle = 45;
+            this.helpTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.helpTile.TileStyle.PaddingBottom = 4;
+            this.helpTile.TileStyle.PaddingLeft = 4;
+            this.helpTile.TileStyle.PaddingRight = 4;
+            this.helpTile.TileStyle.PaddingTop = 4;
+            this.helpTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.helpTile.TitleText = "Help";
+            this.helpTile.Click += new System.EventHandler(this.helpTile_Click);
+            // 
+            // LogoffTile
+            // 
+            this.LogoffTile.Name = "LogoffTile";
+            this.LogoffTile.Symbol = "";
+            this.LogoffTile.SymbolColor = System.Drawing.Color.Empty;
+            this.LogoffTile.SymbolSize = 40F;
+            this.LogoffTile.Text = "\r\n<br/>\r\n<font size=\"+4\">注销</font>\r\n<br/>返回登录页面";
+            this.LogoffTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Coffee;
+            // 
+            // 
+            // 
+            this.LogoffTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(76)))), ((int)(((byte)(41)))));
+            this.LogoffTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(67)))), ((int)(((byte)(37)))));
+            this.LogoffTile.TileStyle.BackColorGradientAngle = 45;
+            this.LogoffTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.LogoffTile.TileStyle.PaddingBottom = 4;
+            this.LogoffTile.TileStyle.PaddingLeft = 4;
+            this.LogoffTile.TileStyle.PaddingRight = 4;
+            this.LogoffTile.TileStyle.PaddingTop = 4;
+            this.LogoffTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.LogoffTile.TitleText = "Logoff";
+            this.LogoffTile.Click += new System.EventHandler(this.LogOutUsrTile);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.ForeColor = System.Drawing.Color.Black;
+            this.pictureBox1.InitialImage = global::WoodenBench.Properties.Resources.Person;
+            this.pictureBox1.Location = new System.Drawing.Point(623, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(64, 58);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.WaitOnLoad = true;
+            // 
+            // labelX2
+            // 
+            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelX2.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX2.ForeColor = System.Drawing.Color.Black;
+            this.labelX2.Location = new System.Drawing.Point(493, 5);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(124, 58);
+            this.labelX2.TabIndex = 8;
+            this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Name</font><br/>ID</div>";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.labelX2.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
+            // 
+            // metroTileItem2
+            // 
+            this.metroTileItem2.Image = global::WoodenBench.Properties.Resources.Details;
+            this.metroTileItem2.Name = "metroTileItem2";
+            this.metroTileItem2.SymbolColor = System.Drawing.Color.Empty;
+            this.metroTileItem2.Text = "<font size=\"+4\">\r\nSwitch to\r\n<br/>\r\napp\r\n</font>";
+            this.metroTileItem2.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Maroon;
+            // 
+            // 
+            // 
+            this.metroTileItem2.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.metroTileItem2.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(46)))), ((int)(((byte)(64)))));
+            this.metroTileItem2.TileStyle.BackColorGradientAngle = 45;
+            this.metroTileItem2.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.metroTileItem2.TileStyle.PaddingBottom = 4;
+            this.metroTileItem2.TileStyle.PaddingLeft = 4;
+            this.metroTileItem2.TileStyle.PaddingRight = 4;
+            this.metroTileItem2.TileStyle.PaddingTop = 4;
+            this.metroTileItem2.TileStyle.TextColor = System.Drawing.Color.White;
+            this.metroTileItem2.TitleText = "返回";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BorderThickness = new DevComponents.DotNetBar.Metro.Thickness(0D, 10D, 0D, 0D);
-            this.ClientSize = new System.Drawing.Size(943, 600);
-            this.Controls.Add(this.metroStatusBar1);
-            this.Controls.Add(this.MainShell);
-            this.Font = new System.Drawing.Font("΢���ź�", 8.5F);
+            this.ClientSize = new System.Drawing.Size(693, 416);
+            this.Controls.Add(this.labelX1);
+            this.Controls.Add(this.itemPanel1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.labelX2);
+            this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.MinimumSize = new System.Drawing.Size(660, 455);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(2, 2, 2, 1);
-            this.Text = "����";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "校车小板凳管理平台";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private DevComponents.DotNetBar.Metro.MetroShell MainShell;
-        private DevComponents.DotNetBar.ButtonItem colorThemeButton;
-        private DevComponents.DotNetBar.Metro.MetroStatusBar metroStatusBar1;
+
+        private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.DotNetBar.ItemPanel itemPanel1;
+        private DevComponents.DotNetBar.ItemContainer itemContainer1;
+        private DevComponents.DotNetBar.Metro.MetroTileItem UploadStuDataTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem newClientTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem StudentData;
+        private DevComponents.DotNetBar.Metro.MetroTileItem MyStudentDataInfo;
+        private DevComponents.DotNetBar.Metro.MetroTileItem devCoTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem MgrLoginTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem appSettingsTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem helpTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem LogoffTile;
+        public System.Windows.Forms.PictureBox pictureBox1;
+        private DevComponents.DotNetBar.LabelX labelX2;
+        private DevComponents.DotNetBar.Metro.MetroTileItem metroTileItem2;
     }
 }

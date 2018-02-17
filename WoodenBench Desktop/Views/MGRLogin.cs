@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.StaClasses;
+using WoodenBench.StaticClasses;
 using WoodenBench.Views;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
@@ -41,7 +41,7 @@ namespace WoodenBench.Views
 
         private void LoginMgrBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentUser.Password == PasswordTxt.Text && CurrentUser.UserName == UsrNameTxt.Text)
+            if (CurrentUser.Password == Crypto.SHA256Encrypt(PasswordTxt.Text) && CurrentUser.UserName == UsrNameTxt.Text)
             {
                 if (CurrentUser.RealName == RealNameTxt.Text)
                 {
@@ -52,21 +52,26 @@ namespace WoodenBench.Views
                             new ManagementWindow(0).Show(MainForm.Default);
                             Close();
                             break;
-                        case  UserGroupEnum.管理组用户:
+                        case UserGroupEnum.管理组用户:
                             //Higher Management
                             new ManagementWindow(1).Show(MainForm.Default);
                             Close();
                             break;
                         default:
-                            MessageBox.Show("你不是管理组用户", "Sorry",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.ServiceNotification);
+                            MessageBox.Show("你不是管理组用户", "出错了", MessageBoxButtons.OK, MessageBoxIcon.Stop,
+                                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
                             Close();
                             break;
                     }
                 }
+                else
+                {
+                    MessageBox.Show("个人信息不正确");
+                }
+            }
+            else
+            {
+                MessageBox.Show("用户名或密码不正确");
             }
         }
     }

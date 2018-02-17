@@ -7,8 +7,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WoodenBench.StaticClasses;
 using WoodenBench.TableObject;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 using static WoodenBench.Users.UserActivity;
 
 namespace WoodenBench.Views
@@ -35,10 +36,10 @@ namespace WoodenBench.Views
                 return defaultInstance;
             }
         }
-        
+
         private void DoChange(object sender, EventArgs e)
         {
-            if (FPasswordTxt.Text == null || FPasswordTxt.Text == CurrentUser.Password)
+            if (FPasswordTxt.Text == "" || Crypto.SHA256Encrypt(FPasswordTxt.Text) == CurrentUser.Password)
             {
                 if (NPasswrodTxt1.Text == NPasswrodTxt2.Text)
                 {

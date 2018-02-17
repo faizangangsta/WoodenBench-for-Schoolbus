@@ -6,10 +6,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
-using WoodenBench.StaClasses;
+using WoodenBench.StaticClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
@@ -55,6 +55,8 @@ namespace WoodenBench.Views
         private void DoLogin(object sender, EventArgs e)
         {
             //Login the user
+            UserNameTxt.Enabled = false;
+            PswdTxt.Enabled = false;
             NewUserLabel.Visible = false;
             LoginResult.Text = "";
             DoLoginBtn.Enabled = false;
@@ -64,7 +66,7 @@ namespace WoodenBench.Views
             UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
         }
 
-        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { new CreateUserWindow().ShowDialog(); }
+        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { CreateUserWindow.Default.ShowDialog(); }
 
         private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -84,8 +86,11 @@ namespace WoodenBench.Views
                 {
                     Invoke(new nullArgDelegate(() =>
                     {
+                        LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
                         DoLoginBtn.Enabled = true;
                         CancelBtn.Enabled = true;
+                        UserNameTxt.Enabled = true;
+                        PswdTxt.Enabled = true;
                         DoLoginBtn.Text = "登录(&L)";
                         MainForm.Default.Show();
                         Hide();
@@ -97,15 +102,23 @@ namespace WoodenBench.Views
                     {
                         Invoke(new nullArgDelegate(() =>
                         {
-                            DebugMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
+                            LogWritter.ErrorMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
                             LoginResult.Text = "用户名或密码不正确";
+                            LoginResult.Visible = true;
                             DoLoginBtn.Enabled = true;
                             CancelBtn.Enabled = true;
+                            UserNameTxt.Enabled = true;
+                            PswdTxt.Enabled = true;
                             DoLoginBtn.Text = "登录(&L)";
                         }));
                     }
                 }
             }
+        }
+
+        private void UsrLoginWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            StaticClasses.GlobalFunc.ApplicationExit();
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Desktop_Updater
     /// </summary>
     public class MainWindow : System.Windows.Forms.Form
 	{
-		private System.Windows.Forms.ColumnHeader chFileName;
-		private System.Windows.Forms.ColumnHeader chVersion;
-		private System.Windows.Forms.ColumnHeader chProgress;
-		private System.Windows.Forms.ListView lvUpdateList;
+		private ColumnHeader chFileName;
+		private ColumnHeader chVersion;
+		private ColumnHeader chProgress;
+		private ListView lvUpdateList;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button btnNext;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Button btnFinish;
+		private Button btnNext;
+		private Button btnCancel;
+		private Button btnFinish;
 		private Button button1;
 
 		/// <summary>
@@ -50,15 +50,15 @@ namespace Desktop_Updater
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.label1 = new System.Windows.Forms.Label();
-            this.lvUpdateList = new System.Windows.Forms.ListView();
-            this.chFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chProgress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnFinish = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new Label();
+            this.lvUpdateList = new ListView();
+            this.chFileName = new ColumnHeader();
+            this.chVersion = new ColumnHeader();
+            this.chProgress = new ColumnHeader();
+            this.btnNext = new Button();
+            this.btnCancel = new Button();
+            this.btnFinish = new Button();
+            this.button1 = new Button();
             this.SuspendLayout();
             // 
             // label1
@@ -71,10 +71,10 @@ namespace Desktop_Updater
             // 
             // lvUpdateList
             // 
-            this.lvUpdateList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvUpdateList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvUpdateList.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right);
+            this.lvUpdateList.Columns.AddRange(new ColumnHeader[] {
             this.chFileName,
             this.chVersion,
             this.chProgress});
@@ -83,7 +83,7 @@ namespace Desktop_Updater
             this.lvUpdateList.Size = new System.Drawing.Size(525, 322);
             this.lvUpdateList.TabIndex = 6;
             this.lvUpdateList.UseCompatibleStateImageBehavior = false;
-            this.lvUpdateList.View = System.Windows.Forms.View.Details;
+            this.lvUpdateList.View = View.Details;
             this.lvUpdateList.SelectedIndexChanged += new System.EventHandler(this.LvUpdateList_SelectedIndexChanged);
             // 
             // chFileName
@@ -103,7 +103,7 @@ namespace Desktop_Updater
             // 
             // btnNext
             // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
             this.btnNext.Location = new System.Drawing.Point(371, 356);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(80, 24);
@@ -113,7 +113,7 @@ namespace Desktop_Updater
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
             this.btnCancel.Location = new System.Drawing.Point(457, 356);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 24);
@@ -123,7 +123,7 @@ namespace Desktop_Updater
             // 
             // btnFinish
             // 
-            this.btnFinish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinish.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
             this.btnFinish.Location = new System.Drawing.Point(285, 356);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(80, 24);
@@ -133,7 +133,7 @@ namespace Desktop_Updater
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
             this.button1.Location = new System.Drawing.Point(12, 356);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 24);

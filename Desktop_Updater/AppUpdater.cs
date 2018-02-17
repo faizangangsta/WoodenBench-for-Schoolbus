@@ -17,7 +17,7 @@ namespace Desktop_Updater
 	{
 		#region 成员与字段属性
 		private bool disposed = false;
-		private IntPtr Handle;
+		//private IntPtr iHandle;
 		private Component component = new Component();
 		public static string UpdaterUrl;
 		#endregion
@@ -27,7 +27,7 @@ namespace Desktop_Updater
 		/// </summary>
 		public AppUpdater()
 		{
-			Handle = Handle;
+            //iHandle = this.iHandle;
 		}
 		public void Dispose()
 		{

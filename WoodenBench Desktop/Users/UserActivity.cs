@@ -14,10 +14,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WoodenBench.DelegateClasses;
-using WoodenBench.StaClasses;
+using WoodenBench.StaticClasses;
 using WoodenBench.TableObject;
 using WoodenBench.Views;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 
 namespace WoodenBench.Users
 {
@@ -44,9 +44,9 @@ namespace WoodenBench.Users
 
         }
 
-        public static void CreateUser(string Username, string Realname, string Password, int UserGroup)
+        public static void CreateUser(string Username, string Realname, string Password, int UserGroup, bool isBusTeacher)
         {
-            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup); }))
+            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup, isBusTeacher); }))
             { Name = "User Creation", IsBackground = false }.Start();
         }
 
@@ -54,12 +54,12 @@ namespace WoodenBench.Users
         private static void _ChangePsW(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             AllUserObject Change = new AllUserObject();
-            Change.Password = NewPasswrd;
+            Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
             _BmobWin.Update(Consts.TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
                 {
-                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserChangePassword, null, Detail: exception.Message);
+                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserChangePassword, Detail: exception.Message);
                 }
                 else
                 {
@@ -72,10 +72,10 @@ namespace WoodenBench.Users
         {
             CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(ProcStatE.Completed, UsrActvtiE.UserLogOff, CurrentUser);
+            onUserActivity(ProcStatE.Completed, UsrActvtiE.UserLogOff);
         }
 
-        private static void _UserChangeHeadImage(Image newImage, string UserName)
+        /*private static void _UserChangeHeadImage(Image newImage, string UserName)
         {
             Bitmap p = new Bitmap(newImage);
             MemoryStream ms = new MemoryStream();
@@ -93,25 +93,27 @@ namespace WoodenBench.Users
             {
                 CurrentUser.HeadImgData = ffuture.Result;
                 CurrentUser.UserImage = newImage;
-                onUserActivity(ProcStatE.Completed, UsrActvtiE.UserUploadHImage, CurrentUser);
+                onUserActivity(ProcStatE.Completed, UsrActvtiE.UserUploadHImage);
             }
             else
             {
                 onUserActivity(ProcStatE.Unknown, UsrActvtiE.UserUploadHImage, null);
             }
         }
+        */
 
         private static void _Login(string xUserName, string xPassword, bool OnlyVerify, string RealN = "")
         {
-            string HashedPs = CryptoGraphy.SHA256Encrypt(xPassword);
+            xUserName = xUserName.ToLower();
+            string HashedPs = Crypto.SHA256Encrypt(xPassword);
             BmobQuery UserNameQuery = new BmobQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
-                System.Threading.Tasks.Task<QueryCallbackData<AllUserObject>> UsrNameResult;
+                Task<QueryCallbackData<AllUserObject>> UsrNameResult;
                 UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
                 UsrNameResult.Wait();
-                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, CurrentUser, Detail: "Username Wrong");
+                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, Detail: "Username Wrong");
 
                 AllUserObject FoundUser = UsrNameResult.Result.results[0];
                 if (FoundUser.Password == HashedPs)
@@ -119,48 +121,79 @@ namespace WoodenBench.Users
                     if (OnlyVerify)
                     {
                         if (FoundUser.RealName == RealN) onUserActivity(ProcStatE.Completed, UsrActvtiE.UserCompare, null);
-                        else onUserActivity(ProcStatE.Failed, UsrActvtiE.UserCompare, null, Detail: "Realname Wrong");
+                        else onUserActivity(ProcStatE.Failed, UsrActvtiE.UserCompare, Detail: "Realname Wrong");
                     }
                     else
                     {
                         CurrentUser = FoundUser;
-                        onUserActivity(ProcStatE.Completed, UsrActvtiE.UsrLogin, CurrentUser);
+                        onUserActivity(ProcStatE.Completed, UsrActvtiE.UsrLogin);
                     }
                 }
-                else onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, CurrentUser, Detail: "Password Wrong");
+                else onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, Detail: "Password Wrong");
             }
             catch (Exception e)
             {
-                DebugMessage(e);
-                DebugMessage(e.InnerException);
-                onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UsrLogin, null, Detail: e.Message, exception: e);
+                LogWritter.ErrorMessage(e.Message);
+                LogWritter.ErrorMessage(e.InnerException?.Message);
+                onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UsrLogin, Detail: e.Message, exception: e);
             }
         }
 
-        private static void _Create(string Username, string Realname, string Password, int UserGroup)
+        private static void _Create(string Username, string Realname, string Password, int UserGroup, bool isBusTeacher)
         {
-
+            Username = Username.ToLower();
+            Password = Crypto.SHA256Encrypt(Password);
+            AllUserObject NewUserObj = new AllUserObject
+            {
+                UserName = Username,
+                RealName = Realname,
+                WebNotiSeen = false,
+                WeChatID = "####",
+                Password = Password,
+                UserGroup = (UserGroupEnum)(UserGroup),
+                isFstLogin = true,
+                IsBusTeacher = isBusTeacher,
+                HeadImgData = ""
+            };
+            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(Consts.TABLE_N_Gen_UsrTable, NewUserObj);
+            task.Wait();
+            if (task.Status == TaskStatus.Faulted || task.IsFaulted)
+            {
+                if (task.Exception == null)
+                {
+                    onUserActivity(ProcStatE.Failed & ProcStatE.Unknown, UsrActvtiE.UserCreate, "Just Failed");
+                }
+                else if (task.Exception != null)
+                {
+                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserCreate, task.Exception.Message, task.Exception);
+                }
+            }
+            else if (task.Status == TaskStatus.RanToCompletion && task.Exception == null && task.IsCompleted)
+            {
+                onUserActivity(ProcStatE.Completed, UsrActvtiE.UserCreate, "Success " + task.Result.createdAt);
+            }
         }
 
-        private static void onUserActivity(ProcStatE Status, UsrActvtiE Act, AllUserObject AChange, string Detail = "", Exception exception = null)
+        private static void onUserActivity(ProcStatE Status, UsrActvtiE Act, string Detail = "", Exception exception = null)
         {
             UserActivityEventArgs e = new UserActivityEventArgs()
             {
                 Activity = Act,
-                AfterChange = AChange,
                 ProcessStatus = Status,
                 Description = Detail,
-                Exception = exception
+                Exception = exception,
+
             };
             if (onUserActivityEvent != null) onUserActivityEvent(e);
             e = null;
+            GC.Collect();
         }
         #endregion
     }
-    public class UserActivityEventArgs : internalEventArgs
+
+    public class UserActivityEventArgs : InternalEventArgs
     {
         public UserActivityEventArgs() { }
         public UsrActvtiE Activity { get; set; }
-        public AllUserObject AfterChange { get; set; }
     }
 }

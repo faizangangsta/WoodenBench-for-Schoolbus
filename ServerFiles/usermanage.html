@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用户管理</title>
+<script src="js/Encryption/Base64.js"></script>
+<link href="css/font-awesome.min.css" rel="stylesheet" />
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/Bootstrap-3.3.7.js"></script>
+<script src="js/Encryption/SHAHash.js"></script>
+<script src="js/Encryption/MD5.js"></script>
+<script src="SchBMgr_js/WeiXinModule.js"></script>
+<script src="SchBMgr_js/WCServicesProvider.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/SchBCSS.css">
+<script src="js/CryptoJS/core.js"></script>
+<script src="js/CryptoJS/crypto-js.js"></script>
+<script src="js/CryptoJS/index.js"></script>
+<script src="js/CryptoJS/sha1.js"></script>
+<script src="js/CryptoJS/sha256.js"></script>
+<script src="js/CryptoJS/x64-core.js"></script>
+</head>
+<body class="BodyStyle">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1" aria-expanded="false"> 
+		  <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> 
+		  <span class="icon-bar"></span> 
+		  <span class="icon-bar"></span> 
+	  </button>
+      <a class="navbar-brand" href="index.html" id="PgTitleBar">🏠回主页</a> </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="defaultNavbar1">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">概述</a> </li>
+        <li><a href="report.html">汇报问题</a> </li>
+        <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> </li>
+        <li class="active"><a href="usermanage.html">用户管理</a> </li>
+        <li><a href="RptBug.html">反馈Bug</a> </li>
+        <li><a href="" id="navUsrName" onclick="RemoveLoginData()">注销当前账户</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<h4 id="ProcInfo" style="text-align: center; text-decoration-style: double; color: red;"></h4>
+<br>
+<div class="container">
+  <div class="container">
+    <label>当前登陆用户</label>
+    <label id="CUserRName">加载中...</label>
+    <br>
+    <label>当前绑定的微信号</label>
+    <label id="CUserWCharID">加载中...</label>
+  </div>
+  <hr>
+  <div class="container">
+    <label>绑定当前的微信号</label>
+    <br>
+    <div class="container">
+      <p id="bongdingInfo">(绑定后可以使用微信登录)</p>
+      <button type="button" id="bongdingWCBtn" class="btn btn-sm btn-default" onclick="JumpToWeChatLogin('bonding');">绑定当前微信号</button>
+      <button type="button" id="UbongdingWCBtn" class="btn btn-sm btn-danger" onclick="UBondingCheck();" style="display: none">解绑微信号</button>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <label>修改密码</label>
+    <br>
+    <div class="container">
+      <p id="ChangPsWdLabel" style="margin-bottom: 5px">点击按钮修改密码：
+        <button type="button" class="btn btn-sm btn-default" id="ChangePsBtn" onclick="ReDirectToLogin('usermanage.html?ChangePwd=', '?ChangePassword=RemoteRtn');">修改密码</button>
+      </p>
+      <div id="NewPs" class="text-center" style="display: none">
+        <input class="TxBox" style="display: block;" value="" id="NPsW1" type="password" placeholder="输入新密码" />
+        <input class="TxBox" style="display: block;" value="" id="NPsW2" type="password" placeholder="再次输入新密码" />
+        <button type="button" class="btn btn-sm btn-default" style="margin-top: 8px; width: 60%" onclick="DoChangePsWd();">提交</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <label>注销当前账户</label>
+    <br>
+    <div class="container">
+      <p>点击按钮注销当前用户：</p>
+      <button style="width: 100%" onclick="if (confirm('确定要退出当前用户吗？'))  { RemoveLoginData(true); location.href = 'index.html' }" class="btn btn-sm btn-danger">退出当前用户</button>
+    </div>
+  </div>
+</div>
+	<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+<script>
+	var currentUser;
+	Maininit("usermanage.html", mainInitCallback);
+	InitWeixin();
+	$("#NPsW1").keydown(function (e)
+	{
+		if(e.keyCode === 13) DoChangePsWd();
+	});
+	$("#NPSW2").keydown(function (e)
+	{
+		if(e.keyCode === 13) DoChangePsWd();
+	});
+
+	function ReloadUsrData()
+	{
+		if(currentUser[6] !== "####")
+		{
+			$("#CUserWCharID").text(currentUser[6]);
+			$("#bongdingWCBtn").hide();
+			$("#UbongdingWCBtn").show();
+			$("#bongdingInfo").text("你已经绑定了微信号，点击按钮解绑");
+		}
+		else
+		{
+			$("#CUserWCharID").text("没有绑定微信账号");
+			$("#bongdingInfo").text("(绑定后可以使用微信登录)");
+			$("#bongdingWCBtn").show();
+			$("#UbongdingWCBtn").hide();
+		}
+	}
+
+	function UBondingCheck()
+	{
+		if(confirm("确定要解除绑定微信账号吗？"))
+		{
+			ReDirectToLogin('usermanage.html?UnBonding=', '?UnBonding=force');
+		}
+	}
+
+	function mainInitCallback(cUser)
+	{
+		currentUser = cUser;
+		$("#navUsrName").text("注销当前账户  -  " + currentUser[8]);
+		$("#CUserRName").text(currentUser[8]);
+		ReloadUsrData();
+		
+		///WeChat Bonding and unBonding User
+		if(location.href.indexOf("?userid=") > -1)
+		{
+			var WXUserid = GetURLOption("userid");
+			if(WXUserid === "nullStr") location.href = "usermanage.html";
+			var TS = GetURLOption("OAuthCallBack");
+			var TSSec = getCookie("OAuthCallBack");
+			setCookie("OAuthCallBack", "nothing", 5);
+			if(TS === TSSec)
+			{
+				WriteUserData(currentUser[1], "WeChatID", WXUserid, currentUser[2], function (Result)
+				{
+					if(Result !== false && Result.ErrCode === "0" && Result.ErrMessage === "null")
+					{
+						currentUser = Result;
+						$("#ProcInfo").text("绑定成功，可以使用微信登陆");
+					}
+					else
+					{
+						$("#ProcInfo").text("绑定失败，如有问题到菜单里面汇报问题");
+					}
+					ReloadUsrData();
+				});
+			}
+			else
+			{
+				location.href = "usermanage.html";
+			}
+		}
+		else if(location.href.indexOf("UnBonding") > -1)
+		{
+			var TSb = base64decode(utf8to16De(GetURLOption("Option")));
+			var TSb2 =getCookie("UBTimeStamp");
+			if((TSb === TSb2) && (GetURLOption("UnBonding") === "true"))
+			{
+				setCookie("UBTimeStamp", "Null TimeStamp");
+				WriteUserData(currentUser[1], "WeChatID", "null", currentUser[2], function (Result)
+				{
+					if(Result !== false && Result.ErrCode === "0" && Result.ErrMessage === "null")
+					{
+						currentUser = Result;
+						$("#ProcInfo").text("解除绑定成功");
+					}
+					else
+					{
+						$("#ProcInfo").text("解除绑定失败，如有问题到菜单里面汇报问题");
+					}
+					ReloadUsrData();
+				});
+			}
+			else
+			{
+				location.href = "usermanage.html";
+			}
+		}
+		else if(location.href.indexOf("ChangePwd") > -1)
+		{
+			var TSc = base64decode(utf8to16De(GetURLOption("Option")));
+			var TSc2 = getCookie("UBTimeStamp");
+			if((TSc === TSc2) && (GetURLOption("ChangePwd") === "Allowed"))
+			{
+				$("#ChangePsBtn").hide();
+				$("#ChangPsWdLabel").text("在下面输入你的密码，然后按确定")
+				$("#NewPs").show();
+				setCookie("UBTimeStamp", "Null TimeStamp");
+			}
+			else
+			{
+				location.href = "usermanage.html";
+			}
+		}
+	}
+
+	function DoChangePsWd()
+	{
+		var Ps1 = $("#NPsW1").val();
+		var Ps2 = $("#NPsW2").val();
+		if((Ps1 === "") || (Ps2 === ""))
+		{
+			$("#ProcInfo").text("新密码不能为空");
+		}
+		else if(Ps1 !== Ps2)
+		{
+			$("#ProcInfo").text("两次输入的密码不匹配，请再试一遍，如有问题到菜单里面汇报问题");
+		}
+		else if((Ps1 !== "") && (Ps2 !== "") && (Ps1 === Ps2))
+		{
+			WriteUserData(currentUser[1], "Password", CryptoJS.SHA256(Ps1).toString(), currentUser[2], function (Result)
+			{
+				if(Result !== false)
+				{
+					$("#ProcInfo").text("修改密码成功，下次需要使用新密码登录");
+					currentUser = Result;						
+				}
+				else $("#ProcInfo").text("出现问题，如有问题到菜单里面汇报问题");
+			});
+		}
+	}
+	</script>
+</body>
+</html>

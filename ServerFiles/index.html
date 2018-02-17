@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>校车小板凳管理</title>
+<script src="js/bmob.js"></script>
+<script src="js/Encryption/Base64.js"></script>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/Bootstrap-3.3.7.js"></script>
+<script src="js/Encryption/SHAHash.js"></script>
+<script src="js/Encryption/MD5.js"></script>
+<script src="SchBMgr_js/WeiXinModule.js"></script>
+<script src="SchBMgr_js/UserActivity.js"></script>
+<script src="SchBMgr_js/WCServicesProvider.js"></script>
+<script src="js/CryptoJS/core.js"></script>
+<script src="js/CryptoJS/crypto-js.js"></script>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/SchBCSS.css">
+<style></style>
+</head>
+<body class="BodyStyle">	
+<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
+                    aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="index.html" id="PgTitleBar">🏠　主页</a> </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="defaultNavbar1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">概述</a></li>
+        <li><a href="report.html">汇报问题</a></li>
+        <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        <li><a href="usermanage.html">用户管理</a></li>
+        <li><a href="RptBug.html">反馈Bug</a></li>
+        <li><a href="" id="navUsrName" onclick="RemoveLoginData()">注销当前账户</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="col-lg-1 col-xs-4 col-md-2">
+    <input class="btn btn-default btn-sm" id="OpenNoti" type="button" onclick="showOutNotifi()" value="查看通知"/>
+  </div>
+  <p class="col-lg-2 col-sm-3 col-xs-7" style="line-height: 100%; align-content: center" id="NowDate"> 加载中... </p>
+</div>
+<hr style="height: 0px"/>
+<div class="container">
+  <div class="col-lg-1 col-sm-2 col-xs-4 col-lg-offset-0"><img id="UserHImg" src="#" width="64" height="64" alt="" /></div>
+  <div class="col-lg-offset-0 col-lg-3">
+    <h4 id="UserID">加载中...</h4>
+    <h5 id="BusDirection">我的校车: 加载中...</h5>
+  </div>
+</div>
+<br>
+<div class="container">
+  <p id="ExpNumber">总人数: 加载中...</p>
+  <p id="LRealNumber">离校上车人数: 加载中...</p>
+  <p id="LPRealNumber">离校家长确认: 加载中...</p>
+  <hr>
+  <p id="CRealNumber">返校上车人数: 加载中...</p>
+  <p id="CPRealNumber">返校家长确认: 加载中...</p>
+</div>
+<div class="container center-all">
+  <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <button class="btn btn-success center-all" style="width: 100%" id="GoToChkA" onClick="GoToCheckA();">离校签到</button>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <button class="btn btn-success center-all" style="width: 100%" id="GoToChkB" onClick="GoToCheckB();">返校签到</button>
+  </div>
+</div>
+<br>
+<div class="container">
+  <button class="btn btn-danger btn-md center-all" onClick="GoToCheckC();" style="width: 60%">修改数据</button>
+</div>
+<!--<a href="WeChatJsDemo_files/WeChatJsDemo.htm">WeChatJsDemo</a> </div>--> 
+
+<!-- It is Notification area Below-->
+<div id="NotificationDiv" class="pop-box container" style="display: none"> <br>
+  <div class="container">
+    <h1 class="center-all" id="NotiTitle">通知加载失败😭😭😭</h1>
+    <div class="pop-box-body container">
+      <div id="NotiContent" class="container">
+        <p>如果你看见这条消息，那就说明通知没有正确的加载</p>
+		<p>&nbsp;</p>
+        <p>我能做什么？</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试试刷新这个页面，或者在不同网络环境下打开，如果多次尝试仍未打开，你可以：</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - 跑到六楼来找我，因为我觉得后端服务不可能有问题;</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - 去北京找Bmob公司，因为数据存储是他们提供的;</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - 给我点钱，这样我就能升级服务器配置，提供更稳定的服务;</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4 - 如果上面几条都做不到的话，那就去 “反馈Bug” 页面提交一个Bug吧😀;</p>
+        <p>😂祝： 使用愉快</p>
+      </div>
+      <br>
+      <input class="checkbox-inline" type="checkbox" id="WebNotiSeen">
+      <label for="WebNotiSeen" id="WebNotiSeenL">标为已读</label>
+    </div>
+  </div>
+  <input id="CloseNoti" class="btn btn-success text-center"
+           type="button" style="width: 80%; margin-left: 10%; margin-bottom: 25px" onclick="closeNotifi();" value="关闭"/>
+</div>
+<script>
+    Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+    var currentUser;
+	var currentBus;
+	var query = new Bmob.Query(Bmob.Object.extend("GeneralData"));
+    query.get("AMZgHHHK", {
+		success: function (objectGet)
+		{
+			var reg = new RegExp("/NL", "g");
+			var notiStr = objectGet.get("DataContent").replace(reg, "<br>");
+			notiStr += "<br>";
+			document.getElementById("NotiContent").innerHTML = notiStr;
+			document.getElementById("NotiTitle").innerHTML = objectGet.get("NTitle");
+			Maininit("index.html", mainInitCallback);
+		},
+		error: function (obj, err)
+		{
+            $("#WebNotiSeen").remove();
+			$("#CloseNoti").remove();
+			$("#WebNotiSeenL").remove();
+			showOutNotifi();
+		}
+	});
+	
+	function TotalStudentsCallBack(data)
+	{
+		$("#ExpNumber").text("总人数: " + data.count);
+		var num1 = 0, num2 = 0, num3 = 0, num4 = 0;
+		for	(var i = 0; i < data.count; i++)
+		{
+			var tmp = JSON.parse(eval("data.num_" + i));
+			if (tmp.LeavingChecked.toLowerCase() === "true") num1++;
+			if (tmp.ParentLeavingChecked.toLowerCase() === "true") num2++;
+			if (tmp.ComingChecked.toLowerCase() === "true") num3++;
+			if (tmp.ParentComingChecked.toLowerCase() === "true") num4++;
+		} 
+		$("#LRealNumber").text("离校上车人数: " + num1);
+		$("#LPRealNumber").text("离校家长确认: " + num2);
+		$("#CRealNumber").text("返校上车人数: " + num3);
+		$("#CPRealNumber").text("返校家长确认: " + num4);
+	}
+	
+	function BusCallBack(data)
+	{
+		currentBus = data;
+		setCookie("CBusID", currentBus.busID); 
+		$("#BusDirection").text("我的校车: " + currentBus.Name);
+		GetStudents(currentBus.busID, currentBus.TeacherID, TotalStudentsCallBack);
+	}
+	
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+		var dayofWeek = new Array("日", "一", "二", "三", "四", "五", "六");  
+        $("#navUsrName").text("注销当前账户  -  " + currentUser[8]);
+		$("#UserID").text("你好，" + currentUser[8]);
+		$("#NowDate").html(new Date().getMonth() + "月" + new Date().getDate() + "日 <br><br> 星期" + dayofWeek[new Date().getDay()]);
+		$("#UserHImg").prop("src", "http://res.lhy0403.top/WBUserHeadImg/" + currentUser[4]);
+        
+        if (currentUser[5].toLowerCase() === "false")
+        {
+            document.getElementById("WebNotiSeen").checked = false;
+            showOutNotifi();
+        }
+		else { document.getElementById("WebNotiSeen").checked = true; }
+		GetMgmtBus(currentUser[0], currentUser[1], currentUser[2], BusCallBack);		
+    }
+
+    function showOutNotifi()
+    {
+        $("#NotificationDiv").css({"top": 0});
+        $("#NotificationDiv").css({"position": "absolute"}).animate({
+            top: document.body.clientHeight * 0.3,
+            opacity: "show"
+        }, "normal");
+    }
+
+    function closeNotifi()
+    {
+        $("#mask").remove();
+        $("#NotificationDiv").animate(
+            {
+                top: document.body.clientHeight,
+                opacity: "hide"
+            }, "normal");
+        	WriteUserData(currentUser[1], "notice", document.getElementById("WebNotiSeen").checked, currentUser[2], function (result)
+            {
+                currentUser = result;
+            });
+    }
+	function GoToCheckA()
+	{
+		setCookie("SignMode", "leave");
+		location.href = "qrscanreg.html";
+	}	
+	function GoToCheckB()
+	{
+		setCookie("SignMode", "come");
+		location.href = "qrscanreg.html";
+	}
+
+	function GoToCheckC()
+	{
+		if(confirm("确实要修改数据？"))
+		setCookie("SignMode", "edit");
+		location.href = "qrscanreg.html";
+	}
+	
+    wx.ready(function ()
+    {
+        wx.hideOptionMenu();
+    });
+</script>
+</body>
+</html>

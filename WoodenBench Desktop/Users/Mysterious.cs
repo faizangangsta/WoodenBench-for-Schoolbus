@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 
 namespace WoodenBench.Users
 {

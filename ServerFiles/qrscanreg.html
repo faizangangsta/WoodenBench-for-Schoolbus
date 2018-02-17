@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学生上车登记</title>
+<script src="js/Encryption/Base64.js"></script>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/Bootstrap-3.3.7.js"></script>
+<script src="js/CryptoJS/crypto-js.js"></script>
+<script src="js/Encryption/SHAHash.js"></script>
+<script src="js/Encryption/MD5.js"></script>
+<script src="SchBMgr_js/WeiXinModule.js"></script>
+<script src="SchBMgr_js/WCServicesProvider.js"></script>
+<script src="SchBMgr_js/UserActivity.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/SchBCSS.css">
+</head>
+<body class="BodyStyle">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"
+                    aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="index.html" id="PgTitleBar">🏠回主页</a> </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="defaultNavbar1">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">概述</a></li>
+        <li><a href="report.html">汇报问题</a></li>
+        <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        <li><a href="usermanage.html">用户管理</a></li>
+        <li><a href="RptBug.html">反馈Bug</a></li>
+        <li><a href="" id="navUsrName" onclick="RemoveLoginData()">注销当前账户</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="container">
+    <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
+    <div class="col-lg-offset-0 col-lg-3">
+      <h4 id="UserID">加载中...</h4>
+      <h5 id="BusDirection">我的校车: 加载中...</h5>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <p id="ExpNumber">校车总人数: 加载中...</p>
+  </div>
+  <hr>
+  <div id="Students"> </div>
+</div>
+<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+<script>
+    var currentUser;
+	var currentBus;
+	var totalStudents;
+	var todayDay;
+	
+	var CLeavingChecked = false;
+	var CComing_Checked = false;
+	
+	var LeavingWrongDayChecked = false;
+	var Coming_WrongDayChecked = false;
+	
+	var SignMode = 0;
+	var LastSigned;
+    Maininit("qrscanreg.html", mainInitCallback);
+    //InitWeixin();
+	function BusCallBack(data)
+	{
+		currentBus = data;
+		setCookie("CBusID", currentBus.busID); 
+		$("#BusDirection").text("我的校车: " + currentBus.Name);
+		GetStudents(currentBus.busID, currentBus.TeacherID, TotalStudentsCallBack);
+	}
+	
+	function TotalStudentsCallBack(data)
+	{
+		totalStudents = data;
+		$("#ExpNumber").text("校车总人数: " + data.count);
+		for(var i = 0; i < data.count; i++)
+		{
+			var TMP = JSON.parse(eval("data.num_" + i));
+			var Content ="<div id='"+TMP.StuID+"' class=\"row container\"><div class=\"col-sm-6 col-lg-6 col-xs-5 col-md-6\"><h6 style='font-size:15px'>"+TMP.Name+"</h6></div>";
+			var Came = TMP.ComingChecked.toLowerCase() === "true", Leaved = TMP.LeavingChecked.toLowerCase() === "true";
+			if(SignMode === 1 || SignMode === 0) 
+			{
+				Content = Content + "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">"+
+					"<button id=\""+TMP.StuID+"_Leave\" class=\"btn "+(Leaved?"btn-success ":"btn-danger ")+"btn-sm\" onClick=\"Sign('"+TMP.StuID+"', 'leave', '"+!Leaved+"')\">"+(Leaved?"取消":"离校")+"</button></div>";
+			}
+			if(SignMode === 2 || SignMode === 0)
+			{
+				Content = Content + "<div class=\"col-sm-3 col-lg-3 col-xs-1 col-md-3\">"+
+					"<button id=\""+TMP.StuID+"_Come\"  class=\"btn "+(Came?"btn-success ":"btn-danger ")+"btn-sm\" onClick=\"Sign('"+TMP.StuID+"', 'come', '"+!Came+"')\">" + (Came ? "取消" : "返校") + "</button></div>";
+			}
+			Content = Content + "</div>";
+			$("#Students").append(Content);
+		}		
+	}
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+        document.getElementById("navUsrName").innerHTML = "注销当前账户  -  " + currentUser[8];
+		var dayofWeek = new Array("日", "一", "二", "三", "四", "五", "六");  
+		todayDay = "星期" + dayofWeek[new Date().getDay()];
+		
+		document.getElementById("UserID").innerHTML = "你好，" + currentUser[8];
+		$("#UserHImg").prop("src", "http://res.lhy0403.top/WBUserHeadImg/" + currentUser[4]);
+		
+		if(getCookie("SignMode") === "leave")
+		{
+			if(todayDay !== "星期五" && !confirm("今天不是星期五\r\n确定要进行离校签到吗?")) location.href = "index.html";	
+			else
+			{
+				LeavingWrongDayChecked = true;
+				SignMode = 1;
+			}
+			
+		}
+		else if(getCookie("SignMode") === "come")
+		{
+			if(todayDay !== "星期日" && !confirm("今天不是星期日\r\n确定要进行返校签到吗?")) location.href = "index.html";
+			else
+			{
+				Coming_WrongDayChecked = true;
+				SignMode = 2;
+			}
+			
+		}
+		else if(getCookie("SignMode") === "edit")
+		{
+			alert("更改数据时要小心");
+			SignMode = 0;
+			setCookie("SignMode", "")
+		}
+		else location.href = "index.html";
+		GetMgmtBus(currentUser[0], currentUser[1], currentUser[2], BusCallBack);		
+    }
+
+	function Sign(StudentID, Mode, value)
+	{
+		if(Mode === "come")
+		{
+			if((todayDay === "星期日" || Coming_WrongDayChecked || confirm("今天不是星期日\r\n确定要进行返校签到吗?")) && (value !== "false" || CComing_Checked || confirm("确定要取消签到吗？")) )
+			{
+				CComing_Checked = true;
+				Coming_WrongDayChecked = true;
+				SignStudent(currentBus.busID, Mode, value, currentBus.TeacherID, StudentID, SignCallBack);
+			}
+		}
+		else if(Mode === "leave")
+		{			
+			if((todayDay === "星期五" || LeavingWrongDayChecked || confirm("今天不是星期五\r\n确定要进行离校签到吗?")) && (value !== "false" || CLeavingChecked || confirm("确定要取消签到吗？")))
+			{			
+				LeavingWrongDayChecked = true;
+				CLeavingChecked = true;
+				SignStudent(currentBus.busID, Mode, value, currentBus.TeacherID, StudentID, SignCallBack);
+			}			
+		}
+	}
+	function SignCallBack(data)
+	{
+		LastSigned = data;
+		if(data.SignMode === "come") 
+		{
+			var rst = data.ComingChecked.toLowerCase() === "true";
+			$("#" + data.StuID + "_Come").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+			$("#" + data.StuID + "_Come").text(rst ? "取消" : "返校");
+			$("#" + data.StuID + "_Come").attr("onclick","Sign('" + data.StuID + "', 'come', '" + !rst + "')");
+		}
+		else if (data.SignMode === "leave")
+		{
+			var rst = data.LeavingChecked.toLowerCase() === "true";
+			$("#" + data.StuID + "_Leave").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+			$("#" + data.StuID + "_Leave").text(rst ? "取消" : "离校");
+			$("#" + data.StuID + "_Leave").attr("onclick","Sign('" + data.StuID + "', 'leave', '" + !rst + "')");
+		}
+	}
+    //wx.ready(function () { wx.hideOptionMenu(); });
+</script>
+</body>
+</html>

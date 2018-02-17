@@ -42,36 +42,44 @@
             // 
             this.RealNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RealNameTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.RealNameTxt.BackColor = System.Drawing.Color.White;
+            this.RealNameTxt.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.RealNameTxt.ForeColor = System.Drawing.Color.Black;
             this.RealNameTxt.Location = new System.Drawing.Point(71, 70);
             this.RealNameTxt.Name = "RealNameTxt";
-            this.RealNameTxt.Size = new System.Drawing.Size(394, 23);
+            this.RealNameTxt.Size = new System.Drawing.Size(132, 23);
             this.RealNameTxt.TabIndex = 5;
             // 
             // PasswordTxt
             // 
             this.PasswordTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasswordTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.PasswordTxt.BackColor = System.Drawing.Color.White;
+            this.PasswordTxt.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.PasswordTxt.ForeColor = System.Drawing.Color.Black;
             this.PasswordTxt.Location = new System.Drawing.Point(71, 41);
             this.PasswordTxt.Name = "PasswordTxt";
             this.PasswordTxt.PasswordChar = '●';
-            this.PasswordTxt.Size = new System.Drawing.Size(394, 23);
+            this.PasswordTxt.Size = new System.Drawing.Size(132, 23);
             this.PasswordTxt.TabIndex = 4;
             // 
             // UsrNameTxt
             // 
             this.UsrNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UsrNameTxt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.UsrNameTxt.BackColor = System.Drawing.Color.White;
+            this.UsrNameTxt.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.UsrNameTxt.ForeColor = System.Drawing.Color.Black;
             this.UsrNameTxt.Location = new System.Drawing.Point(71, 12);
             this.UsrNameTxt.Name = "UsrNameTxt";
-            this.UsrNameTxt.Size = new System.Drawing.Size(394, 23);
+            this.UsrNameTxt.Size = new System.Drawing.Size(132, 23);
             this.UsrNameTxt.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(12, 76);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
@@ -81,6 +89,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(35, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
@@ -90,6 +100,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(23, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
@@ -99,10 +111,12 @@
             // buttonX1
             // 
             this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonX1.Location = new System.Drawing.Point(12, 102);
             this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(452, 23);
+            this.buttonX1.Size = new System.Drawing.Size(190, 23);
             this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX1.TabIndex = 6;
             this.buttonX1.Text = "登陆管理中心";
@@ -110,9 +124,10 @@
             // 
             // MGRLoginWindow
             // 
+            this.AcceptButton = this.buttonX1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 137);
+            this.ClientSize = new System.Drawing.Size(214, 137);
             this.Controls.Add(this.buttonX1);
             this.Controls.Add(this.RealNameTxt);
             this.Controls.Add(this.label1);
@@ -122,8 +137,15 @@
             this.Controls.Add(this.label3);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(230, 176);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(230, 176);
             this.Name = "MGRLoginWindow";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "管理页面登录";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.MGRLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

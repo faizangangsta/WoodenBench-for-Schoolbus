@@ -53,10 +53,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WoodenBench.StaClasses.GlobalFunc</StartupObject>
+    <StartupObject>WoodenBench.StaticClasses.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bmob-Windows">
@@ -73,6 +82,21 @@
     <Reference Include="DevComponents.SuperGrid.Design, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.TreeGX, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\DatabaseDLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity">
+      <HintPath>..\DatabaseDLL\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6">
+      <HintPath>..\DatabaseDLL\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Fabric.Plugin">
+      <HintPath>..\DatabaseDLL\MySql.Fabric.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web">
+      <HintPath>..\DatabaseDLL\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -90,22 +114,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StaClasses\DelegateClasses.cs" />
+    <Compile Include="StaticClasses\DelegateClasses.cs" />
+    <Compile Include="StaticClasses\ExcelApplication.cs" />
+    <Compile Include="StaticClasses\FileIO.cs" />
+    <Compile Include="StaticClasses\GlobalFunc.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StaClasses\Consts.cs" />
-    <Compile Include="StaClasses\CryptoGraphy.cs" />
-    <Compile Include="StaClasses\ExcelApplication.cs" />
-    <Compile Include="StaClasses\FileIO.cs" />
-    <Compile Include="TableObjects\StudentObject.cs" />
-    <Compile Include="StaClasses\PinYin\Pinyin.cs" />
-    <Compile Include="StaClasses\PinYin\PyData.cs" />
+    <Compile Include="StaticClasses\LogWritter.cs" />
     <Compile Include="Users\Mysterious.cs" />
-    <Compile Include="TableObjects\NotificationObject.cs" />
-    <Compile Include="Users\UserObject.cs" />
     <Compile Include="Users\UserActivity.cs" />
     <Compile Include="Views\AppSettings.cs">
       <SubType>Form</SubType>
@@ -113,11 +132,23 @@
     <Compile Include="Views\AppSettings.Designer.cs">
       <DependentUpon>AppSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExcelOperation.cs">
+    <Compile Include="Views\BusesManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ExcelOperation.Designer.cs">
-      <DependentUpon>ExcelOperation.cs</DependentUpon>
+    <Compile Include="Views\BusesManager.Designer.cs">
+      <DependentUpon>BusesManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CheckMyStudents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CheckMyStudents.Designer.cs">
+      <DependentUpon>CheckMyStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\StudentUpload.Designer.cs">
+      <DependentUpon>StudentUpload.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
@@ -137,19 +168,12 @@
     <Compile Include="Views\MGRLogin.Designer.cs">
       <DependentUpon>MGRLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\MainMenu.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Controls\MainMenu.Designer.cs">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\UsrLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\UsrLogin.Designer.cs">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="StaClasses\GlobalFunc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\UsrCreate.cs">
       <SubType>Form</SubType>
@@ -170,8 +194,14 @@
     <EmbeddedResource Include="Views\AppSettings.resx">
       <DependentUpon>AppSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ExcelOperation.resx">
-      <DependentUpon>ExcelOperation.cs</DependentUpon>
+    <EmbeddedResource Include="Views\BusesManager.resx">
+      <DependentUpon>BusesManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CheckMyStudents.resx">
+      <DependentUpon>CheckMyStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StudentUpload.resx">
+      <DependentUpon>StudentUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -183,10 +213,6 @@
     <EmbeddedResource Include="Views\MGRLogin.resx">
       <DependentUpon>MGRLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Controls\MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\UsrLogin.resx">
       <DependentUpon>UsrLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -197,7 +223,11 @@
       <DependentUpon>UsrChangePsWd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\WoodenBench.TableObject.AllUserObject.datasource" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\WoodenBench.StaticClasses.Consts.datasource" />
+    <None Include="Properties\DataSources\WoodenBench.TableObject.SchoolBusObject.datasource" />
+    <None Include="Properties\DataSources\WoodenBench.TableObject.StudentDataObject.datasource" />
+    <None Include="Properties\DataSources\WoodenBench.Users.AllUserObject.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -280,6 +310,14 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\StaticLibrary\Static Helper.csproj">
+      <Project>{2d8b975f-6942-462d-8b1b-31b7639dd5af}</Project>
+      <Name>Static Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

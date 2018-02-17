@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
-using static WoodenBench.StaClasses.GlobalFunc;
+using static WoodenBench.StaticClasses.GlobalFunc;
 
 namespace WoodenBench.Views
 {
@@ -16,7 +16,24 @@ namespace WoodenBench.Views
         public AppSettings()
         {
             InitializeComponent();
+            if (defaultInstance == null) defaultInstance = this;
         }
+        #region For us easier to call
+        private static AppSettings defaultInstance { get; set; }
+        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
+        public static AppSettings Default
+        {
+            get
+            {
+                if (defaultInstance == null)
+                {
+                    defaultInstance = new AppSettings();
+                    defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+                }
+                return defaultInstance;
+            }
+        }
+        #endregion
 
         private void AppSettings_Load(object sender, EventArgs e)
         {
