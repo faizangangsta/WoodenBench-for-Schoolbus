@@ -380,7 +380,6 @@
             this.Text = "校车小板凳管理平台";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

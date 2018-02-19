@@ -1,6 +1,6 @@
 using System;
 
-namespace WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterAnnotation
     {

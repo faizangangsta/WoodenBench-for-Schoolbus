@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace WebAPIServices
+namespace WoodenBench.WebAPIServices
 {
     public class JsonpMediaTypeFormatter : JsonMediaTypeFormatter
     {

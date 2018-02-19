@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     public class ComplexTypeModelDescription : ModelDescription
     {

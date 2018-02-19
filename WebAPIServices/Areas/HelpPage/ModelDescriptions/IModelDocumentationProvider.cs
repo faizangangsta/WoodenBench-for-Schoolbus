@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

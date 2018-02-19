@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using WoodenBench.StaticClasses;
 using WoodenBench.Users;
-using static WebAPIServices.GlobalApplication;
+using static WoodenBench.WebAPIServices.GlobalApplication;
 
-namespace WebAPIServices.Controllers
+namespace WoodenBench.WebAPIServices.Controllers
 {
 
     public class usr_LoginController : ApiController

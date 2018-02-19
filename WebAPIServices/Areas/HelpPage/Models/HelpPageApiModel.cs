@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
 
-namespace WebAPIServices.Areas.HelpPage.Models
+namespace WoodenBench.WebAPIServices.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

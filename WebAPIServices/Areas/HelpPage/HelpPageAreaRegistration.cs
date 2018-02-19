@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace WebAPIServices.Areas.HelpPage
+namespace WoodenBench.WebAPIServices.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

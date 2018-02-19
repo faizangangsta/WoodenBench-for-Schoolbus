@@ -1,6 +1,6 @@
 using System;
 
-namespace WebAPIServices.Areas.HelpPage
+namespace WoodenBench.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.

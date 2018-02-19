@@ -5,7 +5,7 @@ using System.Web;
 using WoodenBench.TableObject;
 using WoodenBench.Users;
 
-namespace WebAPIServices.Controllers
+namespace WoodenBench.WebAPIServices.Controllers
 {
     public class ObjToDict
     {

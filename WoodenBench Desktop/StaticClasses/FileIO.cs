@@ -14,19 +14,19 @@ namespace WoodenBench.StaticClasses
     {
         public static event FileIOCompletedEventHandler onFileIOCompleted;
 
-        private static void _HttpDownload(string url, string path, DownloadType type)
+        private static void _HttpDownload(string RemoteURL, string LocalAddress, DownloadType type)
         {
-            string tempPath = Path.GetDirectoryName(path);
+            string tempPath = Path.GetDirectoryName(LocalAddress);
             Directory.CreateDirectory(tempPath);  //创建临时文件目录
-            string tempFile = tempPath + @"\" + Path.GetFileName(path) + ".temp"; //临时文件
+            string tempFile = tempPath + @"\" + Path.GetFileName(LocalAddress) + ".temp"; //临时文件
             if (File.Exists(tempFile)) File.Delete(tempFile);
-            if (File.Exists(path)) File.Delete(path);
+            if (File.Exists(LocalAddress)) File.Delete(LocalAddress);
+            FileStream fs = new FileStream(tempFile, FileMode.CreateNew, FileAccess.ReadWrite);
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(RemoteURL);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream responseStream = response.GetResponseStream();
-                FileStream fs = new FileStream(tempFile, FileMode.Append, FileAccess.Write, FileShare.ReadWrite, 4096);
 
                 byte[] arrivedBytes = new byte[1024];
                 int size = responseStream.Read(arrivedBytes, 0, (int)arrivedBytes.Length);
@@ -34,17 +34,18 @@ namespace WoodenBench.StaticClasses
                 while (size > 0)
                 {
                     fs.Write(arrivedBytes, 0, size);
-                    size = responseStream.Read(arrivedBytes, Length, (int)arrivedBytes.Length);
+                    size = responseStream.Read(arrivedBytes, 0, (int)arrivedBytes.Length);
                 }
                 fs.Close();
                 responseStream.Close();
-                File.Move(tempFile, path);
-                IOCompleted(ProcStatE.Completed, path, 0, type, url, null);
+                File.Move(tempFile, LocalAddress);
+                IOCompleted(ProcStatE.Completed, LocalAddress, 0, type, RemoteURL, null);
                 return;
             }
             catch (Exception ex)
             {
-                IOCompleted(ProcStatE.FailedWithErr, path, 0, type, url, ex, null);
+                fs.Close();
+                IOCompleted(ProcStatE.FailedWithErr, LocalAddress, 0, type, RemoteURL, ex, null);
                 return;
             }
         }

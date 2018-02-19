@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebAPIServices.Controllers
+namespace WoodenBench.WebAPIServices.Controllers
 {
 	public class HomeController : Controller
 	{

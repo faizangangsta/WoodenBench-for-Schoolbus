@@ -118,31 +118,28 @@ namespace WoodenBench.Views
 
         private void LoadAll_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("加载全部数据可能需要一段时间，这将取决于你的网络速度", "长耗时任务提醒",
-                MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                BmobQuery query = new BmobQuery();
-                query.WhereEqualTo("BusID", myID.Text);
-                Task<QueryCallbackData<StudentDataObject>> task;
-                task = _BmobWin.FindTaskAsync<StudentDataObject>(Consts.TABLE_N_Mgr_StuData, query);
-                task.Wait();
-                if (task.IsCompleted)
-                {
-                    List<StudentDataObject> list = task.Result.results;
-                    foreach (StudentDataObject item in list)
-                    {
-                        studentDataObjectBindingSource.Add(item);
-                    }
-                    ExpNumber.Text = list.Count.ToString();
-                    LeaveNumber.Text = CountTicks(4).ToString();
-                    LeavingChecked.Text = CountTicks(5).ToString();
-                    BackNumber.Text = CountTicks(6).ToString();
-                    BackChecked.Text = CountTicks(7).ToString();
-                }
-            }
-            else
+            if (MessageBox.Show("加载全部数据可能需要一段时间，这将取决于你的网络速度", "长耗时任务提醒", MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
+            }
+            studentDataObjectBindingSource.Clear();
+            BmobQuery query = new BmobQuery();
+            query.WhereEqualTo("BusID", myID.Text);
+            Task<QueryCallbackData<StudentDataObject>> task;
+            task = _BmobWin.FindTaskAsync<StudentDataObject>(Consts.TABLE_N_Mgr_StuData, query);
+            task.Wait();
+            if (task.IsCompleted)
+            {
+                List<StudentDataObject> list = task.Result.results;
+                foreach (StudentDataObject item in list)
+                {
+                    studentDataObjectBindingSource.Add(item);
+                }
+                ExpNumber.Text = list.Count.ToString();
+                LeaveNumber.Text = CountTicks(4).ToString();
+                LeavingChecked.Text = CountTicks(5).ToString();
+                BackNumber.Text = CountTicks(6).ToString();
+                BackChecked.Text = CountTicks(7).ToString();
             }
         }
 

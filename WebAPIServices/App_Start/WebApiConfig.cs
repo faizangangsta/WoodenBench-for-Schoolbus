@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace WebAPIServices
+namespace WoodenBench.WebAPIServices
 {
 	public static class WebApiConfig
 	{

@@ -123,17 +123,21 @@ namespace WoodenBench.Views
         {
             MessageBox.Show("上传所有数据，将会改写现有数据", "注意", MessageBoxButtons.OK);
 
-            foreach (DataGridViewRow item in busDataGrid.Rows)
+            foreach (DataGridViewRow BusDataRow in busDataGrid.Rows)
             {
-                if (item.Cells[2].Value != null)
+                if (string.IsNullOrEmpty((string)BusDataRow.Cells[2].Value))
                 {
-                    foreach (DataGridViewRow subItem in teacherData.Rows)
+                    BusDataRow.Cells[3].Value = "";
+                }
+                else
+                {
+                    foreach (DataGridViewRow TeacherDataRow in teacherData.Rows)
                     {
-                        if (subItem.Cells[2].Value != null || subItem.Cells[2].Value.ToString() != "")
+                        if (!string.IsNullOrEmpty((string)TeacherDataRow.Cells[2].Value))
                         {
-                            if (item.Cells[2].Value.ToString() == subItem.Cells[2].Value.ToString())
+                            if (BusDataRow.Cells[2].Value.ToString() == TeacherDataRow.Cells[2].Value.ToString())
                             {
-                                item.Cells[3].Value = subItem.Cells[0].Value.ToString();
+                                BusDataRow.Cells[3].Value = TeacherDataRow.Cells[0].Value.ToString();
                                 Application.DoEvents();
                                 break;
                             }

@@ -55,7 +55,7 @@ namespace WoodenBench.Views
         {
             labelX2.Text = "<div align=\"right\"><font size=\"+4\">"
                 + GlobalFunc.CurrentUser.RealName + "</font><br/>" + GlobalFunc.CurrentUser.objectId + "</div>";
-            FileIO.DownloadFile("http://res.lhy0403.top/WBUserHeadImg/" + GlobalFunc.CurrentUser.HeadImgData, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg", DownloadType.SingleUserHeadImage);
+            FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + GlobalFunc.CurrentUser.HeadImgData, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg", DownloadType.SingleUserHeadImage);
         }
         public void DnFinished(FileIOEventArgs e)
         {

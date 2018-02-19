@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using WebAPIServices.Areas.HelpPage.ModelDescriptions;
-using WebAPIServices.Areas.HelpPage.Models;
+using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WoodenBench.WebAPIServices.Areas.HelpPage.Models;
 
-namespace WebAPIServices.Areas.HelpPage
+namespace WoodenBench.WebAPIServices.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

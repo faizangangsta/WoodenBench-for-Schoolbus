@@ -1,4 +1,4 @@
-namespace WebAPIServices.Areas.HelpPage
+namespace WoodenBench.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

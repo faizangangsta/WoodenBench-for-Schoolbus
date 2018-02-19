@@ -65,13 +65,13 @@
             this.schoolBusObjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.StuPartOS = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ExDiscription = new System.Windows.Forms.Label();
             this.ExcelFileOpenBtn = new DevComponents.DotNetBar.ButtonX();
             this.LoadExistStudents = new DevComponents.DotNetBar.ButtonX();
             this.label1 = new System.Windows.Forms.Label();
             this.StuClass = new System.Windows.Forms.ComboBox();
             this.StuYear = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ExDiscription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
             this.StudentDataGridMenuS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentDataObjectBindingSource)).BeginInit();
@@ -131,7 +131,9 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.StudentData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.StudentData.RowTemplate.Height = 23;
-            this.StudentData.Size = new System.Drawing.Size(1021, 270);
+            this.StudentData.ScrollBarAppearance = DevComponents.DotNetBar.eScrollBarAppearance.Default;
+            this.StudentData.SelectAllSignVisible = false;
+            this.StudentData.Size = new System.Drawing.Size(1024, 232);
             this.StudentData.TabIndex = 6;
             // 
             // dataGridViewTextBoxColumn1
@@ -224,7 +226,7 @@
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(175, 61);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 16);
+            this.label6.Size = new System.Drawing.Size(44, 17);
             this.label6.TabIndex = 0;
             this.label6.Text = "年级：";
             // 
@@ -232,7 +234,7 @@
             // 
             this.SureAndUploadBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SureAndUploadBtn.Location = new System.Drawing.Point(859, 51);
+            this.SureAndUploadBtn.Location = new System.Drawing.Point(862, 51);
             this.SureAndUploadBtn.Name = "SureAndUploadBtn";
             this.SureAndUploadBtn.Size = new System.Drawing.Size(171, 37);
             this.SureAndUploadBtn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -263,7 +265,7 @@
             this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
             this.ExcelFilePathTxt.PreventEnterBeep = true;
             this.ExcelFilePathTxt.ReadOnly = true;
-            this.ExcelFilePathTxt.Size = new System.Drawing.Size(899, 23);
+            this.ExcelFilePathTxt.Size = new System.Drawing.Size(902, 23);
             this.ExcelFilePathTxt.TabIndex = 7;
             this.ExcelFilePathTxt.WatermarkText = "Excel 文件位置";
             // 
@@ -274,7 +276,7 @@
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(6, 61);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 16);
+            this.label7.Size = new System.Drawing.Size(44, 17);
             this.label7.TabIndex = 1;
             this.label7.Text = "学部：";
             // 
@@ -328,7 +330,8 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.BusDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.BusDataGrid.RowTemplate.Height = 23;
-            this.BusDataGrid.Size = new System.Drawing.Size(1024, 204);
+            this.BusDataGrid.SelectAllSignVisible = false;
+            this.BusDataGrid.Size = new System.Drawing.Size(1027, 204);
             this.BusDataGrid.TabIndex = 11;
             this.BusDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellContentClick);
             // 
@@ -400,7 +403,7 @@
             "剑桥高中部"});
             this.StuPartOS.Location = new System.Drawing.Point(56, 58);
             this.StuPartOS.Name = "StuPartOS";
-            this.StuPartOS.Size = new System.Drawing.Size(113, 24);
+            this.StuPartOS.Size = new System.Drawing.Size(113, 25);
             this.StuPartOS.TabIndex = 12;
             this.StuPartOS.SelectedIndexChanged += new System.EventHandler(this.StuPartOS_SelectedIndexChanged);
             // 
@@ -425,10 +428,21 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1036, 370);
+            this.groupBox1.Size = new System.Drawing.Size(1039, 332);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "学生信息";
+            // 
+            // ExDiscription
+            // 
+            this.ExDiscription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.ExDiscription.Location = new System.Drawing.Point(579, 58);
+            this.ExDiscription.Name = "ExDiscription";
+            this.ExDiscription.Size = new System.Drawing.Size(277, 25);
+            this.ExDiscription.TabIndex = 19;
+            this.ExDiscription.Text = "                  ";
             // 
             // ExcelFileOpenBtn
             // 
@@ -446,9 +460,9 @@
             // 
             this.LoadExistStudents.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.LoadExistStudents.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.LoadExistStudents.Location = new System.Drawing.Point(456, 58);
+            this.LoadExistStudents.Location = new System.Drawing.Point(457, 58);
             this.LoadExistStudents.Name = "LoadExistStudents";
-            this.LoadExistStudents.Size = new System.Drawing.Size(116, 24);
+            this.LoadExistStudents.Size = new System.Drawing.Size(116, 25);
             this.LoadExistStudents.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.LoadExistStudents.TabIndex = 13;
             this.LoadExistStudents.Text = "加载已有记录";
@@ -461,7 +475,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(316, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
+            this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "班级：";
             // 
@@ -482,7 +496,7 @@
             "九班"});
             this.StuClass.Location = new System.Drawing.Point(366, 58);
             this.StuClass.Name = "StuClass";
-            this.StuClass.Size = new System.Drawing.Size(85, 24);
+            this.StuClass.Size = new System.Drawing.Size(85, 25);
             this.StuClass.TabIndex = 12;
             // 
             // StuYear
@@ -494,7 +508,7 @@
             "请选择学部"});
             this.StuYear.Location = new System.Drawing.Point(225, 58);
             this.StuYear.Name = "StuYear";
-            this.StuYear.Size = new System.Drawing.Size(85, 24);
+            this.StuYear.Size = new System.Drawing.Size(85, 25);
             this.StuYear.TabIndex = 12;
             // 
             // groupBox2
@@ -504,25 +518,16 @@
             this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.BusDataGrid);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(12, 388);
+            this.groupBox2.Location = new System.Drawing.Point(12, 350);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1036, 233);
+            this.groupBox2.Size = new System.Drawing.Size(1039, 233);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "校车信息";
             // 
-            // ExDiscription
-            // 
-            this.ExDiscription.AutoSize = true;
-            this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.ExDiscription.Location = new System.Drawing.Point(593, 61);
-            this.ExDiscription.Name = "ExDiscription";
-            this.ExDiscription.Size = new System.Drawing.Size(0, 21);
-            this.ExDiscription.TabIndex = 19;
-            // 
             // ExcelOperationWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1060, 633);
+            this.ClientSize = new System.Drawing.Size(1063, 595);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;

@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using WebAPIServices.Areas.HelpPage.ModelDescriptions;
-using WebAPIServices.Areas.HelpPage.Models;
+using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WoodenBench.WebAPIServices.Areas.HelpPage.Models;
 
-namespace WebAPIServices.Areas.HelpPage.Controllers
+namespace WoodenBench.WebAPIServices.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

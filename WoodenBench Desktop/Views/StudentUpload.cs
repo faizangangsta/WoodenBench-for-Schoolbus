@@ -227,6 +227,8 @@ namespace WoodenBench.Views
 
             foreach (DataGridViewRow item in StudentData.Rows)
             {
+                item.DefaultCellStyle.BackColor = Color.White;
+                item.DefaultCellStyle.ForeColor = Color.Black;
                 if (item.Cells[5].Value != null)
                 {
                     foreach (DataGridViewRow subItem in BusDataGrid.Rows)
@@ -255,8 +257,8 @@ namespace WoodenBench.Views
             this.Enabled = false;
             this.SureAndUploadBtn.Text = "上传中...";
             Application.DoEvents();
-            bool IsSucceed = false;
-            for (int RowNum = 0; RowNum <= (StudentData.RowCount - 2); RowNum++)
+            List<string> ErrDetail = new List<string>();
+            for (int RowNum = 0; RowNum < (StudentData.RowCount - 1); RowNum++)
             {
                 StudentObj.StudentName = (string)StudentData.Rows[RowNum].Cells[1].Value;
                 StudentObj.StudentDirection = (string)StudentData.Rows[RowNum].Cells[5].Value;
@@ -268,7 +270,31 @@ namespace WoodenBench.Views
 
                 ExDiscription.Text = "学生姓名：" + StudentObj.StudentName;
                 Application.DoEvents();
-                if (StudentData.Rows[RowNum].Cells[0].Value != "" && StudentData.Rows[RowNum].Cells[0].Value != null)
+                //If Record is NOT in the Server Database
+                if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
+                {
+                    Task<CreateCallbackData> CreateTask = _BmobWin.CreateTaskAsync(StudentObj);
+                    try
+                    {
+                        CreateTask.Wait();
+                        if (CreateTask.IsCompleted)
+                        {
+                            Application.DoEvents();
+                            LogWritter.DebugMessage(CreateTask.Result.ToString());
+                            StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Green;
+                            continue;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Red;
+                        StudentData.Rows[RowNum].DefaultCellStyle.ForeColor = Color.White;
+                        LogWritter.ErrorMessage(ex.InnerException.Message);
+                        ErrDetail.Add("\t" + StudentObj.StudentName + " : " + ex.InnerException.Message + ";" + "\r\n");
+                    }
+                }
+                //Record is in the Database, only update needed
+                else
                 {
                     StudentObj.objectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
                     Task<UpdateCallbackData> UpdateTask = _BmobWin.UpdateTaskAsync(StudentObj);
@@ -279,46 +305,35 @@ namespace WoodenBench.Views
                         {
                             Application.DoEvents();
                             LogWritter.DebugMessage(UpdateTask.Result.ToString());
-                            IsSucceed = true;
+                            StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;
                             continue;
                         }
                     }
                     catch (Exception ex)
                     {
-                        IsSucceed = false;
-                        LogWritter.ErrorMessage(ex.Message);
-                        MessageBox.Show("出现了一些错误， " + ex.Message);
-                    }
-                }
-                else
-                {
-                    Task<CreateCallbackData> CreateTask = _BmobWin.CreateTaskAsync(StudentObj);
-
-                    try
-                    {
-                        CreateTask.Wait();
-                        if (CreateTask.IsCompleted)
-                        {
-                            Application.DoEvents();
-                            LogWritter.DebugMessage(CreateTask.Result.ToString());
-                            IsSucceed = true;
-                            continue;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        IsSucceed = false;
-                        LogWritter.ErrorMessage(ex.Message);
-                        MessageBox.Show("出现了一些错误， " + ex.Message);
+                        StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Red;
+                        StudentData.Rows[RowNum].DefaultCellStyle.ForeColor = Color.White;
+                        LogWritter.ErrorMessage(ex.InnerException.Message);
+                        ErrDetail.Add("\t" + StudentObj.StudentName + " : " + ex.InnerException.Message + ";" + "\r\n");
                     }
                 }
             }
-            if (IsSucceed)
+            if (ErrDetail.Count == 0)
             {
-                ExDiscription.Text = "成功完成操作！已经上传 " + StudentData.RowCount.ToString() + " 条数据";
+                ExDiscription.Text = "成功完成操作！已经上传 " + (StudentData.RowCount - 1).ToString() + " 条数据";
                 MessageBox.Show("所有项目已经成功上传！");
             }
-
+            else
+            {
+                ExDiscription.Text = "上传部分失败！共 " + ErrDetail.Count.ToString() + " 条失败";
+                string ErrMsg = "\r\n";
+                foreach (string item in ErrDetail)
+                {
+                    ErrMsg = ErrMsg + item;
+                }
+                LogWritter.ErrorMessage("Error when updating these students data: " + ErrMsg);
+                MessageBox.Show("有部分内容上传失败，它们是：" + ErrMsg + "请尝试重新上传");
+            }
             this.SureAndUploadBtn.Text = "确认并上传(&S)";
             this.Enabled = true;
         }
@@ -346,7 +361,7 @@ namespace WoodenBench.Views
             else
             {
                 StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
-                    ExDiscription.Text = "成功删除:" + Name;
+                ExDiscription.Text = "成功删除:" + Name;
             }
         }
 
