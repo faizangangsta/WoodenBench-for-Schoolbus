@@ -26,11 +26,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1" aria-expanded="false"> 
-		  <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> 
-		  <span class="icon-bar"></span> 
-		  <span class="icon-bar"></span> 
-	  </button>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       <a class="navbar-brand" href="index.html" id="PgTitleBar">🏠回主页</a> </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="defaultNavbar1">
@@ -49,10 +45,11 @@
 <br>
 <div class="container">
   <div class="container">
+    <div class="col-lg-1 col-sm-2 col-md-2 col-xs-4"><img id="UserHImg" src="Backgrounds/404-1.jpg" width="64" height="64" alt="" /></div>
     <label>当前登陆用户</label>
     <label id="CUserRName">加载中...</label>
     <br>
-    <label>当前绑定的微信号</label>
+    <label>微信账号</label>
     <label id="CUserWCharID">加载中...</label>
   </div>
   <hr>
@@ -90,11 +87,12 @@
     </div>
   </div>
 </div>
-	<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
 <script>
 	var currentUser;
 	Maininit("usermanage.html", mainInitCallback);
 	InitWeixin();
+    $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + currentUser[4]);
 	$("#NPsW1").keydown(function (e)
 	{
 		if(e.keyCode === 13) DoChangePsWd();
