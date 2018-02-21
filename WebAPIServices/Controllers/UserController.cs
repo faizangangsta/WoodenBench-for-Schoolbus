@@ -5,11 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using WoodenBench.StaticClasses;
-using WoodenBench.Users;
-using static WoodenBench.WebAPIServices.GlobalApplication;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.Users;
+using static WBServicePlatform.WebAPIServices.GlobalApplication;
 
-namespace WoodenBench.WebAPIServices.Controllers
+namespace WBServicePlatform.WebAPIServices.Controllers
 {
 
     public class usr_LoginController : ApiController
@@ -127,7 +127,7 @@ namespace WoodenBench.WebAPIServices.Controllers
                 {
                     AllUserObject user = new AllUserObject();
                     user.objectId = UsrNameResult.Result.results[0].objectId;
-                    string tmpVerify = Crypto.SHA256Encrypt(Content + Crypto.SHA256Encrypt(user.Password + Ticket) + Ticket);
+                    string tmpVerify = Crypto.SHA256Encrypt(Content + Crypto.SHA256Encrypt(UsrNameResult.Result.results[0].Password + Ticket) + Ticket);
                     if (STAMP == tmpVerify)
                     {
                         switch (Column.ToLower())

@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Generates model descriptions for given types.
@@ -120,8 +120,9 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
                 modelType = underlyingType;
             }
 
+            ModelDescription modelDescription;
             string modelName = ModelNameHelper.GetModelName(modelType);
-            if (GeneratedModels.TryGetValue(modelName, out ModelDescription modelDescription))
+            if (GeneratedModels.TryGetValue(modelName, out modelDescription))
             {
                 if (modelType != modelDescription.ModelType)
                 {
@@ -250,7 +251,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
 
         private string CreateDefaultDocumentation(Type type)
         {
-            if (DefaultTypeDocumentation.TryGetValue(type, out string documentation))
+            string documentation;
+            if (DefaultTypeDocumentation.TryGetValue(type, out documentation))
             {
                 return documentation;
             }
@@ -269,7 +271,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
             IEnumerable<Attribute> attributes = property.GetCustomAttributes();
             foreach (Attribute attribute in attributes)
             {
-                if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out Func<object, string> textGenerator))
+                Func<object, string> textGenerator;
+                if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
                 {
                     annotations.Add(
                         new ParameterAnnotation

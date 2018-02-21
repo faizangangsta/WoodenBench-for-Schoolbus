@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This is used to identify the place where the sample should be applied.
@@ -16,9 +16,14 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
         /// <param name="mediaType">The media type.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType)
         {
+            if (mediaType == null)
+            {
+                throw new ArgumentNullException("mediaType");
+            }
+
             ActionName = String.Empty;
             ControllerName = String.Empty;
-            MediaType = mediaType ?? throw new ArgumentNullException("mediaType");
+            MediaType = mediaType;
             ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
 
@@ -30,7 +35,12 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, Type type)
             : this(mediaType)
         {
-            ParameterType = type ?? throw new ArgumentNullException("type");
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            ParameterType = type;
         }
 
         /// <summary>
@@ -46,14 +56,21 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             {
                 throw new InvalidEnumArgumentException("sampleDirection", (int)sampleDirection, typeof(SampleDirection));
             }
-
+            if (controllerName == null)
+            {
+                throw new ArgumentNullException("controllerName");
+            }
+            if (actionName == null)
+            {
+                throw new ArgumentNullException("actionName");
+            }
             if (parameterNames == null)
             {
                 throw new ArgumentNullException("parameterNames");
             }
 
-            ControllerName = controllerName ?? throw new ArgumentNullException("controllerName");
-            ActionName = actionName ?? throw new ArgumentNullException("actionName");
+            ControllerName = controllerName;
+            ActionName = actionName;
             ParameterNames = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
             SampleDirection = sampleDirection;
         }
@@ -69,7 +86,12 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
             : this(sampleDirection, controllerName, actionName, parameterNames)
         {
-            MediaType = mediaType ?? throw new ArgumentNullException("mediaType");
+            if (mediaType == null)
+            {
+                throw new ArgumentNullException("mediaType");
+            }
+
+            MediaType = mediaType;
         }
 
         /// <summary>

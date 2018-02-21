@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WoodenBench.StaticClasses;
+using WBServicePlatform.StaticClasses;
 
-namespace WoodenBench.TableObject
+namespace WBServicePlatform.TableObject
 {
     public class StudentDataObject : BmobTable
     {

@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This class will create an object of a given type and populate it with sample data.
@@ -339,8 +339,9 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         private static object GenerateComplexObject(Type type, Dictionary<Type, object> createdObjectReferences)
         {
+            object result = null;
 
-            if (createdObjectReferences.TryGetValue(type, out object result))
+            if (createdObjectReferences.TryGetValue(type, out result))
             {
                 // The object has been created already, just return it. This will handle the circular reference case.
                 return result;

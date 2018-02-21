@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.Views
+﻿namespace WBServicePlatform.Views
 {
     partial class BusesManager
     {
@@ -201,7 +201,7 @@
             // 
             // schoolBusObjectBindingSource
             // 
-            this.schoolBusObjectBindingSource.DataSource = typeof(WoodenBench.TableObject.SchoolBusObject);
+            this.schoolBusObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.SchoolBusObject);
             // 
             // msgLabel
             // 
@@ -310,7 +310,7 @@
             // 
             // allUserObjectBindingSource
             // 
-            this.allUserObjectBindingSource.DataSource = typeof(WoodenBench.Users.AllUserObject);
+            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.Users.AllUserObject);
             // 
             // objectIdDataGridViewTextBoxColumn1
             // 

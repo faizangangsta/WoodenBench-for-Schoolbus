@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

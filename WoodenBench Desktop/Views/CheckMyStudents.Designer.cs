@@ -1,4 +1,4 @@
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     partial class CheckMyStudents
     {
@@ -258,7 +258,7 @@ namespace WoodenBench.Views
             // 
             // studentDataObjectBindingSource
             // 
-            this.studentDataObjectBindingSource.DataSource = typeof(WoodenBench.TableObject.StudentDataObject);
+            this.studentDataObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.StudentDataObject);
             // 
             // ExDescription
             // 

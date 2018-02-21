@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 using System.Threading.Tasks;
 using System.Web.Http;
-using WoodenBench.StaticClasses;
-using WoodenBench.TableObject;
-using WoodenBench.Users;
-using static WoodenBench.WebAPIServices.GlobalApplication;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.Users;
+using static WBServicePlatform.WebAPIServices.GlobalApplication;
 
-namespace WoodenBench.WebAPIServices.Controllers
+namespace WBServicePlatform.WebAPIServices.Controllers
 {
     public class bus_GetMgmtBusController : ApiController
     {

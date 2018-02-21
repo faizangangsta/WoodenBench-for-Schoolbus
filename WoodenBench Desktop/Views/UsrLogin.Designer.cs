@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.Views
+﻿namespace WBServicePlatform.Views
 {
     partial class UsrLoginWindow
     {

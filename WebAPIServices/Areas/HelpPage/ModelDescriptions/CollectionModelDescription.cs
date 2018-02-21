@@ -1,4 +1,4 @@
-namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     public class CollectionModelDescription : ModelDescription
     {

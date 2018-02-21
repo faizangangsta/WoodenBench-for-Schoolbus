@@ -7,13 +7,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
-using static WoodenBench.StaticClasses.GlobalFunc;
-using WoodenBench.StaticClasses;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.StaticClasses;
 using System.Threading.Tasks;
-using WoodenBench.TableObject;
+using WBServicePlatform.TableObject;
 using cn.bmob.io;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class CheckMyStudents : DevComponents.DotNetBar.Metro.MetroForm
     {

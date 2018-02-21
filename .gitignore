@@ -29,3 +29,4 @@ _notes/
 *.suo
 
 packages/
+bower_components/

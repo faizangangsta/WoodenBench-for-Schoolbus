@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

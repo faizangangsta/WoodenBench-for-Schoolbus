@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace WoodenBench.WebAPIServices.HTTPOperation
+namespace WBServicePlatform.WebAPIServices.HTTPOperation
 {
     public class HTTPJsonOperations
     {

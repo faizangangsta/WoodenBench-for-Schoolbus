@@ -9,12 +9,12 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WoodenBench.TableObject;
-using WoodenBench.StaticClasses;
-using static WoodenBench.StaticClasses.GlobalFunc;
-using WoodenBench.Users;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.StaticClasses;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.Users;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class BusesManager : MetroForm
     {

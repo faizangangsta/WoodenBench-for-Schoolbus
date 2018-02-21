@@ -1,4 +1,4 @@
-﻿namespace WoodenBench.Views
+﻿namespace WBServicePlatform.Views
 {
     partial class ExcelOperationWindow
     {
@@ -217,7 +217,7 @@
             // 
             // studentDataObjectBindingSource
             // 
-            this.studentDataObjectBindingSource.DataSource = typeof(WoodenBench.TableObject.StudentDataObject);
+            this.studentDataObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.StudentDataObject);
             // 
             // label6
             // 
@@ -387,7 +387,7 @@
             // 
             // schoolBusObjectBindingSource
             // 
-            this.schoolBusObjectBindingSource.DataSource = typeof(WoodenBench.TableObject.SchoolBusObject);
+            this.schoolBusObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.SchoolBusObject);
             // 
             // StuPartOS
             // 

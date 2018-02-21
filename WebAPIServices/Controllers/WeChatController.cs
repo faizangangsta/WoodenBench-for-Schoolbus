@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Http;
-using WoodenBench.WebAPIServices.HTTPOperation;
+using WBServicePlatform.WebAPIServices.HTTPOperation;
 
-namespace WoodenBench.WebAPIServices.Controllers
+namespace WBServicePlatform.WebAPIServices.Controllers
 {
     public class wc_getAccessTokenController : ApiController
     {

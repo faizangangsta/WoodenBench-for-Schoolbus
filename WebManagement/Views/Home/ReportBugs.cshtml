@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "反馈Bug";
+}
+<div class="container">
+    <h5>要是有什么问题，就来这反馈嗷！</h5>
+    <hr>
+    <label for="title">问题的简要概述</label>
+    <br>
+    <input id="title" class="center-all TxBox" style="width: 80%;" value="">
+    <br>
+    <br>
+    <label for="content">详细内容</label>
+    <br>
+    <textarea id="content" class="center-all"
+              style="border-radius: 20px 20px 20px 20px; border:4px solid darkgray;
+               width: 80%; height: 120px; padding: 5px">
+	</textarea>
+    <br>
+    <button onclick="SubMitRpt();" class="center-all btn btn-success btn-sm">&nbsp;&nbsp;提交问题&nbsp;&nbsp;</button>
+</div>
+<script>
+    Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+    Maininit("/Home/ReportBugs", mainInitCallback);
+    var currentUser;
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+        document.getElementById("navUsrName").innerHTML = "注销当前账户  -  " + currentUser[8];
+    }
+
+    function SubMitRpt()
+    {
+        var MainVar = new (Bmob.Object.extend("UserQuestions"))();
+        MainVar.set("UserConfig", currentUser.toString());
+        MainVar.set("Title", $("#title").val());
+        MainVar.set("Content", $("#content").val());
+        MainVar.set("AdminRead", false);
+        MainVar.save(null, {
+            success: function (obj)
+            {
+                alert("提交成功，谢啦~~ \r\n现在你可以回到主页");
+                location.href = "/";
+            },
+            error: function (error)
+            {
+                alert("提交出问题了……要不过会再试试？？");
+            }
+        });
+    }
+</script>

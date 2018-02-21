@@ -7,7 +7,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WoodenBench.StaticClasses
+namespace WBServicePlatform.StaticClasses
 {
     public static class Crypto
     {

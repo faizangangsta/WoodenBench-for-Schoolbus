@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "学生签到";
+}
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5 id="BusDirection">我的校车: 加载中...</h5>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <p id="ExpNumber">校车总人数: 加载中...</p>
+    </div>
+    <hr>
+    <div id="Students"> </div>
+</div>
+<div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+<script>
+    var currentUser;
+    var currentBus;
+    var totalStudents;
+    var todayDay;
+
+    var CLeavingChecked = false;
+    var CComing_Checked = false;
+
+    var LeavingWrongDayChecked = false;
+    var Coming_WrongDayChecked = false;
+
+    var SignMode = 0;
+    var LastSigned;
+    Maininit("/Home/SignStudent/", mainInitCallback);
+    //InitWeixin();
+    function BusCallBack(data)
+    {
+        currentBus = data;
+        setCookie("CBusID", currentBus.busID);
+        $("#BusDirection").text("我的校车: " + currentBus.Name);
+        GetStudents(currentBus.busID, currentBus.TeacherID, TotalStudentsCallBack);
+    }
+
+    function TotalStudentsCallBack(data)
+    {
+        totalStudents = data;
+        $("#ExpNumber").text("校车总人数: " + data.count);
+        for (var i = 0; i < data.count; i++)
+        {
+            var TMP = JSON.parse(eval("data.num_" + i));
+            var Content = "<div id='" + TMP.StuID + "' class=\"row container\"><div class=\"col-sm-6 col-lg-6 col-xs-5 col-md-6\"><h6 style='font-size:15px'>" + TMP.Name + "</h6></div>";
+            var Came = TMP.ComingChecked.toLowerCase() === "true", Leaved = TMP.LeavingChecked.toLowerCase() === "true";
+            if (SignMode === 1 || SignMode === 0)
+            {
+                Content = Content + "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" +
+                    "<button id=\"" + TMP.StuID + "_Leave\" class=\"btn " + (Leaved ? "btn-success " : "btn-danger ") + "btn-sm\" onClick=\"Sign('" + TMP.StuID + "', 'leave', '" + !Leaved + "')\">" + (Leaved ? "取消" : "离校") + "</button></div>";
+            }
+            if (SignMode === 2 || SignMode === 0)
+            {
+                Content = Content + "<div class=\"col-sm-3 col-lg-3 col-xs-1 col-md-3\">" +
+                    "<button id=\"" + TMP.StuID + "_Come\"  class=\"btn " + (Came ? "btn-success " : "btn-danger ") + "btn-sm\" onClick=\"Sign('" + TMP.StuID + "', 'come', '" + !Came + "')\">" + (Came ? "取消" : "返校") + "</button></div>";
+            }
+            Content = Content + "</div>";
+            $("#Students").append(Content);
+        }
+    }
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+        document.getElementById("navUsrName").innerHTML = "注销当前账户  -  " + currentUser[8];
+        var dayofWeek = new Array("日", "一", "二", "三", "四", "五", "六");
+        todayDay = "星期" + dayofWeek[new Date().getDay()];
+
+        document.getElementById("UserID").innerHTML = "你好，" + currentUser[8];
+        $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + currentUser[4]);
+
+        if (getCookie("SignMode") === "leave")
+        {
+            if (todayDay !== "星期五" && !confirm("今天不是星期五\r\n确定要进行离校签到吗?")) location.href = "/";
+            else
+            {
+                LeavingWrongDayChecked = true;
+                SignMode = 1;
+            }
+
+        }
+        else if (getCookie("SignMode") === "come")
+        {
+            if (todayDay !== "星期日" && !confirm("今天不是星期日\r\n确定要进行返校签到吗?")) location.href = "/";
+            else
+            {
+                Coming_WrongDayChecked = true;
+                SignMode = 2;
+            }
+
+        }
+        else if (getCookie("SignMode") === "edit")
+        {
+            SignMode = 0;
+            setCookie("SignMode", "")
+        }
+        else location.href = "/";
+        GetMgmtBus(currentUser[0], currentUser[1], currentUser[2], BusCallBack);
+    }
+
+    function Sign(StudentID, Mode, value)
+    {
+        if (Mode === "come")
+        {
+            if ((todayDay === "星期日" || Coming_WrongDayChecked || confirm("今天不是星期日\r\n确定要进行返校签到吗?")) && (value !== "false" || CComing_Checked || confirm("确定要取消签到吗？")))
+            {
+                CComing_Checked = true;
+                Coming_WrongDayChecked = true;
+                SignStudent(currentBus.busID, Mode, value, currentBus.TeacherID, StudentID, SignCallBack);
+            }
+        }
+        else if (Mode === "leave")
+        {
+            if ((todayDay === "星期五" || LeavingWrongDayChecked || confirm("今天不是星期五\r\n确定要进行离校签到吗?")) && (value !== "false" || CLeavingChecked || confirm("确定要取消签到吗？")))
+            {
+                LeavingWrongDayChecked = true;
+                CLeavingChecked = true;
+                SignStudent(currentBus.busID, Mode, value, currentBus.TeacherID, StudentID, SignCallBack);
+            }
+        }
+    }
+    function SignCallBack(data)
+    {
+        LastSigned = data;
+        if (data.SignMode === "come")
+        {
+            var rst = data.ComingChecked.toLowerCase() === "true";
+            $("#" + data.StuID + "_Come").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+            $("#" + data.StuID + "_Come").text(rst ? "取消" : "返校");
+            $("#" + data.StuID + "_Come").attr("onclick", "Sign('" + data.StuID + "', 'come', '" + !rst + "')");
+        }
+        else if (data.SignMode === "leave")
+        {
+            var rst = data.LeavingChecked.toLowerCase() === "true";
+            $("#" + data.StuID + "_Leave").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+            $("#" + data.StuID + "_Leave").text(rst ? "取消" : "离校");
+            $("#" + data.StuID + "_Leave").attr("onclick", "Sign('" + data.StuID + "', 'leave', '" + !rst + "')");
+        }
+    }
+</script>

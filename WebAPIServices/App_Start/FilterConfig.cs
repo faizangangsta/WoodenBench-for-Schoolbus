@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace WoodenBench.WebAPIServices
+namespace WBServicePlatform.WebAPIServices
 {
 	public class FilterConfig
 	{

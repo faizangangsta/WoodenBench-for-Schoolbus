@@ -1,9 +1,9 @@
 ﻿using cn.bmob.io;
 using System.Drawing;
-using WoodenBench.StaticClasses;
-using static WoodenBench.StaticClasses.Crypto;
+using WBServicePlatform.StaticClasses;
+using static WBServicePlatform.StaticClasses.Crypto;
 
-namespace WoodenBench.Users
+namespace WBServicePlatform.Users
 {
     /// <summary>
     /// This is the class which for all users as one object

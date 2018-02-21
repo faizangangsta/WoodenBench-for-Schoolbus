@@ -1,6 +1,6 @@
 using System;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
@@ -9,7 +9,11 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
     {
         public InvalidSample(string errorMessage)
         {
-            ErrorMessage = errorMessage ?? throw new ArgumentNullException("errorMessage");
+            if (errorMessage == null)
+            {
+                throw new ArgumentNullException("errorMessage");
+            }
+            ErrorMessage = errorMessage;
         }
 
         public string ErrorMessage { get; private set; }

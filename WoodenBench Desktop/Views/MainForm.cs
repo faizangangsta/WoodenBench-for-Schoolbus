@@ -11,14 +11,14 @@ using System.Drawing;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.DelegateClasses;
-using WoodenBench.Properties;
-using WoodenBench.StaticClasses;
-using WoodenBench.Users;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.Properties;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.Users;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class MainForm : MetroForm
     {

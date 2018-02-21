@@ -3,13 +3,13 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WoodenBench.DelegateClasses;
-using WoodenBench.StaticClasses;
-using WoodenBench.TableObject;
-using WoodenBench.Users;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.Users;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class CreateUserWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

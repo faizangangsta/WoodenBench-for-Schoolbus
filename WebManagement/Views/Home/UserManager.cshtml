@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "用户管理";
+}
+<h4 id="ProcInfo" style="text-align: center; text-decoration-style: double; color: red;"></h4>
+<br>
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-md-2 col-xs-4"><img id="UserHImg" src="Backgrounds/404-1.jpg" width="64" height="64" alt="" /></div>
+        <label>当前登陆用户</label>
+        <label id="CUserRName">加载中...</label>
+        <br>
+        <label>微信账号</label>
+        <label id="CUserWCharID">加载中...</label>
+    </div>
+    <hr>
+    <div class="container">
+        <label>绑定当前的微信号</label>
+        <br>
+        <div class="container">
+            <p id="bongdingInfo">(绑定后可以使用微信登录)</p>
+            <button type="button" id="bongdingWCBtn" class="btn btn-sm btn-default" onclick="JumpToWeChatLogin('bonding');">绑定当前微信号</button>
+            <button type="button" id="UbongdingWCBtn" class="btn btn-sm btn-danger" onclick="UBondingCheck();" style="display: none">解绑微信号</button>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <label>修改密码</label>
+        <br>
+        <div class="container">
+            <p id="ChangPsWdLabel" style="margin-bottom: 5px">
+                点击按钮修改密码：
+                <button type="button" class="btn btn-sm btn-default" id="ChangePsBtn" onclick="ReDirectToLogin('/Home/UserManager/?ChangePwd=', '?ChangePassword=RemoteRtn');">修改密码</button>
+            </p>
+            <div id="NewPs" class="text-center" style="display: none">
+                <input class="TxBox" style="display: block;" value="" id="NPsW1" type="password" placeholder="输入新密码" />
+                <input class="TxBox" style="display: block;" value="" id="NPsW2" type="password" placeholder="再次输入新密码" />
+                <button type="button" class="btn btn-sm btn-default" style="margin-top: 8px; width: 60%" onclick="DoChangePsWd();">提交</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <label>注销当前账户</label>
+        <br>
+        <div class="container">
+            <p>点击按钮注销当前用户：</p>
+            <button style="width: 100%" onclick="if (confirm('确定要退出当前用户吗？'))  { RemoveLoginData(true); location.href = '/' }" class="btn btn-sm btn-danger">退出当前用户</button>
+        </div>
+    </div>
+</div>
+<script>
+    var currentUser;
+    Maininit("/Home/UserManager/", mainInitCallback);
+    InitWeixin();
+    $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + currentUser[4]);
+    $("#NPsW1").keydown(function (e)
+    {
+        if (e.keyCode === 13) DoChangePsWd();
+    });
+    $("#NPSW2").keydown(function (e)
+    {
+        if (e.keyCode === 13) DoChangePsWd();
+    });
+
+    function ReloadUsrData()
+    {
+        if (currentUser[6] !== "####")
+        {
+            $("#CUserWCharID").text(currentUser[6]);
+            $("#bongdingWCBtn").hide();
+            $("#UbongdingWCBtn").show();
+            $("#bongdingInfo").text("你已经绑定了微信号，点击按钮解绑");
+        }
+        else
+        {
+            $("#CUserWCharID").text("没有绑定微信账号");
+            $("#bongdingInfo").text("(绑定后可以使用微信登录)");
+            $("#bongdingWCBtn").show();
+            $("#UbongdingWCBtn").hide();
+        }
+    }
+
+    function UBondingCheck()
+    {
+        if (confirm("确定要解除绑定微信账号吗？"))
+        {
+            ReDirectToLogin('/Home/UserManager/?UnBonding=', '?UnBonding=force');
+        }
+    }
+
+    function mainInitCallback(cUser)
+    {
+        currentUser = cUser;
+        $("#navUsrName").text("注销当前账户  -  " + currentUser[8]);
+        $("#CUserRName").text(currentUser[8]);
+        ReloadUsrData();
+
+        ///WeChat Bonding and unBonding User
+        if (location.href.indexOf("?userid=") > -1)
+        {
+            var WXUserid = GetURLOption("userid");
+            if (WXUserid === "nullStr") location.href = "/Home/UserManager/";
+            var TS = GetURLOption("OAuthCallBack");
+            var TSSec = getCookie("OAuthCallBack");
+            setCookie("OAuthCallBack", "nothing", 5);
+            if (TS === TSSec)
+            {
+                WriteUserData(currentUser[1], "WeChatID", WXUserid, currentUser[2], function (Result)
+                {
+                    if (Result === false)
+                    {
+                        $("#ProcInfo").text("绑定失败，如有问题到菜单里面汇报问题");
+                    }
+                    else
+                    {
+                        currentUser = Result;
+                        $("#ProcInfo").text("绑定成功，可以使用微信登陆");
+                    }
+                    ReloadUsrData();
+                });
+            }
+            else
+            {
+                location.href = "/Home/UserManager/";
+            }
+        }
+        else if (location.href.indexOf("UnBonding") > -1)
+        {
+            var TSb = base64decode(utf8to16De(GetURLOption("Option")));
+            var TSb2 = getCookie("UBTimeStamp");
+            if ((TSb === TSb2) && (GetURLOption("UnBonding") === "true"))
+            {
+                setCookie("UBTimeStamp", "Null TimeStamp");
+                WriteUserData(currentUser[1], "WeChatID", "null", currentUser[2], function (Result)
+                {
+                    if (Result === false)
+                    {
+                        $("#ProcInfo").text("解除绑定失败，如有问题到菜单里面汇报问题");
+                    }
+                    else
+                    {
+                        currentUser = Result;
+                        $("#ProcInfo").text("解除绑定成功");
+                    }
+                    ReloadUsrData();
+                });
+            }
+            else
+            {
+                location.href = "/Home/UserManager/";
+            }
+        }
+        else if (location.href.indexOf("ChangePwd") > -1)
+        {
+            var TSc = base64decode(utf8to16De(GetURLOption("Option")));
+            var TSc2 = getCookie("UBTimeStamp");
+            if ((TSc === TSc2) && (GetURLOption("ChangePwd") === "Allowed"))
+            {
+                $("#ChangePsBtn").hide();
+                $("#ChangPsWdLabel").text("在下面输入你的密码，然后按确定")
+                $("#NewPs").show();
+                setCookie("UBTimeStamp", "Null TimeStamp");
+            }
+            else
+            {
+                location.href = "/Home/UserManager/";
+            }
+        }
+    }
+
+    function DoChangePsWd()
+    {
+        var Ps1 = $("#NPsW1").val();
+        var Ps2 = $("#NPsW2").val();
+        if ((Ps1 === "") || (Ps2 === ""))
+        {
+            $("#ProcInfo").text("新密码不能为空");
+        }
+        else if (Ps1 !== Ps2)
+        {
+            $("#ProcInfo").text("两次输入的密码不匹配，请再试一遍，如有问题到菜单里面汇报问题");
+        }
+        else if ((Ps1 !== "") && (Ps2 !== "") && (Ps1 === Ps2))
+        {
+            WriteUserData(currentUser[1], "Password", CryptoJS.SHA256(Ps1).toString(), currentUser[2], function (Result)
+            {
+                if (Result === false)
+                {
+                    $("#ProcInfo").text("出现问题，如有问题到菜单里面汇报问题");
+                }
+                else
+                {
+                    $("#ProcInfo").text("修改密码成功，下次需要使用新密码登录");
+                    currentUser = Result;
+                }
+            });
+        }
+    }
+</script>

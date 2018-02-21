@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage.Models
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.
@@ -86,12 +86,14 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage.Models
 
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
-            if (modelDescription is ComplexTypeModelDescription complexTypeModelDescription)
+            ComplexTypeModelDescription complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;
+            if (complexTypeModelDescription != null)
             {
                 return complexTypeModelDescription.Properties;
             }
 
-            if (modelDescription is CollectionModelDescription collectionModelDescription)
+            CollectionModelDescription collectionModelDescription = modelDescription as CollectionModelDescription;
+            if (collectionModelDescription != null)
             {
                 complexTypeModelDescription = collectionModelDescription.ElementDescription as ComplexTypeModelDescription;
                 if (complexTypeModelDescription != null)

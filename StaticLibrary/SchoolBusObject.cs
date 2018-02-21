@@ -1,7 +1,7 @@
 ﻿using cn.bmob.io;
-using WoodenBench.StaticClasses;
+using WBServicePlatform.StaticClasses;
 
-namespace WoodenBench.TableObject
+namespace WBServicePlatform.TableObject
 {
     public class SchoolBusObject : BmobTable
     {

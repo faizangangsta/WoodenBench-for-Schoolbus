@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WoodenBench.Properties {
+namespace WBServicePlatform.Properties {
     using System;
     
     

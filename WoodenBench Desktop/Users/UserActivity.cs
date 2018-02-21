@@ -13,13 +13,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WoodenBench.DelegateClasses;
-using WoodenBench.StaticClasses;
-using WoodenBench.TableObject;
-using WoodenBench.Views;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.Views;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-namespace WoodenBench.Users
+namespace WBServicePlatform.Users
 {
     public partial class UserActivity
     {

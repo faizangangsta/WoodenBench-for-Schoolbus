@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using WoodenBench.Users;
+using WBServicePlatform.Users;
 
-namespace WoodenBench.StaticClasses
+namespace WBServicePlatform.StaticClasses
 {
     public static class LogWritter
     {

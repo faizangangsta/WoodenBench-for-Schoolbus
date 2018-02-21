@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WoodenBench.WebAPIServices
+namespace WBServicePlatform.WebAPIServices
 {
 	public class BundleConfig
 	{

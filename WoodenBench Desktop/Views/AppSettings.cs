@@ -7,9 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class AppSettings : MetroForm
     {

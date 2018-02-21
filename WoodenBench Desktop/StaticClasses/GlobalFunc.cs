@@ -8,11 +8,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.TableObject;
-using WoodenBench.Users;
-using WoodenBench.Views;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.Users;
+using WBServicePlatform.Views;
 
-namespace WoodenBench.StaticClasses
+namespace WBServicePlatform.StaticClasses
 {
     public static partial class GlobalFunc
     {

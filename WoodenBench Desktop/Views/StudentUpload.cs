@@ -13,11 +13,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WoodenBench.StaticClasses;
-using WoodenBench.TableObject;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class ExcelOperationWindow : MetroForm
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WoodenBench.StaticClasses
+namespace WBServicePlatform.StaticClasses
 {
     /// <summary>
     /// Constaant Values...

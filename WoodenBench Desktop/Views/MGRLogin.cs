@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.StaticClasses;
-using WoodenBench.Views;
-using static WoodenBench.StaticClasses.GlobalFunc;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.Views;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

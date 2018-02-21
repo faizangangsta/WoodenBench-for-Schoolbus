@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
@@ -49,7 +49,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
-            if (parameterDescriptor is ReflectedHttpParameterDescriptor reflectedParameterDescriptor)
+            ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
+            if (reflectedParameterDescriptor != null)
             {
                 XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
                 if (methodNode != null)
@@ -89,7 +90,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
-            if (actionDescriptor is ReflectedHttpActionDescriptor reflectedActionDescriptor)
+            ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
+            if (reflectedActionDescriptor != null)
             {
                 string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
                 return _documentNavigator.SelectSingleNode(selectExpression);

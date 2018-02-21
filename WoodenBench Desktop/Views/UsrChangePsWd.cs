@@ -7,12 +7,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WoodenBench.StaticClasses;
-using WoodenBench.TableObject;
-using static WoodenBench.StaticClasses.GlobalFunc;
-using static WoodenBench.Users.UserActivity;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
+using static WBServicePlatform.StaticClasses.GlobalFunc;
+using static WBServicePlatform.Users.UserActivity;
 
-namespace WoodenBench.Views
+namespace WBServicePlatform.Views
 {
     public partial class ChangeUserDataWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

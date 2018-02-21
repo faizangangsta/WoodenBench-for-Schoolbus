@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This class will generate the samples for the help page.
@@ -96,7 +96,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
-            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out Collection<MediaTypeFormatter> formatters);
+            Collection<MediaTypeFormatter> formatters;
+            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
             var samples = new Dictionary<MediaTypeHeaderValue, object>();
 
             // Use the samples provided directly for actions
@@ -147,12 +148,13 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
         /// <returns>The sample that matches the parameters.</returns>
         public virtual object GetActionSample(string controllerName, string actionName, IEnumerable<string> parameterNames, Type type, MediaTypeFormatter formatter, MediaTypeHeaderValue mediaType, SampleDirection sampleDirection)
         {
+            object sample;
 
             // First, try to get the sample provided for the specified mediaType, sampleDirection, controllerName, actionName and parameterNames.
             // If not found, try to get the sample provided for the specified mediaType, sampleDirection, controllerName and actionName regardless of the parameterNames.
             // If still not found, try to get the sample provided for the specified mediaType and type.
             // Finally, try to get the sample provided for the specified mediaType.
-            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out object sample) ||
+            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType), out sample))
@@ -175,8 +177,9 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             Justification = "Even if all items in SampleObjectFactories throw, problem will be visible as missing sample.")]
         public virtual object GetSampleObject(Type type)
         {
+            object sampleObject;
 
-            if (!SampleObjects.TryGetValue(type, out object sampleObject))
+            if (!SampleObjects.TryGetValue(type, out sampleObject))
             {
                 // No specific object available, try our factories.
                 foreach (Func<HelpPageSampleGenerator, Type, object> factory in SampleObjectFactories)
@@ -214,7 +217,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
-            return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out Collection<MediaTypeFormatter> formatters);
+            Collection<MediaTypeFormatter> formatters;
+            return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out formatters);
         }
 
         /// <summary>
@@ -237,7 +241,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             {
                 throw new ArgumentNullException("api");
             }
-            if (ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out Type type) ||
+            Type type;
+            if (ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out type) ||
                 ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, new[] { "*" }), out type))
             {
                 // Re-compute the supported formatters based on type
@@ -257,7 +262,7 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
                 {
                     case SampleDirection.Request:
                         ApiParameterDescription requestBodyParameter = api.ParameterDescriptions.FirstOrDefault(p => p.Source == ApiParameterSource.FromBody);
-                        type = requestBodyParameter?.ParameterDescriptor.ParameterType;
+                        type = requestBodyParameter == null ? null : requestBodyParameter.ParameterDescriptor.ParameterType;
                         formatters = api.SupportedRequestBodyFormatters;
                         break;
                     case SampleDirection.Response:
@@ -351,7 +356,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         internal static Exception UnwrapException(Exception exception)
         {
-            if (exception is AggregateException aggregateException)
+            AggregateException aggregateException = exception as AggregateException;
+            if (aggregateException != null)
             {
                 return aggregateException.Flatten().InnerException;
             }
@@ -426,7 +432,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         private static object WrapSampleIfString(object sample)
         {
-            if (sample is string stringSample)
+            string stringSample = sample as string;
+            if (stringSample != null)
             {
                 return new TextSample(stringSample);
             }

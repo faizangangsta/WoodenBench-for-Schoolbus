@@ -1,6 +1,6 @@
 using System;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     /// <summary>
     /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
@@ -9,7 +9,11 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
     {
         public TextSample(string text)
         {
-            Text = text ?? throw new ArgumentNullException("text");
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
+            Text = text;
         }
 
         public string Text { get; private set; }

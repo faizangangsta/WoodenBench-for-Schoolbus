@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using WoodenBench.DelegateClasses;
+using WBServicePlatform.DelegateClasses;
 
-namespace WoodenBench.StaticClasses
+namespace WBServicePlatform.StaticClasses
 {
     public class FileIO
     {

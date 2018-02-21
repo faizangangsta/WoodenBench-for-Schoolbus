@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WoodenBench.TableObject;
-using WoodenBench.Users;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.Users;
 
-namespace WoodenBench.WebAPIServices.Controllers
+namespace WBServicePlatform.WebAPIServices.Controllers
 {
     public class ObjToDict
     {

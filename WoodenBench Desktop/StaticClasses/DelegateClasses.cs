@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using WoodenBench.StaticClasses;
-using WoodenBench.Users;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.Users;
 
-namespace WoodenBench.DelegateClasses
+namespace WBServicePlatform.DelegateClasses
 {
     public delegate void nullArgDelegate();
 

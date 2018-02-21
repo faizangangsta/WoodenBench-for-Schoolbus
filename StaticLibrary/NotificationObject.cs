@@ -1,9 +1,9 @@
 ﻿//Game表对应的模型类
 using cn.bmob.io;
 using System;
-using WoodenBench.StaticClasses;
+using WBServicePlatform.StaticClasses;
 
-namespace WoodenBench.TableObject
+namespace WBServicePlatform.TableObject
 {
     public class NotificationObject : BmobTable
     {

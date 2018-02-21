@@ -1,6 +1,6 @@
 using System;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

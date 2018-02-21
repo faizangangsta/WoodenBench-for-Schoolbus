@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using WoodenBench.WebAPIServices.Areas.HelpPage.ModelDescriptions;
-using WoodenBench.WebAPIServices.Areas.HelpPage.Models;
+using WBServicePlatform.WebAPIServices.Areas.HelpPage.ModelDescriptions;
+using WBServicePlatform.WebAPIServices.Areas.HelpPage.Models;
 
-namespace WoodenBench.WebAPIServices.Areas.HelpPage
+namespace WBServicePlatform.WebAPIServices.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
@@ -218,8 +218,9 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
         /// </returns>
         public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
+            object model;
             string modelId = ApiModelPrefix + apiDescriptionId;
-            if (!config.Properties.TryGetValue(modelId, out object model))
+            if (!config.Properties.TryGetValue(modelId, out model))
             {
                 Collection<ApiDescription> apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
                 ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
@@ -444,7 +445,9 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
             Collection<ApiDescription> apis = config.Services.GetApiExplorer().ApiDescriptions;
             foreach (ApiDescription api in apis)
             {
-                if (TryGetResourceParameter(api, config, out ApiParameterDescription parameterDescription, out Type parameterType))
+                ApiParameterDescription parameterDescription;
+                Type parameterType;
+                if (TryGetResourceParameter(api, config, out parameterDescription, out parameterType))
                 {
                     modelGenerator.GetOrCreateModelDescription(parameterType);
                 }
@@ -454,7 +457,8 @@ namespace WoodenBench.WebAPIServices.Areas.HelpPage
 
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)
         {
-            if (sample is InvalidSample invalidSample)
+            InvalidSample invalidSample = sample as InvalidSample;
+            if (invalidSample != null)
             {
                 apiModel.ErrorMessages.Add(invalidSample.ErrorMessage);
             }
