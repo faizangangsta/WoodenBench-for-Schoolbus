@@ -3,13 +3,13 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.WinClient.DelegateClasses;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Users;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.WinClient.Users;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class CreateUserWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -39,17 +39,14 @@ namespace WBServicePlatform.Views
         #endregion
 
 
-        private void CreateUser_Load(object sender, EventArgs e) { }
-
         private void button1_Click(object sender, EventArgs e)
         {
             buttonX1.Text = "正在提交请求";
             Enabled = false;
-            if (UserNameT.Text != "" && PasswordT.Text != "" && PasswordT2.Text != "" &&
-                GroupT.SelectedIndex + 1 != 0 &&
-                CheckT.Checked && PasswordT.Text == PasswordT2.Text)
+            if (UserNameT.Text != "" && PasswordT1.Text != "" && PasswordT2.Text != "" && CheckT.Checked && PasswordT1.Text == PasswordT2.Text)
             {
-                UserActivity.CreateUser(UserNameT.Text, RealNameT.Text, PasswordT.Text, GroupT.SelectedIndex + 1, isBusTeacher.Checked);
+                UserGroup ug = new UserGroup(isTeacherChk.Checked, isBusManagerChk.Checked, isParentChk.Checked);
+                UserActivity.CreateUser(UserNameT.Text, RealNameT.Text, PasswordT1.Text, ug, phoneNumberTx.Text);
             }
             else
             {
@@ -57,41 +54,39 @@ namespace WBServicePlatform.Views
                 Enabled = true;
             }
             Enabled = true;
-            Application.DoEvents();
         }
 
         public void onUserActivity(UserActivityEventArgs e)
         {
-            if (e.ProcessStatus == ProcStatE.Completed && e.Activity == UsrActvtiE.UserCreate)
+            if (e.Activity == UsrActvtiE.UserCreate)
             {
-                if (e.ProcessStatus == ProcStatE.Completed)
+                if (e.ProcessStatus == OperationStatus.Completed)
                 {
-                    Invoke(new nullArgDelegate(() =>
+                    Invoke(new NullArgDelegate(() =>
                     {
                         ResultLabel.Text = "用户创建成功，你可以使用新用户名和密码登录了";
-                        Enabled = true;
+                        MessageBox.Show("用户创建成功，你可以使用新用户名和密码登录了");
+                        Enabled = false;
+                        UsrLoginWindow.Default.UserNameTxt.Text = UserNameT.Text;
+                        Close();
                     }));
                 }
-                else if (e.ProcessStatus == ProcStatE.Failed || e.ProcessStatus == ProcStatE.FailedWithErr)
+                else if (e.ProcessStatus == OperationStatus.Failed)
                 {
-                    Invoke(new nullArgDelegate(() =>
+                    Invoke(new NullArgDelegate(() =>
                     {
-                        ResultLabel.Text = "在创建用户时出现了一些问题，过会再试试？？";
-                        Enabled = true; 
+                        ResultLabel.Text = "在创建用户时出现了一些问题，过会再试试？？\r\n" + e.ToString();
+                        buttonX1.Text = "OK，创建账户";
+                        MessageBox.Show("在创建用户时出现了一些问题");
+                        Enabled = true;
                     }));
                 }
             }
         }
 
-        private void CreateUser_FormClosed(object sender, FormClosedEventArgs e)
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Dispose(true);
-            GC.Collect();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
+            Process.Start("explorer.exe", "https://schoolbus.lhy0403.top/eula.docx");
         }
     }
 }

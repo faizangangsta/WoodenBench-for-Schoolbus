@@ -10,116 +10,77 @@ namespace WBServicePlatform.StaticClasses
     /// </summary>
     public static partial class Consts
     {
-        /// <summary>
-        /// All students Table
-        /// </summary>
-        public const string TABLE_N_Mgr_StuData = "AllStudentsBData";
-
-        /// <summary>
-        /// Schoolbus Data
-        /// </summary>
+        public const string TABLE_N_Mgr_StuData = "StudentsData";
+        public const string TABLE_N_Mgr_Classes = "Classes";
         public const string TABLE_N_Mgr_BusData = "SchoolBuses";
-
-        /// <summary>
-        /// All Users Table
-        /// </summary>
-        public const string TABLE_N_Gen_UsrTable = "AllUsersTable";
-
-        /// <summary>
-        /// General used data Table
-        /// </summary>
-        public const string TABLE_N_Gen_Notifi = "GeneralData";
-
-        /// <summary>
-        /// Weekly Issues are gathered here...
-        /// </summary>
         public const string TABLE_N_Mgr_WeekIssue = "WeeklyIssues";
 
-        /// <summary>
-        /// User maybe report their BUGs.
-        /// </summary>
+        public const string TABLE_N_Gen_UserTable = "AllUsersTable";
+        public const string TABLE_N_Gen_Notifi = "GeneralData";
         public const string TABLE_N_Gen_Bugreport = "UserQuestions";
 
-        /// <summary>
-        /// Notification objectID in the <see cref="TABLE_N_Gen_Notifi"/> Table
-        /// </summary>
         public const string OBJ_ID_Notifi = "H26yBBBi";
-
-        /// <summary>
-        /// Windows Client Version String <see cref="TABLE_N_Gen_Notifi"/>
-        /// </summary>
         public const string OBJ_ID_WinClientVer = "oRr7000l";
 
     }
-
-    /// <summary>
-    /// The User Group Enum
-    /// </summary>
-    public enum UserGroupEnum 
+    public enum OperationStatus { Unknown, Completed, Failed }
+    public enum UsrActvtiE { UsrLogin, UserLogOff, UserChangePassword, UserUploadHImage, UserCompare, UserCreate }
+    public enum LogLevel { Error, Infomation, Seperator }
+    public enum ExcelOperationE { OpenApp, QuitApp, Open, Read, Write, Close }
+    public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
+    public struct UserGroup
     {
-        管理组用户,
-        老师,
-        高层管理,
-        家长
-    }
+        public bool IsAdmin { get; private set; }
+        public bool IsBusManager { get; private set; }
+        public bool IsClassTeacher { get; private set; }
+        public bool IsParents { get; private set; }
 
-    /// <summary>
-    ///   Process Status
-    /// </summary>
-    public enum ProcStatE
-    {
-        Unknown,
-        Completed,
-        Failed,
-        FailedWithErr
-    }
+        public string[] ClassesIds { get; set; }
+        public string[] ChildIds { get; set; }
+        public string BusID { get; set; }
 
-    /// <summary>
-    /// User Activity Enum
-    /// </summary>
-    public enum UsrActvtiE
-    {
-        UsrLogin,
-        UserLogOff,
-        UserChangePassword,
-        UserUploadHImage,
-        UserCompare,
-        UserCreate
-    }
+        public UserGroup(bool Teacher, bool BusManager, bool Parent)
+        {
+            IsAdmin = false;
+            IsClassTeacher = Teacher;
+            IsBusManager = BusManager;
+            IsParents = Parent;
 
-    /// <summary>
-    /// File Download File
-    /// </summary>
-    public enum DownloadType
-    {
-        SingleUserHeadImage,
-        AllUserHeadImage
-    }
+            ChildIds = IsParents ? new string[] { "1" } : new string[] { "0" };
+            ClassesIds = IsClassTeacher ? new string[] { "1" } : new string[] { "0" };
+            BusID = IsBusManager ? "1" : "0";
+        }
 
-    /// <summary>
-    /// Log file level
-    /// </summary>
-    public enum LogLevel
-    {
-        Error,
-        Infomation,
-        Seperator
-    }
+        public UserGroup(string groupIdentifier)
+        {
+            string[] tmpA = groupIdentifier.Split(new char[] { ',' });
+            IsAdmin = Convert.ToBoolean(Convert.ToInt32(tmpA[0].Substring(1)));
 
-    public enum ExcelFileProcE
-    {
-        StartExcelApp,
-        QuitExcelApp,
-        Open,
-        Read,
-        Close,
-        Write
-    }
+            ClassesIds = tmpA[1].Substring(1).Split(new char[] { '|' });
+            ClassesIds = ClassesIds.Take(ClassesIds.Length - 1).ToArray();
+            IsClassTeacher = !(ClassesIds[0] == "0");
 
-    public enum BusReportTypeE
-    {
-        堵车 = 0,
-        事故 = 1,
-        其他 = 9,
+            ChildIds = tmpA[2].Substring(1).Split(new char[] { '|' });
+            ChildIds = ChildIds.Take(ChildIds.Length - 1).ToArray();
+            IsParents = !(ChildIds[0] == "0");
+
+            BusID = tmpA[3].Substring(1);
+            IsBusManager = !(BusID == "0");
+        }
+        public override string ToString()
+        {
+            string toStr = "A" + (Convert.ToInt32(IsAdmin)).ToString() + ",T";
+            foreach (string item in ClassesIds)
+            {
+                toStr = toStr + item + "|";
+            }
+            toStr = toStr + ",P";
+            foreach (string item in ChildIds)
+            {
+                toStr = toStr + item + "|";
+            }
+            toStr = toStr + ",B" + BusID;
+            return toStr;
+        }
     }
 }

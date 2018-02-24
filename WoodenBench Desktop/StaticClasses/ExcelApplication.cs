@@ -1,9 +1,9 @@
-﻿using Excel =  Microsoft.Office.Interop.Excel;
+﻿using Excel = Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.WinClient.DelegateClasses;
 
 namespace WBServicePlatform.StaticClasses
 {
@@ -26,16 +26,16 @@ namespace WBServicePlatform.StaticClasses
                 {
                     ExcelApp = new Excel.Application();
                     IsExcelOpened = true;
-                    onExcelProcFinished("", ExcelFileProcE.StartExcelApp, ProcStatE.Completed);
+                    onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Completed);
                 }
                 catch (Exception ex)
                 {
-                    onExcelProcFinished("", ExcelFileProcE.StartExcelApp, ProcStatE.FailedWithErr, ex.Message, ex);
+                    onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Failed, ex.Message);
                 }
             }
             else
             {
-                onExcelProcFinished("", ExcelFileProcE.StartExcelApp, ProcStatE.Completed, "Excel is Already started", null);
+                onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Completed, "Excel is Already started");
             }
         }
 
@@ -47,16 +47,16 @@ namespace WBServicePlatform.StaticClasses
                 {
                     ExcelApp.Quit();
                     IsExcelOpened = false;
-                    onExcelProcFinished("", ExcelFileProcE.QuitExcelApp, ProcStatE.Completed);
+                    onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Completed);
                 }
                 catch (Exception ex)
                 {
-                    onExcelProcFinished("", ExcelFileProcE.QuitExcelApp, ProcStatE.FailedWithErr, ex.Message, ex);
+                    onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Failed, ex.Message);
                 }
             }
             else
             {
-                onExcelProcFinished("", ExcelFileProcE.QuitExcelApp, ProcStatE.Completed, "Excel Application not running");
+                onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Completed, "Excel Application not running");
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -67,12 +67,12 @@ namespace WBServicePlatform.StaticClasses
             try
             {
                 xWorkbook = ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
-                onExcelProcFinished(FilePath, ExcelFileProcE.Open, ProcStatE.Completed);
+                onExcelProcFinished(FilePath, ExcelOperationE.Open, OperationStatus.Completed);
                 return true;
             }
             catch (Exception ex)
             {
-                onExcelProcFinished(FilePath, ExcelFileProcE.Open, ProcStatE.FailedWithErr, ex.Message, ex);
+                onExcelProcFinished(FilePath, ExcelOperationE.Open, OperationStatus.Failed, ex.Message);
                 return false;
             }
         }
@@ -88,19 +88,16 @@ namespace WBServicePlatform.StaticClasses
         }
 
         public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1)
-        {
-            return (T)xWorkbook.Worksheets[WorkSheetNum].Cells[LineNum, ColNum].Value;
-        }
+            => (T)xWorkbook.Worksheets[WorkSheetNum].Cells[LineNum, ColNum].Value;
 
-        public void onExcelProcFinished(string FilePath, ExcelFileProcE procEnum, ProcStatE Status, string Describe = "", Exception exception = null)
+        public void onExcelProcFinished(string FilePath, ExcelOperationE procEnum, OperationStatus Status, string ErrDetail = "")
         {
             ExcelProcessEventArgs e = new ExcelProcessEventArgs()
             {
                 FileProcedPath = FilePath,
                 ExcelProcType = procEnum,
                 ProcessStatus = Status,
-                Description = Describe,
-                Exception = exception
+                ErrDescription = ErrDetail
             };
             if (onExcelProcFinishedEvent != null) { onExcelProcFinishedEvent(e); }
         }
@@ -110,6 +107,6 @@ namespace WBServicePlatform.StaticClasses
     {
         public ExcelProcessEventArgs() { }
         public string FileProcedPath { get; set; }
-        public ExcelFileProcE ExcelProcType { get; set; }
+        public ExcelOperationE ExcelProcType { get; set; }
     }
 }

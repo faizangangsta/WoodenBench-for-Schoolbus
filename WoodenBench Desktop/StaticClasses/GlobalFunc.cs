@@ -8,11 +8,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Users;
-using WBServicePlatform.Views;
+using WBServicePlatform.WinClient.Users;
+using WBServicePlatform.WinClient.Views;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBServicePlatform.WinClient.StaticClasses
 {
     public static partial class GlobalFunc
     {
@@ -39,7 +40,6 @@ namespace WBServicePlatform.StaticClasses
             LogWritter.DebugMessage("Application will now EXIT, User has been logged off, now" +
                 " Closing Logs and terminal all windows.");
             Application.Exit();
-            //Environment.Exit(0);
         }
 
         private static void RegEvents()

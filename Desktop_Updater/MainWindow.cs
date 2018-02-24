@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
-namespace Desktop_Updater
+namespace WBServicePlatform.InstallFinaliser
 {
     /// <summary>
     /// Form1 的摘要说明。

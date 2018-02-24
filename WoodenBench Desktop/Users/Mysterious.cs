@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Users
+namespace WBServicePlatform.WinClient.Users
 {
     public static class Mysterious
 	{

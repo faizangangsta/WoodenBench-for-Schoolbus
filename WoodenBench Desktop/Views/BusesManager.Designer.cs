@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.Views
+﻿namespace WBServicePlatform.WinClient.Views
 {
     partial class BusesManager
     {
@@ -42,34 +42,42 @@
             this.SchoolBusDataMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除校车记录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.更新这条数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.schoolBusObjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.msgLabel = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.teacherData = new DevComponents.DotNetBar.Controls.DataGridViewX();
-            this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.realNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsBusTeacher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.weChatIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.allUserObjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.realNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstLoginDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.webNotiSeenDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.weChatIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.headImagePathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phoneNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aCLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.schoolBusObjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.objectIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.busNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeacherRealName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teacherIDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.leavingCheckedDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comingCheckedDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.busNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BusTeacherRealName = new DevComponents.DotNetBar.Controls.DataGridViewTextBoxDropDownColumn();
+            this.teacherIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lSCheckedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.aHCheckedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cSCheckedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.updatedAtDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.busDataGrid)).BeginInit();
             this.SchoolBusDataMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.teacherData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.allUserObjectBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // metroStatusBar1
@@ -95,7 +103,7 @@
             // 
             // ExDiscription
             // 
-            this.ExDiscription.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ExDiscription.Name = "ExDiscription";
             this.ExDiscription.Symbol = "";
             this.ExDiscription.SymbolSize = 13F;
@@ -130,7 +138,7 @@
             this.busDataGrid.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -139,18 +147,18 @@
             this.busDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.busDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.objectIdDataGridViewTextBoxColumn1,
-            this.busNameDataGridViewTextBoxColumn1,
-            this.TeacherRealName,
-            this.teacherIDDataGridViewTextBoxColumn1,
-            this.leavingCheckedDataGridViewTextBoxColumn1,
-            this.comingCheckedDataGridViewTextBoxColumn1,
-            this.updatedAtDataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn1});
+            this.busNameDataGridViewTextBoxColumn,
+            this.BusTeacherRealName,
+            this.teacherIDDataGridViewTextBoxColumn,
+            this.lSCheckedDataGridViewCheckBoxColumn,
+            this.aHCheckedDataGridViewCheckBoxColumn,
+            this.cSCheckedDataGridViewCheckBoxColumn,
+            this.updatedAtDataGridViewTextBoxColumn1});
             this.busDataGrid.ContextMenuStrip = this.SchoolBusDataMenu;
             this.busDataGrid.DataSource = this.schoolBusObjectBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
@@ -165,7 +173,7 @@
             this.busDataGrid.Name = "busDataGrid";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
@@ -183,30 +191,26 @@
             this.删除校车记录ToolStripMenuItem,
             this.更新这条数据ToolStripMenuItem});
             this.SchoolBusDataMenu.Name = "SchoolBusDataMenu";
-            this.SchoolBusDataMenu.Size = new System.Drawing.Size(147, 48);
+            this.SchoolBusDataMenu.Size = new System.Drawing.Size(149, 48);
             // 
             // 删除校车记录ToolStripMenuItem
             // 
             this.删除校车记录ToolStripMenuItem.Name = "删除校车记录ToolStripMenuItem";
-            this.删除校车记录ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.删除校车记录ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.删除校车记录ToolStripMenuItem.Text = "删除校车记录";
             this.删除校车记录ToolStripMenuItem.Click += new System.EventHandler(this.删除校车记录ToolStripMenuItem_Click);
             // 
             // 更新这条数据ToolStripMenuItem
             // 
             this.更新这条数据ToolStripMenuItem.Name = "更新这条数据ToolStripMenuItem";
-            this.更新这条数据ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.更新这条数据ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.更新这条数据ToolStripMenuItem.Text = "更新这条数据";
             this.更新这条数据ToolStripMenuItem.Click += new System.EventHandler(this.更新这条数据ToolStripMenuItem_Click);
-            // 
-            // schoolBusObjectBindingSource
-            // 
-            this.schoolBusObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.SchoolBusObject);
             // 
             // msgLabel
             // 
             this.msgLabel.AutoSize = true;
-            this.msgLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
+            this.msgLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.msgLabel.Location = new System.Drawing.Point(205, 15);
             this.msgLabel.Name = "msgLabel";
             this.msgLabel.Size = new System.Drawing.Size(0, 21);
@@ -240,16 +244,24 @@
             this.teacherData.BackgroundColor = System.Drawing.Color.White;
             this.teacherData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.teacherData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.objectIdDataGridViewTextBoxColumn,
+            this.tableDataGridViewTextBoxColumn,
             this.userNameDataGridViewTextBoxColumn,
+            this.passwordDataGridViewTextBoxColumn,
             this.realNameDataGridViewTextBoxColumn,
-            this.IsBusTeacher,
+            this.firstLoginDataGridViewCheckBoxColumn,
+            this.webNotiSeenDataGridViewCheckBoxColumn,
+            this.weChatIDDataGridViewTextBoxColumn,
+            this.headImagePathDataGridViewTextBoxColumn,
+            this.phoneNumberDataGridViewTextBoxColumn,
+            this.typeDataGridViewTextBoxColumn,
+            this.objectIdDataGridViewTextBoxColumn,
+            this.createdAtDataGridViewTextBoxColumn,
             this.updatedAtDataGridViewTextBoxColumn,
-            this.weChatIDDataGridViewTextBoxColumn});
+            this.aCLDataGridViewTextBoxColumn});
             this.teacherData.DataSource = this.allUserObjectBindingSource;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
@@ -265,110 +277,174 @@
             this.teacherData.Size = new System.Drawing.Size(966, 294);
             this.teacherData.TabIndex = 0;
             // 
-            // objectIdDataGridViewTextBoxColumn
+            // allUserObjectBindingSource
             // 
-            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.HeaderText = "老师账户ID";
-            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
-            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.AllUserObject);
+            // 
+            // tableDataGridViewTextBoxColumn
+            // 
+            this.tableDataGridViewTextBoxColumn.DataPropertyName = "table";
+            this.tableDataGridViewTextBoxColumn.HeaderText = "table";
+            this.tableDataGridViewTextBoxColumn.Name = "tableDataGridViewTextBoxColumn";
+            this.tableDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // userNameDataGridViewTextBoxColumn
             // 
             this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
-            this.userNameDataGridViewTextBoxColumn.HeaderText = "用户名";
+            this.userNameDataGridViewTextBoxColumn.HeaderText = "UserName";
             this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
             this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // passwordDataGridViewTextBoxColumn
+            // 
+            this.passwordDataGridViewTextBoxColumn.DataPropertyName = "Password";
+            this.passwordDataGridViewTextBoxColumn.HeaderText = "Password";
+            this.passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
+            this.passwordDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // realNameDataGridViewTextBoxColumn
             // 
             this.realNameDataGridViewTextBoxColumn.DataPropertyName = "RealName";
-            this.realNameDataGridViewTextBoxColumn.HeaderText = "姓名";
+            this.realNameDataGridViewTextBoxColumn.HeaderText = "RealName";
             this.realNameDataGridViewTextBoxColumn.Name = "realNameDataGridViewTextBoxColumn";
             this.realNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // IsBusTeacher
+            // firstLoginDataGridViewCheckBoxColumn
             // 
-            this.IsBusTeacher.DataPropertyName = "IsBusTeacher";
-            this.IsBusTeacher.HeaderText = "校车老师";
-            this.IsBusTeacher.Name = "IsBusTeacher";
-            this.IsBusTeacher.ReadOnly = true;
+            this.firstLoginDataGridViewCheckBoxColumn.DataPropertyName = "FirstLogin";
+            this.firstLoginDataGridViewCheckBoxColumn.HeaderText = "FirstLogin";
+            this.firstLoginDataGridViewCheckBoxColumn.Name = "firstLoginDataGridViewCheckBoxColumn";
+            this.firstLoginDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
-            // updatedAtDataGridViewTextBoxColumn
+            // webNotiSeenDataGridViewCheckBoxColumn
             // 
-            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "updatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "上次更新时间";
-            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
-            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
-            this.updatedAtDataGridViewTextBoxColumn.Width = 130;
+            this.webNotiSeenDataGridViewCheckBoxColumn.DataPropertyName = "WebNotiSeen";
+            this.webNotiSeenDataGridViewCheckBoxColumn.HeaderText = "WebNotiSeen";
+            this.webNotiSeenDataGridViewCheckBoxColumn.Name = "webNotiSeenDataGridViewCheckBoxColumn";
+            this.webNotiSeenDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // weChatIDDataGridViewTextBoxColumn
             // 
             this.weChatIDDataGridViewTextBoxColumn.DataPropertyName = "WeChatID";
-            this.weChatIDDataGridViewTextBoxColumn.HeaderText = "绑定微信号";
+            this.weChatIDDataGridViewTextBoxColumn.HeaderText = "WeChatID";
             this.weChatIDDataGridViewTextBoxColumn.Name = "weChatIDDataGridViewTextBoxColumn";
             this.weChatIDDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // allUserObjectBindingSource
+            // headImagePathDataGridViewTextBoxColumn
             // 
-            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.Users.AllUserObject);
+            this.headImagePathDataGridViewTextBoxColumn.DataPropertyName = "HeadImagePath";
+            this.headImagePathDataGridViewTextBoxColumn.HeaderText = "HeadImagePath";
+            this.headImagePathDataGridViewTextBoxColumn.Name = "headImagePathDataGridViewTextBoxColumn";
+            this.headImagePathDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // phoneNumberDataGridViewTextBoxColumn
+            // 
+            this.phoneNumberDataGridViewTextBoxColumn.DataPropertyName = "PhoneNumber";
+            this.phoneNumberDataGridViewTextBoxColumn.HeaderText = "PhoneNumber";
+            this.phoneNumberDataGridViewTextBoxColumn.Name = "phoneNumberDataGridViewTextBoxColumn";
+            this.phoneNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "_type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "_type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // objectIdDataGridViewTextBoxColumn
+            // 
+            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
+            this.objectIdDataGridViewTextBoxColumn.HeaderText = "objectId";
+            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
+            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createdAtDataGridViewTextBoxColumn
+            // 
+            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "createdAt";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "createdAt";
+            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // updatedAtDataGridViewTextBoxColumn
+            // 
+            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "updatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "updatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
+            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // aCLDataGridViewTextBoxColumn
+            // 
+            this.aCLDataGridViewTextBoxColumn.DataPropertyName = "ACL";
+            this.aCLDataGridViewTextBoxColumn.HeaderText = "ACL";
+            this.aCLDataGridViewTextBoxColumn.Name = "aCLDataGridViewTextBoxColumn";
+            this.aCLDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // schoolBusObjectBindingSource
+            // 
+            this.schoolBusObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.SchoolBusObject);
             // 
             // objectIdDataGridViewTextBoxColumn1
             // 
             this.objectIdDataGridViewTextBoxColumn1.DataPropertyName = "objectId";
             this.objectIdDataGridViewTextBoxColumn1.HeaderText = "校车ID";
             this.objectIdDataGridViewTextBoxColumn1.Name = "objectIdDataGridViewTextBoxColumn1";
-            this.objectIdDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // busNameDataGridViewTextBoxColumn1
+            // busNameDataGridViewTextBoxColumn
             // 
-            this.busNameDataGridViewTextBoxColumn1.DataPropertyName = "BusName";
-            this.busNameDataGridViewTextBoxColumn1.HeaderText = "校车名称";
-            this.busNameDataGridViewTextBoxColumn1.Name = "busNameDataGridViewTextBoxColumn1";
+            this.busNameDataGridViewTextBoxColumn.DataPropertyName = "BusName";
+            this.busNameDataGridViewTextBoxColumn.HeaderText = "校车方向";
+            this.busNameDataGridViewTextBoxColumn.Name = "busNameDataGridViewTextBoxColumn";
             // 
-            // TeacherRealName
+            // BusTeacherRealName
             // 
-            this.TeacherRealName.DataPropertyName = "TeacherRealName";
-            this.TeacherRealName.HeaderText = "带车老师";
-            this.TeacherRealName.Name = "TeacherRealName";
+            this.BusTeacherRealName.BackColor = System.Drawing.Color.White;
             // 
-            // teacherIDDataGridViewTextBoxColumn1
             // 
-            this.teacherIDDataGridViewTextBoxColumn1.DataPropertyName = "TeacherID";
-            this.teacherIDDataGridViewTextBoxColumn1.HeaderText = "带车老师ID";
-            this.teacherIDDataGridViewTextBoxColumn1.Name = "teacherIDDataGridViewTextBoxColumn1";
-            this.teacherIDDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // leavingCheckedDataGridViewTextBoxColumn1
+            this.BusTeacherRealName.BackgroundStyle.Class = "DataGridViewIpAddressBorder";
+            this.BusTeacherRealName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BusTeacherRealName.ForeColor = System.Drawing.Color.Black;
+            this.BusTeacherRealName.HeaderText = "带车老师";
+            this.BusTeacherRealName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.BusTeacherRealName.Name = "BusTeacherRealName";
+            this.BusTeacherRealName.PasswordChar = '\0';
+            this.BusTeacherRealName.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.BusTeacherRealName.Text = "";
             // 
-            this.leavingCheckedDataGridViewTextBoxColumn1.DataPropertyName = "LeavingChecked";
-            this.leavingCheckedDataGridViewTextBoxColumn1.HeaderText = "离校检查";
-            this.leavingCheckedDataGridViewTextBoxColumn1.Name = "leavingCheckedDataGridViewTextBoxColumn1";
+            // teacherIDDataGridViewTextBoxColumn
             // 
-            // comingCheckedDataGridViewTextBoxColumn1
+            this.teacherIDDataGridViewTextBoxColumn.DataPropertyName = "TeacherID";
+            this.teacherIDDataGridViewTextBoxColumn.HeaderText = "老师ID";
+            this.teacherIDDataGridViewTextBoxColumn.Name = "teacherIDDataGridViewTextBoxColumn";
             // 
-            this.comingCheckedDataGridViewTextBoxColumn1.DataPropertyName = "ComingChecked";
-            this.comingCheckedDataGridViewTextBoxColumn1.HeaderText = "返校检查";
-            this.comingCheckedDataGridViewTextBoxColumn1.Name = "comingCheckedDataGridViewTextBoxColumn1";
+            // lSCheckedDataGridViewCheckBoxColumn
+            // 
+            this.lSCheckedDataGridViewCheckBoxColumn.DataPropertyName = "LSChecked";
+            this.lSCheckedDataGridViewCheckBoxColumn.HeaderText = "离校确认";
+            this.lSCheckedDataGridViewCheckBoxColumn.Name = "lSCheckedDataGridViewCheckBoxColumn";
+            // 
+            // aHCheckedDataGridViewCheckBoxColumn
+            // 
+            this.aHCheckedDataGridViewCheckBoxColumn.DataPropertyName = "AHChecked";
+            this.aHCheckedDataGridViewCheckBoxColumn.HeaderText = "放学到站确认";
+            this.aHCheckedDataGridViewCheckBoxColumn.Name = "aHCheckedDataGridViewCheckBoxColumn";
+            // 
+            // cSCheckedDataGridViewCheckBoxColumn
+            // 
+            this.cSCheckedDataGridViewCheckBoxColumn.DataPropertyName = "CSChecked";
+            this.cSCheckedDataGridViewCheckBoxColumn.HeaderText = "返校确认";
+            this.cSCheckedDataGridViewCheckBoxColumn.Name = "cSCheckedDataGridViewCheckBoxColumn";
             // 
             // updatedAtDataGridViewTextBoxColumn1
             // 
             this.updatedAtDataGridViewTextBoxColumn1.DataPropertyName = "updatedAt";
-            this.updatedAtDataGridViewTextBoxColumn1.HeaderText = "上次更新时间";
+            this.updatedAtDataGridViewTextBoxColumn1.HeaderText = "更新时间";
             this.updatedAtDataGridViewTextBoxColumn1.Name = "updatedAtDataGridViewTextBoxColumn1";
             this.updatedAtDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.updatedAtDataGridViewTextBoxColumn1.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "createdAt";
-            this.dataGridViewTextBoxColumn1.HeaderText = "记录创建时间";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 120;
             // 
             // BusesManager
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 706);
             this.Controls.Add(this.splitContainer1);
@@ -377,7 +453,7 @@
             this.Controls.Add(this.LoadDataBtn);
             this.Controls.Add(this.metroStatusBar1);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "BusesManager";
@@ -387,13 +463,13 @@
             this.Shown += new System.EventHandler(this.BusesManager_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.busDataGrid)).EndInit();
             this.SchoolBusDataMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.teacherData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.allUserObjectBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,7 +480,6 @@
         private DevComponents.DotNetBar.Metro.MetroStatusBar metroStatusBar1;
         private DevComponents.DotNetBar.LabelItem ExDiscription;
         private DevComponents.DotNetBar.Controls.DataGridViewX busDataGrid;
-        private System.Windows.Forms.BindingSource schoolBusObjectBindingSource;
         private DevComponents.DotNetBar.ButtonX LoadDataBtn;
         private System.Windows.Forms.ContextMenuStrip SchoolBusDataMenu;
         private System.Windows.Forms.ToolStripMenuItem 删除校车记录ToolStripMenuItem;
@@ -413,21 +488,32 @@
         private System.Windows.Forms.Label msgLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private DevComponents.DotNetBar.Controls.DataGridViewX teacherData;
-        private System.Windows.Forms.BindingSource allUserObjectBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn realNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsBusTeacher;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn weChatIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn busNameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TeacherRealName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn teacherIDDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn leavingCheckedDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn comingCheckedDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.BindingSource schoolBusObjectBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tableDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn passwordDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn realNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn firstLoginDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn webNotiSeenDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn weChatIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn headImagePathDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aCLDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource allUserObjectBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn busNameDataGridViewTextBoxColumn;
+        private DevComponents.DotNetBar.Controls.DataGridViewTextBoxDropDownColumn BusTeacherRealName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teacherIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn lSCheckedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn aHCheckedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cSCheckedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
 

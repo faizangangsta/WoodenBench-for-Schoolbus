@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Web.Http;
-using WBServicePlatform.WebAPIServices.HTTPOperation;
+using WBServicePlatform.WebManagement.Controllers;
 
 namespace WBServicePlatform.WebAPIServices.Controllers
 {
-    public class wc_getAccessTokenController : ApiController
+    [Produces("application/json")]
+    [Route("api/wx/getAccessToken")]
+    public class wc_getAccessTokenController : Controller
     {
+
         public IEnumerable Get(string CorpID, string CorpSecret)
         {
             string options = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=" + CorpID + "&corpsecret=" + CorpSecret;
@@ -36,7 +39,9 @@ namespace WBServicePlatform.WebAPIServices.Controllers
         }
     }
 
-    public class wc_getTicketController : ApiController
+    [Produces("application/json")]
+    [Route("api/wx/getTicket")]
+    public class wc_getTicketController : Controller
     {
         public IEnumerable Get(string AccessToken)
         {
@@ -65,7 +70,9 @@ namespace WBServicePlatform.WebAPIServices.Controllers
         }
     }
 
-    public class wc_UserInfoController : ApiController
+    [Produces("application/json")]
+    [Route("api/wx/getUserInfo")]
+    public class wc_UserInfoController : Controller
     {
         public IEnumerable Get(string AccessToken, string Code)
         {
@@ -81,14 +88,17 @@ namespace WBServicePlatform.WebAPIServices.Controllers
             return JSON;
         }
     }
-    public class wc_UserDetailInfoController : ApiController
+
+
+    [Produces("application/json")]
+    [Route("api/wx/getUserDInfo")]
+    public class wc_UserDetailInfoController : Controller
     {
         public IEnumerable Get(string AccessToken, string UserTicket)
         {
             string options = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=" + AccessToken;
             string PostData = SimpleJson.SimpleJson.SerializeObject(new Dictionary<string, string>(1) { { "user_ticket", UserTicket } });
-            Dictionary<string, string> JSON = HTTPJsonOperations.HTTPJsonPost(options, PostData);
-            return JSON;
+            return HTTPJsonOperations.HTTPJsonPost(options, PostData);
         }
     }
 }

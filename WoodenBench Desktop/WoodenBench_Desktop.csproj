@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WoodenBench</RootNamespace>
+    <RootNamespace>WBServicePlatform.WinClient</RootNamespace>
     <AssemblyName>校车小板凳</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WBServicePlatform.StaticClasses.GlobalFunc</StartupObject>
+    <StartupObject>WBServicePlatform.WinClient.StaticClasses.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -188,7 +188,7 @@
       <DependentUpon>UsrChangePsWd.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AppSettings.resx">
@@ -224,6 +224,9 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\WBServicePlatform.TableObject.AllUserObject.datasource" />
+    <None Include="Properties\DataSources\WBServicePlatform.TableObject.SchoolBusObject.datasource" />
+    <None Include="Properties\DataSources\WBServicePlatform.TableObject.StudentDataObject.datasource" />
     <None Include="Properties\DataSources\WoodenBench.StaticClasses.Consts.datasource" />
     <None Include="Properties\DataSources\WoodenBench.TableObject.SchoolBusObject.datasource" />
     <None Include="Properties\DataSources\WoodenBench.TableObject.StudentDataObject.datasource" />
@@ -237,37 +240,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Scripts\esm\popper-utils.js.map" />
-    <None Include="Scripts\esm\popper-utils.min.js.map" />
-    <None Include="Scripts\esm\popper.js.map" />
-    <None Include="Scripts\esm\popper.min.js.map" />
-    <None Include="Scripts\popper-utils.js.map" />
-    <None Include="Scripts\popper-utils.min.js.map" />
-    <None Include="Scripts\popper.js.map" />
-    <None Include="Scripts\popper.min.js.map" />
-    <None Include="Scripts\README.md" />
-    <None Include="Scripts\umd\popper-utils.js.map" />
-    <None Include="Scripts\umd\popper-utils.min.js.map" />
-    <None Include="Scripts\umd\popper.js.map" />
-    <None Include="Scripts\umd\popper.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainICON.ico" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
     <None Include="Properties\Resources\RadialMenuIcon.png" />
     <None Include="Properties\Resources\Web.png" />
     <None Include="Properties\Resources\UserWhite1.png" />
@@ -343,9 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

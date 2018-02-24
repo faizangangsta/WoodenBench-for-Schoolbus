@@ -1,19 +1,19 @@
-using System;
+using cn.bmob.io;
 using cn.bmob.response;
+using DevComponents.DotNetBar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
-using DevComponents.DotNetBar;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
-using WBServicePlatform.StaticClasses;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using cn.bmob.io;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class CheckMyStudents : DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -44,20 +44,9 @@ namespace WBServicePlatform.Views
 
         private void CheckMyStudents_Shown(object sender, EventArgs e)
         {
-            if (!CurrentUser.IsBusTeacher &&
-                CurrentUser.UserGroup != UserGroupEnum.管理组用户 &&
-                CurrentUser.UserGroup != UserGroupEnum.高层管理)
-            {
-                MessageBox.Show("你不是校车老师，只有校车老师和管理员能编辑数据", "只读模式", MessageBoxButtons.OK);
-                Text = Text + " - 只读模式";
-            }
-            else
+            if (CurrentUser.UserGroup.IsBusManager)
             {
                 Text = Text + " - 已经启用编辑";
-            }
-
-            if (CurrentUser.IsBusTeacher)
-            {
                 SchoolBusObject busObject = new SchoolBusObject();
                 BmobQuery query = new BmobQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
@@ -74,30 +63,27 @@ namespace WBServicePlatform.Views
                 }
                 else
                 {
-                    MessageBox.Show("找到了多个和你绑定的校车，目前只会显示其中第一项");
+                    MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
                     busObject = task.Result.results[0];
                 }
                 myID.Text = busObject.objectId;
                 myDirection.Text = busObject.BusName;
-                LeavingChecked.Text = busObject.LeavingChecked;
-                BackChecked.Text = busObject.ComingChecked;
+                LeavingChecked.Text = busObject.LSChecked.ToString();
+                BackChecked.Text = busObject.CSChecked.ToString();
                 ExpNumber.Text = "尚未加载";
                 BackNumber.Text = "尚未加载";
                 ExDescription.Text = "加载完成";
                 Application.DoEvents();
                 StudentDataGrid.AutoResizeColumns();
             }
+            else if (CurrentUser.UserGroup.IsAdmin)
+            {
+                Text = Text + " - 已经启用编辑";
+            }
             else
             {
-                switch (CurrentUser.UserGroup)
-                {
-                    case UserGroupEnum.高层管理:
-
-                        break;
-                    case UserGroupEnum.管理组用户:
-
-                        break;
-                }
+                MessageBox.Show("你不是校车老师，只有校车老师和管理员能编辑数据", "只读模式", MessageBoxButtons.OK);
+                Text = Text + " - 只读模式";
             }
         }
 
@@ -125,13 +111,13 @@ namespace WBServicePlatform.Views
             studentDataObjectBindingSource.Clear();
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            Task<QueryCallbackData<StudentDataObject>> task;
-            task = _BmobWin.FindTaskAsync<StudentDataObject>(Consts.TABLE_N_Mgr_StuData, query);
+            Task<QueryCallbackData<AllUserObject>> task;
+            task = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Mgr_StuData, query);
             task.Wait();
             if (task.IsCompleted)
             {
-                List<StudentDataObject> list = task.Result.results;
-                foreach (StudentDataObject item in list)
+                List<AllUserObject> list = task.Result.results;
+                foreach (AllUserObject item in list)
                 {
                     studentDataObjectBindingSource.Add(item);
                 }

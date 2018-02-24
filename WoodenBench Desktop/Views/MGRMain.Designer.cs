@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.Views
+﻿namespace WBServicePlatform.WinClient.Views
 {
     partial class ManagementWindow
     {
@@ -226,7 +226,7 @@
             // 
             // allUserObjectBindingSource
             // 
-            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.Users.AllUserObject);
+            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.AllUserObject);
             this.allUserObjectBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.allUserObjectBindingSource_ListChanged);
             // 
             // label5

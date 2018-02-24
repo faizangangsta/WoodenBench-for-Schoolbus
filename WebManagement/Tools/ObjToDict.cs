@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Users;
 
-namespace WBServicePlatform.WebAPIServices.Controllers
+namespace WBServicePlatform.WebManagement.Controllers
 {
     public class ObjToDict
     {
@@ -15,15 +11,14 @@ namespace WBServicePlatform.WebAPIServices.Controllers
             {
                 { "userID", UserInfo.objectId },
                 { "CreatedAt", UserInfo.createdAt },
-                { "HeadImagePath", UserInfo.HeadImgData },
+                { "HeadImagePath", UserInfo.HeadImagePath },
                 { "Password", UserInfo.Password },
                 { "RealName", UserInfo.RealName },
-                { "UserGroup", ((int)UserInfo.UserGroup).ToString() },
+                { "UserGroup", UserInfo.UserGroup.ToString() },
                 { "Username", UserInfo.UserName },
-                { "FirstLogin", UserInfo.isFstLogin.ToString() },
+                { "FirstLogin", UserInfo.FirstLogin.ToString() },
                 { "WebNotiSeen", UserInfo.WebNotiSeen.ToString() },
-                { "WeChatID", UserInfo.WeChatID },
-                { "IsBusTeacher", UserInfo.IsBusTeacher.ToString() }
+                { "WeChatID", UserInfo.WeChatID }
             };
             return dict;
         }
@@ -35,10 +30,9 @@ namespace WBServicePlatform.WebAPIServices.Controllers
                 { "busID", BusObject.objectId },
                 { "CreatedAt", BusObject.createdAt },
                 { "Name", BusObject.BusName },
-                { "ComingChecked", BusObject.ComingChecked ?? "" },
-                { "LeavingChecked", BusObject.LeavingChecked ?? "" },
-                { "TeacherID", BusObject.TeacherID },
-                { "TeacherName", BusObject.TeacherName }
+                { "ComingChecked", BusObject.CSChecked.ToString() },
+                { "LeavingChecked", BusObject.LSChecked.ToString()},
+                { "TeacherID", BusObject.TeacherID }
             };
             return dict;
         }
@@ -48,15 +42,11 @@ namespace WBServicePlatform.WebAPIServices.Controllers
             {
                 { "StuID", StuObject.objectId },
                 { "Name", StuObject.StudentName },
-                { "Direction", StuObject.StudentDirection },
                 { "BusID", StuObject.BusID },
-                { "PartOfSchool", StuObject.StudentPartOfSchool },
-                { "Year", StuObject.StudentYear },
-                { "Class", StuObject.StudentClass },
-                { "ComingChecked", StuObject.ComeChecked.ToString() },
-                { "LeavingChecked", StuObject.LeaveChecked.ToString() },
-                { "ParentComingChecked", StuObject.ParentComeChecked.ToString() },
-                { "ParentLeavingChecked", StuObject.ParentLeaveChecked.ToString() },
+                { "ClassID", StuObject.ClassID },
+                { "ComingChecked", StuObject.CSChecked.ToString() },
+                { "LeavingChecked", StuObject.LSChecked.ToString() },
+                { "ParentLeavingChecked", StuObject.CHChecked.ToString() },
             };
             return dict;
         }

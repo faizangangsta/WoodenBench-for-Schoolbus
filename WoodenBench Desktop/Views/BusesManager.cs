@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.StaticClasses;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
-using WBServicePlatform.Users;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using WBServicePlatform.WinClient.Users;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class BusesManager : MetroForm
     {
@@ -155,16 +155,17 @@ namespace WBServicePlatform.Views
             }
             msgLabel.Text = "成功更新所有项目";
         }
+
         private static bool Upload(DataGridViewRow row)
         {
             SchoolBusObject busObject = new SchoolBusObject();
             if (row.Cells[0].Value == null && row.Cells[1].Value == null) return false;
             if (row.Cells[0].Value == "" && row.Cells[1].Value == "") return false;
             busObject.BusName = (string)row.Cells[1].Value;
-            busObject.TeacherName = (string)row.Cells[2].Value ?? "";
             busObject.TeacherID = (string)row.Cells[3].Value ?? "";
-            busObject.LeavingChecked = (string)row.Cells[4].Value;
-            busObject.ComingChecked = (string)row.Cells[5].Value;
+            busObject.LSChecked = (bool)row.Cells[4].Value;
+            busObject.AHChecked = (bool)row.Cells[5].Value;
+            busObject.CSChecked = (bool)row.Cells[6].Value;
 
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
@@ -192,7 +193,7 @@ namespace WBServicePlatform.Views
             Task<QueryCallbackData<AllUserObject>> task;
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            task = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, query);
+            task = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, query);
             task.Wait();
             if (task.IsCompleted)
             {

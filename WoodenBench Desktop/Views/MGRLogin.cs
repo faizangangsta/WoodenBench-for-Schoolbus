@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WBServicePlatform.StaticClasses;
-using WBServicePlatform.Views;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.WinClient.Views;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -45,23 +45,16 @@ namespace WBServicePlatform.Views
             {
                 if (CurrentUser.RealName == RealNameTxt.Text)
                 {
-                    switch (CurrentUser.UserGroup)
+                    if (CurrentUser.UserGroup.IsAdmin)
                     {
-                        case UserGroupEnum.高层管理:
-                            //Administrator
-                            new ManagementWindow(0).Show(MainForm.Default);
-                            Close();
-                            break;
-                        case UserGroupEnum.管理组用户:
-                            //Higher Management
-                            new ManagementWindow(1).Show(MainForm.Default);
-                            Close();
-                            break;
-                        default:
-                            MessageBox.Show("你不是管理组用户", "出错了", MessageBoxButtons.OK, MessageBoxIcon.Stop,
-                                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-                            Close();
-                            break;
+                        Close();
+                        new ManagementWindow().Show(MainForm.Default);
+                    }
+                    else
+                    {
+                        MessageBox.Show("你不是管理组用户", "出错了", MessageBoxButtons.OK, MessageBoxIcon.Stop,
+                            MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+                        Close();
                     }
                 }
                 else

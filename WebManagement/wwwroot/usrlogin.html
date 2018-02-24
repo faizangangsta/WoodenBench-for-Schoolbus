@@ -68,9 +68,8 @@
             var p = CryptoJS.SHA256(PsWd + RandomStr);
             $.ajax(
                 {
-                    url: "https://api.lhy0403.top/api/usr_Login?PasswordHASH=" + p + "&UserName=" + UserName + "&SALT=" + RandomStr,
+                    url: location.protocol + "//" + location.host + "/api/users/Login?PasswordHASH=" + p + "&UserName=" + UserName + "&SALT=" + RandomStr,
                     type: 'GET',
-                    dataType: 'JSONP',
                     success: function (data)
                     {
                         RandomStr = "";
@@ -119,9 +118,8 @@
                 $("#faileddetail").text("正在登录……");
                 $.ajax(
                     {
-                        url: "https://api.lhy0403.top/api/usr_Query?ColName=WeChatID&EqualsTo=" + WXUserid,
+                        url: location.protocol + "//" + location.host + "api/users/Query?ColName=WeChatID&EqualsTo=" + WXUserid,
                         type: 'GET',
-                        dataType: 'JSONP',
                         success: function (data)
                         {
                             if (data.ErrCode === "0")

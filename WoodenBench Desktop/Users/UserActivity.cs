@@ -13,13 +13,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WBServicePlatform.DelegateClasses;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Views;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.WinClient.DelegateClasses;
+using WBServicePlatform.WinClient.StaticClasses;
+using WBServicePlatform.WinClient.Views;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Users
+namespace WBServicePlatform.WinClient.Users
 {
     public partial class UserActivity
     {
@@ -44,9 +45,9 @@ namespace WBServicePlatform.Users
 
         }
 
-        public static void CreateUser(string Username, string Realname, string Password, int UserGroup, bool isBusTeacher)
+        public static void CreateUser(string Username, string Realname, string Password, UserGroup UserGroup, string PhoneNumber)
         {
-            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup, isBusTeacher); }))
+            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup, PhoneNumber); }))
             { Name = "User Creation", IsBackground = false }.Start();
         }
 
@@ -55,24 +56,20 @@ namespace WBServicePlatform.Users
         {
             AllUserObject Change = new AllUserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
-            _BmobWin.Update(Consts.TABLE_N_Gen_UsrTable, NowUser.objectId, Change, (resp, exception) =>
+            _BmobWin.Update(Consts.TABLE_N_Gen_UserTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
-                {
-                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserChangePassword, Detail: exception.Message);
-                }
+                    onUserActivity(OperationStatus.Failed, UsrActvtiE.UserChangePassword, Detail: exception.Message);
                 else
-                {
-                    onUserActivity(ProcStatE.Completed, UsrActvtiE.UserChangePassword, null);
-                }
+                    onUserActivity(OperationStatus.Completed, UsrActvtiE.UserChangePassword, null);
             });
         }
 
         private static void _LogOut()
         {
-            CurrentUser.SetEveryThingNull(); ;
+            //CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(ProcStatE.Completed, UsrActvtiE.UserLogOff);
+            onUserActivity(OperationStatus.Completed, UsrActvtiE.UserLogOff);
         }
 
         /*private static void _UserChangeHeadImage(Image newImage, string UserName)
@@ -111,35 +108,33 @@ namespace WBServicePlatform.Users
             try
             {
                 Task<QueryCallbackData<AllUserObject>> UsrNameResult;
-                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, UserNameQuery);
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, UserNameQuery);
                 UsrNameResult.Wait();
-                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, Detail: "Username Wrong");
+                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: "Username Wrong");
 
                 AllUserObject FoundUser = UsrNameResult.Result.results[0];
                 if (FoundUser.Password == HashedPs)
                 {
                     if (OnlyVerify)
                     {
-                        if (FoundUser.RealName == RealN) onUserActivity(ProcStatE.Completed, UsrActvtiE.UserCompare, null);
-                        else onUserActivity(ProcStatE.Failed, UsrActvtiE.UserCompare, Detail: "Realname Wrong");
+                        if (FoundUser.RealName == RealN) onUserActivity(OperationStatus.Completed, UsrActvtiE.UserCompare, null);
+                        else onUserActivity(OperationStatus.Failed, UsrActvtiE.UserCompare, Detail: "Realname Wrong");
                     }
                     else
                     {
                         CurrentUser = FoundUser;
-                        onUserActivity(ProcStatE.Completed, UsrActvtiE.UsrLogin);
+                        onUserActivity(OperationStatus.Completed, UsrActvtiE.UsrLogin);
                     }
                 }
-                else onUserActivity(ProcStatE.Failed, UsrActvtiE.UsrLogin, Detail: "Password Wrong");
+                else onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: "Password Wrong");
             }
             catch (Exception e)
             {
-                LogWritter.ErrorMessage(e.Message);
-                LogWritter.ErrorMessage(e.InnerException?.Message);
-                onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UsrLogin, Detail: e.Message, exception: e);
+                onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: e.Message);
             }
         }
 
-        private static void _Create(string Username, string Realname, string Password, int UserGroup, bool isBusTeacher)
+        private static void _Create(string Username, string Realname, string Password, UserGroup UserGroup, string phoneNumber)
         {
             Username = Username.ToLower();
             Password = Crypto.SHA256Encrypt(Password);
@@ -150,39 +145,31 @@ namespace WBServicePlatform.Users
                 WebNotiSeen = false,
                 WeChatID = "####",
                 Password = Password,
-                UserGroup = (UserGroupEnum)(UserGroup),
-                isFstLogin = true,
-                IsBusTeacher = isBusTeacher,
-                HeadImgData = ""
+                UserGroup = UserGroup,
+                FirstLogin = true,
+                HeadImagePath = "#",
+                PhoneNumber = phoneNumber
             };
-            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(Consts.TABLE_N_Gen_UsrTable, NewUserObj);
-            task.Wait();
-            if (task.Status == TaskStatus.Faulted || task.IsFaulted)
+            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(Consts.TABLE_N_Gen_UserTable, NewUserObj);
+            try
             {
-                if (task.Exception == null)
-                {
-                    onUserActivity(ProcStatE.Failed & ProcStatE.Unknown, UsrActvtiE.UserCreate, "Just Failed");
-                }
-                else if (task.Exception != null)
-                {
-                    onUserActivity(ProcStatE.FailedWithErr, UsrActvtiE.UserCreate, task.Exception.Message, task.Exception);
-                }
+                task.Wait();
+                if (task.Status == TaskStatus.RanToCompletion && task.Exception == null && task.IsCompleted)
+                    onUserActivity(OperationStatus.Completed, UsrActvtiE.UserCreate, "Success " + task.Result.createdAt);
             }
-            else if (task.Status == TaskStatus.RanToCompletion && task.Exception == null && task.IsCompleted)
+            catch (Exception ex)
             {
-                onUserActivity(ProcStatE.Completed, UsrActvtiE.UserCreate, "Success " + task.Result.createdAt);
+                onUserActivity(OperationStatus.Failed, UsrActvtiE.UserCreate, ex.InnerException.Message);
             }
         }
 
-        private static void onUserActivity(ProcStatE Status, UsrActvtiE Act, string Detail = "", Exception exception = null)
+        private static void onUserActivity(OperationStatus Status, UsrActvtiE Act, string Detail = "")
         {
             UserActivityEventArgs e = new UserActivityEventArgs()
             {
                 Activity = Act,
                 ProcessStatus = Status,
-                Description = Detail,
-                Exception = exception,
-
+                ErrDescription = Detail
             };
             if (onUserActivityEvent != null) onUserActivityEvent(e);
             e = null;

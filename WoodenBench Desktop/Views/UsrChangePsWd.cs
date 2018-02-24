@@ -9,10 +9,10 @@ using System.Text;
 using System.Windows.Forms;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
-using static WBServicePlatform.Users.UserActivity;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBServicePlatform.WinClient.Users.UserActivity;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class ChangeUserDataWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace Desktop_Updater
+namespace WBServicePlatform.InstallFinaliser
 {
 	/// <summary>
 	/// XmlFiles 的摘要说明。

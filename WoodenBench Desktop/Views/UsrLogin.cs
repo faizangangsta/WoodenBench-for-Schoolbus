@@ -5,13 +5,13 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using WBServicePlatform.DelegateClasses;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Users;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.WinClient.DelegateClasses;
+using WBServicePlatform.WinClient.Users;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -82,9 +82,9 @@ namespace WBServicePlatform.Views
         {
             if (e.Activity == UsrActvtiE.UsrLogin)
             {
-                if (e.ProcessStatus == ProcStatE.Completed)
+                if (e.ProcessStatus == OperationStatus.Completed)
                 {
-                    Invoke(new nullArgDelegate(() =>
+                    Invoke(new NullArgDelegate(() =>
                     {
                         LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
                         DoLoginBtn.Enabled = true;
@@ -96,11 +96,11 @@ namespace WBServicePlatform.Views
                         Hide();
                     }));
                 }
-                else if (e.ProcessStatus == ProcStatE.Failed || e.ProcessStatus == ProcStatE.FailedWithErr)
+                else if (e.ProcessStatus == OperationStatus.Failed)
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(new nullArgDelegate(() =>
+                        Invoke(new NullArgDelegate(() =>
                         {
                             LogWritter.ErrorMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
                             LoginResult.Text = "用户名或密码不正确";

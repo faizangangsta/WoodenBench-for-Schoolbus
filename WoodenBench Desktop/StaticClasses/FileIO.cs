@@ -6,15 +6,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using WBServicePlatform.DelegateClasses;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.WinClient.DelegateClasses;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBServicePlatform.WinClient.StaticClasses
 {
     public class FileIO
     {
         public static event FileIOCompletedEventHandler onFileIOCompleted;
 
-        private static void _HttpDownload(string RemoteURL, string LocalAddress, DownloadType type)
+        private static void _HttpDownload(string RemoteURL, string LocalAddress)
         {
             string tempPath = Path.GetDirectoryName(LocalAddress);
             Directory.CreateDirectory(tempPath);  //创建临时文件目录
@@ -39,28 +40,24 @@ namespace WBServicePlatform.StaticClasses
                 fs.Close();
                 responseStream.Close();
                 File.Move(tempFile, LocalAddress);
-                IOCompleted(ProcStatE.Completed, LocalAddress, 0, type, RemoteURL, null);
+                IOCompleted(OperationStatus.Completed, LocalAddress,  RemoteURL);
                 return;
             }
             catch (Exception ex)
             {
                 fs.Close();
-                IOCompleted(ProcStatE.FailedWithErr, LocalAddress, 0, type, RemoteURL, ex, null);
+                IOCompleted(OperationStatus.Failed, LocalAddress, RemoteURL);
                 return;
             }
         }
 
-        private static void IOCompleted(ProcStatE Status, string LocalPath, int len, DownloadType type, string RmtURL = "", Exception exp = null, object Rtnobj = null)
+        private static void IOCompleted(OperationStatus Status, string LocalPath, string ErrDetail)
         {
             FileIOEventArgs e = new FileIOEventArgs()
             {
-                RemoteURL = RmtURL,
                 LocalFilePath = LocalPath,
                 ProcessStatus = Status,
-                Exception = exp,
-                ReturnObject = Rtnobj,
-                FileLength = len,
-                DownloadType = type
+                ErrDescription = ErrDetail
             };
             if (onFileIOCompleted != null) { onFileIOCompleted(e); }
             e = null;
@@ -84,9 +81,9 @@ namespace WBServicePlatform.StaticClasses
             return image;
         }
 
-        public static void DownloadFile(string RemoteURL, string LocalPath, DownloadType type)
+        public static void DownloadFile(string RemoteURL, string LocalPath)
         {
-            new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath, type); }))
+            new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath); }))
             { Name = "Download file", IsBackground = false }.Start();
 
         }
@@ -95,10 +92,6 @@ namespace WBServicePlatform.StaticClasses
     public class FileIOEventArgs : InternalEventArgs
     {
         public FileIOEventArgs() { }
-        public DownloadType DownloadType { get; set; }
-        public string RemoteURL { get; set; }
-        public int FileLength { get; set; }
         public string LocalFilePath { get; set; }
-        public object ReturnObject { get; set; }
     }
 }

@@ -11,14 +11,14 @@ using System.Drawing;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using WBServicePlatform.DelegateClasses;
-using WBServicePlatform.Properties;
+using WBServicePlatform.WinClient.StaticClasses;
+using WBServicePlatform.WinClient.DelegateClasses;
+using WBServicePlatform.WinClient.Properties;
+using WBServicePlatform.WinClient.Users;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 using WBServicePlatform.StaticClasses;
-using WBServicePlatform.Users;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
 
-
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class MainForm : MetroForm
     {
@@ -48,34 +48,43 @@ namespace WBServicePlatform.Views
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-            GlobalFunc.ApplicationExit();
+            ApplicationExit();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            labelX2.Text = "<div align=\"right\"><font size=\"+4\">"
-                + GlobalFunc.CurrentUser.RealName + "</font><br/>" + GlobalFunc.CurrentUser.objectId + "</div>";
-            FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + GlobalFunc.CurrentUser.HeadImgData, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg", DownloadType.SingleUserHeadImage);
+            labelX2.Text = "<div align=\"right\"><font size=\"+4\">" + CurrentUser.RealName + "</font><br/>" + CurrentUser.objectId + "</div>";
+            if (CurrentUser.HeadImagePath != "#")
+            {
+                FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory
+                    + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg");
+            }
         }
         public void DnFinished(FileIOEventArgs e)
         {
-            if (e.ProcessStatus == ProcStatE.Completed)
+            if (e.ProcessStatus == OperationStatus.Completed)
             {
-                if (e.DownloadType == DownloadType.SingleUserHeadImage)
+                try
                 {
+                    Image p = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath));
                     if (pictureBox1.InvokeRequired)
                     {
-                        Invoke(new nullArgDelegate(delegate { pictureBox1.BackgroundImage = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath)); }));
+                        Invoke(new NullArgDelegate(delegate { pictureBox1.BackgroundImage = p; }));
                     }
                 }
+                catch (Exception Ex)
+                {
+                    e.ErrDescription = Ex.Message;
+                    e.ProcessStatus = OperationStatus.Failed;
+                }
             }
-            else if (e.ProcessStatus == ProcStatE.FailedWithErr)
+            if (e.ProcessStatus == OperationStatus.Failed)
             {
                 if (pictureBox1.InvokeRequired)
                 {
-                    Invoke(new nullArgDelegate(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
+                    Invoke(new NullArgDelegate(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
                 }
-                //MessageBox.Show("尝试获取用户头像失败，请联系网络信息中心。");
+                MessageBox.Show("尝试获取用户头像失败，" + e.ErrDescription);
             }
         }
 

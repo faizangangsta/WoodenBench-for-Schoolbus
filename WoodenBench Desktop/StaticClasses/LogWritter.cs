@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using WBServicePlatform.Users;
+using WBServicePlatform.WinClient.StaticClasses;
+using WBServicePlatform.WinClient.Users;
 
 namespace WBServicePlatform.StaticClasses
 {
@@ -32,23 +33,14 @@ namespace WBServicePlatform.StaticClasses
 
         private static void FileIO_onFileIOCompleted(FileIOEventArgs e)
         {
-            DebugMessage("Now the event FileIO_onFileIOCompleted is taken, below is the detail: ");
+            DebugMessage("Now the event FileIO_onFileIOCompleted");
             switch (e.ProcessStatus)
             {
-                case ProcStatE.Completed:
-                    switch (e.DownloadType)
-                    {
-                        case DownloadType.SingleUserHeadImage:
-                            WriteLog(LogLevel.Infomation, "Head image download completed.");
-                            break;
-                        case DownloadType.AllUserHeadImage:
-                            WriteLog(LogLevel.Infomation, "Head image for all users Download Completed");
-                            break;
-                    }
-                    WriteLog(LogLevel.Infomation, "LocalFilePath: " + e.LocalFilePath);
+                case OperationStatus.Completed:
+                    WriteLog(LogLevel.Infomation, "Head image download completed. LocalFilePath: " + e.LocalFilePath);
                     break;
-                case ProcStatE.Failed | ProcStatE.FailedWithErr | ProcStatE.Unknown:
-                    WriteLog(LogLevel.Error, e.Description + " - " + e.Exception?.Message);
+                case OperationStatus.Failed | OperationStatus.Unknown:
+                    WriteLog(LogLevel.Error, e.ErrDescription);
                     break;
             }
             WriteLog(LogLevel.Seperator);
@@ -56,127 +48,54 @@ namespace WBServicePlatform.StaticClasses
 
         private static void ExcelApplication_onExcelProcFinishedEvent(ExcelProcessEventArgs e)
         {
-            DebugMessage("Now the event ExcelApplication_onExcelProcFinishedEvent is taken, below is the detail.. ");
-            switch (e.ProcessStatus)
+            DebugMessage("ExcelApplication_onExcelProcFinishedEvent:");
+            WriteLog(LogLevel.Infomation, "\tExcel File Process:: " + e.ProcessStatus.ToString() + ", ProcType: " + e.ExcelProcType.ToString() + ":: " + e.FileProcedPath);
+
+            if (e.ProcessStatus == OperationStatus.Failed || e.ProcessStatus == OperationStatus.Unknown)
             {
-                case ProcStatE.Completed:
-                    string tmpstr = "";
-                    switch (e.ExcelProcType)
-                    {
-                        case ExcelFileProcE.Open:
-                            tmpstr = "OpenFile " + e.FileProcedPath;
-                            break;
-                        case ExcelFileProcE.Read:
-                            tmpstr = "ReadFile " + e.FileProcedPath;
-                            break;
-                        case ExcelFileProcE.Close:
-                            tmpstr = "Close " + e.FileProcedPath;
-                            break;
-                        case ExcelFileProcE.Write:
-                            tmpstr = "Write " + e.FileProcedPath;
-                            break;
-                    }
-                    WriteLog(LogLevel.Infomation, "Excel File Process Completed, Proc Type is: " + tmpstr);
-                    break;
-                case ProcStatE.Failed | ProcStatE.FailedWithErr | ProcStatE.Unknown:
-                    WriteLog(LogLevel.Error, e.Description);
-                    WriteLog(LogLevel.Error, e.Exception?.Message);
-                    break;
+                WriteLog(LogLevel.Error, e.ErrDescription);
             }
             WriteLog(LogLevel.Seperator);
         }
 
         private static void UserActivity_onUserActivityEvent(UserActivityEventArgs e)
         {
-            DebugMessage("Now the event UserActivity_onUserActivityEvent is taken, below is the detail.. ");
-            string UsrActivityStr = "";
-            switch (e.ProcessStatus)
-            {
-                case ProcStatE.Completed:
-                    switch (e.Activity)
-                    {
-                        case UsrActvtiE.UsrLogin:
-                            UsrActivityStr = "User Login Succeed and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserLogOff:
-                            UsrActivityStr = "User Logoff Succeed and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserChangePassword:
-                            UsrActivityStr = "User Change Password Succeed and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserUploadHImage:
-                            UsrActivityStr = "User Login Upload its Headimage and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserCompare:
-                            UsrActivityStr = "User Login Compare operation and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserCreate:
-                            UsrActivityStr = "User Created Success and the detail is; ";
-                            break;
-                    }
-                    UsrActivityStr = UsrActivityStr + e.Description;
-                    WriteLog(LogLevel.Infomation, UsrActivityStr);
-                    break;
-                case ProcStatE.Failed | ProcStatE.FailedWithErr | ProcStatE.Unknown:
-                    switch (e.Activity)
-                    {
-                        case UsrActvtiE.UsrLogin:
-                            UsrActivityStr = "User Login FAILED and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserLogOff:
-                            UsrActivityStr = "User Logoff FAILED and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserChangePassword:
-                            UsrActivityStr = "User Change Password FAILED and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserUploadHImage:
-                            UsrActivityStr = "User Upload Headimage and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserCompare:
-                            UsrActivityStr = "User Compare FAILED and the detail is; ";
-                            break;
-                        case UsrActvtiE.UserCreate:
-                            UsrActivityStr = "User Create FAILED and the detail is; ";
-                            break;
-                    }
-                    UsrActivityStr = UsrActivityStr + e.Description;
-                    WriteLog(LogLevel.Error, UsrActivityStr);
-                    WriteLog(LogLevel.Error, e.Description);
-                    WriteLog(LogLevel.Error, e.Exception?.Message);
-                    break;
-            }
             WriteLog(LogLevel.Seperator);
+            DebugMessage("UserActivity_onUserActivityEvent: ");
+            string UsrActivityStr = "\t" + e.Activity.ToString() + " :: " + e.ProcessStatus.ToString() + ": " + e.ErrDescription;
+            WriteLog((e.ProcessStatus == OperationStatus.Completed ? LogLevel.Infomation : LogLevel.Error), UsrActivityStr);
         }
 
 
         private static void WriteLog(LogLevel level, string Message = "")
         {
-            StringBuilder LogMsg = new StringBuilder();
-            if (level == LogLevel.Seperator)
+            lock (Fs)
             {
-                LogMsg.Append("================================================================" + Environment.NewLine);
-            }
-            else
-            {
-                string levelstr = "";
-                switch (level)
+                StringBuilder LogMsg = new StringBuilder();
+                if (level == LogLevel.Seperator)
                 {
-                    case LogLevel.Error:
-                        levelstr = "Err ";
-                        break;
-                    case LogLevel.Infomation:
-                        levelstr = "Info";
-                        break;
+                    LogMsg.Append("====================================================================================" + Environment.NewLine);
                 }
-                LogMsg.Append(DateTime.Now.ToLongTimeString());
-                LogMsg.Append(" - ");
-                LogMsg.Append(levelstr);
-                LogMsg.Append(" - ");
-                LogMsg.Append(Message);
-                LogMsg.Append(Environment.NewLine);
+                else
+                {
+                    string levelstr = "";
+                    switch (level)
+                    {
+                        case LogLevel.Error:
+                            levelstr = "Err ";
+                            break;
+                        case LogLevel.Infomation:
+                            levelstr = "Info";
+                            break;
+                    }
+                    LogMsg.Append(DateTime.Now.ToLongTimeString());
+                    LogMsg.Append(" - ");
+                    LogMsg.Append(levelstr);
+                    LogMsg.Append(" - ");
+                    LogMsg.Append(Message);
+                }
                 Debug.Write(LogMsg.ToString());
-                string logLine = Convert.ToBase64String(Encoding.UTF8.GetBytes(LogMsg.ToString()));
-                char[] p = Encoding.UTF8.GetChars(UTF8Encoding.UTF8.GetBytes(logLine));
+                char[] p = Encoding.UTF8.GetChars(UTF8Encoding.UTF8.GetBytes(LogMsg.ToString()));
                 Fs.Write(p, 0, p.Length);
                 Fs.Write(new char[] { '\r', '\n' }, 0, 2);
                 Fs.AutoFlush = true;

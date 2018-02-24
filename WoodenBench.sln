@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenBench_Desktop", "WoodenBench Desktop\WoodenBench_Desktop.csproj", "{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop_Updater", "Desktop_Updater\Desktop_Updater.csproj", "{2B113AEA-7463-4506-80CF-4D62359FF829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installation_Finaliser", "Desktop_Updater\Installation_Finaliser.csproj", "{2B113AEA-7463-4506-80CF-4D62359FF829}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIServices", "WebAPIServices\WebAPIServices.csproj", "{243B712B-BBDF-4005-987D-A3AEB59DE2E0}"
 EndProject

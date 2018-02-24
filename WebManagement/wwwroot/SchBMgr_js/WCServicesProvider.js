@@ -16,9 +16,10 @@ function InitWeixin(ForceRemote)
         var CorpId = "wx68bec13e85ca6465";
         var CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
         $.ajax({
-            url: "https://api.lhy0403.top/api/wc_getAccessToken?CorpID=" + CorpId + "&CorpSecret=" + CorpSecret,
+            url: location.protocol + "//" + location.host + "api/wx/getAccessToken?" +
+            "CorpID=" + CorpId +
+            "&CorpSecret=" + CorpSecret,
             type: 'GET',
-            dataType: 'JSONP',
             success: function (data)
             {
                 if (data.ErrCode !== "0")
@@ -27,9 +28,9 @@ function InitWeixin(ForceRemote)
                     aTokenStr = base64decode(utf8to16De(aTokenStr));
                     aTokenStr = aTokenStr.substr(0, aTokenStr.length - 5);
                     $.ajax({
-                        url: "https://api.lhy0403.top/api/wc_getTicket?AccessToken=" + aTokenStr,
+                        url: location.protocol + "//" + location.host + "api/wx/getTicket?" +
+                        "AccessToken=" + aTokenStr,
                         type: 'GET',
-                        dataType: 'JSONP',
                         success: function (data2)
                         {
                             if (data2.ErrCode !== "0")
@@ -79,7 +80,6 @@ function InitJSSDK(ATicket)
     var nonceStr = randomString(32);
     var TimeStamp = new Date().getTime();
     var urlStr = location.href;
-    //var urlStr = "http://lhy0403.iego.net/index.html";
     var strSHA1 = "jsapi_ticket=" + ATicket + "&noncestr=" + nonceStr + "&timestamp=" + TimeStamp + "&url=" + urlStr;
     var signature = hex_sha1(strSHA1);
     wx.config({
@@ -89,42 +89,15 @@ function InitJSSDK(ATicket)
         nonceStr: nonceStr,
         signature: signature,
         jsApiList: [
-            'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onVoiceRecordEnd',
-            'playVoice',
-            'onVoicePlayEnd',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard'
+            'checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ',
+            'onMenuShareWeibo', 'onMenuShareQZone', 'hideMenuItems', 'showMenuItems',
+            'hideAllNonBaseMenuItem', 'showAllNonBaseMenuItem', 'translateVoice', 'startRecord',
+            'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'onVoicePlayEnd',
+            'pauseVoice', 'stopVoice', 'uploadVoice', 'downloadVoice',
+            'chooseImage', 'previewImage', 'uploadImage', 'downloadImage',
+            'getNetworkType', 'openLocation', 'getLocation', 'hideOptionMenu',
+            'showOptionMenu', 'closeWindow', 'scanQRCode', 'chooseWXPay',
+            'openProductSpecificView', 'addCard', 'chooseCard', 'openCard'
         ]
     });
 }
@@ -152,7 +125,7 @@ function JumpToWeChatLogin(State)
     setCookie("WCLogin", TimeStamp, 300);
     var url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
         "appid=wx68bec13e85ca6465" +
-        "&redirect_uri=https://schoolbus.lhy0403.top/WeChatUserCodeReceiver.html" +
+        "&redirect_uri=" + location.protocol + "//" + location.host + "/WeChatUserCodeReceiver.html" +
         "&response_type=code" +
         "&scope=snsapi_userinfo" +
         "&agentid=41" +
@@ -167,9 +140,8 @@ function GetUserData(code, callback)
     var aToken = getCookie("aToken");
 
     $.ajax({
-        url: "https://api.lhy0403.top/api/wc_UserInfo?AccessToken=" + aToken + "&Code=" + code,
+        url: location.protocol + "//" + location.host +  "/api/wx/getUserInfo?AccessToken=" + aToken + "&Code=" + code,
         type: 'GET',
-        dataType: 'JSONP',
         success: function (data)
         {
             if (data.ErrCode !== "0")
@@ -178,9 +150,8 @@ function GetUserData(code, callback)
                 usr_TICKET = base64decode(utf8to16De(usr_TICKET));
                 usr_TICKET = usr_TICKET.substr(0, usr_TICKET.length - 1);
                 $.ajax({
-                    url: "https://api.lhy0403.top/api/wc_UserDetailInfo?AccessToken=" + getCookie("aToken") + "&UserTicket=" + usr_TICKET,
+                    url: location.protocol + "//" + location.host +  "/api/wx/getUserDInfo?AccessToken=" + getCookie("aToken") + "&UserTicket=" + usr_TICKET,
                     type: 'GET',
-                    dataType: 'JSONP',
                     success: function (data2)
                     {
                         if (data2.errcode === "0")
@@ -218,14 +189,13 @@ function WriteUserData(Username, DatField, DataContent, Password, CallBackFuncti
     var RandStr = getCookie("SecretKey");
     var STAMP = CryptoJS.SHA256(DataContent + Password + RandStr).toString();
     $.ajax({
-        url: "https://api.lhy0403.top/api/usr_ChangeProperty?" +
+        url: location.protocol + "//" + location.host +  "api/users/Change?" +
         "Username=" + Username +
         "&Column=" + DatField +
         "&Content=" + DataContent +
         "&STAMP=" + STAMP +
         "&Ticket=" + RandStr,
         type: 'GET',
-        dataType: 'JSONP',
         success: function (data2)
         {
             if (data2.ErrCode === "0")
@@ -327,14 +297,24 @@ function RemoveLoginData(CleanExit)
 function ProcLogin(object)
 {
     "use strict";
-    if (object.FirstLogin.toLowerCase() === "true") WriteUserData(object.Username, "firstlogin", false, object.Password, P);
-    else P(object);
+    if (object.FirstLogin.toLowerCase() === "true")
+    {
+        StoreUserData(object);
+        WriteUserData(object.Username, "firstlogin", false, object.Password, P);
+    }
+    else
+    {
+        P(object);
+    }
 }
 
 function P(object2)
 {
     "use strict";
-    StoreUserData(object2);
+    if (object2 !== false)
+    {
+        StoreUserData(object2);
+    }
     if (getCookie("SBCallBackAddress") !== null)
     {
         var RDireURL = "" + getCookie("SBCallBackAddress");
@@ -380,7 +360,7 @@ function delCookie(name)
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
     var cval = getCookie(name);
-    if (cval != null) document.cookie = name + "=nothing;expires=" + exp.toUTCString()+ ";path=/";
+    if (cval != null) document.cookie = name + "=nothing;expires=" + exp.toUTCString() + ";path=/";
 }
 
 function GetURLOption(option)
@@ -389,8 +369,6 @@ function GetURLOption(option)
     var reg = new RegExp("(^|&)" + option + "=([^&]*)(&|$)");
     var r = location.href.substr(location.href.indexOf("?") + 1).match(reg);
     if (r === null)
-    {
         return "nullStr";
-    }
     return r[2];
 }

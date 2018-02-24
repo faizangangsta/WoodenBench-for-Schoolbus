@@ -23,12 +23,5 @@ namespace WBServicePlatform.WebAPIServices
     }
     public static class GlobalApplication
     {
-        public static BmobWindows _Bmob { get; set; }
-
-        public static void Initialize()
-        {
-            _Bmob = new BmobWindows();
-            _Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-        }
     }
 }

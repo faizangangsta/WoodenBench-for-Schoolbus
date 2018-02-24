@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using WBServicePlatform.StaticClasses;
-using WBServicePlatform.Users;
+using WBServicePlatform.WinClient.StaticClasses;
+using WBServicePlatform.WinClient.Users;
 
-namespace WBServicePlatform.DelegateClasses
+namespace WBServicePlatform.WinClient.DelegateClasses
 {
-    public delegate void nullArgDelegate();
+    public delegate void NullArgDelegate();
 
     public delegate void FileIOCompletedEventHandler(FileIOEventArgs e);
 
@@ -20,11 +21,10 @@ namespace WBServicePlatform.DelegateClasses
 
     public delegate void DalegateFunction<Type_A, Type_B>(Type_A type1, Type_B type2);
 
-    public class InternalEventArgs : EventArgs
+    public abstract class InternalEventArgs : EventArgs
     {
-        public ProcStatE ProcessStatus { get; set; }
-        public string Description { get; set; }
-        public Exception Exception { get; set; }
-        public override string ToString() => (ProcessStatus == ProcStatE.FailedWithErr) ? Exception.Message : Description;
+        public OperationStatus ProcessStatus { get; set; }
+        public string ErrDescription { get; set; }
+        public override string ToString() => (ProcessStatus == OperationStatus.Failed) ? ErrDescription : ProcessStatus.ToString();
     }
 }

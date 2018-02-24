@@ -38,7 +38,7 @@ namespace WBServicePlatform.WebManagement
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

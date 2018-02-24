@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.Views
+﻿namespace WBServicePlatform.WinClient.Views
 {
     partial class ChangeUserDataWindow
     {

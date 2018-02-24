@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LHY Leroy Liuhaoyu")]
 [assembly: AssemblyProduct("WoodenBench Desktop")]
-[assembly: AssemblyCopyright("Copyright © Leroy Application 2017")]
+[assembly: AssemblyCopyright("Copyright © Leroy Application 2018~2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

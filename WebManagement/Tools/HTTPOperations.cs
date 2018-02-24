@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace WBServicePlatform.WebAPIServices.HTTPOperation
+namespace WBServicePlatform.WebManagement.Controllers
 {
     public class HTTPJsonOperations
     {

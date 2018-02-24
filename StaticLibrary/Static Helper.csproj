@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolBusObject.cs" />
     <Compile Include="StudentObject.cs" />
+    <Compile Include="ClassObject.cs" />
     <Compile Include="UserObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

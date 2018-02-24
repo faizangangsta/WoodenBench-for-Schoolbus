@@ -20,25 +20,25 @@
       <publishTime>02/20/2018 20:42:36</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>02/21/2018 01:06:24</publishTime>
+      <publishTime>02/24/2018 00:30:09</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>02/21/2018 01:06:24</publishTime>
+      <publishTime>02/24/2018 00:30:09</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>02/21/2018 01:06:18</publishTime>
+      <publishTime>02/24/2018 00:30:04</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>02/21/2018 01:06:18</publishTime>
+      <publishTime>02/24/2018 00:30:04</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
-      <publishTime>02/21/2018 01:06:22</publishTime>
+      <publishTime>02/24/2018 00:30:08</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.pdb">
-      <publishTime>02/21/2018 01:06:22</publishTime>
+      <publishTime>02/24/2018 00:30:08</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>02/21/2018 01:06:24</publishTime>
+      <publishTime>02/24/2018 00:30:09</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>11/11/2017 00:00:00</publishTime>
@@ -455,7 +455,7 @@
       <publishTime>02/20/2018 23:16:48</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WCServicesProvider.js">
-      <publishTime>02/21/2018 00:57:23</publishTime>
+      <publishTime>02/24/2018 00:29:42</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WeiXinModule.js">
       <publishTime>02/20/2018 21:34:58</publishTime>

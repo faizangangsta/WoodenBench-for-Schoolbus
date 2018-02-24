@@ -1,19 +1,20 @@
-﻿using cn.bmob.io;
-using cn.bmob.response;
+﻿using cn.bmob.response;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.Users;
-using static WBServicePlatform.WebAPIServices.GlobalApplication;
+using static WBServicePlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebAPIServices.Controllers
+namespace WBServicePlatform.WebManagement.Controllers
 {
-    public class gen_NewReportController : ApiController
+    [Produces("application/json")]
+    [Route("api/gen/NewReport")]
+    public class NewReportController : Controller
     {
+        [HttpGet]
         public IEnumerable GET(string BusID, string TeacherID, string ReportType, string Content)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();

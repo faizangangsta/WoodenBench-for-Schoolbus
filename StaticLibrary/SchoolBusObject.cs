@@ -7,10 +7,9 @@ namespace WBServicePlatform.TableObject
     {
         public string BusName { get; set; }
         public string TeacherID { get; set; }
-        public string LeavingChecked { get; set; }
-        public string ComingChecked { get; set; }
-
-        public string TeacherName { get; set; }
+        public bool AHChecked { get; set; }
+        public bool CSChecked { get; set; }
+        public bool LSChecked { get; set; }
 
         public SchoolBusObject() { }
         public override string table => Consts.TABLE_N_Mgr_BusData;
@@ -20,19 +19,19 @@ namespace WBServicePlatform.TableObject
             base.readFields(input);
             BusName = input.getString("BusName");
             TeacherID = input.getString("TeacherObjectID");
-            LeavingChecked = input.getString("LeavingChecked");
-            ComingChecked = input.getString("ComingChecked");
-            TeacherName = input.getString("TeacherRealName");
+            LSChecked = input.getBoolean("LSChecked").Get();
+            CSChecked = input.getBoolean("CSChecked").Get();
+            AHChecked = input.getBoolean("AHChecked").Get();
         }
 
         public override void write(BmobOutput output, bool all)
         {
             base.write(output, all);
-            output.Put("BusName", this.BusName);
-            output.Put("TeacherObjectID", this.TeacherID);
-            output.Put("ComingChecked", this.ComingChecked);
-            output.Put("LeavingChecked", this.LeavingChecked);
-            output.Put("TeacherRealName", this.TeacherName);
+            output.Put("BusName", BusName);
+            output.Put("TeacherObjectID", TeacherID);
+            output.Put("CSChecked", CSChecked);
+            output.Put("LSChecked", LSChecked);
+            output.Put("AHChecked", AHChecked);
         }
     }
 }

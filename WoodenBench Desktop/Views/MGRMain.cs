@@ -9,19 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WBServicePlatform.StaticClasses;
-using WBServicePlatform.Users;
-using WBServicePlatform.Views;
-using static WBServicePlatform.StaticClasses.GlobalFunc;
+using WBServicePlatform.TableObject;
+using WBServicePlatform.WinClient.Users;
+using WBServicePlatform.WinClient.Views;
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.Views
+namespace WBServicePlatform.WinClient.Views
 {
     public partial class ManagementWindow : MetroForm
     {
-        int UsrLevel;
-        public ManagementWindow(int UserLevel) : base()
+        public ManagementWindow() : base()
         {
             InitializeComponent();
-            UsrLevel = UserLevel;
         }
 
         private void Management_Load(object sender, EventArgs e)
@@ -66,7 +65,7 @@ namespace WBServicePlatform.Views
                 query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text);
             }
             //query.Skip(CurrNum);
-            var future = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UsrTable, query);
+            var future = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, query);
             future.Wait();
             if (future.IsFaulted)
             {

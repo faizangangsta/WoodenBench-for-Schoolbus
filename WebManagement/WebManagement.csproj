@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RootNamespace>WoodenBench.WebManagement</RootNamespace>
+    <RootNamespace>WBServicePlatform.WebManagement</RootNamespace>
+    <UserSecretsId>5b336559-346a-40e3-8458-681de1ec5c08</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,11 +11,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StaticLibrary\Static Helper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Bmob-Windows">
+      <HintPath>..\BmobDataBase\Windows\Bmob-Windows.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

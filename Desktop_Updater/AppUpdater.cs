@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Net.Http;
 
-namespace Desktop_Updater
+namespace WBServicePlatform.InstallFinaliser
 {
 	/// <summary>
 	/// updater 的摘要说明。

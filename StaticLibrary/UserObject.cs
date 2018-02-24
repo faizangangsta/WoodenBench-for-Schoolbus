@@ -3,24 +3,27 @@ using System.Drawing;
 using WBServicePlatform.StaticClasses;
 using static WBServicePlatform.StaticClasses.Crypto;
 
-namespace WBServicePlatform.Users
+namespace WBServicePlatform.TableObject
 {
     /// <summary>
     /// This is the class which for all users as one object
     /// </summary>
     public class AllUserObject : BmobTable
     {
-        public override string table => Consts.TABLE_N_Gen_UsrTable;
+        public override string table => Consts.TABLE_N_Mgr_Classes;
         public string UserName { get; set; }
-        public bool isFstLogin { get; set; }
         public string Password { get; set; }
-        public UserGroupEnum UserGroup { get; set; }
-        public bool WebNotiSeen { get; set; }
-        public string WeChatID { get; set; }
         public string RealName { get; set; }
-        public string HeadImgData { get; set; }
-        public Image UserImage { get; set; }
-        public bool IsBusTeacher { get; set; }
+
+        public UserGroup UserGroup;
+
+        public bool FirstLogin { get; set; }
+        public bool WebNotiSeen { get; set; }
+
+        public string WeChatID { get; set; }
+        public string HeadImagePath { get; set; }
+        public string PhoneNumber { get; set; }
+
         public AllUserObject() { }
         public override void readFields(BmobInput input)
         {
@@ -28,12 +31,12 @@ namespace WBServicePlatform.Users
             UserName = input.getString("Username");
             Password = input.getString("Password");
             WeChatID = input.getString("WeChatID");
-            UserGroup = (UserGroupEnum)input.getInt("UsrGroup").Get();
+            UserGroup = new UserGroup(input.getString("UserGroup"));
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
-            isFstLogin = input.getBoolean("IsFstLgn").Get();
-            HeadImgData = input.getString("HeadImage");
-            IsBusTeacher = input.getBoolean("isBusTeacher").Get();
+            FirstLogin = input.getBoolean("IsFstLgn").Get();
+            HeadImagePath = input.getString("HeadImage");
+            PhoneNumber = input.getString("PhoneNumber");
         }
 
         public override void write(BmobOutput output, bool all)
@@ -43,12 +46,14 @@ namespace WBServicePlatform.Users
             output.Put("Username", UserName);
             output.Put("Password", Password);
             output.Put("WeChatID", WeChatID);
-            output.Put("UsrGroup", (int)UserGroup);
+            output.Put("UserGroup", UserGroup.ToString());
             output.Put("RealName", RealName);
-            output.Put("IsFstLgn", isFstLogin);
-            output.Put("HeadImage", HeadImgData);
-            output.Put("isBusTeacher", IsBusTeacher);
+            output.Put("IsFstLgn", FirstLogin);
+            output.Put("HeadImage", HeadImagePath);
+            output.Put("PhoneNumber", PhoneNumber);
+
         }
+
         public void SetEveryThingNull()
         {
             objectId = RandomString(10, true, CustomStr: RandomString(5, true));
@@ -56,9 +61,10 @@ namespace WBServicePlatform.Users
             Password = RandomString(10, true, CustomStr: RandomString(5, true));
             WeChatID = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
-            HeadImgData = RandomString(10, true, CustomStr: RandomString(5, true));
-            UserGroup = UserGroupEnum.老师;
+            HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
+            UserGroup = new UserGroup("A0,T0;,P0;,B0");
             WebNotiSeen = false;
+            FirstLogin = false;
         }
     }
 }
