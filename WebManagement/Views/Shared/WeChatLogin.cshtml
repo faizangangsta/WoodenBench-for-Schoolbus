@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "正在使用微信登陆";
+}
+@if ((bool)ViewData["result"])
+{
+    <p>
+        REQUEST ERROR:
+        <strong>Info: </strong><code>@ViewData["Data"]</code>
+        <hr />
+        <strong>Request Time: @DateTime.Now.ToLongTimeString()</strong>
+        <strong>WeChat Login Callback Page</strong>
+    </p>
+}

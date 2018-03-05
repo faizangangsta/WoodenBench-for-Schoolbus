@@ -6,11 +6,11 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBServicePlatform.WebManagement.Tools
 {
-    public class HTTPJsonOperations
+    public class HTTPOperations
     {
-        public static Dictionary<string, string> HTTPJsonGet(string URL)
+        public static Dictionary<string, string> HTTPGet(string URL)
         {
             HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -20,7 +20,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(resp);
         }
 
-        public static Dictionary<string, string> HTTPJsonPost(string postUrl, string paramData)
+        public static Dictionary<string, string> HTTPPost(string postUrl, string paramData)
         {
             try
             {

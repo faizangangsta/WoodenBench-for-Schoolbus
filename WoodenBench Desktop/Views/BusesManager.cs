@@ -53,7 +53,7 @@ namespace WBServicePlatform.WinClient.Views
             schoolBusObjectBindingSource.Clear();
             BmobQuery query = new BmobQuery();
             Task<QueryCallbackData<SchoolBusObject>> task;
-            task = _BmobWin.FindTaskAsync<SchoolBusObject>(Consts.TABLE_N_Mgr_BusData, query);
+            task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConst.TABLE_N_Mgr_BusData, query);
             task.Wait();
             if (task.IsCompleted)
             {
@@ -104,7 +104,7 @@ namespace WBServicePlatform.WinClient.Views
                 {
                     case DialogResult.Yes:
                         Task<DeleteCallbackData> task;
-                        task = _BmobWin.DeleteTaskAsync(Consts.TABLE_N_Mgr_BusData, row.Cells[0].Value.ToString());
+                        task = _BmobWin.DeleteTaskAsync(WBConst.TABLE_N_Mgr_BusData, row.Cells[0].Value.ToString());
                         task.Wait();
                         busDataGrid.Rows.Remove(row);
                         msgLabel.Text = "成功在服务器上删除项目：" + Name;
@@ -190,14 +190,14 @@ namespace WBServicePlatform.WinClient.Views
 
         private void BusesManager_Shown(object sender, EventArgs e)
         {
-            Task<QueryCallbackData<AllUserObject>> task;
+            Task<QueryCallbackData<UserObject>> task;
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            task = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, query);
+            task = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, query);
             task.Wait();
             if (task.IsCompleted)
             {
-                foreach (AllUserObject item in task.Result.results)
+                foreach (UserObject item in task.Result.results)
                 {
                     allUserObjectBindingSource.Add(item);
                 }

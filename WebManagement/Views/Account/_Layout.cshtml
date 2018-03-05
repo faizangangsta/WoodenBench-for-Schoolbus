@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@ViewData["Title"]-校车小板凳管理</title>
+    <title>@ViewData["Title"] - 校车小板凳管理页面</title>
     <script src="~/js/jquery.js"></script>
     <script src="~/js/CryptoJS/core.js"></script>
     <script src="~/js/bmob.js"></script>
@@ -18,12 +18,26 @@
     <script src="~/js/Encryption/SHAHash.js"></script>
     <script src="~/js/bootstrap.js"></script>
 
-    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/WBWeb.css" />
 </head>
 <body class="BodyStyle">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">返回主页</a> 
+                </div>
+            </div>
+        </div>
+    </nav>
     @RenderBody()
     <div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+
+    <script>
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

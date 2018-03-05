@@ -1,24 +1,16 @@
 
-function GetMgmtBus(UserID, UserName, Pswd, CallBackFunction)
+function GetMgmtBus(UserID, BusID, Session, CallBackFunction)
 {
     "use strict";
-    var SALT = getCookie("SecretKey");
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetBuses?" +
         "UserID=" + UserID +
-        "&UserName=" + UserName +
-        "&PsWd=" + Pswd +
-        "&SALT=" + SALT,
+        "&BusID=" + BusID +
+        "&Session=" + Session,
         type: 'GET',
         success: function (data2)
         {
-            if (data2.ErrCode === "0")
-            {
-                CallBackFunction(data2);
-            } else
-            {
-                CallBackFunction(false);
-            }
+            CallBackFunction(data2);
         },
         error: function (err)
         {
@@ -30,24 +22,18 @@ function GetMgmtBus(UserID, UserName, Pswd, CallBackFunction)
 function GetStudents(BusID, TeacherID, CallBackFunction)
 {
     "use strict";
-    var SALT = randomString(32);
-    var STAMP = CryptoJS.SHA256(BusID + ";;" + SALT + TeacherID + ";;" + SALT).toString();
+    var Session = getCookie("Session");
+    var STAMP = CryptoJS.SHA256(BusID + ";;" + Session + TeacherID + ";;" + Session).toString();
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetStudents?" +
         "BusID=" + BusID +
         "&TeacherID=" + TeacherID +
-        "&STAMP=" + STAMP +
-        "&SALT=" + SALT,
+        "&Session=" + Session +
+        "&STAMP=" + STAMP,
         type: 'GET',
         success: function (data2)
         {
-            if (data2.ErrCode === "0")
-            {
-                CallBackFunction(data2);
-            } else
-            {
-                CallBackFunction(false);
-            }
+            CallBackFunction(data2);
         },
         error: function (err)
         {
@@ -75,7 +61,8 @@ function QueryStudents(BusID, Column, Content, CallBackFunction)
             if (data2.ErrCode === "0")
             {
                 CallBackFunction(data2);
-            } else
+            }
+            else
             {
                 CallBackFunction(false);
             }
@@ -102,7 +89,8 @@ function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction)
             if (data2.ErrCode === "0")
             {
                 CallBackFunction(data2);
-            } else
+            }
+            else
             {
                 CallBackFunction(false);
             }
@@ -113,35 +101,24 @@ function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction)
         }
     });
 }
-
-function SignStudent(busID, Mode, value, TeacherID, StudentID, SignCallBack)
+function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack)
+//function SignStudent(busID, Mode, value, TeacherID, StudentID, Session, SignCallBack)
 {
     "use strict";
-    var SALT = randomString(32);
-    var SignString = Mode + ";" + value + ";" + SALT + ";" + TeacherID + ";" + StudentID;
-    SignString = base64Encode(utf16to8En(SignString));
-    var SignVerifier = CryptoJS.SHA256(value + SALT + ";" + Mode + busID + TeacherID).toString();
+    var SALT = getCookie("Session");
     $.ajax({
-        url: location.protocol + "//" + location.host + "api/bus/SignStudents?" +
-        "BusID=" + busID +
-        "&SignData=" +
-        SignVerifier +
-        "&Data=" + SignString,
+        url: location.protocol + "//" + location.host + "/api/bus/SignStudents?" +
+        "BusID=" + BusID +
+        "&SignData=" + CryptoJS.SHA256(Value + SALT + ";" + Mode + BusID + TeacherID).toString() +
+        "&Data=" + base64Encode(utf16to8En(Mode + ";" + Value + ";" + SALT + ";" + TeacherID + ";" + StudentID)),
         type: 'GET',
         success: function (data2)
         {
-            if (data2.ErrCode === "0")
-            {
-                SignCallBack(data2);
-            } else
-            {
-                SignCallBack(false);
-            }
+            SignCallBack(data2);
         },
         error: function (err)
         {
             SignCallBack(false);
         }
     });
-
 }

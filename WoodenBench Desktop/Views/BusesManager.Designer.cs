@@ -279,7 +279,7 @@
             // 
             // allUserObjectBindingSource
             // 
-            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.AllUserObject);
+            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.UserObject);
             // 
             // tableDataGridViewTextBoxColumn
             // 

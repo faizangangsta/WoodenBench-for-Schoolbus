@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"]-校车小板凳管理</title>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/CryptoJS/core.js"></script>
+    <script src="~/js/bmob.js"></script>
+    <script src="~/js/CryptoJS/index.js"></script>
+    <script src="~/js/CryptoJS/crypto-js.js"></script>
+    <script src="~/SchBMgr_js/WeiXinModule.js"></script>
+    <script src="~/SchBMgr_js/UserActivity.js"></script>
+    <script src="~/SchBMgr_js/WCServicesProvider.js"></script>
+    <script src="~/js/Encryption/Base64.js"></script>
+    <script src="~/js/Encryption/MD5.js"></script>
+    <script src="~/js/Encryption/SHAHash.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/WBWeb.css" />
+</head>
+<body class="BodyStyle">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" id="PgTitleBar" asp-controller="Main" asp-action="Index" class="navbar-brand">@((string)ViewData["WhereAmI"] == "index" ? "🏠　主页" : "🏠回主页")</a>
+            </div>
+            <div class="navbar-collapse collapse" id="defaultNavbar1">
+                <ul class="nav navbar-nav">
+                    <li id="index"><a asp-area="" asp-controller="Main" asp-action="Index">概述</a></li>
+                    <li id="issuerpt"><a asp-area="" asp-controller="Main" asp-action="WeekIssue">汇报问题</a></li>
+                    <li id="bugrpt"><a asp-area="" asp-controller="Main" asp-action="ReportBugs">反馈Bug</a></li>
+                    <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                    <li id="usrmgr"><a asp-area="" asp-controller="Account" asp-action="Index">用户管理</a></li>
+                    <li><a href="" id="navUsrName" onclick="RemoveLoginData()">注销当前账户</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script>
+        $("#@ViewData["WhereAmI"]").addClass("active");
+    </script>
+    @RenderSection("Scripts", required: false)
+    @RenderBody()
+    <div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+
+</body>
+</html>

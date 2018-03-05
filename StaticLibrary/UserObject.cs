@@ -1,4 +1,5 @@
 ﻿using cn.bmob.io;
+using System.Collections.Generic;
 using System.Drawing;
 using WBServicePlatform.StaticClasses;
 using static WBServicePlatform.StaticClasses.Crypto;
@@ -8,9 +9,9 @@ namespace WBServicePlatform.TableObject
     /// <summary>
     /// This is the class which for all users as one object
     /// </summary>
-    public class AllUserObject : BmobTable
+    public class UserObject : BmobTable
     {
-        public override string table => Consts.TABLE_N_Mgr_Classes;
+        public override string table => WBConst.TABLE_N_Mgr_Classes;
         public string UserName { get; set; }
         public string Password { get; set; }
         public string RealName { get; set; }
@@ -24,7 +25,9 @@ namespace WBServicePlatform.TableObject
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
 
-        public AllUserObject() { }
+        public UserObject()
+        {
+        }
         public override void readFields(BmobInput input)
         {
             base.readFields(input);
@@ -54,7 +57,7 @@ namespace WBServicePlatform.TableObject
 
         }
 
-        public void SetEveryThingNull()
+        public UserObject SetEveryThingNull()
         {
             objectId = RandomString(10, true, CustomStr: RandomString(5, true));
             UserName = RandomString(10, true, CustomStr: RandomString(5, true));
@@ -62,9 +65,35 @@ namespace WBServicePlatform.TableObject
             WeChatID = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
             HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
-            UserGroup = new UserGroup("A0,T0;,P0;,B0");
+            UserGroup = new UserGroup("A0,T0|,P0|,B0");
             WebNotiSeen = false;
             FirstLogin = false;
+            return this;
+        }
+
+        public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
+
+        public Dictionary<string, string> ToDictionary()
+        {
+            return new Dictionary<string, string>
+            {
+                { "userID", objectId },
+                { "WeChatID", WeChatID },
+                { "RealName", RealName },
+                { "Username", UserName },
+                { "CreatedAt", createdAt },
+                { "HeadImagePath", HeadImagePath },
+                { "FirstLogin", FirstLogin.ToString().ToLower() },
+                { "WebNotiSeen", WebNotiSeen.ToString().ToLower() },
+                { "PhoneNumber", PhoneNumber },
+                //UserGroup
+                { "IsBusTeacher", UserGroup.IsBusManager.ToString().ToLower() },
+                { "IsParent" ,UserGroup.IsParents.ToString().ToLower()},
+                { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
+                { "BusID", UserGroup.BusID },
+                { "ChildIDs" , UserGroup.GetChildIdString(';') },
+                { "ClassIDs", UserGroup.GetClassIdString(';') }
+            };
         }
     }
 }

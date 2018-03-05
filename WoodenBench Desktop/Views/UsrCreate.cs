@@ -46,7 +46,7 @@ namespace WBServicePlatform.WinClient.Views
             if (UserNameT.Text != "" && PasswordT1.Text != "" && PasswordT2.Text != "" && CheckT.Checked && PasswordT1.Text == PasswordT2.Text)
             {
                 UserGroup ug = new UserGroup(isTeacherChk.Checked, isBusManagerChk.Checked, isParentChk.Checked);
-                UserActivity.CreateUser(UserNameT.Text, RealNameT.Text, PasswordT1.Text, ug, phoneNumberTx.Text);
+                Users.UserActivity.CreateUser(UserNameT.Text, RealNameT.Text, PasswordT1.Text, ug, phoneNumberTx.Text);
             }
             else
             {
@@ -58,7 +58,7 @@ namespace WBServicePlatform.WinClient.Views
 
         public void onUserActivity(UserActivityEventArgs e)
         {
-            if (e.Activity == UsrActvtiE.UserCreate)
+            if (e.Activity == UserActivityE.Create)
             {
                 if (e.ProcessStatus == OperationStatus.Completed)
                 {

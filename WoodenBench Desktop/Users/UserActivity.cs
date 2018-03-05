@@ -32,7 +32,7 @@ namespace WBServicePlatform.WinClient.Users
             new Thread(new ThreadStart(delegate { _LogOut(); })) { Name = "User Logoff", IsBackground = false }.Start();
         }
 
-        public static void ChangePassWord(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
+        public static void ChangePassWord(UserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             new Thread(new ThreadStart(delegate { _ChangePsW(NowUser, OriPasswrd, NewPasswrd); }))
             { Name = "User Change Password", IsBackground = false }.Start();
@@ -52,16 +52,16 @@ namespace WBServicePlatform.WinClient.Users
         }
 
         #region Private Operaitons
-        private static void _ChangePsW(AllUserObject NowUser, string OriPasswrd, string NewPasswrd)
+        private static void _ChangePsW(UserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
-            AllUserObject Change = new AllUserObject();
+            UserObject Change = new UserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
-            _BmobWin.Update(Consts.TABLE_N_Gen_UserTable, NowUser.objectId, Change, (resp, exception) =>
+            _BmobWin.Update(WBConst.TABLE_N_Gen_UserTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
-                    onUserActivity(OperationStatus.Failed, UsrActvtiE.UserChangePassword, Detail: exception.Message);
+                    onUserActivity(OperationStatus.Failed, UserActivityE.ChangePassword, Detail: exception.Message);
                 else
-                    onUserActivity(OperationStatus.Completed, UsrActvtiE.UserChangePassword, null);
+                    onUserActivity(OperationStatus.Completed, UserActivityE.ChangePassword, null);
             });
         }
 
@@ -69,7 +69,7 @@ namespace WBServicePlatform.WinClient.Users
         {
             //CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(OperationStatus.Completed, UsrActvtiE.UserLogOff);
+            onUserActivity(OperationStatus.Completed, UserActivityE.LogOff);
         }
 
         /*private static void _UserChangeHeadImage(Image newImage, string UserName)
@@ -107,30 +107,30 @@ namespace WBServicePlatform.WinClient.Users
             UserNameQuery.WhereContainedIn("Username", xUserName);
             try
             {
-                Task<QueryCallbackData<AllUserObject>> UsrNameResult;
-                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, UserNameQuery);
+                Task<QueryCallbackData<UserObject>> UsrNameResult;
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, UserNameQuery);
                 UsrNameResult.Wait();
-                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: "Username Wrong");
+                if (UsrNameResult.Result.results.Count <= 0) onUserActivity(OperationStatus.Failed, UserActivityE.Login, Detail: "Username Wrong");
 
-                AllUserObject FoundUser = UsrNameResult.Result.results[0];
+                UserObject FoundUser = UsrNameResult.Result.results[0];
                 if (FoundUser.Password == HashedPs)
                 {
                     if (OnlyVerify)
                     {
-                        if (FoundUser.RealName == RealN) onUserActivity(OperationStatus.Completed, UsrActvtiE.UserCompare, null);
-                        else onUserActivity(OperationStatus.Failed, UsrActvtiE.UserCompare, Detail: "Realname Wrong");
+                        if (FoundUser.RealName == RealN) onUserActivity(OperationStatus.Completed, UserActivityE.Compare, null);
+                        else onUserActivity(OperationStatus.Failed, UserActivityE.Compare, Detail: "Realname Wrong");
                     }
                     else
                     {
                         CurrentUser = FoundUser;
-                        onUserActivity(OperationStatus.Completed, UsrActvtiE.UsrLogin);
+                        onUserActivity(OperationStatus.Completed, UserActivityE.Login);
                     }
                 }
-                else onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: "Password Wrong");
+                else onUserActivity(OperationStatus.Failed, UserActivityE.Login, Detail: "Password Wrong");
             }
             catch (Exception e)
             {
-                onUserActivity(OperationStatus.Failed, UsrActvtiE.UsrLogin, Detail: e.Message);
+                onUserActivity(OperationStatus.Failed, UserActivityE.Login, Detail: e.Message);
             }
         }
 
@@ -138,7 +138,7 @@ namespace WBServicePlatform.WinClient.Users
         {
             Username = Username.ToLower();
             Password = Crypto.SHA256Encrypt(Password);
-            AllUserObject NewUserObj = new AllUserObject
+            UserObject NewUserObj = new UserObject
             {
                 UserName = Username,
                 RealName = Realname,
@@ -150,20 +150,20 @@ namespace WBServicePlatform.WinClient.Users
                 HeadImagePath = "#",
                 PhoneNumber = phoneNumber
             };
-            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(Consts.TABLE_N_Gen_UserTable, NewUserObj);
+            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(WBConst.TABLE_N_Gen_UserTable, NewUserObj);
             try
             {
                 task.Wait();
                 if (task.Status == TaskStatus.RanToCompletion && task.Exception == null && task.IsCompleted)
-                    onUserActivity(OperationStatus.Completed, UsrActvtiE.UserCreate, "Success " + task.Result.createdAt);
+                    onUserActivity(OperationStatus.Completed, UserActivityE.Create, "Success " + task.Result.createdAt);
             }
             catch (Exception ex)
             {
-                onUserActivity(OperationStatus.Failed, UsrActvtiE.UserCreate, ex.InnerException.Message);
+                onUserActivity(OperationStatus.Failed, UserActivityE.Create, ex.InnerException.Message);
             }
         }
 
-        private static void onUserActivity(OperationStatus Status, UsrActvtiE Act, string Detail = "")
+        private static void onUserActivity(OperationStatus Status, UserActivityE Act, string Detail = "")
         {
             UserActivityEventArgs e = new UserActivityEventArgs()
             {
@@ -181,6 +181,6 @@ namespace WBServicePlatform.WinClient.Users
     public class UserActivityEventArgs : InternalEventArgs
     {
         public UserActivityEventArgs() { }
-        public UsrActvtiE Activity { get; set; }
+        public UserActivityE Activity { get; set; }
     }
 }

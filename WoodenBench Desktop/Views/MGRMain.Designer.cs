@@ -226,7 +226,7 @@
             // 
             // allUserObjectBindingSource
             // 
-            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.AllUserObject);
+            this.allUserObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.UserObject);
             this.allUserObjectBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.allUserObjectBindingSource_ListChanged);
             // 
             // label5

@@ -6,14 +6,25 @@
     <UserSecretsId>5b336559-346a-40e3-8458-681de1ec5c08</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Views\Home\usrlogin.html" />
+    <Content Remove="Views\Main\UserManager.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <None Remove="Views\Main\usrlogin.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="QRCoder" Version="1.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,13 +32,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StaticLibrary\Static Helper.csproj" />
+    <ProjectReference Include="..\StaticLibrary\CoreLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Bmob-Windows">
       <HintPath>..\BmobDataBase\Windows\Bmob-Windows.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

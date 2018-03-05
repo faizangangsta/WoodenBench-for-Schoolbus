@@ -51,7 +51,7 @@ namespace WBServicePlatform.WinClient.Views
                 BmobQuery query = new BmobQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
                 Task<QueryCallbackData<SchoolBusObject>> task;
-                task = _BmobWin.FindTaskAsync<SchoolBusObject>(Consts.TABLE_N_Mgr_BusData, query);
+                task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConst.TABLE_N_Mgr_BusData, query);
                 task.Wait();
                 if (task.Result.results.Count <= 0)
                 {
@@ -111,13 +111,13 @@ namespace WBServicePlatform.WinClient.Views
             studentDataObjectBindingSource.Clear();
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            Task<QueryCallbackData<AllUserObject>> task;
-            task = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Mgr_StuData, query);
+            Task<QueryCallbackData<UserObject>> task;
+            task = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Mgr_StuData, query);
             task.Wait();
             if (task.IsCompleted)
             {
-                List<AllUserObject> list = task.Result.results;
-                foreach (AllUserObject item in list)
+                List<UserObject> list = task.Result.results;
+                foreach (UserObject item in list)
                 {
                     studentDataObjectBindingSource.Add(item);
                 }

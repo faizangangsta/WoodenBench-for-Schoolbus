@@ -30,7 +30,7 @@ namespace WBServicePlatform.WinClient.StaticClasses
             Application.Run(UsrLoginWindow.Default);
         }
 
-        public static AllUserObject CurrentUser { get; set; }
+        public static UserObject CurrentUser { get; set; }
 
         public static BmobWindows _BmobWin { get; set; }
 
@@ -56,7 +56,7 @@ namespace WBServicePlatform.WinClient.StaticClasses
             LogWritter.DebugMessage("Bmob log level is gonna set to \"trace\"");
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _BmobWin = new BmobWindows();
-            _BmobWin.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
+            _BmobWin.initialize(WBConst.BmobAppKey, WBConst.BmobRESTKey);
             LogWritter.DebugMessage("Bmob Object is now initialized and ready to use.");
         }
     }

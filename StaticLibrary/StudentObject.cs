@@ -17,10 +17,10 @@ namespace WBServicePlatform.TableObject
 
         public bool LSChecked { get; set; }
         public bool CSChecked { get; set; }
-        public bool CHChecked { get; set; }
+        public bool AHChecked { get; set; }
 
         public StudentDataObject() { }
-        public override string table => Consts.TABLE_N_Mgr_StuData;
+        public override string table => WBConst.TABLE_N_Mgr_StuData;
 
         public override void readFields(BmobInput input)
         {
@@ -31,7 +31,7 @@ namespace WBServicePlatform.TableObject
             ClassID = input.getString("ClassID");
             CSChecked = input.getBoolean("CSChecked").Get();
             LSChecked = input.getBoolean("LSChecked").Get();
-            CHChecked = input.getBoolean("CHChecked").Get();
+            AHChecked = input.getBoolean("CHChecked").Get();
         }
 
         public override void write(BmobOutput output, bool all)
@@ -41,9 +41,27 @@ namespace WBServicePlatform.TableObject
             output.Put("BusID", BusID);
             output.Put("ParentID", ParentID);
             output.Put("ClassID", ClassID);
-            output.Put("CHChecked", CHChecked);
+            output.Put("CHChecked", AHChecked);
             output.Put("CSChecked", CSChecked);
             output.Put("LSChecked", LSChecked);
+        }
+        public Dictionary<string,string> ToDictionary()
+        {
+            return new Dictionary<string, string>
+            {
+                { "StuID", objectId },
+                { "Name", StudentName },
+                { "BusID", BusID },
+                { "ParentIDs", ParentID },
+                { "ClassID", ClassID },
+                { "ComingChecked", CSChecked.ToString().ToLower() },
+                { "LeavingChecked", LSChecked.ToString() },
+                { "ParentLeavingChecked", AHChecked.ToString() },
+            };
+        }
+        public override string ToString()
+        {
+            return SimpleJson.SimpleJson.SerializeObject(ToDictionary());
         }
     }
 }

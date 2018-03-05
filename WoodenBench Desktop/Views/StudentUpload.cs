@@ -131,7 +131,7 @@ namespace WBServicePlatform.WinClient.Views
             ClassQuery.WhereEqualTo("ClassGrade", ClassYear.Text);
             ClassQuery.WhereEqualTo("ClassNumber", ClassNum.Text);
             Task<QueryCallbackData<ClassObject>> ClassFindTask;
-            ClassFindTask = _BmobWin.FindTaskAsync<ClassObject>(Consts.TABLE_N_Mgr_Classes, ClassQuery);
+            ClassFindTask = _BmobWin.FindTaskAsync<ClassObject>(WBConst.TABLE_N_Mgr_Classes, ClassQuery);
             ClassFindTask.Wait();
             if (!ClassFindTask.IsCompleted || ClassFindTask.Result.results.Count == 0)
             {
@@ -158,8 +158,8 @@ namespace WBServicePlatform.WinClient.Views
             {
                 BmobQuery TeacherDataQuery = new BmobQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                Task<QueryCallbackData<AllUserObject>> TeacherDataFindTask;
-                TeacherDataFindTask = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, TeacherDataQuery);
+                Task<QueryCallbackData<UserObject>> TeacherDataFindTask;
+                TeacherDataFindTask = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, TeacherDataQuery);
                 TeacherDataFindTask.Wait();
                 if (!TeacherDataFindTask.IsCompleted || TeacherDataFindTask.Result.results.Count == 0)
                 {
@@ -180,7 +180,7 @@ namespace WBServicePlatform.WinClient.Views
             BmobQuery StudentsQuery = new BmobQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
             Task<QueryCallbackData<StudentDataObject>> StudentsFindTask;
-            StudentsFindTask = _BmobWin.FindTaskAsync<StudentDataObject>(Consts.TABLE_N_Mgr_StuData, StudentsQuery);
+            StudentsFindTask = _BmobWin.FindTaskAsync<StudentDataObject>(WBConst.TABLE_N_Mgr_StuData, StudentsQuery);
             StudentsFindTask.Wait();
             if (StudentsFindTask.Result.results.Count == 0)
             {
@@ -217,7 +217,7 @@ namespace WBServicePlatform.WinClient.Views
             ClassNum.SelectedIndex = 0;
             BmobQuery query = new BmobQuery();
             Task<QueryCallbackData<SchoolBusObject>> task;
-            task = _BmobWin.FindTaskAsync<SchoolBusObject>(Consts.TABLE_N_Mgr_BusData, query);
+            task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConst.TABLE_N_Mgr_BusData, query);
             task.Wait();
             if (task.IsCompleted)
             {
@@ -315,7 +315,7 @@ namespace WBServicePlatform.WinClient.Views
             StudentDataObject StudentObj = new StudentDataObject();
             StudentObj.CSChecked = false;
             StudentObj.LSChecked = false;
-            StudentObj.CHChecked = false;
+            StudentObj.AHChecked = false;
             this.Enabled = false;
             statusLabel.Text = $"开始上传....";
             this.SureAndUploadBtn.Text = "上传中...";
@@ -413,7 +413,7 @@ namespace WBServicePlatform.WinClient.Views
                 try
                 {
                     Task<DeleteCallbackData> task;
-                    task = _BmobWin.DeleteTaskAsync(Consts.TABLE_N_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value);
+                    task = _BmobWin.DeleteTaskAsync(WBConst.TABLE_N_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value);
                     task.Wait();
                     StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
                     ExDiscription.Text = "成功在服务器上删除:" + Name;

@@ -63,7 +63,7 @@ namespace WBServicePlatform.WinClient.Views
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登录中...";
             Application.DoEvents();
-            UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
+            Users.UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
         }
 
         private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { CreateUserWindow.Default.ShowDialog(); }
@@ -80,7 +80,7 @@ namespace WBServicePlatform.WinClient.Views
 
         public void onUsrLgn(UserActivityEventArgs e)
         {
-            if (e.Activity == UsrActvtiE.UsrLogin)
+            if (e.Activity == UserActivityE.Login)
             {
                 if (e.ProcessStatus == OperationStatus.Completed)
                 {

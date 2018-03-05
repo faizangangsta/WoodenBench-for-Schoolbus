@@ -65,7 +65,7 @@ namespace WBServicePlatform.WinClient.Views
                 query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text);
             }
             //query.Skip(CurrNum);
-            var future = _BmobWin.FindTaskAsync<AllUserObject>(Consts.TABLE_N_Gen_UserTable, query);
+            var future = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, query);
             future.Wait();
             if (future.IsFaulted)
             {
@@ -73,8 +73,8 @@ namespace WBServicePlatform.WinClient.Views
             }
             if (future.IsCompleted)
             {
-                List<AllUserObject> list = future.Result.results;
-                foreach (AllUserObject item in list)
+                List<UserObject> list = future.Result.results;
+                foreach (UserObject item in list)
                 {
                     allUserObjectBindingSource.Add(item);
                 }

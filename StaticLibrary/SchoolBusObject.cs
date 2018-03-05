@@ -1,4 +1,5 @@
 ﻿using cn.bmob.io;
+using System.Collections.Generic;
 using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.TableObject
@@ -12,7 +13,7 @@ namespace WBServicePlatform.TableObject
         public bool LSChecked { get; set; }
 
         public SchoolBusObject() { }
-        public override string table => Consts.TABLE_N_Mgr_BusData;
+        public override string table => WBConst.TABLE_N_Mgr_BusData;
 
         public override void readFields(BmobInput input)
         {
@@ -32,6 +33,24 @@ namespace WBServicePlatform.TableObject
             output.Put("CSChecked", CSChecked);
             output.Put("LSChecked", LSChecked);
             output.Put("AHChecked", AHChecked);
+        }
+
+        public Dictionary<string, string> ToDictionary()
+        {
+            return new Dictionary<string, string>
+            {
+                { "BusID", objectId },
+                { "CreatedAt", createdAt },
+                { "Name", BusName },
+                { "TeacherID", TeacherID },
+                { "ArriveHome", AHChecked.ToString().ToLower() },
+                { "ComingSchool", CSChecked.ToString().ToLower() },
+                { "LeavingSchool", LSChecked.ToString().ToLower() },
+            };
+        }
+        public override string ToString()
+        {
+            return SimpleJson.SimpleJson.SerializeObject(ToDictionary());
         }
     }
 }

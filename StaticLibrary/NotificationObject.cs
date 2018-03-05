@@ -16,7 +16,7 @@ namespace WBServicePlatform.TableObject
         //构造函数
         public NotificationObject() { }
 
-        public override string table => Consts.TABLE_N_Gen_Notifi;
+        public override string table => WBConst.TABLE_N_Gen_Notifi;
 
         //读字段信息
         public override void readFields(BmobInput input)

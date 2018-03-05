@@ -314,9 +314,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StaticLibrary\Static Helper.csproj">
+    <ProjectReference Include="..\StaticLibrary\CoreLibrary.csproj">
       <Project>{2d8b975f-6942-462d-8b1b-31b7639dd5af}</Project>
-      <Name>Static Helper</Name>
+      <Name>CoreLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

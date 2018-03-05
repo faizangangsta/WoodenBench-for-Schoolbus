@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Models;
+using WBServicePlatform.WebManagement.Tools;
 
 namespace WBServicePlatform.WebManagement.Controllers
 {
@@ -12,37 +12,55 @@ namespace WBServicePlatform.WebManagement.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["WhereAmI"] = "index";
-            ViewData["Message"] = "主页啊";
-            return View();
-        }
+            if (SessionManager.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            {
+                Response.Redirect(Request.Scheme + "://" + Request.Host + "/Main/", false);
+                return View();
+            }
+            else
+            {
+                string Stamp = DateTime.Now.TimeOfDay.TotalMilliseconds + ";WCLogin";
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+                    "appid=wx68bec13e85ca6465" +
+                    "&redirect_uri=" + Request.Scheme + "://" + Request.Host + "/Home/WeChatLogin" +
+                    "&response_type=code" + "&scope=snsapi_uerinfo" + "&agentid=41" +
+                    "&state=" + Stamp +
+                    "#wechat_redirect";
 
-        public IActionResult WeekIssue()
-        {
-            ViewData["WhereAmI"] = "issuerpt";
-            ViewData["Message"] = "反馈校车在运行时的问题，如 堵车，学生迟到等……";
-            return View();
+                Response.Cookies.Append("WB_WXLoginOption", Stamp, new CookieOptions() { Path = "/", Expires = DateTimeOffset.Now.AddMinutes(2) });
+                Response.Redirect(url, false);
+                return View();
+            }
         }
-
-        public IActionResult ReportBugs()
+        public IActionResult WeChatLogin(string state, string code)
         {
-            ViewData["WhereAmI"] = "bugrpt";
-            ViewData["Message"] = "反馈本软件的Bug";
-            return View();
-        }
-
-        public IActionResult UserManager()
-        {
-            ViewData["WhereAmI"] = "usrmgr";
-            ViewData["Message"] = "查看当前用户的信息";
-            return View();
-        }
-        
-        public IActionResult SignStudent()
-        {
-            ViewData["WhereAmI"] = "";
-            ViewData["Message"] = "签到";
-            return View();
+            ViewData["result"] = false;
+            if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
+            {
+                ViewData["Data"] = "Illegal Request";
+                return View();
+            }
+            else
+            {
+                ViewData["code"] = code;
+                string Session = SessionManager.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
+                UserObject User = (UserObject)user;
+                if (string.IsNullOrEmpty(Session))
+                {
+                    ViewData["Data"] = "Illegal Request";
+                    return View();
+                }
+                else
+                {
+                    ViewData["result"] = true;
+                    ViewData["Data"] = User.ToString();
+                    Response.Cookies.Append("Session", Session, new CookieOptions() { Expires = DateTime.Now.AddDays(5) });
+                    Response.Cookies.Append("WB_WXLoginOption", "", new CookieOptions() { Expires = DateTime.Now.AddSeconds(-1) });
+                    ViewData["LogonUser"] = SimpleJson.SimpleJson.SerializeObject(User);
+                    Response.Redirect(Request.Scheme + "://" + Request.Host + "/Main/");
+                    return View();
+                }
+            }
         }
 
         public IActionResult Error()

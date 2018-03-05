@@ -13,10 +13,10 @@ function InitWeixin(ForceRemote)
     if (ForceRemote || hex_md5(getCookie("aTicket") + ";" + hex_sha1(getCookie("aToken"))) !== getCookie("TicketHash"))
     {
         console.log("Load WeChat Token From Remote Server..");
-        var CorpId = "wx68bec13e85ca6465";
-        var CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
+        // var CorpId = "wx68bec13e85ca6465";
+        // var CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
         $.ajax({
-            url: location.protocol + "//" + location.host + "api/wx/getAccessToken?" +
+            url: location.protocol + "//" + location.host + "/api/wx/getAccessToken?" +
             "CorpID=" + CorpId +
             "&CorpSecret=" + CorpSecret,
             type: 'GET',
@@ -28,7 +28,7 @@ function InitWeixin(ForceRemote)
                     aTokenStr = base64decode(utf8to16De(aTokenStr));
                     aTokenStr = aTokenStr.substr(0, aTokenStr.length - 5);
                     $.ajax({
-                        url: location.protocol + "//" + location.host + "api/wx/getTicket?" +
+                        url: location.protocol + "//" + location.host + "/api/wx/getTicket?" +
                         "AccessToken=" + aTokenStr,
                         type: 'GET',
                         success: function (data2)
@@ -43,11 +43,11 @@ function InitWeixin(ForceRemote)
                                 setCookie("aTicket", aTicket, aExpire);
                                 setCookie("TicketHash", hex_md5(aTicket + ";" + hex_sha1(aTokenStr)), aExpire - 400);
                                 InitJSSDK(aTicket);
-                            } else { }
+                            }
                         },
                         error: function () { }
                     });
-                } else { }
+                }
             },
             error: function (err) { }
         });
@@ -118,29 +118,11 @@ wx.error(function (res)
     // 的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
 });
 
-function JumpToWeChatLogin(State)
-{
-    "use strict";
-    var TimeStamp = new Date().getTime().toString() + ";" + State;
-    setCookie("WCLogin", TimeStamp, 300);
-    var url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-        "appid=wx68bec13e85ca6465" +
-        "&redirect_uri=" + location.protocol + "//" + location.host + "/WeChatUserCodeReceiver.html" +
-        "&response_type=code" +
-        "&scope=snsapi_userinfo" +
-        "&agentid=41" +
-        "&state=" + TimeStamp +
-        "#wechat_redirect";
-    location.href = url;
-}
-
 function GetUserData(code, callback)
 {
-    "use strict";
     var aToken = getCookie("aToken");
-
     $.ajax({
-        url: location.protocol + "//" + location.host +  "/api/wx/getUserInfo?AccessToken=" + aToken + "&Code=" + code,
+        url: location.protocol + "//" + location.host + "/api/wx/getUserInfo?AccessToken=" + aToken + "&Code=" + code,
         type: 'GET',
         success: function (data)
         {
@@ -150,7 +132,7 @@ function GetUserData(code, callback)
                 usr_TICKET = base64decode(utf8to16De(usr_TICKET));
                 usr_TICKET = usr_TICKET.substr(0, usr_TICKET.length - 1);
                 $.ajax({
-                    url: location.protocol + "//" + location.host +  "/api/wx/getUserDInfo?AccessToken=" + getCookie("aToken") + "&UserTicket=" + usr_TICKET,
+                    url: location.protocol + "//" + location.host + "/api/wx/getUserDInfo?AccessToken=" + getCookie("aToken") + "&UserTicket=" + usr_TICKET,
                     type: 'GET',
                     success: function (data2)
                     {
@@ -183,30 +165,20 @@ function GetUserData(code, callback)
     });
 }
 
-function WriteUserData(Username, DatField, DataContent, Password, CallBackFunction)
+function WriteUserData(UserID, DatField, DataContent, Session, CallBackFunction)
 {
     "use strict";
-    var RandStr = getCookie("SecretKey");
-    var STAMP = CryptoJS.SHA256(DataContent + Password + RandStr).toString();
+    var STAMP = CryptoJS.SHA256(UserID + DataContent + Session).toString() + "_v3_" + Session;
     $.ajax({
-        url: location.protocol + "//" + location.host +  "api/users/Change?" +
-        "Username=" + Username +
+        url: location.protocol + "//" + location.host + "/api/users/Change?" +
+        "UserID=" + UserID +
         "&Column=" + DatField +
         "&Content=" + DataContent +
-        "&STAMP=" + STAMP +
-        "&Ticket=" + RandStr,
+        "&STAMP=" + STAMP,
         type: 'GET',
         success: function (data2)
         {
-            if (data2.ErrCode === "0")
-            {
-                StoreUserData(data2);
-                //CallBackFunction(data2);
-                CallBackFunction(getCookie("SBUser_Data").split(";"));
-            } else
-            {
-                CallBackFunction(false);
-            }
+            CallBackFunction(data2);
         },
         error: function (err)
         {
@@ -215,133 +187,9 @@ function WriteUserData(Username, DatField, DataContent, Password, CallBackFuncti
     });
 }
 
-function StoreUserData(object)
-{
-    "use strict";
-    var RAWVal =
-        object.userID + ";" + object.Username + ";" + object.Password + ";" +
-        object.UserGroup + ";" + object.HeadImagePath + ";" + object.WebNotiSeen + ";" +
-        object.WeChatID + ";" + object.IsBusTeacher;
-    var TS = new Date().getTime().toString();
-    var nonceStr = randomString(64);
-    var SHA1Str = hex_sha1(RAWVal + ";" + TS + ";" + nonceStr);
-    setCookie("SBUser_Data", RAWVal);
-    setCookie("SBUser_Realname", object.RealName);
-    setCookie("NonceString", nonceStr + ";" + TS, 7200);
-    setCookie("StoredSHA1", SHA1Str, 7200);
-}
-
-function Maininit(CallBackAddress, CallbackFunc)
-{
-    "use strict";
-    if (!CheckCookiesExist())
-    {
-        ReDirectToLogin(CallBackAddress);
-        return;
-    }
-    var UsrConfig = getCookie("SBUser_Data");
-    var NStr = getCookie("NonceString").split(";");
-    if (getCookie("StoredSHA1") !== hex_sha1(UsrConfig + ";" + NStr[1] + ";" + NStr[0]))
-    {
-        ReDirectToLogin(CallBackAddress);
-        return;
-    }
-    else
-    {
-        CallbackFunc((UsrConfig + ";" + getCookie("SBUser_Realname")).split(";"));
-    }
-}
-
-function ReDirectToLogin(CallBackAddress, TargetOption)
-{
-    "use strict";
-    setCookie("SBCallBackAddress", CallBackAddress);
-    if (TargetOption === undefined)
-    {
-        TargetOption = "";
-    }
-    location.href = "/usrlogin.html" + TargetOption;
-}
-
-function CheckCookiesExist()
-{
-    "use strict";
-    if (getCookie("SBUser_Data") === null)
-        return false;
-    if (getCookie("NonceString") === null)
-        return false;
-    if (getCookie("StoredSHA1") === null)
-        return false;
-    if (getCookie("SBUser_Realname") === null)
-        return false;
-    return true;
-}
-
-function RemoveLoginData(CleanExit)
-{
-    "use strict";
-    delCookie("SBUser_Sessions");
-    delCookie("NonceString");
-    delCookie("StoredSHA1");
-    delCookie("SBUser_Realname");
-    delCookie("SBUser_Data");
-    if (CleanExit)
-    {
-        delCookie("WCLogin");
-        delCookie("aToken");
-        delCookie("TicketHash");
-        delCookie("aTicket");
-    }
-}
-
-function ProcLogin(object)
-{
-    "use strict";
-    if (object.FirstLogin.toLowerCase() === "true")
-    {
-        StoreUserData(object);
-        WriteUserData(object.Username, "firstlogin", false, object.Password, P);
-    }
-    else
-    {
-        P(object);
-    }
-}
-
-function P(object2)
-{
-    "use strict";
-    if (object2 !== false)
-    {
-        StoreUserData(object2);
-    }
-    if (getCookie("SBCallBackAddress") !== null)
-    {
-        var RDireURL = "" + getCookie("SBCallBackAddress");
-        var TS = "";
-        if (location.href.indexOf("UnBonding=force") > -1)
-        {
-            TS = new Date().getTime().toString();
-            setCookie("UBTimeStamp", TS);
-            location.href = RDireURL + "true&Option=" + base64Encode(utf16to8En(TS));
-        } else if (location.href.indexOf("ChangePassword=RemoteRtn") > -1)
-        {
-            TS = new Date().getTime().toString();
-            setCookie("UBTimeStamp", TS);
-            location.href = RDireURL + "Allowed&Option=" + base64Encode(utf16to8En(TS));
-        } else
-        {
-            location.href = RDireURL;
-        }
-    } else
-    {
-        location.href = "/";
-    }
-}
 
 function setCookie(name, value)
 {
-    "use strict";
     var TimeMins = 40;
     var exp = new Date();
     exp.setTime(exp.getTime() + TimeMins * 60 * 1000);
@@ -360,7 +208,7 @@ function delCookie(name)
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
     var cval = getCookie(name);
-    if (cval != null) document.cookie = name + "=nothing;expires=" + exp.toUTCString() + ";path=/";
+    if (cval !== null) document.cookie = name + "=nothing;expires=" + exp.toUTCString() + ";path=/";
 }
 
 function GetURLOption(option)

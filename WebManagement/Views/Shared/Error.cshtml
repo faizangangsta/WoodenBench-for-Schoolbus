@@ -1,22 +1,43 @@
 ﻿@model WBServicePlatform.WebManagement.Models.ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "出现错误";
 }
+<div class="container">
+    <h3>哈！</h3>
+    <h5 class="text-danger">程序出错了.....</h5>
+    <p class="text-info">Program Error!</p>
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+    <h5 class="text-danger">我们已经记录并会尽力修复此问题，提升您的用户体验</h5>
+    <p class="text-info">We are investigating this issue and try our best to fix it</p>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
-</p>
+    @if (Model.ShowRequestId)
+    {
+        <div class="container">
+            <strong>请求 ID:</strong>
+            <br />
+            <code>@Model.RequestId</code>
+            <br />
+            <strong>请求时间:</strong>
+            <br />
+            <code>@DateTime.Now.TimeOfDay.ToString()</code>
+            <br />
+            <strong>其他可供参考的信息：</strong>
+            <br />
+            <code>@(String.IsNullOrEmpty(Model.Data) ? "暂时没有可以提供的信息" : Model.Data)</code>
+        </div>
+    }
+    <br />
+    <hr />
+    <button class="btn-success btn" style="width: 100%" onclick="location.href = '/Main/'">戳我返回主页</button>
+</div>
+<!-- <h3>Development Mode</h3>
+<!-- <p>
+<!--     Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+<!-- </p>
+<!-- <p>
+<!--     <strong>Development environment should not be enabled in deployed applications</strong>
+<!--     , as it can result in sensitive information from exceptions being displayed to end users.
+<!--     For local debugging, development environment can be enabled by setting the
+<!--     <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>,
+<!--     and restarting the application.
+<!-- </p> -->
