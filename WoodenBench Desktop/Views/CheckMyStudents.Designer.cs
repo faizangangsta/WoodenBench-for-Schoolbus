@@ -258,7 +258,7 @@ namespace WBServicePlatform.WinClient.Views
             // 
             // studentDataObjectBindingSource
             // 
-            this.studentDataObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.StudentDataObject);
+            this.studentDataObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.StudentObject);
             // 
             // ExDescription
             // 

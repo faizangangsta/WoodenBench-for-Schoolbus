@@ -1,18 +1,44 @@
 ﻿@model WBServicePlatform.WebManagement.Models.ErrorViewModel
 @{
-    ViewData["Title"] = "出现错误";
+
+    ViewData["Title"] = "出错啦";
 }
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+@using Microsoft.AspNetCore.Http;
+@{
+    string RAWRequest = Model.Responce.HttpContext.Request.Scheme + "://";
+    RAWRequest = RAWRequest + Model.Responce.HttpContext.Request.Host;
+    RAWRequest = RAWRequest + ((Frame)((DefaultHttpContext)Model.Responce.HttpContext).Features).RawTarget;
+}
+<script id="removeme">
+    $("#Headernav").remove();
+    $("#removeme").remove();
+</script>
+
 <div class="container">
-    <h3>哈！</h3>
-    <h5 class="text-danger">程序出错了.....</h5>
-    <p class="text-info">Program Error!</p>
-
-    <h5 class="text-danger">我们已经记录并会尽力修复此问题，提升您的用户体验</h5>
-    <p class="text-info">We are investigating this issue and try our best to fix it</p>
-
-    @if (Model.ShowRequestId)
+    @if (Model.Responce.StatusCode == 404)
     {
-        <div class="container">
+        <h3>哎 →_→</h3>
+        <h4>你遇到了一个404</h4>
+    }
+    else
+    {
+        <h3>啊！！！</h3>
+        <h4>你找到了一个Bug🐷</h4>
+    }
+    <h5>以下是详细内容：</h5>
+    <div class=" container">
+        <h5 class="text-danger">@(Model.MainTitle)</h5>
+        <h5 class="text-danger">@(Model.MinorDescription)</h5>
+        @if (Model.Responce.StatusCode == 404)
+        {
+            <strong> 请求URL:</strong>
+            <br />
+            <textarea readonly inputmode="url" rows="5" style="overflow: scroll; scrollbar-base-color:black; width:100%">@RAWRequest</textarea>
+        }
+        <br />
+        @if (Model.Responce.StatusCode != 404)
+        {
             <strong>请求 ID:</strong>
             <br />
             <code>@Model.RequestId</code>
@@ -23,21 +49,14 @@
             <br />
             <strong>其他可供参考的信息：</strong>
             <br />
-            <code>@(String.IsNullOrEmpty(Model.Data) ? "暂时没有可以提供的信息" : Model.Data)</code>
-        </div>
-    }
+            <code>@(Model.OtherInfo ?? ViewData["errmsg"])</code>
+        }
+    </div>
     <br />
     <hr />
-    <button class="btn-success btn" style="width: 100%" onclick="location.href = '/Main/'">戳我返回主页</button>
+    <h4>我该怎么办？？</h4>
+    <div class="center-all center-margin">
+        <button class="btn-success btn" style="width: 45%" onclick="location.href='/Home/ReportBugs'">反馈一个Bug</button>
+        <button class="btn-danger btn" style="width: 45%" onclick="location.href='/'">带我返回主页</button>
+    </div>
 </div>
-<!-- <h3>Development Mode</h3>
-<!-- <p>
-<!--     Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-<!-- </p>
-<!-- <p>
-<!--     <strong>Development environment should not be enabled in deployed applications</strong>
-<!--     , as it can result in sensitive information from exceptions being displayed to end users.
-<!--     For local debugging, development environment can be enabled by setting the
-<!--     <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>,
-<!--     and restarting the application.
-<!-- </p> -->

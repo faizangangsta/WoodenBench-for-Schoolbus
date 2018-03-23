@@ -13,7 +13,7 @@ namespace WBServicePlatform.TableObject
         public bool LSChecked { get; set; }
 
         public SchoolBusObject() { }
-        public override string table => WBConst.TABLE_N_Mgr_BusData;
+        public override string table => WBConsts.TABLE_N_Mgr_BusData;
 
         public override void readFields(BmobInput input)
         {

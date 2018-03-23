@@ -4,20 +4,28 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>WBServicePlatform.WebManagement</RootNamespace>
     <UserSecretsId>5b336559-346a-40e3-8458-681de1ec5c08</UserSecretsId>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile></DocumentationFile>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>1701;1702;1705</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Main\UserManager.cshtml" />
+    <Content Remove="Views\BusManager\UserManager.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Views\Main\usrlogin.html" />
+    <None Remove="Views\BusManager\usrlogin.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,10 +58,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 
 </Project>

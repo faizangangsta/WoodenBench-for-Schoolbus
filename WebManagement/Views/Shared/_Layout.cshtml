@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using WBServicePlatform.WebManagement.Controllers;
+<!DOCTYPE public html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@ViewData["Title"]-校车小板凳管理</title>
+    <title>@ViewData["Title"]-小板凳校车管理平台</title>
     <script src="~/js/jquery.js"></script>
     <script src="~/js/CryptoJS/core.js"></script>
     <script src="~/js/bmob.js"></script>
@@ -22,9 +23,47 @@
     <link rel="stylesheet" href="~/css/WBWeb.css" />
 </head>
 <body class="BodyStyle">
-    @RenderBody()
-    <div class="xnav" style="font-size: 11px">Woodenbench for Schoolbus 2017-2018</div>
+    <nav class="navbar navbar-default" id="Headernav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" id="navBar01_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navBar01" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a id="PgTitleBar" asp-controller="@((string)ViewData["where"])" asp-action="Index" class="navbar-brand">@((string)ViewData["where"] == "Home" ? "🏠主页" : "🏠回主页")</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navBar01">
+                <ul class="nav navbar-nav">
+                    <li id="home"><a asp-controller="@HomeController.ControllerName" asp-action="@nameof(HomeController.HomePage)">主页</a></li>
+                    <li id="busmgr"><a asp-controller="@BusManagerController.ControllerName" asp-action="Index">校车管理</a></li>
+                    <li id="classmgr"><a asp-controller="@ClassManagerController.ControllerName" asp-action="Index">班级管理</a></li>
+                    <li id="mychild"><a asp-controller="@MyChildController.ControllerName" asp-action="Index">我的孩子</a></li>
+                    <li id="usermgr"><a asp-controller="@AccountController.ControllerName" asp-action="Index">用户管理</a></li>
+                    <li id="bugreport"><a asp-controller="@HomeController.ControllerName" asp-action="@nameof(HomeController.ReportBugs)">反馈Bug</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     @RenderSection("Scripts", required: false)
+    @RenderBody()
+    <div class="xnav" id="xnav" style="font-size: 11px;" onclick="fx();"></div>
+    <script>
+        var a = 'Woodenbench for Schoolbus 2017 - 2018, Leroy';
+        var b = 'Build Time: @WBServicePlatform.StaticClasses.WBConsts.CurrentVersion()';
+        var c = 'Request Time: @DateTime.Now.ToLongTimeString()';
+        var z = "c";
+        function fx()
+        {
+            if (z === "a") { $("#xnav").text(b); z = "b"; }
+            else if (z === "b") { $("#xnav").text(c); z = "c"; }
+            else if (z === "c") { $("#xnav").text(a); z = "a"; }
+            else { $("#xnav").text(a); z = "a"; }
+        }
+    </script>
+    <script id="_Remove">
+        $("#@ViewData["where"]").addClass("active");
+        $("#_Remove").remove();
+        fx();
+    </script>
 </body>
 </html>

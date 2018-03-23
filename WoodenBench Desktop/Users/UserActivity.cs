@@ -56,7 +56,7 @@ namespace WBServicePlatform.WinClient.Users
         {
             UserObject Change = new UserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
-            _BmobWin.Update(WBConst.TABLE_N_Gen_UserTable, NowUser.objectId, Change, (resp, exception) =>
+            _BmobWin.Update(WBConsts.TABLE_N_Gen_UserTable, NowUser.objectId, Change, (resp, exception) =>
             {
                 if (exception != null)
                     onUserActivity(OperationStatus.Failed, UserActivityE.ChangePassword, Detail: exception.Message);
@@ -108,7 +108,7 @@ namespace WBServicePlatform.WinClient.Users
             try
             {
                 Task<QueryCallbackData<UserObject>> UsrNameResult;
-                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, UserNameQuery);
+                UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, UserNameQuery);
                 UsrNameResult.Wait();
                 if (UsrNameResult.Result.results.Count <= 0) onUserActivity(OperationStatus.Failed, UserActivityE.Login, Detail: "Username Wrong");
 
@@ -150,7 +150,7 @@ namespace WBServicePlatform.WinClient.Users
                 HeadImagePath = "#",
                 PhoneNumber = phoneNumber
             };
-            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(WBConst.TABLE_N_Gen_UserTable, NewUserObj);
+            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(WBConsts.TABLE_N_Gen_UserTable, NewUserObj);
             try
             {
                 task.Wait();

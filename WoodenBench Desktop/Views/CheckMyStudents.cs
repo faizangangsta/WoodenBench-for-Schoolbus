@@ -51,7 +51,7 @@ namespace WBServicePlatform.WinClient.Views
                 BmobQuery query = new BmobQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
                 Task<QueryCallbackData<SchoolBusObject>> task;
-                task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConst.TABLE_N_Mgr_BusData, query);
+                task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
                 task.Wait();
                 if (task.Result.results.Count <= 0)
                 {
@@ -112,7 +112,7 @@ namespace WBServicePlatform.WinClient.Views
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("BusID", myID.Text);
             Task<QueryCallbackData<UserObject>> task;
-            task = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Mgr_StuData, query);
+            task = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Mgr_StuData, query);
             task.Wait();
             if (task.IsCompleted)
             {
@@ -154,9 +154,9 @@ namespace WBServicePlatform.WinClient.Views
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
-            foreach (StudentDataObject item in studentDataObjectBindingSource)
+            foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                Task<UpdateCallbackData> task = _BmobWin.UpdateTaskAsync<StudentDataObject>(item);
+                Task<UpdateCallbackData> task = _BmobWin.UpdateTaskAsync<StudentObject>(item);
                 task.Wait();
                 ExDescription.Text = "成功更新项：" + item.StudentName;
                 Application.DoEvents();

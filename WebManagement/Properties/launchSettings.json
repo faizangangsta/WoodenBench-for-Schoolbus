@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://schoolbus.lhy0403.top/",
+      "applicationUrl": "http://192.168.70.211/",
       "sslPort": 0
     }
   },
@@ -16,11 +16,10 @@
     },
     "WebManagement": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:49882/"
+      "applicationUrl": "http://schoolbus.lhy0403.top"
     }
   }
 }

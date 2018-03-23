@@ -16,7 +16,7 @@ namespace WBServicePlatform.TableObject
         //构造函数
         public BusReport() { }
 
-        public override string table => WBConst.TABLE_N_Mgr_WeekIssue;
+        public override string table => WBConsts.TABLE_N_Mgr_WeekIssue;
 
         //读字段信息
         public override void readFields(BmobInput input)

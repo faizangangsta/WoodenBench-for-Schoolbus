@@ -20,12 +20,14 @@ namespace WBServicePlatform.WebManagement
         public static void Main(string[] args)
         {
             _Bmob = new BmobWindows();
-            _Bmob.initialize(WBConst.BmobAppKey, WBConst.BmobRESTKey);
-            Tools.SessionManager.InitialiseWeChatCodes();
+            _Bmob.initialize(WBConsts.BmobAppKey, WBConsts.BmobRESTKey);
+            Tools.Sessions.InitialiseWeChatCodes();
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args).UseApplicationInsights().UseStartup<Startup>().Build();
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args).UseApplicationInsights().UseStartup<Startup>().Build();
+        }
     }
 }

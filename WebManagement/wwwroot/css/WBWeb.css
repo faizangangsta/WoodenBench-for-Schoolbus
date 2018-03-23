@@ -33,6 +33,7 @@
         display: none;
     }
 }
+
 .BodyStyle {
     background-image: url(../Backgrounds/back3.jpg);
     background-position: center;
@@ -41,9 +42,11 @@
 body {
     margin-bottom: 50px;
 }
+
 .text-underline {
     text-decoration: underline
 }
+
 .pop-box {
     z-index: 9999;
     margin-bottom: 3px;
@@ -74,6 +77,11 @@ body {
     text-align: center;
 }
 
+.choose-square {
+    border: solid, 50px, thick, black;
+    margin: 10px;
+}
+
 .pop-box-body {
     clear: both;
     margin: 4px;
@@ -90,6 +98,8 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .TxBox {
@@ -127,3 +137,11 @@ body {
 .pop-box {
 }
 
+.grey-color {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+    -webkit-filter: grayscale(1);
+}

@@ -56,7 +56,7 @@ namespace WBServicePlatform.WinClient.StaticClasses
             LogWritter.DebugMessage("Bmob log level is gonna set to \"trace\"");
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _BmobWin = new BmobWindows();
-            _BmobWin.initialize(WBConst.BmobAppKey, WBConst.BmobRESTKey);
+            _BmobWin.initialize(WBConsts.BmobAppKey, WBConsts.BmobRESTKey);
             LogWritter.DebugMessage("Bmob Object is now initialized and ready to use.");
         }
     }

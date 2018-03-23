@@ -9,8 +9,9 @@ using static WBServicePlatform.WebManagement.Program;
 
 namespace WBServicePlatform.WebManagement.Tools
 {
-    public static class SessionManager
+    public static class Sessions
     {
+        public static Dictionary<string, string> JumpToken = new Dictionary<string, string>();
         private static Dictionary<string, SessionInfo> _Sessions { get; set; } = new Dictionary<string, SessionInfo>();
         private struct SessionInfo
         {
@@ -21,12 +22,15 @@ namespace WBServicePlatform.WebManagement.Tools
             public UserObject user;
         }
 
+        public static string ErrorRedirectURL(MyError error, string errmsg = null) 
+            => "/Home/Error?err=" + (int)error + (errmsg == null ? "" : "&errmsg=" + errmsg);
+
         private static bool _CheckSessionExists(string SessionString)
         {
             return _Sessions.ContainsKey(SessionString);
         }
 
-        private static string _GetSessionString(UserObject LogonUser)
+        private static string _GetSessionString(UserObject LogonUser, string UA)
         {
             return Crypto.SHA256Encrypt(
                 Crypto.RandomString(10, true) +
@@ -34,7 +38,7 @@ namespace WBServicePlatform.WebManagement.Tools
                 new Random().NextDouble().ToString() +
                 LogonUser.UserGroup.ToString() +
                 DateTime.Now.TimeOfDay.TotalMilliseconds.ToString() +
-                LogonUser.Password +
+                LogonUser.Password + UA +
                 LogonUser.UserGroup.ToString()
                 );
         }
@@ -76,7 +80,7 @@ namespace WBServicePlatform.WebManagement.Tools
                 {
                     _Sessions.Remove(SessionString);
                 }
-                string _Str = _GetSessionString(sessionInfo);
+                string _Str = _GetSessionString(sessionInfo, UserAgent);
                 _AddSession(_Str, new SessionInfo()
                 {
                     LastSeenAlive = DateTime.Now,
@@ -93,7 +97,7 @@ namespace WBServicePlatform.WebManagement.Tools
         {
             ReNewWCCodes();
             LogonUser = null;
-            Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WBConst.WeChat.AccessToken + "&code=" + Code);
+            Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -101,12 +105,12 @@ namespace WBServicePlatform.WebManagement.Tools
             UserNameQuery.WhereContainedIn("WeChatID", WeiXinID);
             try
             {
-                var UsrNameResult = _Bmob.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, UserNameQuery);
+                var UsrNameResult = _Bmob.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, UserNameQuery);
                 UsrNameResult.Wait();
                 if (UsrNameResult.Result.results.Count == 1)
                 {
                     LogonUser = UsrNameResult.Result.results[0];
-                    string SessionString = _GetSessionString((UserObject)LogonUser);
+                    string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);
                     lock (_Sessions)
                     {
                         _AddSession(SessionString, new SessionInfo()
@@ -120,7 +124,7 @@ namespace WBServicePlatform.WebManagement.Tools
                     }
                     return SessionString;
                 }
-                else return null;
+                else return "0";
             }
             catch (Exception) { return null; }
         }
@@ -129,25 +133,25 @@ namespace WBServicePlatform.WebManagement.Tools
         public static bool InitialiseWeChatCodes()
         {
             Dictionary<string, string> JSON;
-            JSON = HTTPOperations.HTTPGet(WBConst.WeChat.AccessToken_Url);
-            WBConst.WeChat.AccessToken = JSON["access_token"];
-            WBConst.WeChat.AvailableTime_Token = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
+            JSON = HTTPOperations.HTTPGet(WeChat.AccessToken_Url);
+            WeChat.AccessToken = JSON["access_token"];
+            WeChat.AvailableTime_Token = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
 
 
-            JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + WBConst.WeChat.AccessToken);
-            WBConst.WeChat.AccessTicket = JSON["ticket"];
-            WBConst.WeChat.AvailableTime_Ticket = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
+            JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + WeChat.AccessToken);
+           WeChat.AccessTicket = JSON["ticket"];
+           WeChat.AvailableTime_Ticket = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
 
             return true;
         }
         public static bool ReNewWCCodes()
         {
-            if (WBConst.WeChat.AvailableTime_Ticket.Subtract(DateTime.Now).TotalSeconds <= 0)
+            if (WeChat.AvailableTime_Ticket.Subtract(DateTime.Now).TotalSeconds <= 0)
             {
                 InitialiseWeChatCodes();
                 return false;
             }
-            if (WBConst.WeChat.AvailableTime_Token.Subtract(DateTime.Now).TotalSeconds <= 0)
+            if (WeChat.AvailableTime_Token.Subtract(DateTime.Now).TotalSeconds <= 0)
             {
                 InitialiseWeChatCodes();
                 return false;

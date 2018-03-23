@@ -1,33 +1,29 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using WBServicePlatform.StaticClasses;
+using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Models;
-
+using WBServicePlatform.WebManagement.Tools;
 namespace WBServicePlatform.WebManagement.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : MyController
     {
-        public IActionResult Index()
+        public const string ControllerName = "Account";
+        public override IActionResult Index()
         {
-            ViewData["WhereAmI"] = "index";
+            ViewData["where"] = "Home";
             ViewData["Message"] = "主页";
             return View();
         }
 
         public IActionResult LoginFailed()
         {
-            ViewData["WhereAmI"] = "loginfailed";
+            ViewData["where"] = ControllerName;
             ViewData["Message"] = "登陆失败";
             return View();
-        }
-
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

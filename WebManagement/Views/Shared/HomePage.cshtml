@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "主页";
+}
+<script>
+    $("#navBar01").remove();
+    $("#navBar01_btn").remove();    
+</script>
+<div class="container">
+    <h4>欢迎使用 "校车小板凳" 管理平台</h4>
+    <h5>请选择功能:</h5>
+    <hr />
+    <div id="ChosenAreas" class="center-margin">
+        <table align="center">
+            <tbody class="center-all text-center" style="border: solid, 1px, black">
+                <tr>
+                    <td onclick="Jummmmmmp('1');">
+                        <img alt="校车管理" class="choose-square" style="height: 120px; width: 120px;" src="~/images/bus.png" />
+                        <p class="text-underline" style="font-size:10pt">校车管理</p>
+                    </td>
+                    <td onclick="Jummmmmmp('2');">
+                        <img alt="班级管理" class="choose-square" style="height: 120px; width: 120px;" src="~/images/class.png" />
+                        <p class="text-underline" style="font-size:10pt">班级管理</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td onclick="Jummmmmmp('3');">
+                        <img alt="我的孩子" class="choose-square" style="height: 120px; width: 120px;" src="~/images/child.svg" />
+                        <p class="text-underline" style="font-size:10pt">我的孩子</p>
+                    </td>
+                    <td onclick="Jummmmmmp('4');">
+                        <img alt="我的账号" class="choose-square" style="height: 120px; width: 120px;" src="~/images/myaccount.png" />
+                        <p class="text-underline" style="font-size:10pt">我的账号</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <p>或者。。。感觉有Bug？？</p>
+    <p>那为啥不<a href="/Home/ReportBugs">汇报一下Bug</a>呢？</p>
+</div>
+<script>
+    function Jummmmmmp(t)
+    {
+        switch (t)
+        {
+            case '1':
+                location.href = "\\BusManager\\";
+                break;
+            case '2':
+                location.href = "\\ClassManager\\";
+                break;
+            case '3':
+                location.href = "\\MyChild\\";
+                break;
+            case '4':
+                location.href = "\\Account\\";
+                break;
+        }
+    }
+</script>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "我的班级";
+}
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0">
+            <img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" />
+        </div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5>查看班里的学生</h5>
+        </div>
+    </div>
+    <div class="container">
+        <hr />
+        <span>我管理的班级：@ViewData["ClassName"].ToString()</span>
+        <h4>坐校车的孩子：</h4>
+        <h5 id="totalNum">总人数：正在加载</h5>
+        <div id="StudentIDs">
+            <div class="row">
+                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">学生姓名</div>
+                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">离校签到</div>
+                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">到家签到</div>
+                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">返校签到</div>
+            </div>
+            <hr />
+        </div>
+    <br />
+    <div id="bottoms" style="text-align: right">
+        <button class="btn btn-success btn-sm" onclick="location.href = '/Home/ReportBugs'">我感觉有Bug</button>
+    </div>
+</div>
+
+<script>
+    var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString(ViewData["cUser"].ToString())"));
+    //var ChildCount = decodeURI("Uri.EscapeUriString(ViewData["ChildCount"].ToString())");
+    document.getElementById("UserID").innerHTML = "你好，" + CurrentUser.RealName;
+    $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+
+    var ClassID = decodeURI("@Uri.EscapeUriString(ViewData["ClassID"].ToString())")
+
+    function GetStudentsCallback(data)
+    {
+        $("#totalNum").text("总人数：" + data.count + "人");
+        for (var i = 0; i < data.count; i++)
+        {
+            var TMP = JSON.parse(eval("data.num_" + i));
+            var Came = TMP.ComingChecked.toLowerCase() === "true";
+            var Leaved = TMP.LeavingChecked.toLowerCase() === "true";
+            var CHome = TMP.ParentLeavingChecked.toLowerCase() === "true";
+            var fff =
+                "<div id='" + TMP.StuID + "' class=\"row\">" +
+                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3 text-underline\">" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></div>" +
+                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\"\">" + (Leaved ? "完成😊" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (CHome ? "完成😊" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (Came ? "完成😊" : "&nbsp;❌") + "</div>";
+            $("#StudentIDs").append(fff);
+            $("#StudentIDs").append("<br />");
+        }
+    }
+    GetClassStudents(ClassID, CurrentUser.userID, GetStudentsCallback);
+</script>

@@ -33,10 +33,10 @@ namespace WBServicePlatform.WebManagement.Controllers
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
             string[] SessionVerify = STAMP.Split("_v3_");
-            if (SessionVerify.Length != 2) return WBConst.RequestIllegal;
+            if (SessionVerify.Length != 2) return WebAPIErrors.RequestIllegal;
             try
             {
-                if (SessionManager.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
+                if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
                     SessionVerify[0] == Crypto.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
                 {
                     UserObject user = new UserObject();
@@ -60,15 +60,12 @@ namespace WBServicePlatform.WebManagement.Controllers
                         case "firstlogin":
                             user.FirstLogin = (bool)Equals2Obj;
                             break;
-                        case "parent":
-                            user.UserGroup.ChildIds = ((string)Equals2Obj).Split(';');
-                            break;
                         default:
 
                             break;
                     }
 
-                    Task<UpdateCallbackData> taskupdate = _Bmob.UpdateTaskAsync(WBConst.TABLE_N_Gen_UserTable, SessionUser.objectId, user);
+                    Task<UpdateCallbackData> taskupdate = _Bmob.UpdateTaskAsync(WBConsts.TABLE_N_Gen_UserTable, SessionUser.objectId, user);
                     taskupdate.Wait();
                     if (taskupdate.IsCompleted)
                     {
@@ -76,11 +73,11 @@ namespace WBServicePlatform.WebManagement.Controllers
                         query.WhereEqualTo("objectId", SessionUser.objectId);
                         switch (QueryHelper.BmobQueryData(query, out List<UserObject> UserList))
                         {
-                            case -1: return WBConst.InternalError;
-                            case 0: return WBConst.SpecialisedError("No Result Found");
+                            case -1: return WebAPIErrors.InternalError;
+                            case 0: return WebAPIErrors.SpecialisedError("No Result Found");
                             default:
                                 Dictionary<string, string> dict = UserList[0].ToDictionary();
-                                string NewSession = SessionManager.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
+                                string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
                                 Response.Cookies.Append("Session", NewSession, new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
                                 dict.Add("ErrCode", "0");
                                 dict.Add("ErrMessage", "null");
@@ -88,13 +85,13 @@ namespace WBServicePlatform.WebManagement.Controllers
                                 return dict;
                         }
                     }
-                    else return WBConst.InternalError;
+                    else return WebAPIErrors.InternalError;
                 }
-                else return WBConst.RequestIllegal;
+                else return WebAPIErrors.RequestIllegal;
             }
             catch (Exception e)
             {
-                return WBConst.SpecialisedError(e.Message);
+                return WebAPIErrors.SpecialisedError(e.Message);
             }
         }
     }

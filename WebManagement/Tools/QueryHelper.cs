@@ -12,6 +12,7 @@ namespace WBServicePlatform.WebManagement.Tools
     {
         public static int BmobQueryData<T>(BmobQuery query, out List<T> Result) where T : BmobTable, new()
         {
+            query.Limit(100);
             Result = new List<T>();
             try
             {

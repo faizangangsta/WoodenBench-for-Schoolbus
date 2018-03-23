@@ -257,7 +257,7 @@
             // 
             // studentDataBindSourc
             // 
-            this.studentDataBindSourc.DataSource = typeof(WBServicePlatform.TableObject.StudentDataObject);
+            this.studentDataBindSourc.DataSource = typeof(WBServicePlatform.TableObject.StudentObject);
             // 
             // label6
             // 

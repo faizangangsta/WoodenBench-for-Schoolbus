@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "学生签到";
+    string SignMode = (string)ViewData["SignMode"];
+    string ButtonArrays = "";
+    string LSString = "\"<div class=\\\"col-sm-3 col-lg-3 col-xs-3 col-md-3\\\"><button id=\\\"\" + TMP.StuID + \"_Leave\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Leaved ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'leave', '\" + !Leaved + \"')\\\">\" + (Leaved ? \"\u53D6\u6D88\" : \"\u79BB\u6821\") + \"</button></div>\"";
+    string CSString = "\"<div class=\\\"col-sm-3 col-lg-3 col-xs-3 col-md-3\\\"><button id=\\\"\" + TMP.StuID + \"_Come\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Came ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'come', '\" + !Came + \"')\\\">\" + (Came ? \"\u53D6\u6D88\" : \"\u8FD4\u6821\") + \"</button></div>\"";
+    if (SignMode == "LS")
+    {
+        ButtonArrays = LSString.Replace("col-xs-3", "col-xs-5");
+    }
+    else if (SignMode == "CS")
+    {
+        ButtonArrays = CSString.Replace("col-xs-3", "col-xs-5");
+    }
+    else if (SignMode == "CD")
+    {
+        ButtonArrays = LSString + "+" + CSString;
+    }
+    ButtonArrays = Uri.EscapeDataString(ButtonArrays);
+}
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5 id="BusDirection">我的校车: 加载中...</h5>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <p>以下数据将每10秒刷新一次：</p>
+        <p id="TimeoutLabel">刷新时间：10</p>
+        @if (SignMode == "LS" || SignMode == "CD")
+        {
+            <p id="LSChecked">离校签到人数: 加载中...</p>
+        }
+        @if (SignMode == "CS" || SignMode == "CD")
+        {
+            <p id="CSChecked">返校签到人数: 加载中...</p>
+        }
+        <p id="ExpNumber">校车总人数: 加载中...</p>
+    </div>
+    <hr>
+    <div id="Students"></div>
+</div>
+
+<script>
+    {
+        var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
+        var todayDay = new Date().getDay().toString();
+
+        var TOut = 0;
+        var BustimeoutHandle = 0;
+        MotherFunction();
+        function MotherFunction()
+        {
+            $("#TimeoutLabel").text("刷新时间：" + TOut);
+            if (TOut === 0)
+            {
+                clearInterval(BustimeoutHandle);
+                $("#TimeoutLabel").text("刷新时间：正在刷新");
+                $("#LSChecked").text("离校签到人数: 加载中...");
+                $("#CSChecked").text("返校签到人数: 加载中...");
+                GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+            }
+            TOut--;
+        }
+        function BusCallBack(data)
+        {
+            CurrentBus = data;
+            $("#LSChecked").text("离校签到人数: " + CurrentBus.LSChecked);
+            $("#CSChecked").text("返校签到人数: " + CurrentBus.CSChecked);
+            TOut = 10;
+            BustimeoutHandle = setInterval(MotherFunction, 1000);
+        }
+
+
+        document.getElementById("UserID").innerHTML = "你好，" + CurrentUser.RealName;
+        $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+
+        if (getCookie("SignMode") === "LS")
+        {
+            if (todayDay !== "5" && !confirm("今天不是星期五\r\n确定要进行离校签到吗?")) location.href = "/BusManager";
+            SignMode = 1;
+        }
+        else if (getCookie("SignMode") === "CS")
+        {
+            if (todayDay !== "7" && !confirm("今天不是星期日\r\n确定要进行返校签到吗?")) location.href = "/BusManager";
+            SignMode = 2;
+        }
+        var totalStudents;
+        var CurrentBus;
+        var SignMode = "@((string)ViewData["SignMode"])";
+        GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack_M);
+        function BusCallBack_M(data)
+        {
+            CurrentBus = data;
+            $("#BusDirection").text("我的校车: " + CurrentBus.Name);
+            GetStudents(CurrentBus.BusID, CurrentBus.TeacherID, TotalStudentsCallBack);
+            function TotalStudentsCallBack(data)
+            {
+                totalStudents = data;
+                $("#ExpNumber").text("校车总人数: " + data.count);
+                $("#LSChecked").text("离校签到人数: " + CurrentBus.LSChecked);
+                $("#AHChecked").text("到家确认人数: " + CurrentBus.AHChecked);
+                $("#CSChecked").text("返校签到人数: " + CurrentBus.CSChecked);
+                for (var i = 0; i < data.count; i++)
+                {
+                    var TMP = JSON.parse(eval("data.num_" + i));
+                    var Content = "<div id='" + TMP.StuID + "' class=\"row container\"><div class=\"col-sm-7 col-lg-7 col-xs-6 col-md-7\"><h6 style='font-size:15px' class='text-underline' >" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></h6></div>";
+                    var Came = TMP.ComingChecked.toLowerCase() === "true", Leaved = TMP.LeavingChecked.toLowerCase() === "true";
+                    Content = Content + eval(unescape(decodeURI("@ButtonArrays")));
+                    Content = Content + "</div>";
+                    $("#Students").append(Content);
+                }
+            }
+        }
+        function Sign(StudentID, Mode, value) { SignStudent(CurrentUser.userID, CurrentBus.BusID, StudentID, Mode, value, SignCallBack); }
+
+        function SignCallBack(data)
+        {
+            if (data.SignMode === "come")
+            {
+                var rst = data.ComingChecked.toLowerCase() === "true";
+                $("#" + data.StuID + "_Come").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+                $("#" + data.StuID + "_Come").text(rst ? "取消" : "返校");
+                $("#" + data.StuID + "_Come").attr("onclick", "Sign('" + data.StuID + "', 'come', '" + !rst + "')");
+            }
+            else if (data.SignMode === "leave")
+            {
+                var rst = data.LeavingChecked.toLowerCase() === "true";
+                $("#" + data.StuID + "_Leave").attr("class", "btn " + (rst ? "btn-success " : "btn-danger ") + "btn-sm");
+                $("#" + data.StuID + "_Leave").text(rst ? "取消" : "离校");
+                $("#" + data.StuID + "_Leave").attr("onclick", "Sign('" + data.StuID + "', 'leave', '" + !rst + "')");
+            }
+        }
+
+
+        function ViewStudent(StudentID)
+        {
+            location.href = "/BusManager/ViewStudent?StudentID=" + StudentID;
+        }
+    }
+</script>
+

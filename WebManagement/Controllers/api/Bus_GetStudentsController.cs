@@ -16,25 +16,26 @@ namespace WBServicePlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string BusID, string TeacherID, string Session, string STAMP)
         {
-            if (SessionManager.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user) && user.UserGroup.BusID == BusID && user.objectId == TeacherID) { }
-            else return WBConst.SessionError;
-            if (Crypto.SHA256Encrypt(user.UserGroup.BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WBConst.RequestIllegal;
+            if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return WebAPIErrors.SessionError;
+            if (!(user.UserGroup.BusID == BusID && user.objectId == TeacherID))
+                return WebAPIErrors.UserGroupError;
+            if (Crypto.SHA256Encrypt(user.UserGroup.BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIErrors.RequestIllegal;
             BmobQuery BusQuery = new BmobQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (QueryHelper.BmobQueryData(BusQuery, out List<SchoolBusObject> BusList))
             {
-                case -1: return WBConst.InternalError;
-                case 0: return WBConst.SpecialisedError("No Result Found");
+                case -1: return WebAPIErrors.InternalError;
+                case 0: return WebAPIErrors.SpecialisedError("No Result Found");
                 default:
                     {
                         BmobQuery StudentQuery = new BmobQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        switch (QueryHelper.BmobQueryData(StudentQuery, out List<StudentDataObject> StudentList))
+                        switch (QueryHelper.BmobQueryData(StudentQuery, out List<StudentObject> StudentList))
                         {
-                            case -1: return WBConst.InternalError;
-                            case 0: return WBConst.SpecialisedError("No Result Found");
+                            case -1: return WebAPIErrors.InternalError;
+                            case 0: return WebAPIErrors.SpecialisedError("No Result Found");
                             default:
                                 dict.Add("count", StudentList.Count.ToString());
                                 for (int i = 0; i < StudentList.Count; i++)

@@ -4,9 +4,9 @@ function GetMgmtBus(UserID, BusID, Session, CallBackFunction)
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetBuses?" +
-        "UserID=" + UserID +
-        "&BusID=" + BusID +
-        "&Session=" + Session,
+            "UserID=" + UserID +
+            "&BusID=" + BusID +
+            "&Session=" + Session,
         type: 'GET',
         success: function (data2)
         {
@@ -26,10 +26,10 @@ function GetStudents(BusID, TeacherID, CallBackFunction)
     var STAMP = CryptoJS.SHA256(BusID + ";;" + Session + TeacherID + ";;" + Session).toString();
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetStudents?" +
-        "BusID=" + BusID +
-        "&TeacherID=" + TeacherID +
-        "&Session=" + Session +
-        "&STAMP=" + STAMP,
+            "BusID=" + BusID +
+            "&TeacherID=" + TeacherID +
+            "&Session=" + Session +
+            "&STAMP=" + STAMP,
         type: 'GET',
         success: function (data2)
         {
@@ -50,11 +50,11 @@ function QueryStudents(BusID, Column, Content, CallBackFunction)
     var STAMP = CryptoJS.SHA256(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT).toString();
     $.ajax({
         url: location.protocol + "//" + location.host + "api/bus/QueryStudents?" +
-        "BusID=" + BusID +
-        "&Column=" + Column +
-        "&Content=" + Content +
-        "&STAMP=" + STAMP +
-        "&SALT=" + SALT,
+            "BusID=" + BusID +
+            "&Column=" + Column +
+            "&Content=" + Content +
+            "&STAMP=" + STAMP +
+            "&SALT=" + SALT,
         type: 'GET',
         success: function (data2)
         {
@@ -79,10 +79,10 @@ function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction)
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "api/gen/NewReport?" +
-        "BusID=" + BusID +
-        "&TeacherID=" + TeacherID +
-        "&ReportType=" + Type +
-        "&Content=" + Content,
+            "BusID=" + BusID +
+            "&TeacherID=" + TeacherID +
+            "&ReportType=" + Type +
+            "&Content=" + Content,
         type: 'GET',
         success: function (data2)
         {
@@ -101,6 +101,8 @@ function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction)
         }
     });
 }
+
+
 function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack)
 //function SignStudent(busID, Mode, value, TeacherID, StudentID, Session, SignCallBack)
 {
@@ -108,9 +110,9 @@ function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack)
     var SALT = getCookie("Session");
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/SignStudents?" +
-        "BusID=" + BusID +
-        "&SignData=" + CryptoJS.SHA256(Value + SALT + ";" + Mode + BusID + TeacherID).toString() +
-        "&Data=" + base64Encode(utf16to8En(Mode + ";" + Value + ";" + SALT + ";" + TeacherID + ";" + StudentID)),
+            "BusID=" + BusID +
+            "&SignData=" + CryptoJS.SHA256(Value + SALT + ";" + Mode + BusID + TeacherID).toString() +
+            "&Data=" + base64Encode(utf16to8En(Mode + ";" + Value + ";" + SALT + ";" + TeacherID + ";" + StudentID)),
         type: 'GET',
         success: function (data2)
         {
@@ -121,4 +123,16 @@ function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack)
             SignCallBack(false);
         }
     });
+}
+
+function GetClassStudents(ClassID, UserID, GetCallback)
+{
+    "use strict";
+    $.ajax({
+        url: location.protocol + "//" + location.host + "/api/class/getStudents?ClassID=" + ClassID + "&TeacherID=" + UserID,
+        type: 'GET',
+        success: function (data) { GetCallback(data); },
+        error: function (err) { GetCallback(false); }
+    });
+
 }

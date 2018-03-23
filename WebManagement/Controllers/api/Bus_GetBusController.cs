@@ -15,23 +15,23 @@ namespace WBServicePlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string UserID, string BusID, string Session)
         {
-            if (SessionManager.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject SessionUser))
+            if (Tools.Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject SessionUser))
             {
                 if (SessionUser.objectId == UserID && SessionUser.UserGroup.IsBusManager && SessionUser.UserGroup.BusID == BusID)
                 {
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("TeacherObjectID", UserID).WhereEqualTo("objectId", BusID), out List<SchoolBusObject> BusList))
                     {
-                        case -1: return WBConst.InternalError;
-                        case 0: return WBConst.SpecialisedError("No Result Found");
+                        case -1: return WebAPIErrors.InternalError;
+                        case 0: return WebAPIErrors.SpecialisedError("No Result Found");
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
-                            switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID), out List<StudentDataObject> StudentList))
+                            switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID), out List<StudentObject> StudentList))
                             {
-                                case -1: return WBConst.InternalError;
-                                case 0: return WBConst.SpecialisedError("No Result Found");
+                                case -1: return WebAPIErrors.InternalError;
+                                case 0: return WebAPIErrors.SpecialisedError("No Result Found");
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
-                                    foreach (StudentDataObject item in StudentList)
+                                    foreach (StudentObject item in StudentList)
                                     {
                                         LSChecked = item.LSChecked ? LSChecked + 1 : LSChecked;
                                         CSChecked = item.CSChecked ? CSChecked + 1 : CSChecked;
@@ -47,9 +47,9 @@ namespace WBServicePlatform.WebManagement.Controllers
                             }
                     }
                 }
-                else return WBConst.RequestIllegal;
+                else return WebAPIErrors.RequestIllegal;
             }
-            else return WBConst.SessionError;
+            else return WebAPIErrors.SessionError;
         }
     }
 }

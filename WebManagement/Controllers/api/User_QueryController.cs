@@ -25,7 +25,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo(ColName, Equals2Obj);
 
-            var FindRst = _Bmob.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, query);
+            var FindRst = _Bmob.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, query);
             FindRst.Wait();
             if (FindRst.IsCompleted)
             {

@@ -6,15 +6,13 @@ using static WBServicePlatform.StaticClasses.Crypto;
 
 namespace WBServicePlatform.TableObject
 {
-    /// <summary>
-    /// This is the class which for all users as one object
-    /// </summary>
     public class UserObject : BmobTable
     {
-        public override string table => WBConst.TABLE_N_Mgr_Classes;
+        public override string table => WBConsts.TABLE_N_Gen_UserTable;
         public string UserName { get; set; }
         public string Password { get; set; }
         public string RealName { get; set; }
+        public string Sex { get; set; }
 
         public UserGroup UserGroup;
 
@@ -25,14 +23,13 @@ namespace WBServicePlatform.TableObject
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
 
-        public UserObject()
-        {
-        }
+
         public override void readFields(BmobInput input)
         {
             base.readFields(input);
             UserName = input.getString("Username");
             Password = input.getString("Password");
+            Sex = input.getString("Sex");
             WeChatID = input.getString("WeChatID");
             UserGroup = new UserGroup(input.getString("UserGroup"));
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
@@ -48,6 +45,7 @@ namespace WBServicePlatform.TableObject
             output.Put("WebNotiSeen", WebNotiSeen);
             output.Put("Username", UserName);
             output.Put("Password", Password);
+            output.Put("Sex", Sex);
             output.Put("WeChatID", WeChatID);
             output.Put("UserGroup", UserGroup.ToString());
             output.Put("RealName", RealName);
@@ -65,7 +63,7 @@ namespace WBServicePlatform.TableObject
             WeChatID = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
             HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
-            UserGroup = new UserGroup("A0,T0|,P0|,B0");
+            UserGroup = new UserGroup("A0,T0|,P0,B0");
             WebNotiSeen = false;
             FirstLogin = false;
             return this;
@@ -91,7 +89,6 @@ namespace WBServicePlatform.TableObject
                 { "IsParent" ,UserGroup.IsParents.ToString().ToLower()},
                 { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
                 { "BusID", UserGroup.BusID },
-                { "ChildIDs" , UserGroup.GetChildIdString(';') },
                 { "ClassIDs", UserGroup.GetClassIdString(';') }
             };
         }

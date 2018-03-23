@@ -65,7 +65,7 @@ namespace WBServicePlatform.WinClient.Views
                 query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text);
             }
             //query.Skip(CurrNum);
-            var future = _BmobWin.FindTaskAsync<UserObject>(WBConst.TABLE_N_Gen_UserTable, query);
+            var future = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, query);
             future.Wait();
             if (future.IsFaulted)
             {

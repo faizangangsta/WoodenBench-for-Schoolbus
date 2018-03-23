@@ -1,0 +1,79 @@
+﻿@using WBServicePlatform.TableObject;
+@model WBServicePlatform.StaticClasses._DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>
+
+@{
+    ViewData["Title"] = "学生信息";
+}
+<style type="text/css">
+    table.tftable {
+        font-size: 12px;
+        color: #333333;
+        width: 100%;
+        border-width: 1px;
+        border-color: #729ea5;
+        border-collapse: collapse;
+    }
+
+        table.tftable th {
+            font-size: 12px;
+            background-color: #acc8cc;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #729ea5;
+            text-align: left;
+        }
+
+        table.tftable tr {
+            background-color: #ffffff;
+        }
+
+        table.tftable td {
+            font-size: 12px;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #729ea5;
+        }
+</style>
+
+<div class="container">
+    <h4>查看学生信息</h4>
+    <div class="container">
+        <label>学生基本信息</label>
+        <table id="tfhover1" class="tftable" border="1">
+            <tr><th>名称</th><th>值</th></tr>
+            <tr><td>姓名</td><td>@Model.Object1.StudentName</td></tr>
+            <tr><td>性别</td><td>@(Model.Object1.Sex == "F" ? "女" : "男")</td></tr>
+            <tr><td>学部</td><td>@Model.Object2.CDepartment</td></tr>
+            <tr><td>班级</td><td>@Model.Object2.CGrade@Model.Object2.CNumber</td></tr>
+            <tr><td>班主任</td><td>@Model.Object3.RealName</td></tr>
+            <tr><td>班主任联系方式</td><td><a href="tel://@Model.Object3.PhoneNumber">@Model.Object3.PhoneNumber</a></td></tr>
+            <tr><td>离校确认</td><td>@(Model.Object1.LSChecked ? "√  已签到" : "×  未签到")</td></tr>
+            <tr><td>返校确认</td><td>@(Model.Object1.CSChecked ? "√  已签到" : "×  未签到")</td></tr>
+            <tr><td>到家确认</td><td>@(Model.Object1.AHChecked ? "√  已确认" : "×  未确认")</td></tr>
+        </table>
+        <br />
+        <label>校车信息</label>
+        <table id="tfhover2" class="tftable" border="1">
+            <tr><th>名称</th><th>值</th></tr>
+            <tr><td>校车方向</td><td>@(Model.Object5.BusName)</td></tr>
+            <tr><td>校车老师</td><td>@(Model.Object6.RealName)</td></tr>
+            <tr><td>联系方式</td><td><a href="tel://@Model.Object6.PhoneNumber">@Model.Object6.PhoneNumber</a></td></tr>
+        </table>
+        <br />
+        <label>家长信息</label>
+        <table id="tfhover3" class="tftable" border="1">
+            <tr><th>名称</th><th>值</th></tr>
+            @for (int i = 0; i < Model.Object4.Length; i++)
+            {
+                <tr><td>@(Model.Object4[i].Sex == "M" ? "父亲" : "母亲")姓名</td><td>@Model.Object4[i].RealName</td></tr>
+                <tr><td>@(Model.Object4[i].Sex == "M" ? "父亲" : "母亲")联系方式</td><td><a href="tel://@Model.Object4[i].PhoneNumber">@Model.Object4[i].PhoneNumber</a></td></tr>
+            }
+        </table>
+    </div>
+    <hr />
+    <div class="container text-center">
+        <button onclick="window.history.back(1);" class="btn btn-success" style="width: 61.8%">返回上一页</button>
+    </div>
+</div>

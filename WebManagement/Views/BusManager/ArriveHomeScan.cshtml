@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "学生到家签到";
+}
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5 id="BusDirection">我的校车: 加载中...</h5>
+        </div>
+    </div>
+    <br>
+    <div id="codeArea">
+        <div id="hints" class="hidden">
+            <p>提醒：</p>
+            <p>你可以打印出以下图片，并放到校车挡风玻璃或其他</p>
+            <p>醒目位置，并提醒家长及时扫码确认学生到家。</p>
+            <br />
+        </div>
+        <div class="text-center">
+            <img id="Code" class="text-center" alt="请点击生成二维码" style="border: dotted 2px black;" src="#" />
+        </div>
+    </div>
+    <hr>
+
+    <div class="container">
+        <p>以下数据将每20秒刷新一次：</p>
+        <p id="TimeoutLabel">刷新时间：20</p>
+        <p id="ExpNumber">校车总人数: 加载中...</p>
+        <p id="AHChecked">到家确认人数: 加载中...</p>
+    </div>
+    <div class="text-center container">
+        <button id="GenCode" hidden class="btn btn-md btn-success hidden" onclick="GenCode()">生成签到二维码</button>
+    </div>
+</div>
+<script>
+    {
+        var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
+        var CurrentBus;
+        var TOut = 0;
+        var BustimeoutHandle = 0;
+
+        MotherFunction();
+
+        document.getElementById("UserID").innerHTML = "你好，" + CurrentUser.RealName;
+        $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+
+        function MotherFunction()
+        {
+            $("#TimeoutLabel").text("刷新时间：" + TOut);
+            if (TOut === 0)
+            {
+                clearInterval(BustimeoutHandle);
+                $("#TimeoutLabel").text("刷新时间：正在刷新");
+                $("#ExpNumber").text("校车总人数: 加载中...");
+                $("#AHChecked").text("到家确认人数: 加载中...");
+                GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+            }
+            TOut--;
+        }
+
+        function BusCallBack(data)
+        {
+            CurrentBus = data;
+            //setCookie("CBusID", CurrentBus.BusID);
+            $("#ExpNumber").text("校车总人数: " + CurrentBus.Total);
+            $("#AHChecked").text("到家确认人数: " + CurrentBus.AHChecked);
+            $("#BusDirection").text("我的校车: " + CurrentBus.Name);
+            $("#GenCode").removeClass("hidden");
+            if (CurrentBus.Total == CurrentBus.AHChecked)
+            {
+                alert("恭喜！所有学生都确认到家了");
+                $("#TimeoutLabel").text("刷新时间：全部到家，已停止刷新");
+            }
+            else
+            {
+                TOut = 20;
+                BustimeoutHandle = setInterval(MotherFunction, 1000);
+            }
+
+        }
+
+        function GenCode()
+        {
+            $("#Code").prop("src", location.protocol + "//" + location.host + "/api/QRCode?Data=" + CurrentBus.BusID + ";" + CurrentUser.userID);
+            $("#GenCode").remove();
+            $("#hints").removeClass("hidden");
+        }
+    }
+</script>

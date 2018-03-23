@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "学生到家签到";
+}
+<div class="container">
+    <div class="container">
+        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0">
+            <img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" />
+        </div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5>确定学生到家了吗？</h5>
+        </div>
+    </div>
+    <div class="container">
+        <hr />
+        <h4>在班车上的你的孩子(们)：</h4>
+        <div class="container">
+            <div id="StudentIDs">
+
+            </div>
+        </div>
+        <hr />
+    </div>
+    <button id="closeme" class="hidden btn btn-success center-all" style="width:70%;" onclick="location.href = '/'">回到主页</button>
+    <div id="Signing">
+        <p>点击按钮，会标记以上学生为“已到家”状态</p>
+        <button class="btn btn-success center-all" style="width:70%;" onclick="SignAllAsArrived();">确认到家</button>
+    </div>
+    <br />
+    <div id="bottoms" style="text-align: right">
+        <button class="btn btn-success btn-sm" onclick="location.href = '/Home/ReportBugs'">我感觉有Bug</button>
+    </div>
+</div>
+
+@for (int i = 0; i < (int)ViewData["ChildCount"]; i++)
+{
+    <script>{ var ChildNum_@i.ToString() = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["ChildNum_" + i.ToString()])")) }</script>
+}
+
+<script>
+    var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
+    var ChildCount = decodeURI("@Uri.EscapeUriString(ViewData["ChildCount"].ToString())");
+    document.getElementById("UserID").innerHTML = "你好，" + CurrentUser.RealName;
+    $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+    var ChildIDs = "";
+
+    for (var i = 0; i < ChildCount; i++)
+    {
+        $("#StudentIDs").append("<h3 id=\"" + eval("ChildNum_" + i).StuID + "\">" + eval("ChildNum_" + i).Name + "</h3>");
+        ChildIDs = ChildIDs + eval("ChildNum_" + i).StuID + ";";
+    }
+    if (ChildCount == 0)
+    {
+        $("#StudentIDs").append("<h3>唔。。</h3>");
+        $("#StudentIDs").append("<h3>看起来你所有的孩子都已经签到了呢</h3>");
+        $("#StudentIDs").append("<h5>emmmm或者就是这车上没有你的孩子</h5>");
+        $("#Signing").remove();
+        $("#closeme").removeClass("hidden");
+    }
+
+    function SignAllAsArrived()
+    {
+        var StudentsSplit = ChildIDs.split(";");
+        $.each(StudentsSplit, (index, value, value2) =>
+        {
+            if (value !== "")
+                SignStudent("@ViewData["cTeacherID"]", "@ViewData["cBusID"]", value, "pleave", true, SignCallBack);
+        });
+
+    }
+    function SignCallBack(signResult)
+    {
+        if (signResult === false)
+        {
+            alert("我们在处理时出错了，过会再试一下？");
+            window.location.reload()
+        }
+        else
+        {
+            if (signResult.ErrCode == "0")
+            {
+                $("#" + signResult.StuID).addClass("text-success");
+                $("#" + signResult.StuID).text($("#" + signResult.StuID).text() + " √");
+                alert("已经确认 " + signResult.Name + "已经到家");
+            }
+            else
+            {
+                $("#" + signResult.StuID).addClass("text-danger");
+                $("#" + signResult.StuID).text($("#" + signResult.StuID).text() + " ×\r\n" + signResult.ErrMessage);
+            }
+        }
+    }
+</script>
