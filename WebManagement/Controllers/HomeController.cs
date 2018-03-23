@@ -28,7 +28,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return Redirect(Sessions.ErrorRedirectURL(MyError.N06_UserGroupError));
+                    return _ErrorRedirect(MyError.N06_UserGroupError);
                 }
             }
             else
@@ -71,7 +71,7 @@ namespace WBServicePlatform.WebManagement.Controllers
         public IActionResult Register(string token)
         {
             ViewData["where"] = ControllerName;
-            if (token == null) return Redirect(Sessions.ErrorRedirectURL(MyError.N07_NoDirectAccessError));
+            if (token == null) return _ErrorRedirect(MyError.N07_NoDirectAccessError);
             string UA = "";
             lock (Sessions.JumpToken)
             {
@@ -82,11 +82,11 @@ namespace WBServicePlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return Redirect(Sessions.ErrorRedirectURL(MyError.N07_NoDirectAccessError));
+                    return _ErrorRedirect(MyError.N07_NoDirectAccessError);
                 }
             }
 
-            if (UA != Request.Headers["User-Agent"].ToString()) return Redirect(Sessions.ErrorRedirectURL(MyError.N07_NoDirectAccessError));
+            if (UA != Request.Headers["User-Agent"].ToString()) return _ErrorRedirect(MyError.N07_NoDirectAccessError);
             return View();
         }
 
@@ -94,13 +94,13 @@ namespace WBServicePlatform.WebManagement.Controllers
         {
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
-                return Redirect(Sessions.ErrorRedirectURL(MyError.N08_WeChatLoginRequestError));
+                return _ErrorRedirect(MyError.N08_WeChatLoginRequestError);
             else
             {
                 string Session = Sessions.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
                 UserObject User = (UserObject)user;
                 if (string.IsNullOrEmpty(Session))
-                    return Redirect(Sessions.ErrorRedirectURL(MyError.N09_WeChatLoginResponceError));
+                    return _ErrorRedirect(MyError.N09_WeChatLoginResponceError);
                 else if (Session == "0")
                 {
                     string token = Crypto.RandomString(10, false);

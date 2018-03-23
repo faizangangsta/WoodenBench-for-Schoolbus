@@ -18,12 +18,5 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["Message"] = "主页";
             return View();
         }
-
-        public IActionResult LoginFailed()
-        {
-            ViewData["where"] = ControllerName;
-            ViewData["Message"] = "登陆失败";
-            return View();
-        }
     }
 }

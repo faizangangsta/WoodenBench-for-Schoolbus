@@ -21,10 +21,6 @@ namespace WBServicePlatform.WebManagement.Tools
             public DateTime LastSeenAlive;
             public UserObject user;
         }
-
-        public static string ErrorRedirectURL(MyError error, string errmsg = null) 
-            => "/Home/Error?err=" + (int)error + (errmsg == null ? "" : "&errmsg=" + errmsg);
-
         private static bool _CheckSessionExists(string SessionString)
         {
             return _Sessions.ContainsKey(SessionString);

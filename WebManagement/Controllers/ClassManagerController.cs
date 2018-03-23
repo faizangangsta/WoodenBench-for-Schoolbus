@@ -22,8 +22,8 @@ namespace WBServicePlatform.WebManagement.Controllers
                 {
                     switch (QueryHelper.BmobQueryData(new cn.bmob.io.BmobQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
                     {
-                        case -1: return Redirect(Sessions.ErrorRedirectURL(MyError.N01_InternalError, "Internal Error"));
-                        case 0: return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "No your class found"));
+                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "Internal Error");
+                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "No your class found");
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].objectId;
@@ -31,7 +31,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                             return View();
                     }
                 }
-                else return Redirect(Sessions.ErrorRedirectURL(MyError.N06_UserGroupError, "你现在不是班主任，暂时不能使用 “班级管理” 功能"));
+                else return _ErrorRedirect(MyError.N06_UserGroupError, "你现在不是班主任，暂时不能使用 “班级管理” 功能");
             }
             else return _LoginFailed("/ClassManager/Index/");
         }
