@@ -10,14 +10,12 @@ namespace WBServicePlatform.StaticClasses
     public static partial class WBConsts
     {
 
-        public static string CurrentVersion()
+        public static string CurrentCoreVersion()
         {
             char[] p = (Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray());
             string ver = new System.IO.FileInfo(new string(p)).LastWriteTime.ToString();
             return ver;
         }
-
-
 
         public const string BmobAppKey = "b770100ff0051b0c313c1a0e975711e6";
         public const string BmobRESTKey = "281fb4c79c3a3391ae6764fa56d1468d";
@@ -54,6 +52,11 @@ namespace WBServicePlatform.StaticClasses
         public const string CorpID = "wx68bec13e85ca6465";
         public const string CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
 
+        public const int agentId = 41;
+
+        public const string sToken = "2Sfp4gdyUgxDYFvKNRDkgcrJ";
+        public const string sEncodingAESKey = "ak5E1GUNu5TAeEnpfUykRKNxoxe5cFo1dh1bTbKjcgB";
+
         public static string AccessTicket { get; set; }
         public static DateTime AvailableTime_Ticket { get; set; }
 
@@ -62,6 +65,31 @@ namespace WBServicePlatform.StaticClasses
 
         public const string AccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + CorpID + "&corpsecret=" + CorpSecret;
 
+        public enum Event
+        {
+            subscribe,
+            enter_agent,
+            LOCATION,
+            batch_job_result,
+            change_contact,
+            click,
+            view,
+            scancode_push,
+            scancode_waitmsg,
+            pic_sysphoto,
+            pic_photo_or_album,
+            pic_weixin,
+            location_select
+        }
+
+        public enum RecivedMessageType
+        {
+            text, EVENT, image, voice, video, location, link
+        }
+        public enum SentMessageType
+        {
+            text, image, voice, video, file, textcard, news, mpnews
+        }
     }
 
     public enum MyError

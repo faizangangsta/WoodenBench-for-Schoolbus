@@ -135,8 +135,8 @@ namespace WBServicePlatform.WebManagement.Tools
 
 
             JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + WeChat.AccessToken);
-           WeChat.AccessTicket = JSON["ticket"];
-           WeChat.AvailableTime_Ticket = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
+            WeChat.AccessTicket = JSON["ticket"];
+            WeChat.AvailableTime_Ticket = DateTime.Now.AddMinutes(int.Parse(JSON["expires_in"]));
 
             return true;
         }

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Collections;
 //using System.Web;
 using System.Security.Cryptography;
+using System.Text;
+using System.Xml;
+using WBServicePlatform.StaticClasses;
 //-40001 ： 签名验证错误
 //-40002 :  xml解析失败
 //-40003 :  sha加密生成签名失败
@@ -16,9 +15,9 @@ using System.Security.Cryptography;
 //-40008 ： 解密后得到的buffer非法
 //-40009 :  base64加密异常
 //-40010 :  base64解密异常
-namespace Tencent
+namespace WBServicePlatform.WebManagement.Tools
 {
-    class WXBizMsgCrypt
+    public class WXEncryptedXMLHelper
     {
         string m_sToken;
         string m_sEncodingAESKey;
@@ -42,7 +41,7 @@ namespace Tencent
         // @param sToken: 企业微信后台，开发者设置的Token
         // @param sEncodingAESKey: 企业微信后台，开发者设置的EncodingAESKey
         // @param sCorpID: 企业号的CorpID
-        public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sCorpID)
+        public WXEncryptedXMLHelper(string sToken, string sEncodingAESKey, string sCorpID)
         {
             m_sToken = sToken;
             m_sCorpID = sCorpID;
@@ -72,7 +71,7 @@ namespace Tencent
             string cpid = "";
             try
             {
-                sReplyEchoStr = Cryptography.AES_decrypt(sEchoStr, m_sEncodingAESKey, ref cpid); //m_sCorpID);
+                sReplyEchoStr = Crypto.WeChat_Cryptography.AES_decrypt(sEchoStr, m_sEncodingAESKey, ref cpid); //m_sCorpID);
             }
             catch (Exception)
             {
@@ -122,7 +121,7 @@ namespace Tencent
             string cpid = "";
             try
             {
-                sMsg = Cryptography.AES_decrypt(sEncryptMsg, m_sEncodingAESKey, ref cpid);
+                sMsg = Crypto.WeChat_Cryptography.AES_decrypt(sEncryptMsg, m_sEncodingAESKey, ref cpid);
             }
             catch (FormatException)
             {
@@ -146,7 +145,7 @@ namespace Tencent
         // @param sEncryptMsg: 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的xml格式的字符串,
         //						当return返回0时有效
         // return：成功0，失败返回对应的错误码
-        public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
+        public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptdeXMLMsg)
         {
             if (m_sEncodingAESKey.Length != 43)
             {
@@ -155,7 +154,7 @@ namespace Tencent
             string raw = "";
             try
             {
-                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sCorpID);
+                raw = Crypto.WeChat_Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sCorpID);
             }
             catch (Exception)
             {
@@ -164,27 +163,17 @@ namespace Tencent
             string MsgSigature = "";
             int ret = 0;
             ret = GenarateSinature(m_sToken, sTimeStamp, sNonce, raw, ref MsgSigature);
-            if (0 != ret)
-                return ret;
-            sEncryptMsg = "";
-
-            string EncryptLabelHead = "<Encrypt><![CDATA[";
-            string EncryptLabelTail = "]]></Encrypt>";
-            string MsgSigLabelHead = "<MsgSignature><![CDATA[";
-            string MsgSigLabelTail = "]]></MsgSignature>";
-            string TimeStampLabelHead = "<TimeStamp><![CDATA[";
-            string TimeStampLabelTail = "]]></TimeStamp>";
-            string NonceLabelHead = "<Nonce><![CDATA[";
-            string NonceLabelTail = "]]></Nonce>";
-            sEncryptMsg = sEncryptMsg + "<xml>" + EncryptLabelHead + raw + EncryptLabelTail;
-            sEncryptMsg = sEncryptMsg + MsgSigLabelHead + MsgSigature + MsgSigLabelTail;
-            sEncryptMsg = sEncryptMsg + TimeStampLabelHead + sTimeStamp + TimeStampLabelTail;
-            sEncryptMsg = sEncryptMsg + NonceLabelHead + sNonce + NonceLabelTail;
-            sEncryptMsg += "</xml>";
+            if (0 != ret) return ret;
+            sEncryptdeXMLMsg = "";
+            sEncryptdeXMLMsg = sEncryptdeXMLMsg + "<xml><Encrypt><![CDATA[" + raw + "]]></Encrypt>";
+            sEncryptdeXMLMsg = sEncryptdeXMLMsg + "<MsgSignature><![CDATA[" + MsgSigature + "]]></MsgSignature>";
+            sEncryptdeXMLMsg = sEncryptdeXMLMsg + "<TimeStamp><![CDATA[" + sTimeStamp + "]]></TimeStamp>";
+            sEncryptdeXMLMsg = sEncryptdeXMLMsg + "<Nonce><![CDATA[" + sNonce + "]]></Nonce>";
+            sEncryptdeXMLMsg += "</xml>";
             return 0;
         }
 
-        public class DictionarySort : System.Collections.IComparer
+        public class DictionarySort : IComparer
         {
             public int Compare(object oLeft, object oRight)
             {
@@ -206,6 +195,7 @@ namespace Tencent
 
             }
         }
+
         //Verify Signature
         private static int VerifySignature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, string sSigture)
         {
@@ -222,7 +212,7 @@ namespace Tencent
             }
         }
 
-        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
+        private static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
             ArrayList AL = new ArrayList
             {

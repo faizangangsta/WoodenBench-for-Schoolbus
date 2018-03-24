@@ -48,16 +48,21 @@
     @RenderBody()
     <div class="xnav" id="xnav" style="font-size: 11px;" onclick="fx();"></div>
     <script>
-        var a = 'Woodenbench for Schoolbus 2017 - 2018, Leroy';
-        var b = 'Build Time: @WBServicePlatform.StaticClasses.WBConsts.CurrentVersion()';
-        var c = 'Request Time: @DateTime.Now.ToLongTimeString()';
-        var z = "c";
+        var a = 'Woodenbench for Schoolbus 2018 ~ 2019';
+        var b = 'Copyright Leroy.H.Y 2018 ~ 2019';
+        var c = 'Core Version: @WBServicePlatform.StaticClasses.WBConsts.CurrentCoreVersion()';
+        var d = 'Web Management Module Version: @Program.Version';
+        var e = 'Request Time: @DateTime.Now.ToString()';
+        var z = "a";
         function fx()
         {
-            if (z === "a") { $("#xnav").text(b); z = "b"; }
-            else if (z === "b") { $("#xnav").text(c); z = "c"; }
-            else if (z === "c") { $("#xnav").text(a); z = "a"; }
-            else { $("#xnav").text(a); z = "a"; }
+            $("#xnav").text(eval(z));
+            if (z === "a") { z = "b"; }
+            else if (z === "b") z = "c";
+            else if (z === "c") z = "d";
+            else if (z === "d") z = "e";
+            else if (z === "e") z = "a";
+            else z = "a";
         }
     </script>
     <script id="_Remove">
