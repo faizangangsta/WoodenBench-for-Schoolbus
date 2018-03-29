@@ -43,14 +43,14 @@ namespace WBServicePlatform.WebManagement.Models
                     MainTitle = "访问错误";
                     MinorDescription = "你不能直接访问本页面，请跟随指引操作";
                     break;
-                case MyError.N08_WeChatLoginRequestError:
-                    MainTitle = "微信登录请求错误";
-                    MinorDescription = "在处理微信登录请求时出现问题";
-                    break;
-                case MyError.N09_WeChatLoginResponceError:
-                    MainTitle = "微信登陆处理错误";
-                    MinorDescription = "在尝试使用微信账户登陆时发生错误";
-                    break;
+                //case MyError.N08_WeChatLoginRequestError:
+                //    MainTitle = "微信登录请求错误";
+                //    MinorDescription = "在处理微信登录请求时出现问题";
+                //    break;
+                //case MyError.N09_WeChatLoginResponceError:
+                //    MainTitle = "微信登陆处理错误";
+                //    MinorDescription = "在尝试使用微信账户登陆时发生错误";
+                //    break;
                 case MyError.N10_Normal404Error:
                     MainTitle = "404……";
                     MinorDescription = "您所查找的文件或资源不存在（认真脸）🌚。。。";

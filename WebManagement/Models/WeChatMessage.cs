@@ -11,7 +11,7 @@ namespace WBServicePlatform.WebManagement.Tools
 {
     public class WeChatMessage
     {
-        public WeChat.RecivedMessageType MessageType { get; set; }
+        public WeChat.RcvdMessageType MessageType { get; set; }
 
         public WeChat.Event Event { get; set; }
 
@@ -28,13 +28,13 @@ namespace WBServicePlatform.WebManagement.Tools
         public string MediaId { get; set; }
         public string EventKey { get; set; }
 
-
+        public WeChatMessage() { }
         public WeChatMessage(string XMLMessage)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(XMLMessage);
             XmlNode root = doc.FirstChild;
-            MessageType = (WeChat.RecivedMessageType)Enum.Parse(typeof(WeChat.RecivedMessageType), root["MsgType"].InnerText, true);
+            MessageType = (WeChat.RcvdMessageType)Enum.Parse(typeof(WeChat.RcvdMessageType), root["MsgType"].InnerText, true);
 
             FromUser = root["FromUserName"].InnerText;
             ToUser = root["ToUserName"].InnerText;
@@ -43,15 +43,15 @@ namespace WBServicePlatform.WebManagement.Tools
 
             switch (MessageType)
             {
-                case WeChat.RecivedMessageType.text:
+                case WeChat.RcvdMessageType.text:
                     TextContent = root["Content"].InnerText;
                     MessageID = root["MsgId"].InnerText;
                     break;
-                case WeChat.RecivedMessageType.image:
+                case WeChat.RcvdMessageType.image:
                     PicUrl = root["PicUrl"].InnerText;
                     MediaId = root["MediaId"].InnerText;
                     break;
-                case WeChat.RecivedMessageType.EVENT:
+                case WeChat.RcvdMessageType.EVENT:
                     Event = (WeChat.Event)Enum.Parse(typeof(WeChat.Event), root["Event"].InnerText, true);
                     switch (Event)
                     {

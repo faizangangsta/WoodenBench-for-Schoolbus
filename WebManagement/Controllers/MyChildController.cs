@@ -11,7 +11,7 @@ using WBServicePlatform.WebManagement.Tools;
 
 namespace WBServicePlatform.WebManagement.Controllers
 {
-    public class MyChildController : MyController
+    public class MyChildController : _Controller
     {
         public const string ControllerName = "MyChild";
         public override IActionResult Index()
@@ -27,18 +27,18 @@ namespace WBServicePlatform.WebManagement.Controllers
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 if (ID == null)
-                    return _ErrorRedirect(MyError.N04_RequestIllegalError, "MyChild::ParentsCheck ==> Req_Error");
+                    return _OnInternalError(MyError.N04_RequestIllegalError, "MyChild::ParentsCheck ==> Req_Error");
                 string[] IDSplit = ID.Split(";");
                 if (IDSplit.Length != 2)
-                    return _ErrorRedirect(MyError.N04_RequestIllegalError, "MyChild::ParentsCheck ==> Req_Error");
+                    return _OnInternalError(MyError.N04_RequestIllegalError, "MyChild::ParentsCheck ==> Req_Error");
                 if (!user.UserGroup.IsParents)
-                    return _ErrorRedirect(MyError.N06_UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)");
+                    return _OnInternalError(MyError.N06_UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)");
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case -1: return _ErrorRedirect(MyError.N01_InternalError, "MyChild::ParentsCheck ==> FetchStudentListError");
+                    case -1: return _OnInternalError(MyError.N01_InternalError, "MyChild::ParentsCheck ==> FetchStudentListError");
                     case 0: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         foreach (StudentObject item in StudentListInBus)

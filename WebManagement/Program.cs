@@ -21,7 +21,7 @@ namespace WBServicePlatform.WebManagement
         public static WXEncryptedXMLHelper _WeChatEncryptor { get; set; }
         public static string Version { get; private set; }
         public static void Main(string[] args)
-        {
+        { 
             char[] p = (Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray());
             Version = new FileInfo(new string(p)).LastWriteTime.ToString();
             _Bmob = new BmobWindows();
@@ -35,7 +35,7 @@ namespace WBServicePlatform.WebManagement
 
         public static IWebHost BuildWebHost(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args).UseApplicationInsights().UseStartup<Startup>().Build();
+            return WebHost.CreateDefaultBuilder(args).UseIISIntegration().UseKestrel().UseApplicationInsights().UseStartup<Startup>().Build();
         }
     }
 }

@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Text;
-using System.Xml;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WebManagement;
 using WBServicePlatform.WebManagement.Tools;
 
-namespace WebManagement.Controllers.api
+namespace WBServicePlatform.WebManagement.Controllers.api
 {
     [Produces("application/json")]
     [Route("api/WeChatMessage")]

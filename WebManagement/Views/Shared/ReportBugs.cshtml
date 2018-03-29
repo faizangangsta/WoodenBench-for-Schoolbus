@@ -20,17 +20,10 @@
 </div>
 <script>
     Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-    var currentUser;
-
-    function mainInitCallback(cUser)
-    {
-        currentUser = cUser;
-    }
-
     function SubMitRpt()
     {
         var MainVar = new (Bmob.Object.extend("UserQuestions"))();
-        MainVar.set("UserConfig", currentUser.toString());
+        MainVar.set("UserConfig", "OBSOLATED");
         MainVar.set("Title", $("#title").val());
         MainVar.set("Content", $("#content").val());
         MainVar.set("AdminRead", false);

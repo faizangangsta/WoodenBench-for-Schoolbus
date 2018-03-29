@@ -17,8 +17,8 @@ function InitWeixin(ForceRemote)
         // var CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
         $.ajax({
             url: location.protocol + "//" + location.host + "/api/wx/getAccessToken?" +
-            "CorpID=" + CorpId +
-            "&CorpSecret=" + CorpSecret,
+                "CorpID=" + CorpId +
+                "&CorpSecret=" + CorpSecret,
             type: 'GET',
             success: function (data)
             {
@@ -29,7 +29,7 @@ function InitWeixin(ForceRemote)
                     aTokenStr = aTokenStr.substr(0, aTokenStr.length - 5);
                     $.ajax({
                         url: location.protocol + "//" + location.host + "/api/wx/getTicket?" +
-                        "AccessToken=" + aTokenStr,
+                            "AccessToken=" + aTokenStr,
                         type: 'GET',
                         success: function (data2)
                         {
@@ -171,10 +171,10 @@ function WriteUserData(UserID, DatField, DataContent, Session, CallBackFunction)
     var STAMP = CryptoJS.SHA256(UserID + DataContent + Session).toString() + "_v3_" + Session;
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/users/Change?" +
-        "UserID=" + UserID +
-        "&Column=" + DatField +
-        "&Content=" + DataContent +
-        "&STAMP=" + STAMP,
+            "UserID=" + UserID +
+            "&Column=" + DatField +
+            "&Content=" + DataContent +
+            "&STAMP=" + STAMP,
         type: 'GET',
         success: function (data2)
         {

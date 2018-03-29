@@ -13,7 +13,7 @@ using WBServicePlatform.WebManagement.Tools;
 
 namespace WBServicePlatform.WebManagement.Controllers
 {
-    public class BusManagerController : MyController
+    public class BusManagerController : _Controller
     {
         public const string ControllerName = "BusManager";
         public override IActionResult Index()
@@ -51,7 +51,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _ErrorRedirect(MyError.N04_RequestIllegalError, "_SignStudent::CookieExpire");
+                else return _OnInternalError(MyError.N04_RequestIllegalError, "_SignStudent::CookieExpire");
             }
             else return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
         }
@@ -67,7 +67,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ViewData["cBus"] = user.UserGroup.BusID;
                     ViewData["cTeacher"] = user.objectId;
                 }
-                else return _ErrorRedirect(MyError.N06_UserGroupError, "_ArriveHomeSigning::UserGroupInvalid");
+                else return _OnInternalError(MyError.N06_UserGroupError, "_ArriveHomeSigning::UserGroupInvalid");
             }
             else return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
             return View();
@@ -84,41 +84,41 @@ namespace WBServicePlatform.WebManagement.Controllers
                 {
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID), out List<StudentObject> StudentList))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetStudentByID::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetStudentByID::0 :: StudentID = " + StudentID);
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetStudentByID::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetStudentByID::0 :: StudentID = " + StudentID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", StudentList[0].ClassID), out List<ClassObject> ClassList))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetClassByID::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetClassByID::0");
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetClassByID::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetClassByID::0");
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", ClassList[0].TeacherID), out List<UserObject> TeacherList))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetTeacherByID::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetTeacherByID::0");
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetTeacherByID::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetTeacherByID::0");
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].ParentsID.Split(';')), out List<UserObject> Parents))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetParentsByGroup::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetParentsByGroup::0");
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetParentsByGroup::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetParentsByGroup::0");
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].BusID), out List<SchoolBusObject> BusList))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetBusByGroup::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetBusByGroup::0");
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetBusByGroup::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetBusByGroup::0");
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", BusList[0].TeacherID), out List<UserObject> BusTeacherList))
                     {
-                        case -1: return _ErrorRedirect(MyError.N01_InternalError, "_GetBusTeacherByGroup::-1");
-                        case 0: return _ErrorRedirect(MyError.N03_ItemsNotFoundError, "_GetBusTeacherByGroup::0");
+                        case -1: return _OnInternalError(MyError.N01_InternalError, "_GetBusTeacherByGroup::-1");
+                        case 0: return _OnInternalError(MyError.N03_ItemsNotFoundError, "_GetBusTeacherByGroup::0");
                     }
                     if (StudentList[0].ClassID == ClassID && StudentList[0].BusID == BusID)
                     {
                         return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(StudentList[0], ClassList[0], TeacherList[0], Parents.ToArray(), BusList[0], BusTeacherList[0]));
                     }
-                    else return _ErrorRedirect(MyError.N04_RequestIllegalError);
+                    else return _OnInternalError(MyError.N04_RequestIllegalError);
                 }
-                else return _ErrorRedirect(MyError.N06_UserGroupError, "ViewStudent_Request::UserGroup_PermissionDenied");
+                else return _OnInternalError(MyError.N06_UserGroupError, "ViewStudent_Request::UserGroup_PermissionDenied");
             }
             //Return to Home because this is privacy-related function
             else return _LoginFailed("/");

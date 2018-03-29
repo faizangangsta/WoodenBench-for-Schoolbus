@@ -63,7 +63,7 @@ namespace WBServicePlatform.StaticClasses
         public static string AccessToken { get; set; }
         public static DateTime AvailableTime_Token { get; set; }
 
-        public const string AccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + CorpID + "&corpsecret=" + CorpSecret;
+        public const string GetAccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + CorpID + "&corpsecret=" + CorpSecret;
 
         public enum Event
         {
@@ -82,9 +82,9 @@ namespace WBServicePlatform.StaticClasses
             location_select
         }
 
-        public enum RecivedMessageType
+        public enum RcvdMessageType
         {
-            text, EVENT, image, voice, video, location, link
+            text, EVENT, image, voice, video, location, link, _DEVELOPER_ERROR_REPORT
         }
         public enum SentMessageType
         {
@@ -100,8 +100,8 @@ namespace WBServicePlatform.StaticClasses
         N05_PermissionDeniedError = 5,
         N06_UserGroupError = 6,
         N07_NoDirectAccessError = 7,
-        N08_WeChatLoginRequestError = 8,
-        N09_WeChatLoginResponceError = 9,
+        //N08_WeChatLoginRequestError = 8,
+        //N09_WeChatLoginResponceError = 9,
         N10_Normal404Error = 10,
         N11_Server5xxError = 11,
         N99_UnknownError = 99,

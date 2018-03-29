@@ -32,6 +32,26 @@ namespace WBServicePlatform.StaticClasses
             }
 
         }
+        public static string SHA512Encrypt(string strIN)
+        {
+            byte[] bytValue = Encoding.UTF8.GetBytes(strIN);
+            try
+            {
+                SHA512 sha512 = new SHA512CryptoServiceProvider();
+                byte[] retVal = sha512.ComputeHash(bytValue);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < retVal.Length; i++)
+                {
+                    sb.Append(retVal[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetSHA256HashFromString() fail, error: " + ex.Message);
+            }
+
+        }
 
         public static string RandomString(int Length, bool Symbols, string CustomStr = "")
         {

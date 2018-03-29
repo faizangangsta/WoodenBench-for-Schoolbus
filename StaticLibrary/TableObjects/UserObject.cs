@@ -84,6 +84,7 @@ namespace WBServicePlatform.TableObject
                 { "FirstLogin", FirstLogin.ToString().ToLower() },
                 { "WebNotiSeen", WebNotiSeen.ToString().ToLower() },
                 { "PhoneNumber", PhoneNumber },
+                { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },
                 //UserGroup
                 { "IsBusTeacher", UserGroup.IsBusManager.ToString().ToLower() },
                 { "IsParent" ,UserGroup.IsParents.ToString().ToLower()},

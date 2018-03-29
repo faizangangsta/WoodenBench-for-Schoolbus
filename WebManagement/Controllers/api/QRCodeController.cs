@@ -3,12 +3,11 @@ using QRCoder;
 using System.DrawingCore;
 using System.DrawingCore.Imaging;
 using System.IO;
-using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Properties;
 using WBServicePlatform.WebManagement.Tools;
 
-namespace WebManagement.Controllers
+namespace WBServicePlatform.WebManagement.Controllers
 {
     [Produces("image/Jpeg")]
     [Route("api/QRCode")]

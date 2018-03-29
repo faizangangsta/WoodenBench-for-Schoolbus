@@ -10,7 +10,7 @@ using WBServicePlatform.WebManagement.Tools;
 
 namespace WBServicePlatform.WebManagement.Controllers
 {
-    public class HomeController : MyController
+    public class HomeController : _Controller
     {
         public const string ControllerName = "Home";
         public override IActionResult Index()
@@ -28,7 +28,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return _ErrorRedirect(MyError.N06_UserGroupError);
+                    return _OnInternalError(MyError.N06_UserGroupError);
                 }
             }
             else
@@ -44,15 +44,20 @@ namespace WBServicePlatform.WebManagement.Controllers
             }
         }
 
+        /// <summary>
+        /// Don't Check Login in BugReport
+        /// the user may experience LOGIN ERROR.......
+        /// </summary>
+        /// <returns>Bug Report Form </returns>
         public IActionResult ReportBugs()
         {
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
-            {
-                ViewData["cUser"] = user.ToString();
-                return View();
-            }
-            else return _LoginFailed("/" + ControllerName + "/ReportBugs");
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            return _OnInternalError(Response.StatusCode.ToString() == "404" ? MyError.N10_Normal404Error : MyError.N99_UnknownError, "Server Error");
         }
 
         public IActionResult HomePage()
@@ -68,72 +73,36 @@ namespace WBServicePlatform.WebManagement.Controllers
             }
         }
 
-        public IActionResult Register(string token)
+        public IActionResult Register(string token, string user, string action)
         {
             ViewData["where"] = ControllerName;
-            if (token == null) return _ErrorRedirect(MyError.N07_NoDirectAccessError);
-            string UA = "";
-            lock (Sessions.JumpToken)
-            {
-                if (Sessions.JumpToken.ContainsKey(token))
-                {
-                    UA = Sessions.JumpToken[token];
-                    Sessions.JumpToken.Remove(token);
-                }
-                else
-                {
-                    return _ErrorRedirect(MyError.N07_NoDirectAccessError);
-                }
-            }
+            if (token == null || Request.Cookies["Token"] == null) return _OnInternalError(MyError.N07_NoDirectAccessError);
 
-            if (UA != Request.Headers["User-Agent"].ToString()) return _ErrorRedirect(MyError.N07_NoDirectAccessError);
             return View();
         }
 
         public IActionResult WeChatLogin(string state, string code)
         {
             ViewData["where"] = ControllerName;
-            if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
-                return _ErrorRedirect(MyError.N08_WeChatLoginRequestError);
+            if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code)) return _OnInternalError(MyError.N04_RequestIllegalError);
             else
             {
                 string Session = Sessions.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
                 UserObject User = (UserObject)user;
-                if (string.IsNullOrEmpty(Session))
-                    return _ErrorRedirect(MyError.N09_WeChatLoginResponceError);
+                if (string.IsNullOrEmpty(Session)) return _OnInternalError(MyError.N01_InternalError);
                 else if (Session == "0")
                 {
-                    string token = Crypto.RandomString(10, false);
-                    lock (Sessions.JumpToken)
-                    {
-                        Sessions.JumpToken.TryAdd(token, Request.Headers["User-Agent"]);
-                    }
-                    return RedirectToAction(nameof(Register), ControllerName, "token=" + token);
+                    string token = Crypto.SHA512Encrypt(Crypto.RandomString(20, true));
+                    JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = Request.Headers["User-Agent"] });
+                    Response.Cookies.Append("Token", token);
+                    return Redirect($"/Home/Register?token={token}&user=&action=register");
                 }
                 else
                 {
                     Response.Cookies.Append("Session", Session, new CookieOptions() { Expires = DateTime.Now.AddHours(4) });
                     Response.Cookies.Delete("WB_WXLoginOption");
-                    return RedirectToAction(nameof(HomeController.Index), ControllerName);
+                    return Redirect("/Home/Index/");
                 }
-            }
-        }
-
-
-        public IActionResult Error(int err, string errmsg)
-        {
-            ViewData["where"] = ControllerName;
-            errmsg = errmsg == "" ? null : errmsg;
-            try
-            {
-                MyError error = (MyError)err;
-                ViewData["errmsg"] = errmsg;
-                return View(new ErrorViewModel(Response, error).SetProperty((Activity.Current?.Id ?? "后台处理程序没有提供当前请求ID"), errmsg ?? "后台处理程序没有提供错误说明"));
-            }
-            catch (Exception ex)
-            {
-                Response.WriteAsync(ex.Message);
-                return null;
             }
         }
     }
