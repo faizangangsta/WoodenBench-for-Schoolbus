@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Models;
 using WBServicePlatform.WebManagement.Tools;
 
 namespace WBServicePlatform.WebManagement.Controllers
@@ -24,11 +25,12 @@ namespace WBServicePlatform.WebManagement.Controllers
                         Response.Cookies.Delete("LoginRedirect");
                         return Redirect(Request.Cookies["LoginRedirect"]);
                     }
-                    else return RedirectToAction("HomePage");
+                    else return View();
                 }
                 else
                 {
-                    return _OnInternalError(MyError.N06_UserGroupError);
+                    Response.Cookies.Delete("Session");
+                    return _OnInternalError("Home/Index", "用户组权限异常", "Home_MainMenu::UserGroupInvalid", user.WeChatID, ErrorRespCode.PermisstionDenied);
                 }
             }
             else
@@ -48,7 +50,7 @@ namespace WBServicePlatform.WebManagement.Controllers
         /// Don't Check Login in BugReport
         /// the user may experience LOGIN ERROR.......
         /// </summary>
-        /// <returns>Bug Report Form </returns>
+        /// <returns>Bug Report Form </returns> 
         public IActionResult ReportBugs()
         {
             ViewData["where"] = ControllerName;
@@ -57,43 +59,35 @@ namespace WBServicePlatform.WebManagement.Controllers
 
         public IActionResult Error()
         {
-            return _OnInternalError(Response.StatusCode.ToString() == "404" ? MyError.N10_Normal404Error : MyError.N99_UnknownError, "Server Error");
-        }
-
-        public IActionResult HomePage()
-        {
-            ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
-            {
-                return View();
-            }
-            else
-            {
-                return _LoginFailed("/" + ControllerName + "/HomePage");
-            }
+            return _OnInternalError(null);
         }
 
         public IActionResult Register(string token, string user, string action)
         {
             ViewData["where"] = ControllerName;
-            if (token == null || Request.Cookies["Token"] == null) return _OnInternalError(MyError.N07_NoDirectAccessError);
-
-            return View();
+            if (token == null || Request.Cookies["Token"] == null) return _OnInternalError("Register", "请求非法", "TokenInvalid", "REGISTER", ErrorRespCode.RequestIllegal);
+            if (JumpTokens.OnAccessed(token, out JumpTokens.TokenInfo? info) && (info?.User_Agent == Request.Headers["User-Agent"]))
+            {
+                ViewData["wechatID"] = info?.WeChatUserName;
+                return View();
+            }
+            return _OnInternalError("Register", "请求非法", "TokenInvalid", "REGISTER", ErrorRespCode.RequestIllegal);
         }
 
         public IActionResult WeChatLogin(string state, string code)
         {
             ViewData["where"] = ControllerName;
-            if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code)) return _OnInternalError(MyError.N04_RequestIllegalError);
+            if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
+                return _OnInternalError("WeChatLogin", "微信登陆请求非法", "Login State Seems Strange", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
             else
             {
                 string Session = Sessions.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
-                UserObject User = (UserObject)user;
-                if (string.IsNullOrEmpty(Session)) return _OnInternalError(MyError.N01_InternalError);
+                if (string.IsNullOrEmpty(Session))
+                    return _OnInternalError("WeChatLogin", "微信登陆请求出现未知异常", "UNKNOWN ERROR", "WECHAT_LOGIN", ErrorRespCode.InternalError);
                 else if (Session == "0")
                 {
                     string token = Crypto.SHA512Encrypt(Crypto.RandomString(20, true));
-                    JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = Request.Headers["User-Agent"] });
+                    JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = Request.Headers["User-Agent"], WeChatUserName = (string)user });
                     Response.Cookies.Append("Token", token);
                     return Redirect($"/Home/Register?token={token}&user=&action=register");
                 }

@@ -14,13 +14,16 @@
       <publishTime>02/20/2018 19:23:06</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>02/20/2018 19:23:06</publishTime>
+      <publishTime>03/30/2018 16:54:44</publishTime>
     </File>
     <File Include="Bmob-Windows.dll">
       <publishTime>04/02/2017 13:24:52</publishTime>
     </File>
     <File Include="bundleconfig.json">
       <publishTime>02/20/2018 20:42:36</publishTime>
+    </File>
+    <File Include="Connected Services/Application Insights/ConnectedService.json">
+      <publishTime>03/30/2018 16:54:50</publishTime>
     </File>
     <File Include="dotnet-aspnet-codegenerator-design.dll">
       <publishTime>03/23/2018 12:49:41</publishTime>
@@ -95,31 +98,31 @@
       <publishTime>10/21/2017 09:43:48</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>03/29/2018 20:46:00</publishTime>
+      <publishTime>03/31/2018 23:54:53</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>03/29/2018 20:46:00</publishTime>
+      <publishTime>03/31/2018 23:54:53</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>03/29/2018 20:45:55</publishTime>
+      <publishTime>03/31/2018 23:54:44</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>03/29/2018 20:45:55</publishTime>
+      <publishTime>03/31/2018 23:54:44</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
-      <publishTime>03/29/2018 20:45:59</publishTime>
+      <publishTime>03/31/2018 23:54:48</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.pdb">
-      <publishTime>03/29/2018 20:45:59</publishTime>
+      <publishTime>03/31/2018 23:54:48</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>03/29/2018 20:46:00</publishTime>
+      <publishTime>03/31/2018 23:54:53</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>03/29/2018 20:39:05</publishTime>
+      <publishTime>03/31/2018 23:35:45</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>03/29/2018 20:39:05</publishTime>
+      <publishTime>03/31/2018 23:35:45</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>11/11/2017 00:00:00</publishTime>

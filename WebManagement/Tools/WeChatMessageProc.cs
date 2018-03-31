@@ -45,21 +45,21 @@ namespace WBServicePlatform.WebManagement.Tools
                                 case "ADD_PASSWORD":
                                     return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                         "要是想使用Windows 客户端登陆的话<br />" +
-                                        "就点击<a href='https://schoolbus.lhy0403.top/Account/Register/?action=addps&user=" + Message.FromUser + "'>这里</a>" +
+                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?action=addps&user=" + Message.FromUser + "'>这里</a>" +
                                         "给自己加一个密码吧!", null);
                                 case "WEB_SERV_VER":
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,
                                         "小板凳平台版本信息",
-                                        "这是当前版本信息!<br />" +
-                                        "WebServer\t版本: " + Program.Version + "<br />" +
-                                        "Core Library\t版本: " + WBConsts.CurrentCoreVersion() + "<br />" +
-                                        ".Net Core\t版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top/Home/Version");
+                                        "这是当前版本信息: <br />" +
+                                        "服务端版本: " + Program.Version + "<br />" +
+                                        "核心库版本: " + WBConsts.CurrentCoreVersion() + "<br />" +
+                                        "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top/Home/Version");
                                 default: return null;
                             }
                         default: return null;
                     }
                 case WeChat.RcvdMessageType._DEVELOPER_ERROR_REPORT:
-                    return SendMessageString(WeChat.SentMessageType.text, "liuhaoyu", null, Message.TextContent, null);
+                    return SendMessageString(WeChat.SentMessageType.text, "@all", null, Message.TextContent, null);
                 default: return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, Message.FromUser + " " + Message.MessageType.ToString(), null);
             }
         }
@@ -86,7 +86,7 @@ namespace WBServicePlatform.WebManagement.Tools
                     ResponceToMessage(message);
                 }
                 else Thread.Sleep(500);
-                Thread.Sleep(200);
+                Thread.Sleep(100);
             }
         }
 

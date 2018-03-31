@@ -20,9 +20,9 @@ namespace WBServicePlatform.WebManagement.Tools
 
         public struct SessionInfo
         {
-            public string USER_objectId;
+            //public string USER_objectId;
             public string UserAgent;
-            public string SessionString;
+            //public string SessionString;
             public DateTime LastSeenAlive;
             public UserObject user;
         }
@@ -40,9 +40,9 @@ namespace WBServicePlatform.WebManagement.Tools
                 __SessionCollection.Add(_Str, new SessionInfo()
                 {
                     LastSeenAlive = DateTime.Now,
-                    SessionString = _Str,
+                    //SessionString = _Str,
                     user = sessionInfo,
-                    USER_objectId = sessionInfo.objectId,
+                    //USER_objectId = sessionInfo.objectId,
                     UserAgent = UserAgent
                 });
                 return _Str;
@@ -78,7 +78,11 @@ namespace WBServicePlatform.WebManagement.Tools
             switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("WeChatID", WeiXinID), out List<UserObject> UserList))
             {
                 case -1: return null;
-                case 0: return "0";
+                case 0:
+                    {
+                        LogonUser = WeiXinID;
+                        return "0";
+                    }
                 case 1:
                     LogonUser = UserList[0];
                     string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);
@@ -87,10 +91,10 @@ namespace WBServicePlatform.WebManagement.Tools
                         __SessionCollection.Add(SessionString, new SessionInfo()
                         {
                             LastSeenAlive = DateTime.Now,
-                            USER_objectId = ((UserObject)LogonUser).objectId,
+                            //USER_objectId = ((UserObject)LogonUser).objectId,
                             UserAgent = UserAgent,
                             user = (UserObject)LogonUser,
-                            SessionString = SessionString
+                            //SessionString = SessionString
                         });
                         return SessionString;
                     }

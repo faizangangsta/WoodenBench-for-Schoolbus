@@ -14,18 +14,6 @@ namespace WBServicePlatform.WebManagement
 {
     public class Startup
     {
-        RequestDelegate handler = async context =>
-        {
-            var response = context.Response;
-            if (response.StatusCode < 500)
-            {
-                await response.WriteAsync($"Client error ({response.StatusCode})");
-            }
-            else
-            {
-                await response.WriteAsync($"Server error ({response.StatusCode})");
-            }
-        };
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,10 +38,10 @@ namespace WBServicePlatform.WebManagement
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseStatusCodePages(builder => builder.Run(handler));
+                //app.UseStatusCodePages(builder => builder.Run(handler));
             }
-            app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+            app.UseExceptionHandler("/Home/Error");
+            app.UseStatusCodePagesWithReExecute("/Home/Error");
             app.UseMvc(routes => { routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}"); });
         }
     }

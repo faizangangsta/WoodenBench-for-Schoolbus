@@ -26,7 +26,7 @@ namespace WBServicePlatform.WebManagement.Tools
                 }
                 else return -1;
             }
-            catch (Exception) { return -1; }
+            catch (Exception ex) { throw new Exception("数据库请求失败", ex); }
         }
     }
 }
