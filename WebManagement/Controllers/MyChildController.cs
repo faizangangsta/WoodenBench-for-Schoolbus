@@ -25,16 +25,16 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                if (ID == null) return _OnInternalError("ParentCheck", "请求非法", "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
+                if (ID == null) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
-                if (IDSplit.Length != 2) return _OnInternalError("ParentCheck", "请求非法", "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
-                if (!user.UserGroup.IsParents) return _OnInternalError("ParentCheck", "用户组异常", "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                if (IDSplit.Length != 2) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
+                if (!user.UserGroup.IsParents) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.WeChatID, ErrorRespCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case -1: return _OnInternalError("ParentCheck", "内部异常", "MyChild::ParentsCheck ==> FetchStudentListError", user.WeChatID, ErrorRespCode.InternalError);
+                    case -1: return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.WeChatID, ErrorRespCode.InternalError);
                     case 0: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         foreach (StudentObject item in StudentListInBus)
@@ -51,7 +51,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                 ViewData["ChildCount"] = ToBeSignedStudents.Count;
                 for (int i = 0; i < ToBeSignedStudents.Count; i++)
                 {
-                    ViewData["ChildNum_" + (i).ToString()] = ToBeSignedStudents[i].ToString();
+                    ViewData["ChildNum_" + (i.ToString())] = ToBeSignedStudents[i].ToString();
                 }
                 ViewData["cUser"] = user.ToString();
                 ViewData["cBusID"] = BusID;

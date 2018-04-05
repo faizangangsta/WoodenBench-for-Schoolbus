@@ -22,26 +22,26 @@ namespace WBServicePlatform.WebManagement.Controllers
         {
             //THIS FUNCTION IS SHARED BY BUSTEACHER AND PARENTS
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
-                return WebAPIErrors.SessionError;
+                return WebAPIResponseErrors.SessionError;
             if (!(user.UserGroup.IsParents || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin))
-                return WebAPIErrors.UserGroupError;
+                return WebAPIResponseErrors.UserGroupError;
             string str = Encoding.UTF8.GetString(Convert.FromBase64String(Data));
-            if (str.Contains(";") && str.Split(';').Length != 5) return WebAPIErrors.RequestIllegal;
+            if (str.Contains(";") && str.Split(';').Length != 5) return WebAPIResponseErrors.RequestIllegal;
             string[] p = str.Split(';');
             string SType = p[0];
             string SValue = p[1];
             //P[2] = SALT
             string TeacherID = p[3];
             string StudentID = p[4];
-            if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIErrors.RequestIllegal;
+            if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseErrors.RequestIllegal;
 
             BmobQuery busFindQuery = new BmobQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (QueryHelper.BmobQueryData(busFindQuery, out List<SchoolBusObject> BusList))
             {
-                case -1: return WebAPIErrors.InternalError;
-                case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                case -1: return WebAPIResponseErrors.InternalError;
+                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
@@ -50,15 +50,15 @@ namespace WBServicePlatform.WebManagement.Controllers
                         _stuQuery.WhereEqualTo("BusID", BusID);
                         switch (QueryHelper.BmobQueryData(_stuQuery, out List<StudentObject> StuList))
                         {
-                            case -1: return WebAPIErrors.InternalError;
-                            case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                            case -1: return WebAPIResponseErrors.InternalError;
+                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
-                                if (!bool.TryParse(SValue, out bool Value)) return WebAPIErrors.RequestIllegal;
+                                if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseErrors.RequestIllegal;
                                 StudentObject stu = StuList[0];
                                 if (SType.ToLower() == "leave") stu.LSChecked = Value;
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
-                                else return WebAPIErrors.RequestIllegal;
+                                else return WebAPIResponseErrors.RequestIllegal;
                                 Task<UpdateCallbackData> task3 = _Bmob.UpdateTaskAsync(stu);
                                 task3.Wait();
                                 Dictionary<string, string> dict = stu.ToDictionary();
@@ -70,7 +70,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                                 return dict;
                         }
                     }
-                    else return WebAPIErrors.RequestIllegal;
+                    else return WebAPIResponseErrors.RequestIllegal;
             }
         }
     }

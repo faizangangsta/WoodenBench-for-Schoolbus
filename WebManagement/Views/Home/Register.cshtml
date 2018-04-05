@@ -13,9 +13,7 @@
         <form action="/api/users/Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <label asp-for="UserName" class="control-label">@ViewData["wechatID"]</label>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
@@ -24,12 +22,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="RealName" class="control-label"></label>
-                <input asp-for="RealName" class="form-control" value="@ViewData["wechatID"]" />
+                <input asp-for="RealName" class="form-control"/>
                 <span asp-validation-for="RealName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sex" class="control-label"></label>
-                <input asp-for="Sex" class="form-control" />
+                <input asp-for="Sex" class="form-control"/>
                 <span asp-validation-for="Sex" class="text-danger"></span>
             </div>
             <div class="form-group">

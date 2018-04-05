@@ -23,25 +23,23 @@ namespace WBServicePlatform.WebManagement.Controllers
             return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
-        protected IActionResult _OnInternalError(string _where, string ErrorMessage = "未知的异常", string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult _OnInternalError(ErrorAt _Where, ErrorType _ErrorType, string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
             string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + ((Frame)((DefaultHttpContext)Response.HttpContext).Features).RawTarget;
             Exception ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-            _where = _where ?? "未知调用栈";
             if (ex != null)
             {
-                ErrorMessage = ex.Message;
-                //_where = ex.StackTrace.Split('\r')[0];
+                DetailedInfo = ex.Message;
                 if (ex.InnerException != null)
                 {
-                    DetailedInfo = ex.InnerException.Message;
+                    DetailedInfo = DetailedInfo + "\r\n" + ex.InnerException.Message;
                 }
             }
 
             Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
             ViewData["where"] = HomeController.ControllerName;
-            ViewData["ErrorMessage"] = Response.StatusCode == 404 ? "系统找不到指定的文件" : ErrorMessage;
-            ViewData["ErrorAT"] = _where;
+            ViewData["ErrorMessage"] = Response.StatusCode == 404 ? ErrorType.ItemsNotFound.ToString() : _ErrorType.ToString();
+            ViewData["ErrorAT"] = _Where.ToString();
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["DetailedInfo"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
@@ -64,6 +62,5 @@ namespace WBServicePlatform.WebManagement.Controllers
             }
             return View("Error");
         }
-        //protected IActionResult _OnInternalError() { return View("Error"); }
     }
 }

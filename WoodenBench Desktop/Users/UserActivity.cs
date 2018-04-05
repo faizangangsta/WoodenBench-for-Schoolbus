@@ -44,13 +44,7 @@ namespace WBServicePlatform.WinClient.Users
             { Name = "User Login", IsBackground = false }.Start();
 
         }
-
-        public static void CreateUser(string Username, string Realname, string Password, UserGroup UserGroup, string PhoneNumber)
-        {
-            new Thread(new ThreadStart(delegate { _Create(Username, Realname, Password, UserGroup, PhoneNumber); }))
-            { Name = "User Creation", IsBackground = false }.Start();
-        }
-
+        
         #region Private Operaitons
         private static void _ChangePsW(UserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
@@ -69,7 +63,7 @@ namespace WBServicePlatform.WinClient.Users
         {
             //CurrentUser.SetEveryThingNull(); ;
             GC.Collect();
-            onUserActivity(OperationStatus.Completed, UserActivityE.LogOff);
+            onUserActivity(OperationStatus.Completed, UserActivityE.Logout);
         }
 
         /*private static void _UserChangeHeadImage(Image newImage, string UserName)
@@ -133,36 +127,6 @@ namespace WBServicePlatform.WinClient.Users
                 onUserActivity(OperationStatus.Failed, UserActivityE.Login, Detail: e.Message);
             }
         }
-
-        private static void _Create(string Username, string Realname, string Password, UserGroup UserGroup, string phoneNumber)
-        {
-            Username = Username.ToLower();
-            Password = Crypto.SHA256Encrypt(Password);
-            UserObject NewUserObj = new UserObject
-            {
-                UserName = Username,
-                RealName = Realname,
-                WebNotiSeen = false,
-                WeChatID = "####",
-                Password = Password,
-                UserGroup = UserGroup,
-                FirstLogin = true,
-                HeadImagePath = "#",
-                PhoneNumber = phoneNumber
-            };
-            Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync(WBConsts.TABLE_N_Gen_UserTable, NewUserObj);
-            try
-            {
-                task.Wait();
-                if (task.Status == TaskStatus.RanToCompletion && task.Exception == null && task.IsCompleted)
-                    onUserActivity(OperationStatus.Completed, UserActivityE.Create, "Success " + task.Result.createdAt);
-            }
-            catch (Exception ex)
-            {
-                onUserActivity(OperationStatus.Failed, UserActivityE.Create, ex.InnerException.Message);
-            }
-        }
-
         private static void onUserActivity(OperationStatus Status, UserActivityE Act, string Detail = "")
         {
             UserActivityEventArgs e = new UserActivityEventArgs()

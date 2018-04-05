@@ -50,7 +50,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _OnInternalError("SignStudents", "处理签到请求时出现问题", "_SignStudent::CookieExpire", LoginUsr: user.WeChatID);
+                else return _OnInternalError(ErrorAt.BusManage_SignStudents, ErrorType.RequestInvalid, "_SignStudent::CookieExpire", LoginUsr: user.WeChatID);
             }
             else return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
         }
@@ -66,7 +66,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ViewData["cBus"] = user.UserGroup.BusID;
                     ViewData["cTeacher"] = user.objectId;
                 }
-                else return _OnInternalError("ArriveHomeSigning", "用户组权限异常", "_ArriveHomeSigning::UserGroupInvalid", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ErrorAt.BusManage_CodeGenerate, ErrorType.UserGroupError, "_ArriveHomeSigning::UserGroupInvalid", user.WeChatID, ErrorRespCode.PermisstionDenied);
             }
             else return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
             return View();
@@ -83,41 +83,41 @@ namespace WBServicePlatform.WebManagement.Controllers
                 {
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID), out List<StudentObject> StudentList))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetStudentByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetStudentByID::0 :: StudentID = " + StudentID, user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetStudentByID::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetStudentByID::0 :: StudentID = " + StudentID, user.WeChatID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", StudentList[0].ClassID), out List<ClassObject> ClassList))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetClassByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetClassByID::0", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetClassByID::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetClassByID::0", user.WeChatID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", ClassList[0].TeacherID), out List<UserObject> TeacherList))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetTeacherByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetTeacherByID::0", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetTeacherByID::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetTeacherByID::0", user.WeChatID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].ParentsID.Split(';')), out List<UserObject> Parents))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetParentsByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetParentsByGroup::0", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetParentsByGroup::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetParentsByGroup::0", user.WeChatID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].BusID), out List<SchoolBusObject> BusList))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetBusByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetBusByGroup::0", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusByGroup::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusByGroup::0", user.WeChatID);
                     }
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", BusList[0].TeacherID), out List<UserObject> BusTeacherList))
                     {
-                        case -1: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetBusTeacherByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError("ViewStudent", "处理数据库查询时出现异常", "_GetBusTeacherByGroup::0", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusTeacherByGroup::-1", user.WeChatID);
+                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusTeacherByGroup::0", user.WeChatID);
                     }
                     if (StudentList[0].ClassID == ClassID && StudentList[0].BusID == BusID)
                     {
                         return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(StudentList[0], ClassList[0], TeacherList[0], Parents.ToArray(), BusList[0], BusTeacherList[0]));
                     }
-                    else return _OnInternalError("ViewStudent", "用户状态异常", "Students::ClassID & BusID !Match", user.WeChatID);
+                    else return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.RequestInvalid, "Students::ClassID & BusID !Match", user.WeChatID);
                 }
-                else return _OnInternalError("ViewStudent", "用户组权限异常 没有权限", "ViewStudent_Request::UserGroup_PermissionDenied", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.UserGroupError, "ViewStudent_Request::UserGroup_PermissionDenied", user.WeChatID, ErrorRespCode.PermisstionDenied);
             }
             //Return to Home because this is privacy-related function
             else return _LoginFailed("/");

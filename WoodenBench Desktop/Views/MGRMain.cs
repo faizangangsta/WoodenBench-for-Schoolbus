@@ -62,7 +62,7 @@ namespace WBServicePlatform.WinClient.Views
             }
             else
             {
-                query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text);
+                query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
             }
             //query.Skip(CurrNum);
             var future = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, query);
@@ -70,6 +70,7 @@ namespace WBServicePlatform.WinClient.Views
             if (future.IsFaulted)
             {
                 MessageBox.Show("Failed getting data");
+                return;
             }
             if (future.IsCompleted)
             {
@@ -88,7 +89,7 @@ namespace WBServicePlatform.WinClient.Views
 
         private void dataGridViewX1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
     }
 }

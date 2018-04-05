@@ -13,9 +13,6 @@ namespace WBServicePlatform.WinClient.Users
 			MessageBox.Show("I will leed you to the MYSTERIOUS Place");
 			MessageBox.Show("Don't worry, this will be a peaceful journey.");
 
-			MessageBox.Show("First, verify your password is " + CurrentUser.Password);
-			MessageBox.Show("Then, Remenber your User ID " + CurrentUser.objectId);
-
             MessageBox.Show("Finally, this is to show my REAL heart....");
             MessageBox.Show("Have you found any spelling mistakes?");
 		}

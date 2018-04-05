@@ -37,9 +37,9 @@
             this.DoLoginBtn = new DevComponents.DotNetBar.ButtonX();
             this.label2 = new System.Windows.Forms.Label();
             this.LoginResult = new System.Windows.Forms.Label();
-            this.NewUserLabel = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.MainStyle = new DevComponents.DotNetBar.StyleManager(this.components);
+            this.NewUserLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // UserNameTxt
@@ -138,20 +138,6 @@
             this.LoginResult.Text = "Result";
             this.LoginResult.Visible = false;
             // 
-            // NewUserLabel
-            // 
-            this.NewUserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.NewUserLabel.AutoSize = true;
-            this.NewUserLabel.BackColor = System.Drawing.Color.White;
-            this.NewUserLabel.ForeColor = System.Drawing.Color.Black;
-            this.NewUserLabel.Location = new System.Drawing.Point(12, 99);
-            this.NewUserLabel.Name = "NewUserLabel";
-            this.NewUserLabel.Size = new System.Drawing.Size(54, 17);
-            this.NewUserLabel.TabIndex = 7;
-            this.NewUserLabel.TabStop = true;
-            this.NewUserLabel.Text = "新用户 ?";
-            this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreateUsr);
-            // 
             // linkLabel1
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -171,6 +157,20 @@
             // 
             this.MainStyle.ManagerStyle = DevComponents.DotNetBar.eStyle.Metro;
             this.MainStyle.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.DarkOrange);
+            // 
+            // NewUserLabel
+            // 
+            this.NewUserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NewUserLabel.AutoSize = true;
+            this.NewUserLabel.BackColor = System.Drawing.Color.White;
+            this.NewUserLabel.ForeColor = System.Drawing.Color.Black;
+            this.NewUserLabel.Location = new System.Drawing.Point(12, 99);
+            this.NewUserLabel.Name = "NewUserLabel";
+            this.NewUserLabel.Size = new System.Drawing.Size(54, 17);
+            this.NewUserLabel.TabIndex = 7;
+            this.NewUserLabel.TabStop = true;
+            this.NewUserLabel.Text = "新用户 ?";
+            this.NewUserLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreateUsr);
             // 
             // UsrLoginWindow
             // 
@@ -213,11 +213,11 @@
         private DevComponents.DotNetBar.ButtonX DoLoginBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label LoginResult;
-        private System.Windows.Forms.LinkLabel NewUserLabel;
         private System.Windows.Forms.LinkLabel linkLabel1;
         public DevComponents.DotNetBar.StyleManager MainStyle;
         internal System.Windows.Forms.TextBox UserNameTxt;
         internal System.Windows.Forms.TextBox PswdTxt;
+        private System.Windows.Forms.LinkLabel NewUserLabel;
     }
 }
 

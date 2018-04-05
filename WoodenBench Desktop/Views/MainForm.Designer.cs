@@ -33,14 +33,14 @@
             this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
             this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
             this.UploadStuDataTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.newClientTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.BusInfo = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.MyStudentDataInfo = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.devCoTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.MgrLoginTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.StudentData = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.appSettingsTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.NotificationCenter = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.myAccount = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.helpTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.LogoffTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.appSettingsTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.metroTileItem2 = new DevComponents.DotNetBar.Metro.MetroTileItem();
@@ -96,14 +96,14 @@
             this.itemContainer1.ResizeItemsToFit = false;
             this.itemContainer1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.UploadStuDataTile,
-            this.newClientTile,
+            this.BusInfo,
             this.MyStudentDataInfo,
-            this.devCoTile,
             this.MgrLoginTile,
-            this.StudentData,
-            this.appSettingsTile,
+            this.NotificationCenter,
+            this.myAccount,
             this.helpTile,
-            this.LogoffTile});
+            this.LogoffTile,
+            this.appSettingsTile});
             // 
             // 
             // 
@@ -131,34 +131,34 @@
             this.UploadStuDataTile.TitleText = "Students";
             this.UploadStuDataTile.Click += new System.EventHandler(this.UploadStuDataTile_Click);
             // 
-            // newClientTile
+            // BusInfo
             // 
-            this.newClientTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.contact;
-            this.newClientTile.Name = "newClientTile";
-            this.newClientTile.SymbolColor = System.Drawing.Color.Empty;
-            this.newClientTile.Text = "\r\n<br/>\r\n<font size=\"+4\">校车管理</font>\r\n<br/>\r\n调整校车信息和带\r\n<br/>车老师";
-            this.newClientTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Green;
+            this.BusInfo.Image = global::WBServicePlatform.WinClient.Properties.Resources.contact;
+            this.BusInfo.Name = "BusInfo";
+            this.BusInfo.SymbolColor = System.Drawing.Color.Empty;
+            this.BusInfo.Text = "\r\n<br/>\r\n<font size=\"+4\">校车管理</font>\r\n<br/>\r\n调整校车信息和带\r\n<br/>车老师";
+            this.BusInfo.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Green;
             // 
             // 
             // 
-            this.newClientTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(151)))), ((int)(((byte)(42)))));
-            this.newClientTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(177)))), ((int)(((byte)(51)))));
-            this.newClientTile.TileStyle.BackColorGradientAngle = 45;
-            this.newClientTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.newClientTile.TileStyle.PaddingBottom = 4;
-            this.newClientTile.TileStyle.PaddingLeft = 4;
-            this.newClientTile.TileStyle.PaddingRight = 4;
-            this.newClientTile.TileStyle.PaddingTop = 4;
-            this.newClientTile.TileStyle.TextColor = System.Drawing.Color.White;
-            this.newClientTile.TitleText = "Teachers";
-            this.newClientTile.Click += new System.EventHandler(this.newClientTile_Click);
+            this.BusInfo.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(151)))), ((int)(((byte)(42)))));
+            this.BusInfo.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(177)))), ((int)(((byte)(51)))));
+            this.BusInfo.TileStyle.BackColorGradientAngle = 45;
+            this.BusInfo.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BusInfo.TileStyle.PaddingBottom = 4;
+            this.BusInfo.TileStyle.PaddingLeft = 4;
+            this.BusInfo.TileStyle.PaddingRight = 4;
+            this.BusInfo.TileStyle.PaddingTop = 4;
+            this.BusInfo.TileStyle.TextColor = System.Drawing.Color.White;
+            this.BusInfo.TitleText = "Teachers";
+            this.BusInfo.Click += new System.EventHandler(this.newClientTile_Click);
             // 
             // MyStudentDataInfo
             // 
             this.MyStudentDataInfo.Image = global::WBServicePlatform.WinClient.Properties.Resources.Web;
             this.MyStudentDataInfo.Name = "MyStudentDataInfo";
             this.MyStudentDataInfo.SymbolColor = System.Drawing.Color.Empty;
-            this.MyStudentDataInfo.Text = "\r\n<br/>\r\n<font size=\"+4\">登记信息<br/>查询</font>";
+            this.MyStudentDataInfo.Text = "\r\n<br/>\r\n<font size=\"+4\">签到信息<br/>查询</font>";
             this.MyStudentDataInfo.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedOrange;
             // 
             // 
@@ -174,28 +174,6 @@
             this.MyStudentDataInfo.TileStyle.TextColor = System.Drawing.Color.White;
             this.MyStudentDataInfo.TitleText = "Check in";
             this.MyStudentDataInfo.Click += new System.EventHandler(this.MyStudentData_Click);
-            // 
-            // devCoTile
-            // 
-            this.devCoTile.Name = "devCoTile";
-            this.devCoTile.Symbol = "";
-            this.devCoTile.SymbolColor = System.Drawing.Color.Empty;
-            this.devCoTile.SymbolSize = 42F;
-            this.devCoTile.Text = "\r\n<br/>\r\n<font size=\"+4\">我的账户</font>\r\n<br/>管理我的账户";
-            this.devCoTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedViolet;
-            // 
-            // 
-            // 
-            this.devCoTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
-            this.devCoTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(0)))), ((int)(((byte)(61)))));
-            this.devCoTile.TileStyle.BackColorGradientAngle = 45;
-            this.devCoTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.devCoTile.TileStyle.PaddingBottom = 4;
-            this.devCoTile.TileStyle.PaddingLeft = 4;
-            this.devCoTile.TileStyle.PaddingRight = 4;
-            this.devCoTile.TileStyle.PaddingTop = 4;
-            this.devCoTile.TileStyle.TextColor = System.Drawing.Color.White;
-            this.devCoTile.TitleText = "My Account";
             // 
             // MgrLoginTile
             // 
@@ -219,48 +197,50 @@
             this.MgrLoginTile.TitleText = "Management";
             this.MgrLoginTile.Click += new System.EventHandler(this.MgrLoginTile_Click);
             // 
-            // StudentData
+            // NotificationCenter
             // 
-            this.StudentData.Image = global::WBServicePlatform.WinClient.Properties.Resources.Charts;
-            this.StudentData.Name = "StudentData";
-            this.StudentData.SymbolColor = System.Drawing.Color.Empty;
-            this.StudentData.Text = "\r\n<br/>\r\n<font size=\"+4\">通知查看</font>\r\n<br/>\r\n查看使用通知";
-            this.StudentData.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Orange;
-            // 
-            // 
-            // 
-            this.StudentData.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(131)))), ((int)(((byte)(0)))));
-            this.StudentData.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(136)))), ((int)(((byte)(0)))));
-            this.StudentData.TileStyle.BackColorGradientAngle = 45;
-            this.StudentData.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.StudentData.TileStyle.PaddingBottom = 4;
-            this.StudentData.TileStyle.PaddingLeft = 4;
-            this.StudentData.TileStyle.PaddingRight = 4;
-            this.StudentData.TileStyle.PaddingTop = 4;
-            this.StudentData.TileStyle.TextColor = System.Drawing.Color.White;
-            this.StudentData.TitleText = "Notifications";
-            // 
-            // appSettingsTile
-            // 
-            this.appSettingsTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Details;
-            this.appSettingsTile.Name = "appSettingsTile";
-            this.appSettingsTile.SymbolColor = System.Drawing.Color.Empty;
-            this.appSettingsTile.Text = "\r\n<br/>\r\n<font size=\"+4\">应用设置</font>\r\n<br/>更改首选项";
-            this.appSettingsTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.PlumWashed;
+            this.NotificationCenter.Image = global::WBServicePlatform.WinClient.Properties.Resources.Charts;
+            this.NotificationCenter.Name = "NotificationCenter";
+            this.NotificationCenter.SymbolColor = System.Drawing.Color.Empty;
+            this.NotificationCenter.Text = "\r\n<br/>\r\n<font size=\"+4\">通知查看</font>\r\n<br/>\r\n查看使用通知";
+            this.NotificationCenter.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Orange;
             // 
             // 
             // 
-            this.appSettingsTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
-            this.appSettingsTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(46)))), ((int)(((byte)(64)))));
-            this.appSettingsTile.TileStyle.BackColorGradientAngle = 45;
-            this.appSettingsTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.appSettingsTile.TileStyle.PaddingBottom = 4;
-            this.appSettingsTile.TileStyle.PaddingLeft = 4;
-            this.appSettingsTile.TileStyle.PaddingRight = 4;
-            this.appSettingsTile.TileStyle.PaddingTop = 4;
-            this.appSettingsTile.TileStyle.TextColor = System.Drawing.Color.White;
-            this.appSettingsTile.TitleText = "Settings";
-            this.appSettingsTile.Click += new System.EventHandler(this.appSettingsTile_Click);
+            this.NotificationCenter.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(131)))), ((int)(((byte)(0)))));
+            this.NotificationCenter.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(136)))), ((int)(((byte)(0)))));
+            this.NotificationCenter.TileStyle.BackColorGradientAngle = 45;
+            this.NotificationCenter.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.NotificationCenter.TileStyle.PaddingBottom = 4;
+            this.NotificationCenter.TileStyle.PaddingLeft = 4;
+            this.NotificationCenter.TileStyle.PaddingRight = 4;
+            this.NotificationCenter.TileStyle.PaddingTop = 4;
+            this.NotificationCenter.TileStyle.TextColor = System.Drawing.Color.White;
+            this.NotificationCenter.TitleText = "Notifications";
+            this.NotificationCenter.Click += new System.EventHandler(this.NotificationCenter_Click);
+            // 
+            // myAccount
+            // 
+            this.myAccount.Name = "myAccount";
+            this.myAccount.Symbol = "";
+            this.myAccount.SymbolColor = System.Drawing.Color.Empty;
+            this.myAccount.SymbolSize = 42F;
+            this.myAccount.Text = "\r\n<br/>\r\n<font size=\"+4\">我的账户</font>\r\n<br/>修改账户信息";
+            this.myAccount.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedViolet;
+            // 
+            // 
+            // 
+            this.myAccount.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
+            this.myAccount.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(0)))), ((int)(((byte)(61)))));
+            this.myAccount.TileStyle.BackColorGradientAngle = 45;
+            this.myAccount.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.myAccount.TileStyle.PaddingBottom = 4;
+            this.myAccount.TileStyle.PaddingLeft = 4;
+            this.myAccount.TileStyle.PaddingRight = 4;
+            this.myAccount.TileStyle.PaddingTop = 4;
+            this.myAccount.TileStyle.TextColor = System.Drawing.Color.White;
+            this.myAccount.TitleText = "My Account";
+            this.myAccount.Click += new System.EventHandler(this.myAccount_Click);
             // 
             // helpTile
             // 
@@ -306,6 +286,29 @@
             this.LogoffTile.TileStyle.TextColor = System.Drawing.Color.White;
             this.LogoffTile.TitleText = "Logoff";
             this.LogoffTile.Click += new System.EventHandler(this.LogOutUsrTile);
+            // 
+            // appSettingsTile
+            // 
+            this.appSettingsTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Details;
+            this.appSettingsTile.Name = "appSettingsTile";
+            this.appSettingsTile.SymbolColor = System.Drawing.Color.Empty;
+            this.appSettingsTile.Text = "\r\n<br/>\r\n<font size=\"+4\">应用设置</font>\r\n<br/>更改首选项";
+            this.appSettingsTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.PlumWashed;
+            // 
+            // 
+            // 
+            this.appSettingsTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.appSettingsTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(46)))), ((int)(((byte)(64)))));
+            this.appSettingsTile.TileStyle.BackColorGradientAngle = 45;
+            this.appSettingsTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.appSettingsTile.TileStyle.PaddingBottom = 4;
+            this.appSettingsTile.TileStyle.PaddingLeft = 4;
+            this.appSettingsTile.TileStyle.PaddingRight = 4;
+            this.appSettingsTile.TileStyle.PaddingTop = 4;
+            this.appSettingsTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.appSettingsTile.TitleText = "Settings";
+            this.appSettingsTile.Visible = false;
+            this.appSettingsTile.Click += new System.EventHandler(this.appSettingsTile_Click);
             // 
             // pictureBox1
             // 
@@ -371,7 +374,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Font = new System.Drawing.Font("宋体", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(660, 455);
             this.Name = "MainForm";
@@ -391,10 +394,10 @@
         private DevComponents.DotNetBar.ItemPanel itemPanel1;
         private DevComponents.DotNetBar.ItemContainer itemContainer1;
         private DevComponents.DotNetBar.Metro.MetroTileItem UploadStuDataTile;
-        private DevComponents.DotNetBar.Metro.MetroTileItem newClientTile;
-        private DevComponents.DotNetBar.Metro.MetroTileItem StudentData;
+        private DevComponents.DotNetBar.Metro.MetroTileItem BusInfo;
+        private DevComponents.DotNetBar.Metro.MetroTileItem NotificationCenter;
         private DevComponents.DotNetBar.Metro.MetroTileItem MyStudentDataInfo;
-        private DevComponents.DotNetBar.Metro.MetroTileItem devCoTile;
+        private DevComponents.DotNetBar.Metro.MetroTileItem myAccount;
         private DevComponents.DotNetBar.Metro.MetroTileItem MgrLoginTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem appSettingsTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem helpTile;

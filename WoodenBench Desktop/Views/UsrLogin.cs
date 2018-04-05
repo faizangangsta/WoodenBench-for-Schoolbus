@@ -66,7 +66,10 @@ namespace WBServicePlatform.WinClient.Views
             Users.UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
         }
 
-        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e) { CreateUserWindow.Default.ShowDialog(); }
+        private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("请使用微信登陆小板凳平台，进行用户注册过程");
+        }
 
         private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {

@@ -19,31 +19,31 @@ using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
 {
-    public partial class ExcelOperationWindow : MetroForm
+    public partial class StudentUploadWindow : MetroForm
     {
         string ExcelFilePath;
         ClassObject CurrentClass;
         bool IsReadOnly = true;
         Dictionary<string, string> BusDataPair = new Dictionary<string, string>();
 
-        public ExcelOperationWindow()
+        public StudentUploadWindow()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static ExcelOperationWindow defaultInstance { get; set; }
+        private static StudentUploadWindow defaultInstance { get; set; }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e)
         {
             defaultInstance = null;
         }
-        public static ExcelOperationWindow Default
+        public static StudentUploadWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new ExcelOperationWindow();
+                    defaultInstance = new StudentUploadWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -53,7 +53,7 @@ namespace WBServicePlatform.WinClient.Views
 
         private void ExcelOperationWindow_Load(object sender, EventArgs e)
         {
-
+            ExDiscription.Items.Clear();
         }
 
 
@@ -61,25 +61,33 @@ namespace WBServicePlatform.WinClient.Views
         {
             statusPanel.Visible = true;
             statusLabel.Text = "正在打开Excel....";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
             ExcelApplication Excel = new ExcelApplication();
             statusLabel.Text = "请选择Excel文档";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
             OpenExcelFileDialog.FileName = "";
             OpenExcelFileDialog.ShowDialog();
-            if (OpenExcelFileDialog.FileName == "") return;
+            if (OpenExcelFileDialog.FileName == "")
+            {
+                statusPanel.Visible = false;
+                return;
+            }
             ExcelFilePath = OpenExcelFileDialog.FileName;
             ExcelFilePathTxt.Text = ExcelFilePath;
 
             //Excel.OpenExcelApp();
 
             statusLabel.Text = "正在读取Excel文件，请稍等......";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
             Excel.OpenExcelFile(ExcelFilePath, true, false);
 
             statusLabel.Text = "获取文件长度......";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
-            int LastLine = Excel.LastLine(StartFrom: 1, EndAt: 200, ifErrReturnVal: 0, WorkSheetNum: 1);
+            int LastLine = Excel.LastLine(1, 200, 0, 1);
             string StuName, StuDirection;
             for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
             {
@@ -91,6 +99,7 @@ namespace WBServicePlatform.WinClient.Views
                 foreach (DataGridViewRow item in StudentData.Rows)
                 {
                     statusLabel.Text = $"更新现有数据:{StuName}";
+                    ExDiscription.Items.Add(statusLabel.Text);
                     Application.DoEvents();
                     if (item.Cells[1].Value?.ToString() == StuName)
                     {
@@ -103,6 +112,7 @@ namespace WBServicePlatform.WinClient.Views
                 if (!IsUpdate)
                 {
                     statusLabel.Text = $"添加新数据:{StuName}";
+                    ExDiscription.Items.Add(statusLabel.Text);
                     Application.DoEvents();
                     StudentObject student = new StudentObject();
                     student.StudentName = StuName;
@@ -112,7 +122,9 @@ namespace WBServicePlatform.WinClient.Views
                 }
             }
             statusLabel.Text = $"正在释放Excel......";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
+            GC.Collect();
             Excel.QuitExcel();
             statusPanel.Visible = false;
         }
@@ -158,8 +170,7 @@ namespace WBServicePlatform.WinClient.Views
             {
                 BmobQuery TeacherDataQuery = new BmobQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                Task<QueryCallbackData<UserObject>> TeacherDataFindTask;
-                TeacherDataFindTask = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, TeacherDataQuery);
+                var TeacherDataFindTask = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, TeacherDataQuery);
                 TeacherDataFindTask.Wait();
                 if (!TeacherDataFindTask.IsCompleted || TeacherDataFindTask.Result.results.Count == 0)
                 {
@@ -204,7 +215,7 @@ namespace WBServicePlatform.WinClient.Views
                     }
                 }
             }
-            ExDiscription.Text = $"成功加载了 { StudentsFindTask.Result.results.Count} 条数据";
+            ExDiscription.Items.Add($"成功加载了 { StudentsFindTask.Result.results.Count} 条数据");
             StudentData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
@@ -268,7 +279,9 @@ namespace WBServicePlatform.WinClient.Views
             statusPanel.Visible = true;
             for (int index = 0; index < StudentData.Rows.Count - 1; index++)
             {
+                ExDiscription.Items.Add("正在校验数据完整性");
                 statusLabel.Text = $"正在检测数据完整性......第{index}项，共{StudentData.Rows.Count - 2}项";
+                ExDiscription.Items.Add("数据完整性校验完成");
                 Application.DoEvents();
                 DataGridViewRow StuRow = StudentData.Rows[index];
                 StuRow.DefaultCellStyle.BackColor = Color.White;
@@ -290,6 +303,7 @@ namespace WBServicePlatform.WinClient.Views
                 case DialogResult.No:
                 default:
                     statusLabel.Text = $"上传数据已取消！";
+                    ExDiscription.Items.Add(statusLabel.Text);
                     Thread.Sleep(1000);
                     statusPanel.Visible = false;
                     return;
@@ -298,6 +312,7 @@ namespace WBServicePlatform.WinClient.Views
             foreach (DataGridViewRow StuRow in StudentData.Rows)
             {
                 statusLabel.Text = $"正在处理校车ID";
+                ExDiscription.Items.Add(statusLabel.Text);
                 Application.DoEvents();
                 //Combo Box is valueD, use the 2nd cell
                 if (!string.IsNullOrEmpty((string)StuRow.Cells[2].Value))
@@ -310,6 +325,7 @@ namespace WBServicePlatform.WinClient.Views
                 }
             }
             statusLabel.Text = $"分配数据空间....";
+            ExDiscription.Items.Add(statusLabel.Text);
             Application.DoEvents();
 
             StudentObject StudentObj = new StudentObject();
@@ -318,6 +334,7 @@ namespace WBServicePlatform.WinClient.Views
             StudentObj.AHChecked = false;
             this.Enabled = false;
             statusLabel.Text = $"开始上传....";
+            ExDiscription.Items.Add(statusLabel.Text);
             this.SureAndUploadBtn.Text = "上传中...";
             Application.DoEvents();
             List<string> ErrDetail = new List<string>();
@@ -328,7 +345,7 @@ namespace WBServicePlatform.WinClient.Views
                 StudentObj.ClassID = CurrentClass.objectId;
 
                 statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项。";
-                ExDiscription.Text = "学生姓名：" + StudentObj.StudentName;
+                ExDiscription.Items.Add("学生姓名：" + StudentObj.StudentName);
                 Application.DoEvents();
                 //If Record is NOT in the Server Database
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
@@ -386,12 +403,12 @@ namespace WBServicePlatform.WinClient.Views
             Application.DoEvents();
             if (ErrDetail.Count == 0)
             {
-                ExDiscription.Text = "成功完成操作！已经上传 " + (StudentData.RowCount - 1).ToString() + " 条数据";
+                ExDiscription.Items.Add("成功完成操作！已经上传 " + (StudentData.RowCount - 1).ToString() + " 条数据");
                 MessageBox.Show("所有项目已经成功上传！");
             }
             else
             {
-                ExDiscription.Text = "上传部分失败！共 " + ErrDetail.Count.ToString() + " 条失败";
+                ExDiscription.Items.Add("上传部分失败！共 " + ErrDetail.Count.ToString() + " 条失败");
                 string ErrMsg = "\r\n";
                 foreach (string item in ErrDetail)
                 {
@@ -405,39 +422,77 @@ namespace WBServicePlatform.WinClient.Views
             this.Enabled = true;
         }
 
-        private void 删除当前行ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void radialMenu1_ItemClick(object sender, EventArgs e)
         {
-            string Name = (string)StudentData.SelectedCells[0].OwningRow.Cells[1].Value;
-            if (StudentData.SelectedCells.Count >= 1 && MessageBox.Show("是否要在服务器上删除此条记录？", "删除记录", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (sender.GetType() == typeof(RadialMenuItem))
             {
-                try
+                string Name = (string)StudentData.SelectedCells[0].OwningRow.Cells[1].Value;
+                switch (((RadialMenuItem)sender).Text)
                 {
-                    Task<DeleteCallbackData> task;
-                    task = _BmobWin.DeleteTaskAsync(WBConsts.TABLE_N_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value);
-                    task.Wait();
-                    StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
-                    ExDiscription.Text = "成功在服务器上删除:" + Name;
+                    case "编辑":
+                        if (StudentData.SelectedCells.Count > 0)
+                        {
+                            DataGridViewCell cell = StudentData.SelectedCells[0];
+                            StudentData.BeginEdit(true);
+                        }
+                        break;
+                    case "彻底删除":
+                        if (MessageBox.Show("确定要在服务器上删除这条数据吗？该操作不可撤销！", "警告", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                Task<DeleteCallbackData> task;
+                                task = _BmobWin.DeleteTaskAsync(WBConsts.TABLE_N_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value);
+                                task.Wait();
+                                StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
+                                ExDiscription.Items.Add("成功在服务器上删除:" + Name);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                LogWritter.ErrorMessage(ex.Message);
+                                ExDiscription.Items.Add("删除 " + Name + " 时出现问题");
+                            }
+                        }
+                        break;
+                    case "移除":
+                        StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
+                        ExDiscription.Items.Add("成功删除:" + Name);
+                        break;
+                    case "重输":
+                        foreach (DataGridViewCell item in StudentData.SelectedCells)
+                        {
+                            item.Value = "";
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    LogWritter.ErrorMessage(ex.Message);
-                    ExDiscription.Text = "删除 " + Name + " 时出现问题";
-                }
-            }
-            else
-            {
-                StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
-                ExDiscription.Text = "成功删除:" + Name;
             }
         }
 
-        private void 清空ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StudentData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            foreach (DataGridViewCell item in StudentData.SelectedCells)
+            if (e.Button == MouseButtons.Right)
             {
-                item.Value = "";
+                StudentData.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                Point p = PointToClient(MousePosition);
+                p.X = p.X + 70;
+                p.Y = p.Y + 20;
+                radialMenu1.Location = p;
+                radialMenu1.IsOpen = true;
+                radialMenu1.Visible = true;
             }
+            else
+            {
+                radialMenu1.IsOpen = false;
+                radialMenu1.Visible = false;
+            }
+        }
+
+        private void radialMenu1_MenuClosed(object sender, EventArgs e)
+        {
+            radialMenu1.Visible = false;
         }
     }
 }

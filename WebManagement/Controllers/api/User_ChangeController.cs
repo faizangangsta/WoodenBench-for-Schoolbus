@@ -33,7 +33,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
             string[] SessionVerify = STAMP.Split("_v3_");
-            if (SessionVerify.Length != 2) return WebAPIErrors.RequestIllegal;
+            if (SessionVerify.Length != 2) return WebAPIResponseErrors.RequestIllegal;
             try
             {
                 if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
@@ -73,8 +73,8 @@ namespace WBServicePlatform.WebManagement.Controllers
                         query.WhereEqualTo("objectId", SessionUser.objectId);
                         switch (QueryHelper.BmobQueryData(query, out List<UserObject> UserList))
                         {
-                            case -1: return WebAPIErrors.InternalError;
-                            case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                            case -1: return WebAPIResponseErrors.InternalError;
+                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
                                 Dictionary<string, string> dict = UserList[0].ToDictionary();
                                 string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
@@ -85,13 +85,13 @@ namespace WBServicePlatform.WebManagement.Controllers
                                 return dict;
                         }
                     }
-                    else return WebAPIErrors.InternalError;
+                    else return WebAPIResponseErrors.InternalError;
                 }
-                else return WebAPIErrors.RequestIllegal;
+                else return WebAPIResponseErrors.RequestIllegal;
             }
             catch (Exception e)
             {
-                return WebAPIErrors.SpecialisedError(e.Message);
+                return WebAPIResponseErrors.SpecialisedError(e.Message);
             }
         }
     }

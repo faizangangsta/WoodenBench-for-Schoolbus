@@ -1,6 +1,6 @@
 ﻿namespace WBServicePlatform.WinClient.Views
 {
-    partial class ExcelOperationWindow
+    partial class StudentUploadWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -35,21 +35,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelOperationWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentUploadWindow));
             this.StudentData = new DevComponents.DotNetBar.Controls.DataGridViewX();
-            this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BusDirection = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BusID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ParentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CHChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentDataGridMenuS = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.删除当前行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentDataBindSourc = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.SureAndUploadBtn = new DevComponents.DotNetBar.ButtonX();
@@ -69,7 +56,7 @@
             this.ClassPartOS = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ExcelFileOpenBtn = new DevComponents.DotNetBar.ButtonX();
-            this.ExDiscription = new System.Windows.Forms.Label();
+            this.ExDiscription = new System.Windows.Forms.ListBox();
             this.LoadExistStudents = new DevComponents.DotNetBar.ButtonX();
             this.label1 = new System.Windows.Forms.Label();
             this.ClassNum = new System.Windows.Forms.ComboBox();
@@ -95,8 +82,24 @@
             this.label2 = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.radialMenu1 = new DevComponents.DotNetBar.RadialMenu();
+            this.radialMenuItem1 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem2 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem3 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem4 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialMenuItem5 = new DevComponents.DotNetBar.RadialMenuItem();
+            this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BusDirection = new DevComponents.DotNetBar.Controls.DataGridViewComboBoxExColumn();
+            this.BusID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ParentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CHChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
-            this.StudentDataGridMenuS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentDataBindSourc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BusDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).BeginInit();
@@ -106,6 +109,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.statusPanel.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // StudentData
@@ -136,7 +140,6 @@
             this.CSChecked,
             this.CHChecked,
             this.updatedAtDataGridViewTextBoxColumn});
-            this.StudentData.ContextMenuStrip = this.StudentDataGridMenuS;
             this.StudentData.DataSource = this.studentDataBindSourc;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
@@ -162,98 +165,9 @@
             this.StudentData.RowTemplate.Height = 23;
             this.StudentData.ScrollBarAppearance = DevComponents.DotNetBar.eScrollBarAppearance.Default;
             this.StudentData.SelectAllSignVisible = false;
-            this.StudentData.Size = new System.Drawing.Size(837, 367);
+            this.StudentData.Size = new System.Drawing.Size(824, 377);
             this.StudentData.TabIndex = 6;
-            // 
-            // objectIdDataGridViewTextBoxColumn
-            // 
-            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.HeaderText = "学生ID";
-            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
-            // 
-            // StudentName
-            // 
-            this.StudentName.DataPropertyName = "StudentName";
-            this.StudentName.HeaderText = "学生姓名";
-            this.StudentName.Name = "StudentName";
-            // 
-            // BusDirection
-            // 
-            this.BusDirection.HeaderText = "校车方向";
-            this.BusDirection.Name = "BusDirection";
-            this.BusDirection.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BusDirection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // BusID
-            // 
-            this.BusID.DataPropertyName = "BusID";
-            this.BusID.HeaderText = "校车ID";
-            this.BusID.Name = "BusID";
-            this.BusID.ReadOnly = true;
-            // 
-            // ClassID
-            // 
-            this.ClassID.DataPropertyName = "ClassID";
-            this.ClassID.HeaderText = "班级ID";
-            this.ClassID.Name = "ClassID";
-            this.ClassID.ReadOnly = true;
-            // 
-            // ParentID
-            // 
-            this.ParentID.DataPropertyName = "ParentID";
-            this.ParentID.HeaderText = "家长ID";
-            this.ParentID.Name = "ParentID";
-            this.ParentID.ReadOnly = true;
-            // 
-            // LSChecked
-            // 
-            this.LSChecked.DataPropertyName = "LSChecked";
-            this.LSChecked.HeaderText = "离校签到";
-            this.LSChecked.Name = "LSChecked";
-            this.LSChecked.ReadOnly = true;
-            // 
-            // CSChecked
-            // 
-            this.CSChecked.DataPropertyName = "CSChecked";
-            this.CSChecked.HeaderText = "到家确认";
-            this.CSChecked.Name = "CSChecked";
-            this.CSChecked.ReadOnly = true;
-            // 
-            // CHChecked
-            // 
-            this.CHChecked.DataPropertyName = "CHChecked";
-            this.CHChecked.HeaderText = "返校签到";
-            this.CHChecked.Name = "CHChecked";
-            this.CHChecked.ReadOnly = true;
-            // 
-            // updatedAtDataGridViewTextBoxColumn
-            // 
-            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "updatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "更新时间";
-            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
-            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // StudentDataGridMenuS
-            // 
-            this.StudentDataGridMenuS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.删除当前行ToolStripMenuItem,
-            this.清空ToolStripMenuItem});
-            this.StudentDataGridMenuS.Name = "StudentDataGridMenuS";
-            this.StudentDataGridMenuS.Size = new System.Drawing.Size(137, 48);
-            // 
-            // 删除当前行ToolStripMenuItem
-            // 
-            this.删除当前行ToolStripMenuItem.Name = "删除当前行ToolStripMenuItem";
-            this.删除当前行ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.删除当前行ToolStripMenuItem.Text = "删除当前行";
-            this.删除当前行ToolStripMenuItem.Click += new System.EventHandler(this.删除当前行ToolStripMenuItem_Click);
-            // 
-            // 清空ToolStripMenuItem
-            // 
-            this.清空ToolStripMenuItem.Name = "清空ToolStripMenuItem";
-            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.清空ToolStripMenuItem.Text = "清空";
-            this.清空ToolStripMenuItem.Click += new System.EventHandler(this.清空ToolStripMenuItem_Click);
+            this.StudentData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.StudentData_CellMouseClick);
             // 
             // studentDataBindSourc
             // 
@@ -274,7 +188,7 @@
             // 
             this.SureAndUploadBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.SureAndUploadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SureAndUploadBtn.Location = new System.Drawing.Point(926, 640);
+            this.SureAndUploadBtn.Location = new System.Drawing.Point(913, 650);
             this.SureAndUploadBtn.Name = "SureAndUploadBtn";
             this.SureAndUploadBtn.Size = new System.Drawing.Size(188, 36);
             this.SureAndUploadBtn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -305,7 +219,7 @@
             this.ExcelFilePathTxt.Name = "ExcelFilePathTxt";
             this.ExcelFilePathTxt.PreventEnterBeep = true;
             this.ExcelFilePathTxt.ReadOnly = true;
-            this.ExcelFilePathTxt.Size = new System.Drawing.Size(715, 23);
+            this.ExcelFilePathTxt.Size = new System.Drawing.Size(702, 23);
             this.ExcelFilePathTxt.TabIndex = 7;
             this.ExcelFilePathTxt.WatermarkText = "Excel 文件位置";
             // 
@@ -325,9 +239,6 @@
             this.BusDataGrid.AllowUserToAddRows = false;
             this.BusDataGrid.AllowUserToDeleteRows = false;
             this.BusDataGrid.AllowUserToOrderColumns = true;
-            this.BusDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.BusDataGrid.AutoGenerateColumns = false;
             this.BusDataGrid.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -357,9 +268,10 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.BusDataGrid.DefaultCellStyle = dataGridViewCellStyle5;
+            this.BusDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BusDataGrid.EnableHeadersVisualStyles = false;
             this.BusDataGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.BusDataGrid.Location = new System.Drawing.Point(6, 23);
+            this.BusDataGrid.Location = new System.Drawing.Point(3, 19);
             this.BusDataGrid.Name = "BusDataGrid";
             this.BusDataGrid.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -372,7 +284,7 @@
             this.BusDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.BusDataGrid.RowTemplate.Height = 23;
             this.BusDataGrid.SelectAllSignVisible = false;
-            this.BusDataGrid.Size = new System.Drawing.Size(896, 204);
+            this.BusDataGrid.Size = new System.Drawing.Size(889, 211);
             this.BusDataGrid.TabIndex = 11;
             // 
             // objectId
@@ -469,7 +381,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(262, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(852, 425);
+            this.groupBox1.Size = new System.Drawing.Size(839, 435);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "打开并修改学生信息";
@@ -488,14 +400,17 @@
             // 
             // ExDiscription
             // 
-            this.ExDiscription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ExDiscription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ExDiscription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.ExDiscription.Location = new System.Drawing.Point(926, 443);
+            this.ExDiscription.IntegralHeight = false;
+            this.ExDiscription.ItemHeight = 17;
+            this.ExDiscription.Items.AddRange(new object[] {
+            "加载窗体"});
+            this.ExDiscription.Location = new System.Drawing.Point(3, 19);
             this.ExDiscription.Name = "ExDiscription";
-            this.ExDiscription.Size = new System.Drawing.Size(188, 194);
+            this.ExDiscription.Size = new System.Drawing.Size(181, 168);
             this.ExDiscription.TabIndex = 19;
-            this.ExDiscription.Text = "                  ";
             // 
             // LoadExistStudents
             // 
@@ -569,9 +484,9 @@
             this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.BusDataGrid);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(12, 443);
+            this.groupBox2.Location = new System.Drawing.Point(12, 453);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(908, 233);
+            this.groupBox2.Size = new System.Drawing.Size(895, 233);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "校车信息";
@@ -584,7 +499,7 @@
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Location = new System.Drawing.Point(18, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(238, 425);
+            this.groupBox3.Size = new System.Drawing.Size(238, 435);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "班级数据";
@@ -627,7 +542,7 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Location = new System.Drawing.Point(6, 191);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(226, 228);
+            this.groupBox4.Size = new System.Drawing.Size(226, 213);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "班级信息";
@@ -765,7 +680,7 @@
             this.statusPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.statusPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.statusPanel.Controls.Add(this.statusLabel);
-            this.statusPanel.Location = new System.Drawing.Point(393, 267);
+            this.statusPanel.Location = new System.Drawing.Point(386, 272);
             this.statusPanel.Name = "statusPanel";
             this.statusPanel.Size = new System.Drawing.Size(372, 113);
             this.statusPanel.TabIndex = 15;
@@ -782,18 +697,159 @@
             this.statusLabel.Text = "当前状态";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.ExDiscription);
+            this.groupBox6.Location = new System.Drawing.Point(914, 454);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(187, 190);
+            this.groupBox6.TabIndex = 22;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "操作记录";
+            // 
+            // radialMenu1
+            // 
+            // 
+            // 
+            // 
+            this.radialMenu1.Colors.RadialMenuItemDisabledForeground = System.Drawing.Color.Empty;
+            this.radialMenu1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.radialMenuItem1,
+            this.radialMenuItem2,
+            this.radialMenuItem3,
+            this.radialMenuItem4,
+            this.radialMenuItem5});
+            this.radialMenu1.Location = new System.Drawing.Point(12, 0);
+            this.radialMenu1.Name = "radialMenu1";
+            this.radialMenu1.Size = new System.Drawing.Size(28, 28);
+            this.radialMenu1.SubMenuEdgeWidth = 20;
+            this.radialMenu1.Symbol = "";
+            this.radialMenu1.SymbolSize = 13F;
+            this.radialMenu1.TabIndex = 15;
+            this.radialMenu1.Text = "radialMenu1";
+            this.radialMenu1.Visible = false;
+            this.radialMenu1.MenuClosed += new System.EventHandler(this.radialMenu1_MenuClosed);
+            this.radialMenu1.ItemClick += new System.EventHandler(this.radialMenu1_ItemClick);
+            // 
+            // radialMenuItem1
+            // 
+            this.radialMenuItem1.Name = "radialMenuItem1";
+            this.radialMenuItem1.Symbol = "";
+            this.radialMenuItem1.Text = "编辑";
+            // 
+            // radialMenuItem2
+            // 
+            this.radialMenuItem2.Name = "radialMenuItem2";
+            this.radialMenuItem2.Symbol = "";
+            this.radialMenuItem2.Text = "移除";
+            // 
+            // radialMenuItem3
+            // 
+            this.radialMenuItem3.Name = "radialMenuItem3";
+            this.radialMenuItem3.Symbol = "";
+            this.radialMenuItem3.Text = "彻底删除";
+            // 
+            // radialMenuItem4
+            // 
+            this.radialMenuItem4.Name = "radialMenuItem4";
+            this.radialMenuItem4.Symbol = "";
+            this.radialMenuItem4.Text = "复制";
+            // 
+            // radialMenuItem5
+            // 
+            this.radialMenuItem5.Name = "radialMenuItem5";
+            this.radialMenuItem5.Symbol = "";
+            this.radialMenuItem5.Text = "重输";
+            // 
+            // objectIdDataGridViewTextBoxColumn
+            // 
+            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
+            this.objectIdDataGridViewTextBoxColumn.HeaderText = "学生ID";
+            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
+            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // StudentName
+            // 
+            this.StudentName.DataPropertyName = "StudentName";
+            this.StudentName.HeaderText = "学生姓名";
+            this.StudentName.Name = "StudentName";
+            // 
+            // BusDirection
+            // 
+            this.BusDirection.DisplayMember = "Text";
+            this.BusDirection.DropDownHeight = 106;
+            this.BusDirection.DropDownWidth = 121;
+            this.BusDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BusDirection.HeaderText = "校车方向";
+            this.BusDirection.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.BusDirection.IntegralHeight = false;
+            this.BusDirection.ItemHeight = 16;
+            this.BusDirection.Name = "BusDirection";
+            this.BusDirection.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BusDirection.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            // 
+            // BusID
+            // 
+            this.BusID.DataPropertyName = "BusID";
+            this.BusID.HeaderText = "校车ID";
+            this.BusID.Name = "BusID";
+            this.BusID.ReadOnly = true;
+            // 
+            // ClassID
+            // 
+            this.ClassID.DataPropertyName = "ClassID";
+            this.ClassID.HeaderText = "班级ID";
+            this.ClassID.Name = "ClassID";
+            this.ClassID.ReadOnly = true;
+            // 
+            // ParentID
+            // 
+            this.ParentID.DataPropertyName = "ParentID";
+            this.ParentID.HeaderText = "家长ID";
+            this.ParentID.Name = "ParentID";
+            this.ParentID.ReadOnly = true;
+            // 
+            // LSChecked
+            // 
+            this.LSChecked.DataPropertyName = "LSChecked";
+            this.LSChecked.HeaderText = "离校签到";
+            this.LSChecked.Name = "LSChecked";
+            this.LSChecked.ReadOnly = true;
+            // 
+            // CSChecked
+            // 
+            this.CSChecked.DataPropertyName = "CSChecked";
+            this.CSChecked.HeaderText = "到家确认";
+            this.CSChecked.Name = "CSChecked";
+            this.CSChecked.ReadOnly = true;
+            // 
+            // CHChecked
+            // 
+            this.CHChecked.DataPropertyName = "CHChecked";
+            this.CHChecked.HeaderText = "返校签到";
+            this.CHChecked.Name = "CHChecked";
+            this.CHChecked.ReadOnly = true;
+            // 
+            // updatedAtDataGridViewTextBoxColumn
+            // 
+            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "updatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "更新时间";
+            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
+            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // ExcelOperationWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1126, 688);
+            this.ClientSize = new System.Drawing.Size(1113, 698);
+            this.Controls.Add(this.radialMenu1);
             this.Controls.Add(this.statusPanel);
-            this.Controls.Add(this.ExDiscription);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.SureAndUploadBtn);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExcelOperationWindow";
             this.Text = "上传学生数据";
@@ -801,7 +857,6 @@
             this.Load += new System.EventHandler(this.ExcelOperationWindow_Load);
             this.Shown += new System.EventHandler(this.ExcelOperationWindow_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.StudentData)).EndInit();
-            this.StudentDataGridMenuS.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.studentDataBindSourc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BusDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.schoolBusObjectBindingSource)).EndInit();
@@ -813,6 +868,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.statusPanel.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -842,14 +898,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn otherStuDataDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource schoolBusObjectBindingSource;
         private DevComponents.DotNetBar.Controls.DataGridViewX StudentData;
-        private System.Windows.Forms.ContextMenuStrip StudentDataGridMenuS;
-        private System.Windows.Forms.ToolStripMenuItem 删除当前行ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn studentPartOfSchoolDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn studentYearDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn studentClassDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn studentDirectionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Label ExDiscription;
+        private System.Windows.Forms.ListBox ExDiscription;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridViewTextBoxColumn objectId;
@@ -876,9 +929,18 @@
         private System.Windows.Forms.Label ClsTPhoneNum;
         private System.Windows.Forms.Label ClsID;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel statusPanel;
+        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private DevComponents.DotNetBar.RadialMenu radialMenu1;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem1;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem2;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem3;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem4;
+        private DevComponents.DotNetBar.RadialMenuItem radialMenuItem5;
         private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn BusDirection;
+        private DevComponents.DotNetBar.Controls.DataGridViewComboBoxExColumn BusDirection;
         private System.Windows.Forms.DataGridViewTextBoxColumn BusID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClassID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParentID;
@@ -886,7 +948,5 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn CSChecked;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CHChecked;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Panel statusPanel;
-        private System.Windows.Forms.Label statusLabel;
     }
 }

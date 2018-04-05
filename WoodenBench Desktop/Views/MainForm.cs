@@ -113,13 +113,13 @@ namespace WBServicePlatform.WinClient.Views
 
         private void UploadStuDataTile_Click(object sender, EventArgs e)
         {
-            ExcelOperationWindow.Default.Show();
+            StudentUploadWindow.Default.Show();
             Hide();
         }
 
         private void appSettingsTile_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void helpTile_Click(object sender, EventArgs e)
@@ -136,13 +136,23 @@ namespace WBServicePlatform.WinClient.Views
         private void newClientTile_Click(object sender, EventArgs e)
         {
             BusesManager.Default.Show();
-            Hide();
+            Hide(); 
         }
 
         private void MyStudentData_Click(object sender, EventArgs e)
         {
             CheckMyStudents.Default.Show();
             Hide();
+        }
+
+        private void myAccount_Click(object sender, EventArgs e)
+        {
+            AppSettings.Default.ShowDialog();
+        }
+
+        private void NotificationCenter_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

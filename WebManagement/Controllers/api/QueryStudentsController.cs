@@ -17,14 +17,14 @@ namespace WBServicePlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string BusID, string Column, string Content, string STAMP, string SALT)
         {
-            if (Crypto.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return WebAPIErrors.RequestIllegal;
+            if (Crypto.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return WebAPIResponseErrors.RequestIllegal;
 
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("objectId", BusID);
             switch (QueryHelper.BmobQueryData(query, out List<SchoolBusObject> BusList))
             {
-                case -1: return WebAPIErrors.InternalError;
-                case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                case -1: return WebAPIResponseErrors.InternalError;
+                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     {
                         object Equals2Obj = Content;
@@ -36,8 +36,8 @@ namespace WBServicePlatform.WebManagement.Controllers
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (QueryHelper.BmobQueryData(query2, out List<StudentObject> StudentList))
                         {
-                            case -1: return WebAPIErrors.InternalError;
-                            case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                            case -1: return WebAPIResponseErrors.InternalError;
+                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

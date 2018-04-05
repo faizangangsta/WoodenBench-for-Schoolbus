@@ -22,7 +22,6 @@ namespace WBServicePlatform.WinClient.StaticClasses
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            LogWritter.DebugMessage("Application Log Started, And now to the Initialization of Bmob Object.");
             InitBmobObject();
             Application.EnableVisualStyles();
             RegEvents();
@@ -37,22 +36,21 @@ namespace WBServicePlatform.WinClient.StaticClasses
         public static void ApplicationExit()
         {
             UserActivity.LogOut();
-            LogWritter.DebugMessage("Application will now EXIT, User has been logged off, now" +
-                " Closing Logs and terminal all windows.");
+            LogWritter.DebugMessage("Application will now EXIT, User has been logged off, now Closing Logs and terminal all windows.");
             Application.Exit();
         }
 
         private static void RegEvents()
         {
             UserActivity.onUserActivityEvent += UsrLoginWindow.Default.onUsrLgn;
-            UserActivity.onUserActivityEvent += CreateUserWindow.Default.onUserActivity;
-            ExcelApplication.onExcelProcFinishedEvent += ExcelOperationWindow.Default.onExcelFilePorcFinished;
+            ExcelApplication.onExcelProcFinishedEvent += StudentUploadWindow.Default.onExcelFilePorcFinished;
             FileIO.onFileIOCompleted += Views.MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");
         }
 
         private static void InitBmobObject()
         {
+            LogWritter.DebugMessage("Now to the Initialization of Bmob Object.");
             LogWritter.DebugMessage("Bmob log level is gonna set to \"trace\"");
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _BmobWin = new BmobWindows();

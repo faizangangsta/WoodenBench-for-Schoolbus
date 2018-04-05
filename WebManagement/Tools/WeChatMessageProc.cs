@@ -45,14 +45,15 @@ namespace WBServicePlatform.WebManagement.Tools
                                 case "ADD_PASSWORD":
                                     return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                         "要是想使用Windows 客户端登陆的话<br />" +
-                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?action=addps&user=" + Message.FromUser + "'>这里</a>" +
+                                        ///Home/Register?token={token}&user=&action=register
+                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
                                         "给自己加一个密码吧!", null);
                                 case "WEB_SERV_VER":
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,
                                         "小板凳平台版本信息",
                                         "这是当前版本信息: <br />" +
                                         "服务端版本: " + Program.Version + "<br />" +
-                                        "核心库版本: " + WBConsts.CurrentCoreVersion() + "<br />" +
+                                        "核心库版本: " + WBConsts.CurrentCoreVersion + "<br />" +
                                         "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top/Home/Version");
                                 default: return null;
                             }

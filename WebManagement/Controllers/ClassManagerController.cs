@@ -21,8 +21,8 @@ namespace WBServicePlatform.WebManagement.Controllers
                 {
                     switch (QueryHelper.BmobQueryData(new cn.bmob.io.BmobQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
                     {
-                        case -1: return _OnInternalError("MyClass", "数据库查询异常", "Internal Error", user.WeChatID, ErrorRespCode.InternalError);
-                        case 0: return _OnInternalError("MyClass", "找不到内容", "None of your class found", user.WeChatID);
+                        case -1: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.WeChatID, ErrorRespCode.InternalError);
+                        case 0: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.WeChatID);
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].objectId;
@@ -30,7 +30,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                             return View();
                     }
                 }
-                else return _OnInternalError("MyClass", "用户组异常", "你现在不是班主任，暂时不能使用 “班级管理” 功能", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.UserGroupError, "你现在不是班主任，暂时不能使用 “班级管理” 功能", user.WeChatID, ErrorRespCode.PermisstionDenied);
             }
             else return _LoginFailed("/ClassManager/Index/");
         }

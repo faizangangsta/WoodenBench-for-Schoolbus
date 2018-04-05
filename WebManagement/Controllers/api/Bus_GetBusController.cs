@@ -21,14 +21,14 @@ namespace WBServicePlatform.WebManagement.Controllers
                 {
                     switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("TeacherObjectID", UserID).WhereEqualTo("objectId", BusID), out List<SchoolBusObject> BusList))
                     {
-                        case -1: return WebAPIErrors.InternalError;
-                        case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                        case -1: return WebAPIResponseErrors.InternalError;
+                        case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID), out List<StudentObject> StudentList))
                             {
-                                case -1: return WebAPIErrors.InternalError;
-                                case 0: return WebAPIErrors.SpecialisedError("No Result Found");
+                                case -1: return WebAPIResponseErrors.InternalError;
+                                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)
@@ -47,9 +47,9 @@ namespace WBServicePlatform.WebManagement.Controllers
                             }
                     }
                 }
-                else return WebAPIErrors.RequestIllegal;
+                else return WebAPIResponseErrors.RequestIllegal;
             }
-            else return WebAPIErrors.SessionError;
+            else return WebAPIResponseErrors.SessionError;
         }
     }
 }
