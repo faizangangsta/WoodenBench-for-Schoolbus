@@ -4,6 +4,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+
 using WBServicePlatform.StaticClasses;
 //-40001 ： 签名验证错误
 //-40002 :  xml解析失败

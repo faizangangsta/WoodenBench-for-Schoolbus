@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Text;
+using WBServicePlatform.StaticClasses;
 using WBServicePlatform.WebManagement.Tools;
 
-namespace WBServicePlatform.WebManagement.Controllers.api
+namespace WBServicePlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/WeChatMessage")]
@@ -22,7 +23,7 @@ namespace WBServicePlatform.WebManagement.Controllers.api
         {
             int ret = 0;
             string sEchoStr = "";
-            ret = Program._WeChatEncryptor.VerifyURL(msg_signature, timestamp, nonce, echostr, ref sEchoStr);
+            ret = WeChat.WeChatEncryptor.VerifyURL(msg_signature, timestamp, nonce, echostr, ref sEchoStr);
             if (ret != 0)
             {
                 return;
@@ -42,7 +43,7 @@ namespace WBServicePlatform.WebManagement.Controllers.api
             MemoryStream ms = new MemoryStream();
             Request.Body.CopyTo(ms);
             string XML_Message = "";
-            int ret = Program._WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, Encoding.UTF8.GetString(ms.ToArray()), ref XML_Message);
+            int ret = WeChat.WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, Encoding.UTF8.GetString(ms.ToArray()), ref XML_Message);
             if (ret != 0)
             {
                 Response.StatusCode = 500;

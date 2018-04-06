@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Reflection;
-using System.Xml;
+using System.Threading;
+
 using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.WebManagement.Tools
 {
     public static class WeChatMessageProc
     {
-        public static List<WeChatMessage> MessageList = new List<WeChatMessage>();
+        public static List<WeChatMessage> MessageList { get; set; } = new List<WeChatMessage>();
         private static Thread ProcessorThread = new Thread(new ThreadStart(_Process));
 
         public static void StartProc() => ProcessorThread.Start();
@@ -24,8 +19,7 @@ namespace WBServicePlatform.WebManagement.Tools
             switch (Message.MessageType)
             {
                 case WeChat.RcvdMessageType.text:
-                    //Process some user inputs....
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "你是说:" + Message.TextContent, null);
+                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "你是说:" + Message.TextContent + "??", null);
                 case WeChat.RcvdMessageType.image:
                     return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "哇这张图片真好看", null);
                 case WeChat.RcvdMessageType.voice:
@@ -52,6 +46,7 @@ namespace WBServicePlatform.WebManagement.Tools
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,
                                         "小板凳平台版本信息",
                                         "这是当前版本信息: <br />" +
+                                        "启动の时间: " + Program.StartUpTime.ToString() + "<br /><br />" +
                                         "服务端版本: " + Program.Version + "<br />" +
                                         "核心库版本: " + WBConsts.CurrentCoreVersion + "<br />" +
                                         "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top/Home/Version");
@@ -60,7 +55,7 @@ namespace WBServicePlatform.WebManagement.Tools
                         default: return null;
                     }
                 case WeChat.RcvdMessageType._DEVELOPER_ERROR_REPORT:
-                    return SendMessageString(WeChat.SentMessageType.text, "@all", null, Message.TextContent, null);
+                    return SendMessageString(WeChat.SentMessageType.text, "liuhaoyu", null, Message.TextContent, null);
                 default: return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, Message.FromUser + " " + Message.MessageType.ToString(), null);
             }
         }
@@ -77,23 +72,17 @@ namespace WBServicePlatform.WebManagement.Tools
                         message = MessageList[MessageList.Count - 1];
                         MessageList.Remove(MessageList.Last());
                     }
-                    else
-                    {
-                        message = null;
-                    }
+                    else message = null;
                 }
-                if (message != null)
-                {
-                    ResponceToMessage(message);
-                }
+                if (message != null) ResponceToMessage(message);
                 else Thread.Sleep(500);
                 Thread.Sleep(100);
             }
         }
 
-
         public static Dictionary<string, string> SendMessageString(WeChat.SentMessageType MessageType, string users, string Title, string Content, string URL)
         {
+            WeChat.ReNewWCCodes();
             string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + WeChat.agentId + ",\"" + MessageType.ToString() + "\":";
             switch (MessageType)
             {
@@ -106,7 +95,6 @@ namespace WBServicePlatform.WebManagement.Tools
             }
 
             Message = Message + "}";
-
             return HTTPOperations.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChat.AccessToken, Message);
         }
     }

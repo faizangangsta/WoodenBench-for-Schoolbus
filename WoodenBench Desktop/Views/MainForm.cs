@@ -1,7 +1,3 @@
-using DevComponents.AdvTree;
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Metro;
-using DevComponents.DotNetBar.Metro.ColorTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,12 +7,19 @@ using System.Drawing;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using WBServicePlatform.WinClient.StaticClasses;
+
+using DevComponents.AdvTree;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Metro;
+using DevComponents.DotNetBar.Metro.ColorTables;
+
+using WBServicePlatform.StaticClasses;
 using WBServicePlatform.WinClient.DelegateClasses;
 using WBServicePlatform.WinClient.Properties;
+using WBServicePlatform.WinClient.StaticClasses;
 using WBServicePlatform.WinClient.Users;
+
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
-using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.WinClient.Views
 {

@@ -1,6 +1,4 @@
-﻿using cn.bmob.io;
-using DevComponents.DotNetBar.Metro;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,10 +6,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
+using cn.bmob.io;
+
+using DevComponents.DotNetBar.Metro;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.Users;
 using WBServicePlatform.WinClient.Views;
+
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views

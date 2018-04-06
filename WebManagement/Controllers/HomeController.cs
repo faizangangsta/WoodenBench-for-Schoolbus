@@ -59,7 +59,7 @@ namespace WBServicePlatform.WebManagement.Controllers
 
         public IActionResult Error()
         {
-            return _OnInternalError(ErrorAt.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR);
+            return _OnInternalError(ErrorAt.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, LoginUsr: "系统错误");
         }
 
         public IActionResult Register(string token, string user, string action)

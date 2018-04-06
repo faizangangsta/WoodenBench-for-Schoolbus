@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System;
+
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.WebManagement.Tools;
 
@@ -16,10 +14,10 @@ namespace WBServicePlatform.WebManagement.Controllers
     {
         public abstract IActionResult Index();
 
-        protected IActionResult _LoginFailed(string ReDirectTo)
+        protected IActionResult _LoginFailed(string RedirectPage)
         {
             Response.Cookies.Delete("Session");
-            Response.Cookies.Append("LoginRedirect", ReDirectTo, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
+            Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
             return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
@@ -28,13 +26,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + ((Frame)((DefaultHttpContext)Response.HttpContext).Features).RawTarget;
             Exception ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
             if (ex != null)
-            {
-                DetailedInfo = ex.Message;
-                if (ex.InnerException != null)
-                {
-                    DetailedInfo = DetailedInfo + "\r\n" + ex.InnerException.Message;
-                }
-            }
+                DetailedInfo = ex.InnerException == null ? ex.Message : ex.Message + ":::" + ex.InnerException.Message;
 
             Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
             ViewData["where"] = HomeController.ControllerName;
@@ -46,20 +38,16 @@ namespace WBServicePlatform.WebManagement.Controllers
             WeChatMessage _Message = new WeChatMessage
             {
                 MessageType = WeChat.RcvdMessageType._DEVELOPER_ERROR_REPORT,
-                TextContent = "Error:" +
-                "\r\n REQT: " + DateTime.Now.ToString() +
-                "\r\n PURL: " + ViewData["RAWResp"] +
-                "\r\n CODE: " + Response.StatusCode +
-                "\r\n EMSG: " + ViewData["ErrorMessage"] +
-                "\r\n LUSR: " + LoginUsr +
-                "\r\n STCK: " + ViewData["ErrorAT"] +
-                "\r\n DNFO: " + ViewData["DetailedInfo"]
-                //"\r\n ErrThow: " + error.ToString() 
+                TextContent = "ERROR!" +
+                "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
+                "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
+                "\r\nCODE:" + Response.StatusCode + "\r\n" +
+                "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
+                "\r\nLUSR:" + LoginUsr + "\r\n" +
+                "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
+                "\r\nDNFO:" + ViewData["DetailedInfo"]
             };
-            lock (WeChatMessageProc.MessageList)
-            {
-                WeChatMessageProc.MessageList.Add(_Message);
-            }
+            lock (WeChatMessageProc.MessageList) WeChatMessageProc.MessageList.Add(_Message);
             return View("Error");
         }
     }

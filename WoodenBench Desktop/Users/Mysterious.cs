@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Users
 {

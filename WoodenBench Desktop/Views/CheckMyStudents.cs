@@ -1,6 +1,3 @@
-using cn.bmob.io;
-using cn.bmob.response;
-using DevComponents.DotNetBar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +6,15 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using cn.bmob.io;
+using cn.bmob.response;
+
+using DevComponents.DotNetBar;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
+
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
