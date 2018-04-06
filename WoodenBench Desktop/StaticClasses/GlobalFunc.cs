@@ -29,21 +29,18 @@ namespace WBServicePlatform.WinClient.StaticClasses
             Application.Run(UsrLoginWindow.Default);
         }
 
-        public static UserObject CurrentUser { get; set; }
+        public static UserObject CurrentUser { get; set; } = new UserObject();
 
         public static BmobWindows _BmobWin { get; set; }
 
         public static void ApplicationExit()
         {
-            UserActivity.LogOut();
             LogWritter.DebugMessage("Application will now EXIT, User has been logged off, now Closing Logs and terminal all windows.");
             Application.Exit();
         }
 
         private static void RegEvents()
         {
-            UserActivity.onUserActivityEvent += UsrLoginWindow.Default.onUsrLgn;
-            ExcelApplication.onExcelProcFinishedEvent += StudentUploadWindow.Default.onExcelFilePorcFinished;
             FileIO.onFileIOCompleted += Views.MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");
         }

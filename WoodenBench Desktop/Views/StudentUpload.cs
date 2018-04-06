@@ -268,12 +268,6 @@ namespace WBServicePlatform.WinClient.Views
             ClassYear.SelectedIndex = 0;
         }
 
-        public void onExcelFilePorcFinished(ExcelProcessEventArgs e)
-        {
-
-        }
-
-
         private void SureAndUpload(object sender, EventArgs e)
         {
             statusPanel.Visible = true;

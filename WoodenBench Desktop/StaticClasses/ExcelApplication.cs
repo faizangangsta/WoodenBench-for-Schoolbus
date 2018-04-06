@@ -9,54 +9,39 @@ namespace WBServicePlatform.StaticClasses
 {
     public class ExcelApplication
     {
-        public static event ExcelProcFinishedHandler onExcelProcFinishedEvent;
         bool IsExcelOpened = false;
         bool IsFileOpened = false;
         string FilePath;
-        Excel.Application ExcelApp;
-        Excel.Workbook xWorkbook;
+        Excel.ApplicationClass ExcelApp;
+        Excel.WorkbookClass xWorkbook;
 
-        public ExcelApplication() { OpenExcelApp(); }
-
-        public void OpenExcelApp()
+        public ExcelApplication()
         {
-            if (!IsExcelOpened)
+            try
             {
-                try
-                {
-                    ExcelApp = new Excel.Application();
-                    IsExcelOpened = true;
-                    onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Completed);
-                }
-                catch (Exception ex)
-                {
-                    onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Failed, ex.Message);
-                }
+                ExcelApp = new Excel.ApplicationClass();
+                IsExcelOpened = true;
+                LogWritter.ErrorMessage("Excel Opened!");
             }
-            else
+            catch (Exception ex)
             {
-                onExcelProcFinished("", ExcelOperationE.OpenApp, OperationStatus.Completed, "Excel is Already started");
+                LogWritter.ErrorMessage("Excel Opening Error: " + ex.Message);
             }
         }
 
-        public void QuitExcel()
+        public bool QuitExcel()
         {
-            if (IsExcelOpened)
+            try
             {
-                try
-                {
-                    ExcelApp.Quit();
-                    IsExcelOpened = false;
-                    onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Completed);
-                }
-                catch (Exception ex)
-                {
-                    onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Failed, ex.Message);
-                }
+                ExcelApp.Quit();
+                IsExcelOpened = false;
+                LogWritter.ErrorMessage("Excel Quited!");
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                onExcelProcFinished("", ExcelOperationE.QuitApp, OperationStatus.Completed, "Excel Application not running");
+                LogWritter.ErrorMessage("Excel Quiting Error: " + ex.Message);
+                return false;
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -66,47 +51,27 @@ namespace WBServicePlatform.StaticClasses
         {
             try
             {
-                xWorkbook = ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
-                onExcelProcFinished(FilePath, ExcelOperationE.Open, OperationStatus.Completed);
+                xWorkbook = (Excel.WorkbookClass)ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
+                LogWritter.ErrorMessage($"Excel Open File Seccess: FilePath: {FilePath}, ReadOnly: {ReadOnly.ToString()}");
                 return true;
             }
             catch (Exception ex)
             {
-                onExcelProcFinished(FilePath, ExcelOperationE.Open, OperationStatus.Failed, ex.Message);
+                LogWritter.ErrorMessage("Excel Open File Error: " + ex.Message);
                 return false;
             }
         }
 
-        public int LastLine(int StartFrom, int EndAt, int ifErrReturnVal = 0, int WorkSheetNum = 1)
+        public int LastLine(int StartFrom, int EndAt, int ifErrReturnVal = 0, int WorkSheetNum = 1, int ColumnNumber = 1)
         {
             int LineNum;
             for (LineNum = StartFrom; LineNum <= EndAt; LineNum++)
             {
-                if ((string)(xWorkbook.Worksheets[WorkSheetNum].Cells[LineNum, 1].Value) == null) return LineNum;
+                if (ReadContent<string>(LineNum, ColumnNumber, WorkSheetNum) == null) return LineNum;
             }
             return ifErrReturnVal;
         }
 
-        public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1)
-            => (T)xWorkbook.Worksheets[WorkSheetNum].Cells[LineNum, ColNum].Value;
-
-        public void onExcelProcFinished(string FilePath, ExcelOperationE procEnum, OperationStatus Status, string ErrDetail = "")
-        {
-            ExcelProcessEventArgs e = new ExcelProcessEventArgs()
-            {
-                FileProcedPath = FilePath,
-                ExcelProcType = procEnum,
-                ProcessStatus = Status,
-                ErrDescription = ErrDetail
-            };
-            if (onExcelProcFinishedEvent != null) { onExcelProcFinishedEvent(e); }
-        }
-    }
-
-    public class ExcelProcessEventArgs : InternalEventArgs
-    {
-        public ExcelProcessEventArgs() { }
-        public string FileProcedPath { get; set; }
-        public ExcelOperationE ExcelProcType { get; set; }
+        public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1) => (T)(((Excel.WorksheetClass)xWorkbook.Worksheets[WorkSheetNum]).Cells[LineNum, ColNum]);
     }
 }

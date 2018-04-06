@@ -1,14 +1,18 @@
-﻿using cn.bmob.io;
-using cn.bmob.json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+
+using cn.bmob.io;
+using cn.bmob.json;
+
+using Newtonsoft.Json.Linq;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.DelegateClasses;
 using WBServicePlatform.WinClient.Users;
+
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
@@ -63,7 +67,29 @@ namespace WBServicePlatform.WinClient.Views
             CancelBtn.Enabled = false;
             DoLoginBtn.Text = "登录中...";
             Application.DoEvents();
-            Users.UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, false);
+            if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, out UserObject user))
+            {
+                LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text}");
+                DoLoginBtn.Enabled = true;
+                CancelBtn.Enabled = true;
+                UserNameTxt.Enabled = true;
+                PswdTxt.Enabled = true;
+                DoLoginBtn.Text = "登录(&L)";
+                CurrentUser = user;
+                MainForm.Default.Show();
+                Hide();
+            }
+            else
+            {
+                LogWritter.ErrorMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
+                LoginResult.Text = "用户名或密码不正确";
+                LoginResult.Visible = true;
+                DoLoginBtn.Enabled = true;
+                CancelBtn.Enabled = true;
+                UserNameTxt.Enabled = true;
+                PswdTxt.Enabled = true;
+                DoLoginBtn.Text = "登录(&L)";
+            }
         }
 
         private void CreateUsr(object sender, LinkLabelLinkClickedEventArgs e)
@@ -79,44 +105,6 @@ namespace WBServicePlatform.WinClient.Views
         private void UsrLoginForm_Load(object sender, EventArgs e)
         {
 
-        }
-
-        public void onUsrLgn(UserActivityEventArgs e)
-        {
-            if (e.Activity == UserActivityE.Login)
-            {
-                if (e.ProcessStatus == OperationStatus.Completed)
-                {
-                    Invoke(new NullArgDelegate(() =>
-                    {
-                        LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text} and password {PswdTxt.Text}");
-                        DoLoginBtn.Enabled = true;
-                        CancelBtn.Enabled = true;
-                        UserNameTxt.Enabled = true;
-                        PswdTxt.Enabled = true;
-                        DoLoginBtn.Text = "登录(&L)";
-                        MainForm.Default.Show();
-                        Hide();
-                    }));
-                }
-                else if (e.ProcessStatus == OperationStatus.Failed)
-                {
-                    if (InvokeRequired)
-                    {
-                        Invoke(new NullArgDelegate(() =>
-                        {
-                            LogWritter.ErrorMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
-                            LoginResult.Text = "用户名或密码不正确";
-                            LoginResult.Visible = true;
-                            DoLoginBtn.Enabled = true;
-                            CancelBtn.Enabled = true;
-                            UserNameTxt.Enabled = true;
-                            PswdTxt.Enabled = true;
-                            DoLoginBtn.Text = "登录(&L)";
-                        }));
-                    }
-                }
-            }
         }
 
         private void UsrLoginWindow_FormClosed(object sender, FormClosedEventArgs e)

@@ -98,7 +98,7 @@
       <HintPath>..\DatabaseDLL\MySql.Web.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -126,11 +126,11 @@
     <Compile Include="StaticClasses\LogWritter.cs" />
     <Compile Include="Users\Mysterious.cs" />
     <Compile Include="Users\UserActivity.cs" />
-    <Compile Include="Views\AppSettings.cs">
+    <Compile Include="Views\UserSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AppSettings.Designer.cs">
-      <DependentUpon>AppSettings.cs</DependentUpon>
+    <Compile Include="Views\UserSettings.Designer.cs">
+      <DependentUpon>UserSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\BusesManager.cs">
       <SubType>Form</SubType>
@@ -179,8 +179,8 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\AppSettings.resx">
-      <DependentUpon>AppSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Views\UserSettings.resx">
+      <DependentUpon>UserSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BusesManager.resx">
       <DependentUpon>BusesManager.cs</DependentUpon>
@@ -292,7 +292,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <ItemGroup>

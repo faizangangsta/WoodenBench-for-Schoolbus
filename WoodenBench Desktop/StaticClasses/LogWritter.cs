@@ -26,8 +26,6 @@ namespace WBServicePlatform.StaticClasses
             LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.Ticks + ".log";
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
-            UserActivity.onUserActivityEvent += UserActivity_onUserActivityEvent;
-            ExcelApplication.onExcelProcFinishedEvent += ExcelApplication_onExcelProcFinishedEvent;
             FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;
         }
 
@@ -45,28 +43,7 @@ namespace WBServicePlatform.StaticClasses
             }
             WriteLog(LogLevel.Seperator);
         }
-
-        private static void ExcelApplication_onExcelProcFinishedEvent(ExcelProcessEventArgs e)
-        {
-            DebugMessage("ExcelApplication_onExcelProcFinishedEvent:");
-            WriteLog(LogLevel.Infomation, "\tExcel File Process:: " + e.ProcessStatus.ToString() + ", ProcType: " + e.ExcelProcType.ToString() + ":: " + e.FileProcedPath);
-
-            if (e.ProcessStatus == OperationStatus.Failed || e.ProcessStatus == OperationStatus.Unknown)
-            {
-                WriteLog(LogLevel.Error, e.ErrDescription);
-            }
-            WriteLog(LogLevel.Seperator);
-        }
-
-        private static void UserActivity_onUserActivityEvent(UserActivityEventArgs e)
-        {
-            WriteLog(LogLevel.Seperator);
-            DebugMessage("UserActivity_onUserActivityEvent: ");
-            string UsrActivityStr = "\t" + e.Activity.ToString() + " :: " + e.ProcessStatus.ToString() + ": " + e.ErrDescription;
-            WriteLog((e.ProcessStatus == OperationStatus.Completed ? LogLevel.Infomation : LogLevel.Error), UsrActivityStr);
-        }
-
-
+        
         private static void WriteLog(LogLevel level, string Message = "")
         {
             lock (Fs)

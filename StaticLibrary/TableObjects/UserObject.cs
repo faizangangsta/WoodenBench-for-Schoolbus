@@ -69,6 +69,8 @@ namespace WBServicePlatform.TableObject
             return this;
         }
 
+        public static UserObject RandonValue => new UserObject().SetEveryThingNull();
+
         public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
 
         public Dictionary<string, string> ToDictionary()

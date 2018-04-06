@@ -28,8 +28,8 @@ namespace WBServicePlatform.StaticClasses
     }
     public enum UserChangeRequestTypes { Realname, PhoneNumber, ClassID, ChildID, BusID }
     public enum OperationStatus { Unknown, Completed, Failed }
-    public enum UserActivityE { Login, Logout, ChangePassword, UploadHImage, Compare }
+
     public enum LogLevel { Error, Infomation, Seperator }
-    public enum ExcelOperationE { OpenApp, QuitApp, Open, Read, Write, Close }
+
     public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
 }

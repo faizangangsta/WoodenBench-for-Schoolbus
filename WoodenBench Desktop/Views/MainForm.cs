@@ -72,7 +72,7 @@ namespace WBServicePlatform.WinClient.Views
                     Image p = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath));
                     if (pictureBox1.InvokeRequired)
                     {
-                        Invoke(new NullArgDelegate(delegate { pictureBox1.BackgroundImage = p; }));
+                        Invoke(new Action(delegate { pictureBox1.BackgroundImage = p; }));
                     }
                 }
                 catch (Exception Ex)
@@ -85,7 +85,7 @@ namespace WBServicePlatform.WinClient.Views
             {
                 if (pictureBox1.InvokeRequired)
                 {
-                    Invoke(new NullArgDelegate(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
+                    Invoke(new Action(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
                 }
                 MessageBox.Show("尝试获取用户头像失败，" + e.ErrDescription);
             }
@@ -150,7 +150,7 @@ namespace WBServicePlatform.WinClient.Views
 
         private void myAccount_Click(object sender, EventArgs e)
         {
-            AppSettings.Default.ShowDialog();
+            UserSettings.Default.ShowDialog();
         }
 
         private void NotificationCenter_Click(object sender, EventArgs e)
