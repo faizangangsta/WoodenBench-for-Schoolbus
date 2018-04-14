@@ -11,6 +11,7 @@ using cn.bmob.io;
 using cn.bmob.response;
 
 using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Metro;
 
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
@@ -19,7 +20,7 @@ using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
 {
-    public partial class CheckMyStudents : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class CheckMyStudents : MetroForm
     {
         public CheckMyStudents()
         {
@@ -49,22 +50,16 @@ namespace WBServicePlatform.WinClient.Views
         private void CheckMyStudents_Shown(object sender, EventArgs e)
         {
             if (CurrentUser.UserGroup.IsBusManager)
-            {
-                Text = Text + " - 已经启用编辑";
+            {                
                 SchoolBusObject busObject = new SchoolBusObject();
                 BmobQuery query = new BmobQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                Task<QueryCallbackData<SchoolBusObject>> task;
-                task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
+                var task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
                 task.Wait();
                 if (task.Result.results.Count <= 0)
-                {
                     MessageBox.Show("找不到任何你管理的校车");
-                }
                 else if (task.Result.results.Count == 1)
-                {
                     busObject = task.Result.results[0];
-                }
                 else
                 {
                     MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
@@ -73,7 +68,6 @@ namespace WBServicePlatform.WinClient.Views
                 myID.Text = busObject.objectId;
                 myDirection.Text = busObject.BusName;
                 LeavingChecked.Text = busObject.LSChecked.ToString();
-                BackChecked.Text = busObject.CSChecked.ToString();
                 ExpNumber.Text = "尚未加载";
                 BackNumber.Text = "尚未加载";
                 ExDescription.Text = "加载完成";
@@ -81,13 +75,11 @@ namespace WBServicePlatform.WinClient.Views
                 StudentDataGrid.AutoResizeColumns();
             }
             else if (CurrentUser.UserGroup.IsAdmin)
-            {
-                Text = Text + " - 已经启用编辑";
-            }
+                MessageBox.Show("管理员用户请到管理页面进行查询和修改记录", "管理员通知", MessageBoxButtons.OK);
             else
             {
                 MessageBox.Show("你不是校车老师，只有校车老师和管理员能编辑数据", "只读模式", MessageBoxButtons.OK);
-                Text = Text + " - 只读模式";
+                Close();
             }
         }
 
@@ -96,22 +88,9 @@ namespace WBServicePlatform.WinClient.Views
             MainForm.Default.Show();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void teacherBasicData_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void LoadAll_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("加载全部数据可能需要一段时间，这将取决于你的网络速度", "长耗时任务提醒", MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
             studentDataObjectBindingSource.Clear();
             BmobQuery query = new BmobQuery();
             query.WhereEqualTo("BusID", myID.Text);
@@ -128,7 +107,6 @@ namespace WBServicePlatform.WinClient.Views
                 LeaveNumber.Text = CountTicks(4).ToString();
                 LeavingChecked.Text = CountTicks(5).ToString();
                 BackNumber.Text = CountTicks(6).ToString();
-                BackChecked.Text = CountTicks(7).ToString();
             }
         }
 
@@ -142,7 +120,6 @@ namespace WBServicePlatform.WinClient.Views
             LeaveNumber.Text = CountTicks(4).ToString();
             LeavingChecked.Text = CountTicks(5).ToString();
             BackNumber.Text = CountTicks(6).ToString();
-            BackChecked.Text = CountTicks(7).ToString();
         }
 
         private int CountTicks(int ColNum)

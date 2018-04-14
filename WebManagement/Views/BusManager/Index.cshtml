@@ -50,20 +50,6 @@
             <button class="btn btn-default btn-md center-all" style="width: 100%" onClick="location.href = '/';">返回主菜单</button>
         </div>
     </div>
-    <!-- It is Notification area Below-->
-    <div id="NotificationDiv" class="pop-box" style="display: none">
-        <div class="container">
-            <h1 class="center-all" id="NotiTitle">数据加载失败了😭😭😭</h1>
-            <div class="pop-box-body">
-                <div id="NotiContent" class="container">
-                </div>
-                <br>
-                <input class="checkbox-inline" type="checkbox" id="WebNotiSeen">
-                <label for="WebNotiSeen">标为已读</label>
-            </div>
-        </div>
-        <button id="CloseNoti" class="btn btn-success text-center" style="width: 80%; margin-left: 10%; margin-bottom: 25px" onclick="closeNotifi();">关闭</button>
-    </div>
 </div>
 <script>
     {
@@ -73,34 +59,11 @@
 
         var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
 
-
         $("#UserID").text("你好，" + CurrentUser.RealName);
         $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
-        if (CurrentUser.WebNotiSeen == "false")
-        {
-            document.getElementById("WebNotiSeen").checked = false;
-            showOutNotifi();
-        }
-        else document.getElementById("WebNotiSeen").checked = true;
-        GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
-        var query = new Bmob.Query(Bmob.Object.extend("GeneralData"));
-        query.get("AMZgHHHK", {
-            success: function (objectGet)
-            {
-                var reg = new RegExp("/NL", "g");
-                var notiStr = objectGet.get("DataContent").replace(reg, "<br>") + "<br>";
-                document.getElementById("NotiContent").innerHTML = notiStr;
-                document.getElementById("NotiTitle").innerHTML = objectGet.get("NTitle");
-            },
-            error: function (obj, err)
-            {
-                $("#WebNotiSeen").remove();
-                $("#CloseNoti").remove();
-                $("#WebNotiSeenL").remove();
-                showOutNotifi();
-            }
-        });
 
+        GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+        
         function BusCallBack(data)
         {
             currentBus = data;
@@ -110,23 +73,6 @@
             $("#LSChecked").text("离校上车人数: " + currentBus.LSChecked);
             $("#AHChecked").text("到家确认人数: " + currentBus.AHChecked);
             $("#CSChecked").text("返校上车人数: " + currentBus.CSChecked);
-        }
-
-        function showOutNotifi()
-        {
-            $("#NotificationDiv").css({ "top": 0 });
-            $("#NotificationDiv").css({ "position": "absolute" }).animate({ top: document.body.clientHeight * 0.1, opacity: "show" }, "normal");
-        }
-
-        function closeNotifi()
-        {
-            $("#mask").remove();
-            $("#NotificationDiv").animate({ top: document.body.clientHeight, opacity: "hide" }, "normal");
-            WriteUserData(CurrentUser.userID, "notice", document.getElementById("WebNotiSeen").checked, getCookie("Session"), function (result)
-            {
-                if (result === false || result.ErrCode !== "0") alert("在设置用户属性时发生了错误，" + data2.ErrMessage);
-                else CurrentUser = result;
-            });
         }
 
         function SignStudents(Mode)

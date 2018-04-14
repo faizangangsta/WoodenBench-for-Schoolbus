@@ -40,23 +40,23 @@ namespace WBServicePlatform.WinClient.StaticClasses
                 fs.Close();
                 responseStream.Close();
                 File.Move(tempFile, LocalAddress);
-                IOCompleted(OperationStatus.Completed, LocalAddress,  RemoteURL);
+                IOCompleted(true, LocalAddress,  RemoteURL);
                 return;
             }
             catch (Exception ex)
             {
                 fs.Close();
-                IOCompleted(OperationStatus.Failed, LocalAddress, RemoteURL);
+                IOCompleted(false, LocalAddress, RemoteURL);
                 return;
             }
         }
 
-        private static void IOCompleted(OperationStatus Status, string LocalPath, string ErrDetail)
+        private static void IOCompleted(bool Status, string LocalPath, string ErrDetail)
         {
             FileIOEventArgs e = new FileIOEventArgs()
             {
                 LocalFilePath = LocalPath,
-                ProcessStatus = Status,
+                isSucceed = Status,
                 ErrDescription = ErrDetail
             };
             if (onFileIOCompleted != null) { onFileIOCompleted(e); }

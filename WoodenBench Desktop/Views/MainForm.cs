@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
@@ -56,44 +57,58 @@ namespace WBServicePlatform.WinClient.Views
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (CurrentUser.UserGroup.IsParents &&
+                !CurrentUser.UserGroup.IsAdmin &&
+                !CurrentUser.UserGroup.IsClassTeacher &&
+                !CurrentUser.UserGroup.IsBusManager)
+            {
+                MessageBox.Show("小板凳Windows客户端暂不支持家长使用，感谢您的支持。请使用微信管理入口！", "抱歉");
+                return;
+            }
+            userRole.Text = "";
+            if (!CurrentUser.UserGroup.IsAdmin && !CurrentUser.UserGroup.IsClassTeacher)
+                UploadStuDataTile.Enabled = false;
+            if (!CurrentUser.UserGroup.IsAdmin && !CurrentUser.UserGroup.IsBusManager)
+                MyStudentDataInfo.Enabled = false;
+            MgrLoginTile.Enabled = CurrentUser.UserGroup.IsAdmin;
             labelX2.Text = "<div align=\"right\"><font size=\"+4\">" + CurrentUser.RealName + "</font><br/>" + CurrentUser.objectId + "</div>";
             if (CurrentUser.HeadImagePath != "#")
-            {
-                FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory
-                    + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg");
-            }
+                FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg");
+            if (CurrentUser.UserGroup.IsAdmin)
+                userRole.Text += "管理员;";
+            if (CurrentUser.UserGroup.IsClassTeacher)
+                userRole.Text += "班主任;";
+            if (CurrentUser.UserGroup.IsBusManager)
+                userRole.Text += "校车老师;";
+            if (CurrentUser.UserGroup.IsParents)
+                userRole.Text += "家长;";
+
         }
         public void DnFinished(FileIOEventArgs e)
         {
-            if (e.ProcessStatus == OperationStatus.Completed)
+            if (e.isSucceed)
             {
                 try
                 {
                     Image p = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath));
-                    if (pictureBox1.InvokeRequired)
-                    {
-                        Invoke(new Action(delegate { pictureBox1.BackgroundImage = p; }));
-                    }
+                    if (pictureBox1.InvokeRequired) Invoke(new Action(delegate { pictureBox1.BackgroundImage = p; }));
                 }
                 catch (Exception Ex)
                 {
                     e.ErrDescription = Ex.Message;
-                    e.ProcessStatus = OperationStatus.Failed;
+                    e.isSucceed = false;
                 }
             }
-            if (e.ProcessStatus == OperationStatus.Failed)
+            if (!e.isSucceed)
             {
-                if (pictureBox1.InvokeRequired)
-                {
-                    Invoke(new Action(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
-                }
+                if (pictureBox1.InvokeRequired) Invoke(new Action(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
                 MessageBox.Show("尝试获取用户头像失败，" + e.ErrDescription);
             }
         }
 
         protected override void OnResize(EventArgs e)
         {
-            itemPanel1.Location = new Point((Width - itemPanel1.Width) / 2 + 10, ((Height - labelX1.Height - 16) - itemPanel1.Height) / 2 + labelX1.Height + 16);
+            itemPanel1.Location = new Point((Width - itemPanel1.Width) / 2 + 10, ((Height - labelX1.Height - 10) - itemPanel1.Height) / 2 + labelX1.Height );
             labelX1.Location = new Point((Width - itemPanel1.Width) / 2, ((Height - labelX1.Height - 16) - itemPanel1.Height) / 2 + labelX1.Height - 80);
             base.OnResize(e);
         }
@@ -122,24 +137,18 @@ namespace WBServicePlatform.WinClient.Views
 
         private void appSettingsTile_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void helpTile_Click(object sender, EventArgs e)
         {
             LogWritter.DebugMessage("Clicked the Help Button, now navigating to the help page");
-            Process.Start("explorer.exe", " https://schoolbus.lhy0403.top/Help");
+            Process.Start("https://www.lhy0403.top/wb-help/");
         }
 
         private void MgrLoginTile_Click(object sender, EventArgs e)
         {
             MGRLoginWindow.Default.ShowDialog(this);
-        }
-
-        private void newClientTile_Click(object sender, EventArgs e)
-        {
-            BusesManager.Default.Show();
-            Hide(); 
         }
 
         private void MyStudentData_Click(object sender, EventArgs e)
@@ -155,7 +164,8 @@ namespace WBServicePlatform.WinClient.Views
 
         private void NotificationCenter_Click(object sender, EventArgs e)
         {
-
+            Notifications.Default.Show();
+            Hide();
         }
     }
 }

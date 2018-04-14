@@ -44,14 +44,6 @@
             this.ExcelFilePathTxt = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.label7 = new System.Windows.Forms.Label();
             this.BusDataGrid = new DevComponents.DotNetBar.Controls.DataGridViewX();
-            this.objectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.busNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BusTeacherName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teacherIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.AHChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.updatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.schoolBusObjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ClassPartOS = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -95,10 +87,14 @@
             this.BusID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CSChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CHChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.objectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.busNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teacherIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn();
+            this.AHChecked = new DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn();
+            this.dataGridViewCheckBoxColumn2 = new DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn();
+            this.updatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StudentData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentDataBindSourc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BusDataGrid)).BeginInit();
@@ -136,9 +132,6 @@
             this.BusID,
             this.ClassID,
             this.ParentID,
-            this.LSChecked,
-            this.CSChecked,
-            this.CHChecked,
             this.updatedAtDataGridViewTextBoxColumn});
             this.StudentData.DataSource = this.studentDataBindSourc;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -149,7 +142,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.StudentData.DefaultCellStyle = dataGridViewCellStyle2;
-            this.StudentData.EnableHeadersVisualStyles = false;
+            this.StudentData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.StudentData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.StudentData.Location = new System.Drawing.Point(9, 52);
             this.StudentData.MultiSelect = false;
@@ -238,7 +231,6 @@
             // 
             this.BusDataGrid.AllowUserToAddRows = false;
             this.BusDataGrid.AllowUserToDeleteRows = false;
-            this.BusDataGrid.AllowUserToOrderColumns = true;
             this.BusDataGrid.AutoGenerateColumns = false;
             this.BusDataGrid.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -253,7 +245,6 @@
             this.BusDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.objectId,
             this.busNameDataGridViewTextBoxColumn,
-            this.BusTeacherName,
             this.teacherIDDataGridViewTextBoxColumn,
             this.dataGridViewCheckBoxColumn1,
             this.AHChecked,
@@ -286,63 +277,6 @@
             this.BusDataGrid.SelectAllSignVisible = false;
             this.BusDataGrid.Size = new System.Drawing.Size(889, 211);
             this.BusDataGrid.TabIndex = 11;
-            // 
-            // objectId
-            // 
-            this.objectId.DataPropertyName = "objectId";
-            this.objectId.HeaderText = "校车ID";
-            this.objectId.Name = "objectId";
-            this.objectId.ReadOnly = true;
-            // 
-            // busNameDataGridViewTextBoxColumn
-            // 
-            this.busNameDataGridViewTextBoxColumn.DataPropertyName = "BusName";
-            this.busNameDataGridViewTextBoxColumn.HeaderText = "标识名称";
-            this.busNameDataGridViewTextBoxColumn.Name = "busNameDataGridViewTextBoxColumn";
-            this.busNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // BusTeacherName
-            // 
-            this.BusTeacherName.HeaderText = "带车老师姓名";
-            this.BusTeacherName.Name = "BusTeacherName";
-            this.BusTeacherName.ReadOnly = true;
-            this.BusTeacherName.Width = 120;
-            // 
-            // teacherIDDataGridViewTextBoxColumn
-            // 
-            this.teacherIDDataGridViewTextBoxColumn.DataPropertyName = "TeacherID";
-            this.teacherIDDataGridViewTextBoxColumn.HeaderText = "带车老师ID";
-            this.teacherIDDataGridViewTextBoxColumn.Name = "teacherIDDataGridViewTextBoxColumn";
-            this.teacherIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "CSChecked";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "返校确认";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            // 
-            // AHChecked
-            // 
-            this.AHChecked.DataPropertyName = "AHChecked";
-            this.AHChecked.HeaderText = "到站确认";
-            this.AHChecked.Name = "AHChecked";
-            this.AHChecked.ReadOnly = true;
-            // 
-            // dataGridViewCheckBoxColumn2
-            // 
-            this.dataGridViewCheckBoxColumn2.DataPropertyName = "LSChecked";
-            this.dataGridViewCheckBoxColumn2.HeaderText = "离校确认";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
-            // 
-            // updatedAt
-            // 
-            this.updatedAt.DataPropertyName = "updatedAt";
-            this.updatedAt.HeaderText = "上次更新时间";
-            this.updatedAt.Name = "updatedAt";
-            this.updatedAt.ReadOnly = true;
-            this.updatedAt.Width = 120;
             // 
             // schoolBusObjectBindingSource
             // 
@@ -400,9 +334,11 @@
             // 
             // ExDiscription
             // 
+            this.ExDiscription.BackColor = System.Drawing.Color.White;
             this.ExDiscription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ExDiscription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExDiscription.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.ExDiscription.ForeColor = System.Drawing.Color.Black;
             this.ExDiscription.IntegralHeight = false;
             this.ExDiscription.ItemHeight = 17;
             this.ExDiscription.Items.AddRange(new object[] {
@@ -495,8 +431,10 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.BackColor = System.Drawing.Color.White;
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(18, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(238, 435);
@@ -506,6 +444,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.BackColor = System.Drawing.Color.White;
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.label6);
@@ -513,6 +452,7 @@
             this.groupBox5.Controls.Add(this.LoadExistStudents);
             this.groupBox5.Controls.Add(this.ClassYear);
             this.groupBox5.Controls.Add(this.ClassNum);
+            this.groupBox5.ForeColor = System.Drawing.Color.Black;
             this.groupBox5.Location = new System.Drawing.Point(6, 22);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(226, 163);
@@ -525,6 +465,7 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.BackColor = System.Drawing.Color.White;
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label8);
@@ -540,9 +481,10 @@
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.ForeColor = System.Drawing.Color.Black;
             this.groupBox4.Location = new System.Drawing.Point(6, 191);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(226, 213);
+            this.groupBox4.Size = new System.Drawing.Size(226, 238);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "班级信息";
@@ -550,7 +492,9 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 187);
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(14, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 17);
             this.label10.TabIndex = 0;
@@ -559,7 +503,9 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(38, 162);
+            this.label9.BackColor = System.Drawing.Color.White;
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(38, 167);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(80, 17);
             this.label9.TabIndex = 0;
@@ -568,7 +514,9 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(49, 138);
+            this.label8.BackColor = System.Drawing.Color.White;
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(49, 143);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 17);
             this.label8.TabIndex = 0;
@@ -577,7 +525,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(74, 114);
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(74, 119);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 17);
             this.label5.TabIndex = 0;
@@ -586,7 +536,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(74, 90);
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(74, 95);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 17);
             this.label4.TabIndex = 0;
@@ -595,7 +547,9 @@
             // ClsID
             // 
             this.ClsID.AutoSize = true;
-            this.ClsID.Location = new System.Drawing.Point(124, 44);
+            this.ClsID.BackColor = System.Drawing.Color.White;
+            this.ClsID.ForeColor = System.Drawing.Color.Black;
+            this.ClsID.Location = new System.Drawing.Point(124, 49);
             this.ClsID.Name = "ClsID";
             this.ClsID.Size = new System.Drawing.Size(0, 17);
             this.ClsID.TabIndex = 0;
@@ -603,7 +557,9 @@
             // ClsDpt
             // 
             this.ClsDpt.AutoSize = true;
-            this.ClsDpt.Location = new System.Drawing.Point(124, 66);
+            this.ClsDpt.BackColor = System.Drawing.Color.White;
+            this.ClsDpt.ForeColor = System.Drawing.Color.Black;
+            this.ClsDpt.Location = new System.Drawing.Point(124, 71);
             this.ClsDpt.Name = "ClsDpt";
             this.ClsDpt.Size = new System.Drawing.Size(0, 17);
             this.ClsDpt.TabIndex = 0;
@@ -611,7 +567,9 @@
             // ClsGrade
             // 
             this.ClsGrade.AutoSize = true;
-            this.ClsGrade.Location = new System.Drawing.Point(124, 90);
+            this.ClsGrade.BackColor = System.Drawing.Color.White;
+            this.ClsGrade.ForeColor = System.Drawing.Color.Black;
+            this.ClsGrade.Location = new System.Drawing.Point(124, 95);
             this.ClsGrade.Name = "ClsGrade";
             this.ClsGrade.Size = new System.Drawing.Size(0, 17);
             this.ClsGrade.TabIndex = 0;
@@ -619,7 +577,9 @@
             // ClsNum
             // 
             this.ClsNum.AutoSize = true;
-            this.ClsNum.Location = new System.Drawing.Point(124, 114);
+            this.ClsNum.BackColor = System.Drawing.Color.White;
+            this.ClsNum.ForeColor = System.Drawing.Color.Black;
+            this.ClsNum.Location = new System.Drawing.Point(124, 119);
             this.ClsNum.Name = "ClsNum";
             this.ClsNum.Size = new System.Drawing.Size(0, 17);
             this.ClsNum.TabIndex = 0;
@@ -627,7 +587,9 @@
             // ClsTID
             // 
             this.ClsTID.AutoSize = true;
-            this.ClsTID.Location = new System.Drawing.Point(124, 138);
+            this.ClsTID.BackColor = System.Drawing.Color.White;
+            this.ClsTID.ForeColor = System.Drawing.Color.Black;
+            this.ClsTID.Location = new System.Drawing.Point(124, 143);
             this.ClsTID.Name = "ClsTID";
             this.ClsTID.Size = new System.Drawing.Size(0, 17);
             this.ClsTID.TabIndex = 0;
@@ -635,7 +597,9 @@
             // ClsTName
             // 
             this.ClsTName.AutoSize = true;
-            this.ClsTName.Location = new System.Drawing.Point(124, 162);
+            this.ClsTName.BackColor = System.Drawing.Color.White;
+            this.ClsTName.ForeColor = System.Drawing.Color.Black;
+            this.ClsTName.Location = new System.Drawing.Point(124, 167);
             this.ClsTName.Name = "ClsTName";
             this.ClsTName.Size = new System.Drawing.Size(0, 17);
             this.ClsTName.TabIndex = 0;
@@ -643,7 +607,9 @@
             // ClsTPhoneNum
             // 
             this.ClsTPhoneNum.AutoSize = true;
-            this.ClsTPhoneNum.Location = new System.Drawing.Point(124, 187);
+            this.ClsTPhoneNum.BackColor = System.Drawing.Color.White;
+            this.ClsTPhoneNum.ForeColor = System.Drawing.Color.Black;
+            this.ClsTPhoneNum.Location = new System.Drawing.Point(124, 192);
             this.ClsTPhoneNum.Name = "ClsTPhoneNum";
             this.ClsTPhoneNum.Size = new System.Drawing.Size(0, 17);
             this.ClsTPhoneNum.TabIndex = 0;
@@ -651,7 +617,9 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(61, 44);
+            this.label17.BackColor = System.Drawing.Color.White;
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(61, 49);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(57, 17);
             this.label17.TabIndex = 0;
@@ -660,7 +628,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(74, 66);
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(74, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 17);
             this.label3.TabIndex = 0;
@@ -669,6 +639,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(7, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 17);
@@ -678,8 +650,10 @@
             // statusPanel
             // 
             this.statusPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.statusPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.statusPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.statusPanel.Controls.Add(this.statusLabel);
+            this.statusPanel.ForeColor = System.Drawing.Color.Black;
             this.statusPanel.Location = new System.Drawing.Point(386, 272);
             this.statusPanel.Name = "statusPanel";
             this.statusPanel.Size = new System.Drawing.Size(372, 113);
@@ -688,8 +662,10 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.BackColor = System.Drawing.Color.White;
             this.statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statusLabel.Font = new System.Drawing.Font("微软雅黑", 15F);
+            this.statusLabel.ForeColor = System.Drawing.Color.Black;
             this.statusLabel.Location = new System.Drawing.Point(0, 0);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(370, 111);
@@ -700,7 +676,9 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.BackColor = System.Drawing.Color.White;
             this.groupBox6.Controls.Add(this.ExDiscription);
+            this.groupBox6.ForeColor = System.Drawing.Color.Black;
             this.groupBox6.Location = new System.Drawing.Point(914, 454);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(187, 190);
@@ -710,17 +688,19 @@
             // 
             // radialMenu1
             // 
+            this.radialMenu1.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.radialMenu1.Colors.RadialMenuItemDisabledForeground = System.Drawing.Color.Empty;
+            this.radialMenu1.ForeColor = System.Drawing.Color.Black;
             this.radialMenu1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.radialMenuItem1,
             this.radialMenuItem2,
             this.radialMenuItem3,
             this.radialMenuItem4,
             this.radialMenuItem5});
-            this.radialMenu1.Location = new System.Drawing.Point(12, 0);
+            this.radialMenu1.Location = new System.Drawing.Point(1086, 1);
             this.radialMenu1.Name = "radialMenu1";
             this.radialMenu1.Size = new System.Drawing.Size(28, 28);
             this.radialMenu1.SubMenuEdgeWidth = 20;
@@ -805,31 +785,11 @@
             // 
             // ParentID
             // 
-            this.ParentID.DataPropertyName = "ParentID";
+            this.ParentID.DataPropertyName = "ParentsID";
             this.ParentID.HeaderText = "家长ID";
             this.ParentID.Name = "ParentID";
             this.ParentID.ReadOnly = true;
-            // 
-            // LSChecked
-            // 
-            this.LSChecked.DataPropertyName = "LSChecked";
-            this.LSChecked.HeaderText = "离校签到";
-            this.LSChecked.Name = "LSChecked";
-            this.LSChecked.ReadOnly = true;
-            // 
-            // CSChecked
-            // 
-            this.CSChecked.DataPropertyName = "CSChecked";
-            this.CSChecked.HeaderText = "到家确认";
-            this.CSChecked.Name = "CSChecked";
-            this.CSChecked.ReadOnly = true;
-            // 
-            // CHChecked
-            // 
-            this.CHChecked.DataPropertyName = "CHChecked";
-            this.CHChecked.HeaderText = "返校签到";
-            this.CHChecked.Name = "CHChecked";
-            this.CHChecked.ReadOnly = true;
+            this.ParentID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // updatedAtDataGridViewTextBoxColumn
             // 
@@ -838,7 +798,69 @@
             this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
             this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // ExcelOperationWindow
+            // objectId
+            // 
+            this.objectId.DataPropertyName = "objectId";
+            this.objectId.HeaderText = "校车ID";
+            this.objectId.Name = "objectId";
+            this.objectId.ReadOnly = true;
+            // 
+            // busNameDataGridViewTextBoxColumn
+            // 
+            this.busNameDataGridViewTextBoxColumn.DataPropertyName = "BusName";
+            this.busNameDataGridViewTextBoxColumn.HeaderText = "标识名称";
+            this.busNameDataGridViewTextBoxColumn.Name = "busNameDataGridViewTextBoxColumn";
+            this.busNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // teacherIDDataGridViewTextBoxColumn
+            // 
+            this.teacherIDDataGridViewTextBoxColumn.DataPropertyName = "TeacherID";
+            this.teacherIDDataGridViewTextBoxColumn.HeaderText = "带车老师ID";
+            this.teacherIDDataGridViewTextBoxColumn.Name = "teacherIDDataGridViewTextBoxColumn";
+            this.teacherIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.Checked = true;
+            this.dataGridViewCheckBoxColumn1.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.dataGridViewCheckBoxColumn1.CheckValue = "N";
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "CSChecked";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "返校确认";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // AHChecked
+            // 
+            this.AHChecked.Checked = true;
+            this.AHChecked.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.AHChecked.CheckValue = "N";
+            this.AHChecked.DataPropertyName = "AHChecked";
+            this.AHChecked.HeaderText = "到站确认";
+            this.AHChecked.Name = "AHChecked";
+            this.AHChecked.ReadOnly = true;
+            this.AHChecked.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dataGridViewCheckBoxColumn2
+            // 
+            this.dataGridViewCheckBoxColumn2.Checked = true;
+            this.dataGridViewCheckBoxColumn2.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.dataGridViewCheckBoxColumn2.CheckValue = "N";
+            this.dataGridViewCheckBoxColumn2.DataPropertyName = "LSChecked";
+            this.dataGridViewCheckBoxColumn2.HeaderText = "离校确认";
+            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
+            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // updatedAt
+            // 
+            this.updatedAt.DataPropertyName = "updatedAt";
+            this.updatedAt.HeaderText = "上次更新时间";
+            this.updatedAt.Name = "updatedAt";
+            this.updatedAt.ReadOnly = true;
+            this.updatedAt.Width = 120;
+            // 
+            // StudentUploadWindow
             // 
             this.ClientSize = new System.Drawing.Size(1113, 698);
             this.Controls.Add(this.radialMenu1);
@@ -851,7 +873,7 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ExcelOperationWindow";
+            this.Name = "StudentUploadWindow";
             this.Text = "上传学生数据";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExcelOperationWindow_FormClosing);
             this.Load += new System.EventHandler(this.ExcelOperationWindow_Load);
@@ -905,14 +927,6 @@
         private System.Windows.Forms.ListBox ExDiscription;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn objectId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn busNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BusTeacherName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn teacherIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn AHChecked;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAt;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -944,9 +958,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BusID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClassID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParentID;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn LSChecked;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CSChecked;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CHChecked;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn objectId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn busNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teacherIDDataGridViewTextBoxColumn;
+        private DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn dataGridViewCheckBoxColumn1;
+        private DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn AHChecked;
+        private DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAt;
     }
 }

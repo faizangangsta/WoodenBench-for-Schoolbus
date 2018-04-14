@@ -126,6 +126,12 @@
     <Compile Include="StaticClasses\LogWritter.cs" />
     <Compile Include="Users\Mysterious.cs" />
     <Compile Include="Users\UserActivity.cs" />
+    <Compile Include="Views\Notificaions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Notificaions.Designer.cs">
+      <DependentUpon>Notificaions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Notificaions.resx">
+      <DependentUpon>Notificaions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserSettings.resx">
       <DependentUpon>UserSettings.cs</DependentUpon>

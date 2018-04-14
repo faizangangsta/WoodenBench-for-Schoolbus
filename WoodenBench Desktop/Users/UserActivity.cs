@@ -70,7 +70,6 @@ namespace WBServicePlatform.WinClient.Users
         {
             CurrentUser.SetEveryThingNull();
             GC.Collect();
-            Application.Restart();
             return true;
         }
 

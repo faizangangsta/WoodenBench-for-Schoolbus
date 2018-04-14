@@ -20,16 +20,14 @@ namespace WBServicePlatform.StaticClasses
         public const string TABLE_N_Gen_UserTable = "AllUsersTable";
         public const string TABLE_N_Gen_Notifi = "GeneralData";
         public const string TABLE_N_Gen_Bugreport = "UserQuestions";
-        public const string TABLE_N_Gen_UserRequest  = "UserRequest";
+        public const string TABLE_N_Gen_UserRequest = "UserRequest";
 
-        public const string OBJ_ID_Notifi = "H26yBBBi";
         public const string OBJ_ID_WinClientVer = "oRr7000l";
 
     }
     public enum UserChangeRequestTypes { Realname, PhoneNumber, ClassID, ChildID, BusID }
-    public enum OperationStatus { Unknown, Completed, Failed }
-
-    public enum LogLevel { Error, Infomation, Seperator }
-
+    public enum OperationStatus { Completed, Failed }
+    public enum LogLevel { Error, Infomation, LongChain }
+    public enum NotificationType { WindowsClient, WeChatC2C, WeChatMultiCast, WeChatBroadCast }
     public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
 }

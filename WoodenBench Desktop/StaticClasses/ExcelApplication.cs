@@ -12,14 +12,14 @@ namespace WBServicePlatform.StaticClasses
         bool IsExcelOpened = false;
         bool IsFileOpened = false;
         string FilePath;
-        Excel.ApplicationClass ExcelApp;
-        Excel.WorkbookClass xWorkbook;
+        Excel.Application ExcelApp;
+        Excel.Workbook xWorkbook;
 
         public ExcelApplication()
         {
             try
             {
-                ExcelApp = new Excel.ApplicationClass();
+                ExcelApp = new Excel.Application();
                 IsExcelOpened = true;
                 LogWritter.ErrorMessage("Excel Opened!");
             }
@@ -51,7 +51,7 @@ namespace WBServicePlatform.StaticClasses
         {
             try
             {
-                xWorkbook = (Excel.WorkbookClass)ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
+                xWorkbook = ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
                 LogWritter.ErrorMessage($"Excel Open File Seccess: FilePath: {FilePath}, ReadOnly: {ReadOnly.ToString()}");
                 return true;
             }
@@ -72,6 +72,9 @@ namespace WBServicePlatform.StaticClasses
             return ifErrReturnVal;
         }
 
-        public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1) => (T)(((Excel.WorksheetClass)xWorkbook.Worksheets[WorkSheetNum]).Cells[LineNum, ColNum]);
+        public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1)
+        {
+            return (T)(((Excel.Worksheet)(xWorkbook.Worksheets[WorkSheetNum])).Cells[LineNum, ColNum] as Excel.Range).Value;
+        }
     }
 }

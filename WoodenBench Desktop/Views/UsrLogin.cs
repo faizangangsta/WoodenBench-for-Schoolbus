@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.DelegateClasses;
+using WBServicePlatform.WinClient.StaticClasses;
 using WBServicePlatform.WinClient.Users;
 
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
@@ -39,10 +40,7 @@ namespace WBServicePlatform.WinClient.Views
         }
         #region For us easier to call
         private static UsrLoginWindow defaultInstance { get; set; }
-        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            defaultInstance = null;
-        }
+
         public static UsrLoginWindow Default
         {
             get
@@ -50,7 +48,7 @@ namespace WBServicePlatform.WinClient.Views
                 if (defaultInstance == null)
                 {
                     defaultInstance = new UsrLoginWindow();
-                    defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+                    defaultInstance.FormClosed += new FormClosedEventHandler((obj, obj2) => { defaultInstance = null; });
                 }
                 return defaultInstance;
             }
@@ -70,14 +68,21 @@ namespace WBServicePlatform.WinClient.Views
             if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, out UserObject user))
             {
                 LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text}");
-                DoLoginBtn.Enabled = true;
-                CancelBtn.Enabled = true;
-                UserNameTxt.Enabled = true;
-                PswdTxt.Enabled = true;
-                DoLoginBtn.Text = "登录(&L)";
-                CurrentUser = user;
-                MainForm.Default.Show();
-                Hide();
+                if (user.UserGroup.IsAdmin || user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher)
+                {
+                    DoLoginBtn.Enabled = true;
+                    CancelBtn.Enabled = true;
+                    UserNameTxt.Enabled = true;
+                    PswdTxt.Enabled = true;
+                    DoLoginBtn.Text = "登录(&L)";
+                    CurrentUser = user;
+                    MainForm.Default.Show();
+                    Hide();
+                }
+                else if (user.UserGroup.IsParents)
+                {
+                    MessageBox.Show("暂时不支持家长使用小板凳 Windows 客户端哦！");
+                }
             }
             else
             {
@@ -100,6 +105,7 @@ namespace WBServicePlatform.WinClient.Views
         private void ParentsLogin(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //TODO: Parents Login
+            MessageBox.Show("暂时不支持家长使用小板凳 Windows 客户端哦！");
         }
 
         private void UsrLoginForm_Load(object sender, EventArgs e)
@@ -109,7 +115,7 @@ namespace WBServicePlatform.WinClient.Views
 
         private void UsrLoginWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            StaticClasses.GlobalFunc.ApplicationExit();
+            GlobalFunc.ApplicationExit();
         }
     }
 }

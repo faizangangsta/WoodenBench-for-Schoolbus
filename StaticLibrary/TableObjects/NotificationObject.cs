@@ -12,13 +12,12 @@ namespace WBServicePlatform.TableObject
         public string Notification_Title { get; set; }
         public string Notification_Content { get; set; }
         public string OtherData { get; set; }
-
-        //构造函数
+        
         public NotificationObject() { }
 
         public override string table => WBConsts.TABLE_N_Gen_Notifi;
 
-        //读字段信息
+
         public override void readFields(BmobInput input)
         {
             base.readFields(input);
