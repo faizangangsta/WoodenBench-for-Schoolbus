@@ -1,6 +1,3 @@
-using cn.bmob.io;
-using cn.bmob.response;
-using DevComponents.DotNetBar.Metro;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,10 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WBServicePlatform.TableObject;
+
+using DevComponents.DotNetBar.Metro;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.Users;
+
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
 {
@@ -51,14 +52,10 @@ namespace WBServicePlatform.WinClient.Views
         private void buttonX2_Click(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            BmobQuery query = new BmobQuery();
-            Task<QueryCallbackData<SchoolBusObject>> task;
-            task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
-            task.Wait();
-            if (task.IsCompleted)
+            DatabaseQuery query = new DatabaseQuery();
+            if (Database.QueryData(query, out List<SchoolBusObject> list) >= 0)
             {
-                List<SchoolBusObject> result = task.Result.results;
-                foreach (SchoolBusObject item in result)
+                foreach (SchoolBusObject item in list)
                 {
                     schoolBusObjectBindingSource.Add(item);
                 }
@@ -103,11 +100,15 @@ namespace WBServicePlatform.WinClient.Views
                 switch (MessageBox.Show("是否在服务器上删除此项？", "删除项目", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes:
-                        Task<DeleteCallbackData> task;
-                        task = _BmobWin.DeleteTaskAsync(WBConsts.TABLE_N_Mgr_BusData, row.Cells[0].Value.ToString());
-                        task.Wait();
-                        busDataGrid.Rows.Remove(row);
-                        msgLabel.Text = "成功在服务器上删除项目：" + Name;
+                        if (Database.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
+                        {
+                            busDataGrid.Rows.Remove(row);
+                            msgLabel.Text = "成功在服务器上删除项目：" + Name;
+                        }
+                        else
+                        {
+                            msgLabel.Text = "删除项目：" + Name + " 时出现问题。";
+                        }
                         break;
                     case DialogResult.No:
                         busDataGrid.Rows.Remove(row);
@@ -170,16 +171,12 @@ namespace WBServicePlatform.WinClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                Task<CreateCallbackData> task = _BmobWin.CreateTaskAsync<SchoolBusObject>(busObject);
-                task.Wait();
-                return task.IsCompleted;
+                return Database.CreateData(busObject) == 0;
             }
             else
             {
                 busObject.objectId = row.Cells[0].Value.ToString();
-                Task<UpdateCallbackData> task = _BmobWin.UpdateTaskAsync<SchoolBusObject>(busObject);
-                task.Wait();
-                return task.IsCompleted;
+                return Database.UpdateData(busObject) == 0;
             }
         }
 
@@ -190,14 +187,11 @@ namespace WBServicePlatform.WinClient.Views
 
         private void BusesManager_Shown(object sender, EventArgs e)
         {
-            Task<QueryCallbackData<UserObject>> task;
-            BmobQuery query = new BmobQuery();
+            DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            task = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, query);
-            task.Wait();
-            if (task.IsCompleted)
+            if (Database.QueryData(query, out List<UserObject> list) >= 0)
             {
-                foreach (UserObject item in task.Result.results)
+                foreach (UserObject item in list)
                 {
                     allUserObjectBindingSource.Add(item);
                 }

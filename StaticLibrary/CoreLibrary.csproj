@@ -51,6 +51,14 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="CryptoGraphy.cs" />
+    <Compile Include="LogWritter.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase.cs" />
+    <Compile Include="TableObjects\BmobTable.cs" />
     <Compile Include="TableObjects\BusReportObject.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="Pinyin.cs" />
@@ -63,6 +71,12 @@
     <Compile Include="UserGroup.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="_DataCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using QRCoder;
+﻿using System;
 using System.DrawingCore;
 using System.DrawingCore.Imaging;
 using System.IO;
+
+using Microsoft.AspNetCore.Mvc;
+
+using QRCoder;
+
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Properties;
 using WBServicePlatform.WebManagement.Tools;
@@ -28,6 +32,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                     qrCodeImage.Save(ms, ImageFormat.Jpeg);
                     Response.ContentType = "image/Jpeg";
                     Response.Body.Write(ms.ToArray(), 0, ms.ToArray().Length);
+                    GC.Collect();
                 }
                 else return;
             }

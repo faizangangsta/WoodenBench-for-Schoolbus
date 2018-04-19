@@ -29,59 +29,59 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
+            this.userLbl = new DevComponents.DotNetBar.LabelX();
+            this.mainPanel = new DevComponents.DotNetBar.ItemPanel();
             this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
-            this.myAccount = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.LogoffTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.label1 = new System.Windows.Forms.Label();
-            this.userRole = new System.Windows.Forms.Label();
             this.UploadStuDataTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.MyStudentDataInfo = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.NotificationCenter = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.myAccount = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.MgrLoginTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.helpTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.LogoffTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.appSettingsTile = new DevComponents.DotNetBar.Metro.MetroTileItem();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.label1 = new System.Windows.Forms.Label();
+            this.userRole = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelX1
             // 
-            this.labelX1.BackColor = System.Drawing.Color.White;
+            this.userLbl.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelX1.ForeColor = System.Drawing.Color.Black;
-            this.labelX1.Location = new System.Drawing.Point(7, 5);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(289, 40);
-            this.labelX1.TabIndex = 6;
-            this.labelX1.Text = "主菜单";
+            this.userLbl.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.userLbl.Font = new System.Drawing.Font("微软雅黑", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userLbl.ForeColor = System.Drawing.Color.Black;
+            this.userLbl.Location = new System.Drawing.Point(7, 5);
+            this.userLbl.Name = "labelX1";
+            this.userLbl.Size = new System.Drawing.Size(289, 40);
+            this.userLbl.TabIndex = 6;
+            this.userLbl.Text = "主菜单";
             // 
             // itemPanel1
             // 
-            this.itemPanel1.AutoScroll = true;
-            this.itemPanel1.BackColor = System.Drawing.Color.White;
+            this.mainPanel.AutoScroll = true;
+            this.mainPanel.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
-            this.itemPanel1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemPanel1.ContainerControlProcessDialogKey = true;
-            this.itemPanel1.DragDropSupport = true;
-            this.itemPanel1.ForeColor = System.Drawing.Color.Black;
-            this.itemPanel1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.mainPanel.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.mainPanel.ContainerControlProcessDialogKey = true;
+            this.mainPanel.DragDropSupport = true;
+            this.mainPanel.ForeColor = System.Drawing.Color.Black;
+            this.mainPanel.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.itemContainer1});
-            this.itemPanel1.Location = new System.Drawing.Point(58, 78);
-            this.itemPanel1.Name = "itemPanel1";
-            this.itemPanel1.ReserveLeftSpace = false;
-            this.itemPanel1.Size = new System.Drawing.Size(568, 296);
-            this.itemPanel1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.itemPanel1.TabIndex = 7;
-            this.itemPanel1.Text = "itemPanels";
+            this.mainPanel.Location = new System.Drawing.Point(58, 78);
+            this.mainPanel.Name = "itemPanel1";
+            this.mainPanel.ReserveLeftSpace = false;
+            this.mainPanel.Size = new System.Drawing.Size(568, 296);
+            this.mainPanel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.mainPanel.TabIndex = 7;
+            this.mainPanel.Text = "itemPanels";
             // 
             // itemContainer1
             // 
@@ -107,95 +107,6 @@
             // 
             // 
             this.itemContainer1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // myAccount
-            // 
-            this.myAccount.Name = "myAccount";
-            this.myAccount.Symbol = "";
-            this.myAccount.SymbolColor = System.Drawing.Color.Empty;
-            this.myAccount.SymbolSize = 42F;
-            this.myAccount.Text = "\r\n<br/>\r\n<font size=\"+4\">我的账户</font>\r\n<br/>修改账户信息";
-            this.myAccount.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedViolet;
-            // 
-            // 
-            // 
-            this.myAccount.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
-            this.myAccount.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(0)))), ((int)(((byte)(61)))));
-            this.myAccount.TileStyle.BackColorGradientAngle = 45;
-            this.myAccount.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.myAccount.TileStyle.PaddingBottom = 4;
-            this.myAccount.TileStyle.PaddingLeft = 4;
-            this.myAccount.TileStyle.PaddingRight = 4;
-            this.myAccount.TileStyle.PaddingTop = 4;
-            this.myAccount.TileStyle.TextColor = System.Drawing.Color.White;
-            this.myAccount.TitleText = "My Account";
-            this.myAccount.Click += new System.EventHandler(this.myAccount_Click);
-            // 
-            // LogoffTile
-            // 
-            this.LogoffTile.Name = "LogoffTile";
-            this.LogoffTile.Symbol = "";
-            this.LogoffTile.SymbolColor = System.Drawing.Color.Empty;
-            this.LogoffTile.SymbolSize = 40F;
-            this.LogoffTile.Text = "\r\n<br/>\r\n<font size=\"+4\">注销</font>\r\n<br/>返回登录页面";
-            this.LogoffTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Coffee;
-            // 
-            // 
-            // 
-            this.LogoffTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(76)))), ((int)(((byte)(41)))));
-            this.LogoffTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(67)))), ((int)(((byte)(37)))));
-            this.LogoffTile.TileStyle.BackColorGradientAngle = 45;
-            this.LogoffTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.LogoffTile.TileStyle.PaddingBottom = 4;
-            this.LogoffTile.TileStyle.PaddingLeft = 4;
-            this.LogoffTile.TileStyle.PaddingRight = 4;
-            this.LogoffTile.TileStyle.PaddingTop = 4;
-            this.LogoffTile.TileStyle.TextColor = System.Drawing.Color.White;
-            this.LogoffTile.TitleText = "Logoff";
-            this.LogoffTile.Click += new System.EventHandler(this.LogOutUsrTile);
-            // 
-            // labelX2
-            // 
-            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelX2.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.ForeColor = System.Drawing.Color.Black;
-            this.labelX2.Location = new System.Drawing.Point(475, 5);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(124, 58);
-            this.labelX2.TabIndex = 8;
-            this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Name</font><br/>ID</div>";
-            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX2.TextLineAlignment = System.Drawing.StringAlignment.Near;
-            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(5, 403);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "当前用户角色：";
-            // 
-            // userRole
-            // 
-            this.userRole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.userRole.AutoSize = true;
-            this.userRole.BackColor = System.Drawing.Color.White;
-            this.userRole.ForeColor = System.Drawing.Color.Black;
-            this.userRole.Location = new System.Drawing.Point(100, 403);
-            this.userRole.Name = "userRole";
-            this.userRole.Size = new System.Drawing.Size(53, 12);
-            this.userRole.TabIndex = 10;
-            this.userRole.Text = "一般用户";
             // 
             // UploadStuDataTile
             // 
@@ -263,6 +174,27 @@
             this.NotificationCenter.TitleText = "Notifications";
             this.NotificationCenter.Click += new System.EventHandler(this.NotificationCenter_Click);
             // 
+            // myAccount
+            // 
+            this.myAccount.Name = "myAccount";
+            this.myAccount.Symbol = "";
+            this.myAccount.SymbolColor = System.Drawing.Color.Empty;
+            this.myAccount.SymbolSize = 42F;
+            this.myAccount.Text = "\r\n<br/>\r\n<font size=\"+4\">我的账户</font>\r\n<br/>修改账户信息";
+            this.myAccount.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.RedViolet;
+            // 
+            // 
+            // 
+            this.myAccount.TileStyle.BackColorGradientAngle = 45;
+            this.myAccount.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.myAccount.TileStyle.PaddingBottom = 4;
+            this.myAccount.TileStyle.PaddingLeft = 4;
+            this.myAccount.TileStyle.PaddingRight = 4;
+            this.myAccount.TileStyle.PaddingTop = 4;
+            this.myAccount.TileStyle.TextColor = System.Drawing.Color.White;
+            this.myAccount.TitleText = "My Account";
+            this.myAccount.Click += new System.EventHandler(this.myAccount_Click);
+            // 
             // MgrLoginTile
             // 
             this.MgrLoginTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.TableReportt;
@@ -307,6 +239,29 @@
             this.helpTile.TitleText = "Help";
             this.helpTile.Click += new System.EventHandler(this.helpTile_Click);
             // 
+            // LogoffTile
+            // 
+            this.LogoffTile.Name = "LogoffTile";
+            this.LogoffTile.Symbol = "";
+            this.LogoffTile.SymbolColor = System.Drawing.Color.Empty;
+            this.LogoffTile.SymbolSize = 40F;
+            this.LogoffTile.Text = "\r\n<br/>\r\n<font size=\"+4\">注销</font>\r\n<br/>返回登录页面";
+            this.LogoffTile.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Coffee;
+            // 
+            // 
+            // 
+            this.LogoffTile.TileStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(76)))), ((int)(((byte)(41)))));
+            this.LogoffTile.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(67)))), ((int)(((byte)(37)))));
+            this.LogoffTile.TileStyle.BackColorGradientAngle = 45;
+            this.LogoffTile.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.LogoffTile.TileStyle.PaddingBottom = 4;
+            this.LogoffTile.TileStyle.PaddingLeft = 4;
+            this.LogoffTile.TileStyle.PaddingRight = 4;
+            this.LogoffTile.TileStyle.PaddingTop = 4;
+            this.LogoffTile.TileStyle.TextColor = System.Drawing.Color.White;
+            this.LogoffTile.TitleText = "Logoff";
+            this.LogoffTile.Click += new System.EventHandler(this.LogOutUsrTile);
+            // 
             // appSettingsTile
             // 
             this.appSettingsTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Details;
@@ -330,6 +285,49 @@
             this.appSettingsTile.Visible = false;
             this.appSettingsTile.Click += new System.EventHandler(this.appSettingsTile_Click);
             // 
+            // labelX2
+            // 
+            this.labelX2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelX2.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX2.ForeColor = System.Drawing.Color.Black;
+            this.labelX2.Location = new System.Drawing.Point(475, 5);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(124, 58);
+            this.labelX2.TabIndex = 8;
+            this.labelX2.Text = "<div align=\"right\"><font size=\"+4\">Name</font><br/>ID</div>";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.labelX2.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(5, 403);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "当前用户角色：";
+            // 
+            // userRole
+            // 
+            this.userRole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.userRole.AutoSize = true;
+            this.userRole.BackColor = System.Drawing.Color.White;
+            this.userRole.ForeColor = System.Drawing.Color.Black;
+            this.userRole.Location = new System.Drawing.Point(100, 403);
+            this.userRole.Name = "userRole";
+            this.userRole.Size = new System.Drawing.Size(53, 12);
+            this.userRole.TabIndex = 10;
+            this.userRole.Text = "一般用户";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -351,8 +349,8 @@
             this.ClientSize = new System.Drawing.Size(675, 416);
             this.Controls.Add(this.userRole);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.labelX1);
-            this.Controls.Add(this.itemPanel1);
+            this.Controls.Add(this.userLbl);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelX2);
             this.DoubleBuffered = true;
@@ -373,8 +371,8 @@
 
         #endregion
 
-        private DevComponents.DotNetBar.LabelX labelX1;
-        private DevComponents.DotNetBar.ItemPanel itemPanel1;
+        private DevComponents.DotNetBar.LabelX userLbl;
+        private DevComponents.DotNetBar.ItemPanel mainPanel;
         private DevComponents.DotNetBar.ItemContainer itemContainer1;
         private DevComponents.DotNetBar.Metro.MetroTileItem UploadStuDataTile;
         private DevComponents.DotNetBar.Metro.MetroTileItem NotificationCenter;

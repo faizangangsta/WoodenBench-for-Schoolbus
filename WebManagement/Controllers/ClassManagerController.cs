@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -19,7 +20,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             {
                 if (user.UserGroup.IsClassTeacher)
                 {
-                    switch (QueryHelper.BmobQueryData(new cn.bmob.io.BmobQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
                     {
                         case -1: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.WeChatID, ErrorRespCode.InternalError);
                         case 0: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.WeChatID);

@@ -5,7 +5,7 @@ using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.TableObject
 {
-    public class BusReport : BmobTable
+    public class BusReport : DataTable
     {
         //以下对应云端字段名称
         public string TeacherID { get; set; }
@@ -16,7 +16,7 @@ namespace WBServicePlatform.TableObject
         //构造函数
         public BusReport() { }
 
-        public override string table => WBConsts.TABLE_N_Mgr_WeekIssue;
+        public override string table => WBConsts.TABLE_Mgr_WeekIssue;
 
         //读字段信息
         public override void readFields(BmobInput input)
@@ -32,10 +32,10 @@ namespace WBServicePlatform.TableObject
         public override void write(BmobOutput output, bool all)
         {
             base.write(output, all);
-            output.Put("ReportTeacherID", this.TeacherID);
-            output.Put("ReportBusID", this.BusID);
-            output.Put("ReportType", (int)this.ReportType);
-            output.Put("DetailedInformation", this.OtherData);
+            output.Put("ReportTeacherID", TeacherID);
+            output.Put("ReportBusID", BusID);
+            output.Put("ReportType", (int)ReportType);
+            output.Put("DetailedInformation", OtherData);
         }
     }
 }

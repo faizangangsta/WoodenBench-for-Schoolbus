@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Reflection;
+using WBServicePlatform.StaticClasses.Properties;
 
 namespace WBServicePlatform.StaticClasses
 {
@@ -9,20 +10,20 @@ namespace WBServicePlatform.StaticClasses
     {
         public static string CurrentCoreVersion => new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
 
-        public const string BmobAppKey = "b770100ff0051b0c313c1a0e975711e6";
-        public const string BmobRESTKey = "281fb4c79c3a3391ae6764fa56d1468d";
+        public static readonly string BmobAppKey = Resources.BmobDatabaseApplicationID;
+        public static readonly string BmobRESTKey = Resources.BmobDatabaseREST;
 
-        public const string TABLE_N_Mgr_StuData = "StudentsData";
-        public const string TABLE_N_Mgr_Classes = "Classes";
-        public const string TABLE_N_Mgr_BusData = "SchoolBuses";
-        public const string TABLE_N_Mgr_WeekIssue = "WeeklyIssues";
+        public const string TABLE_Mgr_StuData = "StudentsData";
+        public const string TABLE_Mgr_Classes = "Classes";
+        public const string TABLE_Mgr_BusData = "SchoolBuses";
+        public const string TABLE_Mgr_WeekIssue = "WeeklyIssues";
 
-        public const string TABLE_N_Gen_UserTable = "AllUsersTable";
-        public const string TABLE_N_Gen_Notifi = "GeneralData";
-        public const string TABLE_N_Gen_Bugreport = "UserQuestions";
-        public const string TABLE_N_Gen_UserRequest = "UserRequest";
+        public const string TABLE_Gen_UserTable = "AllUsersTable";
+        public const string TABLE_Gen_General = "GeneralData";
+        public const string TABLE_Gen_Bugreport = "UserQuestions";
 
-        public const string OBJ_ID_WinClientVer = "oRr7000l";
+        public const string TABLE_Gen_Notification = "Notifications";
+        public const string TABLE_Gen_UserRequest = "UserRequest";
 
     }
     public enum UserChangeRequestTypes { Realname, PhoneNumber, ClassID, ChildID, BusID }

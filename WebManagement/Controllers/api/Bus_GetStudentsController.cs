@@ -1,11 +1,12 @@
-﻿using cn.bmob.io;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
+
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
-using static WBServicePlatform.WebManagement.Program;
 
 namespace WBServicePlatform.WebManagement.Controllers
 {
@@ -20,19 +21,19 @@ namespace WBServicePlatform.WebManagement.Controllers
             if (!(user.UserGroup.BusID == BusID && user.objectId == TeacherID))
                 return WebAPIResponseErrors.UserGroupError;
             if (Crypto.SHA256Encrypt(user.UserGroup.BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseErrors.RequestIllegal;
-            BmobQuery BusQuery = new BmobQuery();
+            DatabaseQuery BusQuery = new DatabaseQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (QueryHelper.BmobQueryData(BusQuery, out List<SchoolBusObject> BusList))
+            switch (Database.QueryData(BusQuery, out List<SchoolBusObject> BusList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     {
-                        BmobQuery StudentQuery = new BmobQuery();
+                        DatabaseQuery StudentQuery = new DatabaseQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        switch (QueryHelper.BmobQueryData(StudentQuery, out List<StudentObject> StudentList))
+                        switch (Database.QueryData(StudentQuery, out List<StudentObject> StudentList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

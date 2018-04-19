@@ -36,7 +36,7 @@ namespace WBServicePlatform.InstallFinaliser
 		}
 		private void Dispose(bool disposing)
 		{
-			if (!this.disposed)
+			if (!disposed)
 			{
 				if (disposing)
 				{

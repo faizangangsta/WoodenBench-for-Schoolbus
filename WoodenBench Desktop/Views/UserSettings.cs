@@ -5,11 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.WinClient.StaticClasses;
 using WBServicePlatform.WinClient.Users;
+
 using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
@@ -78,9 +81,9 @@ namespace WBServicePlatform.WinClient.Views
                 {
                     if (NewPassword1.Text != "")
                     {
-                        if (UserActivity.ChangePassWord(CurrentUser, prePassword.Text, NewPassword1.Text, out cn.bmob.response.UpdateCallbackData Result))
+                        if (UserActivity.ChangePassWord(CurrentUser, prePassword.Text, NewPassword1.Text))
                         {
-                            MessageBox.Show($"你在 {Result.updatedAt} 时成功修改密码，现在将要重新登陆");
+                            MessageBox.Show($"你在成功修改密码，现在将要重新登陆");
                             UserActivity.LogOut();
                         }
                         else

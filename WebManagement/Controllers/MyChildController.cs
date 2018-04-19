@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -32,7 +33,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
-                switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
+                switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
                     case -1: return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.WeChatID, ErrorRespCode.InternalError);
                     case 0: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));

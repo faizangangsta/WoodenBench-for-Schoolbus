@@ -50,117 +50,117 @@ namespace WBServicePlatform.InstallFinaliser
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.label1 = new Label();
-            this.lvUpdateList = new ListView();
-            this.chFileName = new ColumnHeader();
-            this.chVersion = new ColumnHeader();
-            this.chProgress = new ColumnHeader();
-            this.btnNext = new Button();
-            this.btnCancel = new Button();
-            this.btnFinish = new Button();
-            this.button1 = new Button();
-            this.SuspendLayout();
+            label1 = new Label();
+            lvUpdateList = new ListView();
+            chFileName = new ColumnHeader();
+            chVersion = new ColumnHeader();
+            chProgress = new ColumnHeader();
+            btnNext = new Button();
+            btnCancel = new Button();
+            btnFinish = new Button();
+            button1 = new Button();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(10, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 16);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "以下为更新文件列表";
+            label1.Location = new System.Drawing.Point(10, 9);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(136, 16);
+            label1.TabIndex = 9;
+            label1.Text = "以下为更新文件列表";
             // 
             // lvUpdateList
             // 
-            this.lvUpdateList.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
+            lvUpdateList.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
             | AnchorStyles.Left)
             | AnchorStyles.Right);
-            this.lvUpdateList.Columns.AddRange(new ColumnHeader[] {
-            this.chFileName,
-            this.chVersion,
-            this.chProgress});
-            this.lvUpdateList.Location = new System.Drawing.Point(12, 28);
-            this.lvUpdateList.Name = "lvUpdateList";
-            this.lvUpdateList.Size = new System.Drawing.Size(525, 322);
-            this.lvUpdateList.TabIndex = 6;
-            this.lvUpdateList.UseCompatibleStateImageBehavior = false;
-            this.lvUpdateList.View = View.Details;
-            this.lvUpdateList.SelectedIndexChanged += new System.EventHandler(this.LvUpdateList_SelectedIndexChanged);
+            lvUpdateList.Columns.AddRange(new ColumnHeader[] {
+            chFileName,
+            chVersion,
+            chProgress});
+            lvUpdateList.Location = new System.Drawing.Point(12, 28);
+            lvUpdateList.Name = "lvUpdateList";
+            lvUpdateList.Size = new System.Drawing.Size(525, 322);
+            lvUpdateList.TabIndex = 6;
+            lvUpdateList.UseCompatibleStateImageBehavior = false;
+            lvUpdateList.View = View.Details;
+            lvUpdateList.SelectedIndexChanged += new System.EventHandler(LvUpdateList_SelectedIndexChanged);
             // 
             // chFileName
             // 
-            this.chFileName.Text = "组件名";
-            this.chFileName.Width = 175;
+            chFileName.Text = "组件名";
+            chFileName.Width = 175;
             // 
             // chVersion
             // 
-            this.chVersion.Text = "版本号";
-            this.chVersion.Width = 163;
+            chVersion.Text = "版本号";
+            chVersion.Width = 163;
             // 
             // chProgress
             // 
-            this.chProgress.Text = "进度";
-            this.chProgress.Width = 85;
+            chProgress.Text = "进度";
+            chProgress.Width = 85;
             // 
             // btnNext
             // 
-            this.btnNext.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            this.btnNext.Location = new System.Drawing.Point(371, 356);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(80, 24);
-            this.btnNext.TabIndex = 3;
-            this.btnNext.Text = "下一步(&N)>";
-            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
+            btnNext.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
+            btnNext.Location = new System.Drawing.Point(371, 356);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new System.Drawing.Size(80, 24);
+            btnNext.TabIndex = 3;
+            btnNext.Text = "下一步(&N)>";
+            btnNext.Click += new System.EventHandler(BtnNext_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            this.btnCancel.Location = new System.Drawing.Point(457, 356);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(80, 24);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "关闭(&C)";
-            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            btnCancel.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
+            btnCancel.Location = new System.Drawing.Point(457, 356);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(80, 24);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "关闭(&C)";
+            btnCancel.Click += new System.EventHandler(BtnCancel_Click);
             // 
             // btnFinish
             // 
-            this.btnFinish.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            this.btnFinish.Location = new System.Drawing.Point(285, 356);
-            this.btnFinish.Name = "btnFinish";
-            this.btnFinish.Size = new System.Drawing.Size(80, 24);
-            this.btnFinish.TabIndex = 3;
-            this.btnFinish.Text = "完成(&F)";
-            this.btnFinish.Click += new System.EventHandler(this.BtnFinish_Click);
+            btnFinish.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
+            btnFinish.Location = new System.Drawing.Point(285, 356);
+            btnFinish.Name = "btnFinish";
+            btnFinish.Size = new System.Drawing.Size(80, 24);
+            btnFinish.TabIndex = 3;
+            btnFinish.Text = "完成(&F)";
+            btnFinish.Click += new System.EventHandler(BtnFinish_Click);
             // 
             // button1
             // 
-            this.button1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
-            this.button1.Location = new System.Drawing.Point(12, 356);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 24);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "刷新(&R)";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
+            button1.Location = new System.Drawing.Point(12, 356);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(75, 24);
+            button1.TabIndex = 10;
+            button1.Text = "刷新(&R)";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += new System.EventHandler(button1_Click);
             // 
             // MainWindow
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(549, 392);
-            this.ControlBox = false;
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.lvUpdateList);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnFinish);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "MainWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "检查更新";
-            this.Load += new System.EventHandler(this.FrmUpdate_Load);
-            this.ResumeLayout(false);
+            AutoScaleBaseSize = new System.Drawing.Size(6, 14);
+            ClientSize = new System.Drawing.Size(549, 392);
+            ControlBox = false;
+            Controls.Add(button1);
+            Controls.Add(label1);
+            Controls.Add(btnCancel);
+            Controls.Add(lvUpdateList);
+            Controls.Add(btnNext);
+            Controls.Add(btnFinish);
+            Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "MainWindow";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "检查更新";
+            Load += new System.EventHandler(FrmUpdate_Load);
+            ResumeLayout(false);
 
 		}
 		#endregion
@@ -299,7 +299,7 @@ namespace WBServicePlatform.InstallFinaliser
 				btnCancel.Visible = false;
 				btnFinish.Location = btnCancel.Location;
 				btnFinish.Visible = true;
-				this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
 			}
 			else
 			{

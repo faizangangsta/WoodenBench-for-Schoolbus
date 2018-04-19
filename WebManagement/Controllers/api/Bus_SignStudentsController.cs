@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -35,20 +36,20 @@ namespace WBServicePlatform.WebManagement.Controllers
             string StudentID = p[4];
             if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseErrors.RequestIllegal;
 
-            BmobQuery busFindQuery = new BmobQuery();
+            DatabaseQuery busFindQuery = new DatabaseQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (QueryHelper.BmobQueryData(busFindQuery, out List<SchoolBusObject> BusList))
+            switch (Database.QueryData(busFindQuery, out List<SchoolBusObject> BusList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
-                        BmobQuery _stuQuery = new BmobQuery();
+                        DatabaseQuery _stuQuery = new DatabaseQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
-                        switch (QueryHelper.BmobQueryData(_stuQuery, out List<StudentObject> StuList))
+                        switch (Database.QueryData(_stuQuery, out List<StudentObject> StuList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

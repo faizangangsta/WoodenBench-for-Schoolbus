@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.WinClient.DelegateClasses;
 
@@ -15,13 +16,13 @@ namespace WBServicePlatform.WinClient.StaticClasses
     {
         public static event FileIOCompletedEventHandler onFileIOCompleted;
 
-        private static void _HttpDownload(string RemoteURL, string LocalAddress)
+        private static void _HttpDownload(string RemoteURL, string LocalFilePath)
         {
-            string tempPath = Path.GetDirectoryName(LocalAddress);
-            Directory.CreateDirectory(tempPath);  //创建临时文件目录
-            string tempFile = tempPath + @"\" + Path.GetFileName(LocalAddress) + ".temp"; //临时文件
+            string tempPath = Path.GetDirectoryName(LocalFilePath);
+            Directory.CreateDirectory(tempPath);
+            string tempFile = tempPath + @"\" + Path.GetFileName(LocalFilePath) + ".temp";
             if (File.Exists(tempFile)) File.Delete(tempFile);
-            if (File.Exists(LocalAddress)) File.Delete(LocalAddress);
+            if (File.Exists(LocalFilePath)) File.Delete(LocalFilePath);
             FileStream fs = new FileStream(tempFile, FileMode.CreateNew, FileAccess.ReadWrite);
             try
             {
@@ -39,28 +40,25 @@ namespace WBServicePlatform.WinClient.StaticClasses
                 }
                 fs.Close();
                 responseStream.Close();
-                File.Move(tempFile, LocalAddress);
-                IOCompleted(true, LocalAddress,  RemoteURL);
-                return;
+                File.Move(tempFile, LocalFilePath);
+                IOCompleted(true, LocalFilePath, RemoteURL);
             }
             catch (Exception ex)
             {
                 fs.Close();
-                IOCompleted(false, LocalAddress, RemoteURL);
-                return;
+                IOCompleted(false, LocalFilePath, RemoteURL);
             }
         }
 
-        private static void IOCompleted(bool Status, string LocalPath, string ErrDetail)
+        private static void IOCompleted(bool _Status, string _LocalPath, string _ErrDetail)
         {
             FileIOEventArgs e = new FileIOEventArgs()
             {
-                LocalFilePath = LocalPath,
-                isSucceed = Status,
-                ErrDescription = ErrDetail
+                LocalFilePath = _LocalPath,
+                isSucceed = _Status,
+                ErrDescription = _ErrDetail
             };
             if (onFileIOCompleted != null) { onFileIOCompleted(e); }
-            e = null;
         }
 
         public static byte[] ReadFileBytes(string filePath)
@@ -68,8 +66,8 @@ namespace WBServicePlatform.WinClient.StaticClasses
             if (!File.Exists(filePath)) { return new byte[0]; }
             FileStream fs = File.OpenRead(filePath);
             int filelength = 0;
-            filelength = (int)fs.Length; //获得文件长度 
-            byte[] p = new byte[filelength]; //建立一个字节[]
+            filelength = (int)fs.Length;
+            byte[] p = new byte[filelength];
             fs.Read(p, 0, filelength);
             return p;
         }
@@ -83,9 +81,7 @@ namespace WBServicePlatform.WinClient.StaticClasses
 
         public static void DownloadFile(string RemoteURL, string LocalPath)
         {
-            new Thread(new ThreadStart(delegate { _HttpDownload(RemoteURL, LocalPath); }))
-            { Name = "Download file", IsBackground = false }.Start();
-
+            new Thread(new ThreadStart(() => _HttpDownload(RemoteURL, LocalPath))).Start();
         }
     }
 

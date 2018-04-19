@@ -864,7 +864,7 @@
         AElFTkSuQmCC
 </value>
   </data>
-  <data name="User1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DefaultUserImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAAWpJREFUWEft17ErRWEYx/GTlKQMd1AGixSlWxIWi4FNBjLcQRkYpAzK36AMNosM

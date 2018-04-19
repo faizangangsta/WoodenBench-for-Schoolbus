@@ -1,6 +1,3 @@
-using cn.bmob.io;
-using cn.bmob.response;
-using DevComponents.DotNetBar.Metro;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,10 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WBServicePlatform.TableObject;
+
+using DevComponents.DotNetBar.Metro;
+
 using WBServicePlatform.StaticClasses;
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.Users;
+
+using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
 
 namespace WBServicePlatform.WinClient.Views
 {
@@ -47,10 +48,15 @@ namespace WBServicePlatform.WinClient.Views
         {
 
         }
-        
+
         private void BusesManager_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainForm.Default.Show();
+        }
+        
+        private void loadMessage_Click(object sender, EventArgs e)
+        {
+            //var FindMessagesTask = _BmobWin.FindTaskAsync()
         }
     }
 }

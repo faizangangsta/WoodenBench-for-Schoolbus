@@ -114,7 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StaticClasses\DelegateClasses.cs" />
+    <Compile Include="StaticClasses\EventDriver.cs" />
     <Compile Include="StaticClasses\ExcelApplication.cs" />
     <Compile Include="StaticClasses\FileIO.cs" />
     <Compile Include="StaticClasses\GlobalFunc.cs" />
@@ -123,7 +123,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StaticClasses\LogWritter.cs" />
     <Compile Include="Users\Mysterious.cs" />
     <Compile Include="Users\UserActivity.cs" />
     <Compile Include="Views\Notificaions.cs">
@@ -216,6 +215,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\WBServicePlatform.TableObject.AllUserObject.datasource" />
+    <None Include="Properties\DataSources\WBServicePlatform.TableObject.NotificationObject.datasource" />
     <None Include="Properties\DataSources\WBServicePlatform.TableObject.SchoolBusObject.datasource" />
     <None Include="Properties\DataSources\WBServicePlatform.TableObject.StudentDataObject.datasource" />
     <None Include="Properties\DataSources\WoodenBench.StaticClasses.Consts.datasource" />

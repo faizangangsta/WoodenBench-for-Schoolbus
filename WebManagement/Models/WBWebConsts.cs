@@ -46,6 +46,7 @@ namespace WBServicePlatform.StaticClasses
         public const int agentId = 41;
         public const string sToken = "2Sfp4gdyUgxDYFvKNRDkgcrJ";
         public const string sEncodingAESKey = "ak5E1GUNu5TAeEnpfUykRKNxoxe5cFo1dh1bTbKjcgB";
+
         public static WXEncryptedXMLHelper WeChatEncryptor { get; set; }
         public static string AccessTicket { get; set; }
         public static DateTime AvailableTime_Ticket { get; set; }

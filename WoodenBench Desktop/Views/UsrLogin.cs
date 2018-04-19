@@ -3,9 +3,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
-using cn.bmob.io;
-using cn.bmob.json;
-
 using Newtonsoft.Json.Linq;
 
 using WBServicePlatform.StaticClasses;
@@ -83,6 +80,10 @@ namespace WBServicePlatform.WinClient.Views
                 {
                     MessageBox.Show("暂时不支持家长使用小板凳 Windows 客户端哦！");
                 }
+                else
+                {
+                    MessageBox.Show("用户组配置无效，请联系管理员。");
+                }
             }
             else
             {
@@ -115,7 +116,7 @@ namespace WBServicePlatform.WinClient.Views
 
         private void UsrLoginWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            GlobalFunc.ApplicationExit();
+            ApplicationExit();
         }
     }
 }

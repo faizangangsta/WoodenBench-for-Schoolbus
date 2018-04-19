@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using cn.bmob.io;
 
 using DevComponents.DotNetBar.Metro;
 
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.Users;
@@ -52,7 +52,7 @@ namespace WBServicePlatform.WinClient.Views
             bool IsGoing = true;
             int CurrNum = 0;
             allUserObjectBindingSource.Clear();
-            BmobQuery query = new BmobQuery();
+            DatabaseQuery query = new DatabaseQuery();
 
 
             if (ContentTxBox.Text.ToLower() == "true")
@@ -69,17 +69,14 @@ namespace WBServicePlatform.WinClient.Views
                 query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
             }
             //query.Skip(CurrNum);
-            var future = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, query);
-            future.Wait();
-            if (future.IsFaulted)
+            if (Database.QueryData<UserObject>(query, out List<UserObject> result) < 0)
             {
                 MessageBox.Show("Failed getting data");
                 return;
             }
-            if (future.IsCompleted)
+            else
             {
-                List<UserObject> list = future.Result.results;
-                foreach (UserObject item in list)
+                foreach (UserObject item in result)
                 {
                     allUserObjectBindingSource.Add(item);
                 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -65,13 +66,13 @@ namespace WBServicePlatform.WebManagement.Controllers
                             break;
                     }
 
-                    Task<UpdateCallbackData> taskupdate = _Bmob.UpdateTaskAsync(WBConsts.TABLE_N_Gen_UserTable, SessionUser.objectId, user);
+                    Task<UpdateCallbackData> taskupdate = _Bmob.UpdateTaskAsync(WBConsts.TABLE_Gen_UserTable, SessionUser.objectId, user);
                     taskupdate.Wait();
                     if (taskupdate.IsCompleted)
                     {
-                        BmobQuery query = new BmobQuery();
+                        DatabaseQuery query = new DatabaseQuery();
                         query.WhereEqualTo("objectId", SessionUser.objectId);
-                        switch (QueryHelper.BmobQueryData(query, out List<UserObject> UserList))
+                        switch (Database.QueryData(query, out List<UserObject> UserList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

@@ -10,12 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using cn.bmob.io;
-using cn.bmob.json;
-using cn.bmob.response;
 
 using Newtonsoft.Json.Linq;
-
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WinClient.DelegateClasses;
@@ -31,7 +28,6 @@ namespace WBServicePlatform.WinClient.Users
 
         //public static event UserActivityHandler onUserActivityEvent;
 
-
         //public static void ChangePassWord(UserObject NowUser, string OriPasswrd, string NewPasswrd)
         //{
         //    new Thread(new ThreadStart(delegate { _ChangePsW(NowUser, OriPasswrd, NewPasswrd); }))
@@ -44,24 +40,20 @@ namespace WBServicePlatform.WinClient.Users
         //    { Name = "User Login", IsBackground = false }.Start();
         //
         //}
-        //
 
-        public static bool ChangePassWord(UserObject NowUser, string OriPasswrd, string NewPasswrd, out UpdateCallbackData Result)
+        public static bool ChangePassWord(UserObject NowUser, string OriPasswrd, string NewPasswrd)
         {
             UserObject Change = new UserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
-            var Task = _BmobWin.UpdateTaskAsync(WBConsts.TABLE_N_Gen_UserTable, NowUser.objectId, Change);
-            try
+            Change.objectId = NowUser.objectId;
+            if (Databases.Database.UpdateData(Change) == 0)
             {
-                Task.Wait();
-                Result = Task.Result;
-                LogWritter.ErrorMessage("Change Password Success!");
+                LogWritter.DebugMessage("Change Password Success!");
                 return true;
             }
-            catch (Exception ex)
+            else
             {
-                LogWritter.ErrorMessage("Change Password Failed:" + ex.Message);
-                Result = null;
+                LogWritter.DebugMessage("Change Password Failed!");
                 return false;
             }
         }
@@ -77,31 +69,21 @@ namespace WBServicePlatform.WinClient.Users
         {
             xUserName = xUserName.ToLower();
             string HashedPs = Crypto.SHA256Encrypt(xPassword);
-            BmobQuery UserNameQuery = new BmobQuery();
+            DatabaseQuery UserNameQuery = new DatabaseQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             UserNameQuery.WhereContainedIn("Password", HashedPs);
-            var UsrNameResult = GlobalFunc._BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, UserNameQuery);
-            try
+            if (Database.QueryData(UserNameQuery, out List<UserObject> list) > 0)
             {
-                UsrNameResult.Wait();
-                if (UsrNameResult.Result.results.Count <= 0)
-                {
-                    LogWritter.ErrorMessage("User Login Error: No User Found.");
-                    user = null;
-                    return false;
-                }
-                else
-                {
-                    user = UsrNameResult.Result.results[0];
-                    return true;
-                }
+                user = list[0];
+                return true;
             }
-            catch (Exception e)
+            else
             {
+                LogWritter.ErrorMessage("User Login Error: No User Found.");
                 user = null;
-                LogWritter.ErrorMessage("User Login Error: " + e.Message + e.InnerException != null ? e.InnerException.Message : "");
                 return false;
             }
+
         }
         //private static void onUserActivity(OperationStatus Status, UserActivityE Act, string Detail = "")
         //{

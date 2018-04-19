@@ -7,7 +7,7 @@ using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.TableObject
 {
-    public class ClassObject : BmobTable
+    public class ClassObject : DataTable
     {
         public string CDepartment { get; set; }
         public string CGrade { get; set; }
@@ -16,8 +16,8 @@ namespace WBServicePlatform.TableObject
         public string TeacherID { get; set; }
 
         public ClassObject() { }
-        public override string table => WBConsts.TABLE_N_Mgr_Classes;
-
+        public override string table => WBConsts.TABLE_Mgr_Classes;
+        
         public override void readFields(BmobInput input)
         {
             base.readFields(input);

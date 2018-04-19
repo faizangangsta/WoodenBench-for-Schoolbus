@@ -7,12 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using cn.bmob.io;
-using cn.bmob.response;
-
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
 
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 
@@ -50,20 +48,19 @@ namespace WBServicePlatform.WinClient.Views
         private void CheckMyStudents_Shown(object sender, EventArgs e)
         {
             if (CurrentUser.UserGroup.IsBusManager)
-            {                
+            {
                 SchoolBusObject busObject = new SchoolBusObject();
-                BmobQuery query = new BmobQuery();
+                DatabaseQuery query = new DatabaseQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                var task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
-                task.Wait();
-                if (task.Result.results.Count <= 0)
+                int resultX = Database.QueryData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                if (resultX == 0)
                     MessageBox.Show("找不到任何你管理的校车");
-                else if (task.Result.results.Count == 1)
-                    busObject = task.Result.results[0];
+                else if (resultX == 1)
+                    busObject = result[0];
                 else
                 {
                     MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
-                    busObject = task.Result.results[0];
+                    busObject = result[0];
                 }
                 myID.Text = busObject.objectId;
                 myDirection.Text = busObject.BusName;
@@ -92,18 +89,16 @@ namespace WBServicePlatform.WinClient.Views
         private void LoadAll_Click(object sender, EventArgs e)
         {
             studentDataObjectBindingSource.Clear();
-            BmobQuery query = new BmobQuery();
+            DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            var task = _BmobWin.FindTaskAsync<StudentObject>(WBConsts.TABLE_N_Mgr_StuData, query);
-            task.Wait();
-            if (task.IsCompleted)
+            int resultX = Database.QueryData<StudentObject>(query, out List<StudentObject> result);
+            if (resultX >= 0)
             {
-                List<StudentObject> list = task.Result.results;
-                foreach (StudentObject item in list)
+                foreach (StudentObject item in result)
                 {
                     studentDataObjectBindingSource.Add(item);
                 }
-                ExpNumber.Text = list.Count.ToString();
+                ExpNumber.Text = result.Count.ToString();
                 LeaveNumber.Text = CountTicks(4).ToString();
                 LeavingChecked.Text = CountTicks(5).ToString();
                 BackNumber.Text = CountTicks(6).ToString();
@@ -136,9 +131,14 @@ namespace WBServicePlatform.WinClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                Task<UpdateCallbackData> task = _BmobWin.UpdateTaskAsync<StudentObject>(item);
-                task.Wait();
-                ExDescription.Text = "成功更新项：" + item.StudentName;
+                if (Database.UpdateData(item) == 0)
+                {
+                    ExDescription.Text = "成功更新项：" + item.StudentName;
+                }
+                else
+                {
+                    ExDescription.Text = "出现问题：" + item.StudentName;
+                }
                 Application.DoEvents();
             }
         }

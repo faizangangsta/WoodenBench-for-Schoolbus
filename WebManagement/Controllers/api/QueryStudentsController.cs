@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -19,9 +20,9 @@ namespace WBServicePlatform.WebManagement.Controllers
         {
             if (Crypto.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return WebAPIResponseErrors.RequestIllegal;
 
-            BmobQuery query = new BmobQuery();
+            DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("objectId", BusID);
-            switch (QueryHelper.BmobQueryData(query, out List<SchoolBusObject> BusList))
+            switch (Database.QueryData(query, out List<SchoolBusObject> BusList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
@@ -31,10 +32,10 @@ namespace WBServicePlatform.WebManagement.Controllers
                         if (Int32.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
                         else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
                         else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
-                        BmobQuery query2 = new BmobQuery();
+                        DatabaseQuery query2 = new DatabaseQuery();
                         query2.WhereEqualTo("BusID", BusList[0].objectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
-                        switch (QueryHelper.BmobQueryData(query2, out List<StudentObject> StudentList))
+                        switch (Database.QueryData(query2, out List<StudentObject> StudentList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

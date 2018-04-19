@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using WBServicePlatform.WinClient.StaticClasses;
-using WBServicePlatform.WinClient.Users;
 
 namespace WBServicePlatform.StaticClasses
 {
@@ -22,17 +18,8 @@ namespace WBServicePlatform.StaticClasses
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
             Fs.AutoFlush = true;
-            FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;
         }
-
-        private static void FileIO_onFileIOCompleted(FileIOEventArgs e)
-        {
-            if (e.isSucceed) WriteLog(LogLevel.Infomation, $"Headimage download completed, at: {e.LocalFilePath}");
-            else WriteLog(LogLevel.Error, e.ErrDescription);
-            WriteLog(LogLevel.LongChain);
-        }
-
-        private static void WriteLog(LogLevel level, string Message = "")
+        public  static void WriteLog(LogLevel level, string Message = "")
         {
             string LogMsg = "";
             if (level == LogLevel.LongChain)
@@ -48,7 +35,7 @@ namespace WBServicePlatform.StaticClasses
                 LogMsg += $"{DateTime.Now.ToLongTimeString()} - {levelstr} - {Message}";
             }
             Debug.Write(LogMsg);
-            char[] p = Encoding.UTF8.GetChars(UTF8Encoding.UTF8.GetBytes(LogMsg));
+            char[] p = Encoding.UTF8.GetChars(Encoding.UTF8.GetBytes(LogMsg));
             lock (Fs)
             {
                 Fs.Write(p, 0, p.Length);

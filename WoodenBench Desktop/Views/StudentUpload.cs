@@ -7,15 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
-using cn.bmob.io;
-using cn.bmob.response;
 
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Controls;
 using DevComponents.DotNetBar.Metro;
-
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 
@@ -57,6 +56,11 @@ namespace WBServicePlatform.WinClient.Views
 
         private void ExcelOperationWindow_Load(object sender, EventArgs e)
         {
+            if (!CurrentUser.UserGroup.IsClassTeacher)
+            {
+                MessageBox.Show("你不是班主任，不能执行这项操作", "操作有问题", MessageBoxButtons.OK);
+                Close();
+            }
             StudentData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             ExDiscription.Items.Clear();
         }
@@ -80,7 +84,7 @@ namespace WBServicePlatform.WinClient.Views
             statusLabel.Text = "正在打开Excel....";
             DoLog(statusLabel.Text);
             Application.DoEvents();
-            ExcelApplication Excel = new ExcelApplication();
+            ExcelApplication _Excel = new ExcelApplication();
             statusLabel.Text = "请选择Excel文档";
             DoLog(statusLabel.Text);
             Application.DoEvents();
@@ -99,24 +103,36 @@ namespace WBServicePlatform.WinClient.Views
             statusLabel.Text = "正在读取Excel文件，请稍等......";
             DoLog(statusLabel.Text);
             Application.DoEvents();
-            Excel.OpenExcelFile(ExcelFilePath, true, false);
+            if (!_Excel.OpenExcelFile(ExcelFilePath, true, false))
+            {
+                MessageBox.Show("打开Excel文件失败！请查看Log文件！");
+                return;
+            }
 
             statusLabel.Text = "获取文件长度......";
             DoLog(statusLabel.Text);
             Application.DoEvents();
-            int LastLine = Excel.LastLine(1, 200, 0, 1);
+            int LastLine = _Excel.LastLine(1, 100);
+            if (LastLine == -1)
+            {
+                MessageBox.Show("读取Excel文件出现问题：无法获取文件长度");
+                return;
+            }
             string StuName, StuDirection;
             for (int LineNum = 4; LineNum <= (LastLine - 1); LineNum++)
             {
                 bool IsUpdate = false;
-                StuName = Excel.ReadContent<string>(LineNum, 1);
-                StuDirection = Excel.ReadContent<string>(LineNum, 2);
+                StuName = _Excel.ReadContent<string>(LineNum, 1);
+                StuDirection = _Excel.ReadContent<string>(LineNum, 2);
                 foreach (DataGridViewRow item in StudentData.Rows)
                 {
                     statusLabel.Text = $"更新现有数据:{StuName}";
                     DoLog(statusLabel.Text);
                     Application.DoEvents();
-                    if (item.Cells[1].Value?.ToString() == StuName)
+
+                    List<StudentObject> students = ((List<StudentObject>)studentDataBindSourc.List).TakeWhile(new Func<StudentObject, int, bool>((stu, num) => { return stu.StudentName == StuName; })).ToList();
+                    //UNKNOWN CHANGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (string.IsNullOrEmpty((string)item.Cells[1].Value) && (string)item.Cells[1].Value == StuName)
                     {
                         item.Cells[1].Value = StuName;
                         item.Cells[2].Value = StuDirection;
@@ -140,7 +156,7 @@ namespace WBServicePlatform.WinClient.Views
             DoLog(statusLabel.Text);
             Application.DoEvents();
             GC.Collect();
-            Excel.QuitExcel();
+            _Excel.QuitExcel();
             statusPanel.Visible = false;
         }
 
@@ -152,42 +168,36 @@ namespace WBServicePlatform.WinClient.Views
         private void LoadExistStudents_Click(object sender, EventArgs e)
         {
             studentDataBindSourc.Clear();
-            BmobQuery ClassQuery = new BmobQuery();
+            DatabaseQuery ClassQuery = new DatabaseQuery();
 
-            ClassQuery.WhereEqualTo("ClassDepartment", ClassPartOS.Text);
-            ClassQuery.WhereEqualTo("ClassGrade", ClassYear.Text);
-            ClassQuery.WhereEqualTo("ClassNumber", ClassNum.Text);
-            Task<QueryCallbackData<ClassObject>> ClassFindTask;
-            ClassFindTask = _BmobWin.FindTaskAsync<ClassObject>(WBConsts.TABLE_N_Mgr_Classes, ClassQuery);
-            ClassFindTask.Wait();
-            if (!ClassFindTask.IsCompleted || ClassFindTask.Result.results.Count == 0)
+            ClassQuery.WhereEqualTo("objectId", CurrentUser.UserGroup.ClassesIds[0]);
+            int resultCode = Database.QueryData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            if (resultCode == 0)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
                 return;
             }
-            CurrentClass = ClassFindTask.Result.results[0];
+            CurrentClass = result[0];
             ClsID.Text = CurrentClass.objectId;
             ClsDpt.Text = CurrentClass.CDepartment;
             ClsGrade.Text = CurrentClass.CGrade;
             ClsNum.Text = CurrentClass.CNumber;
             ClsTID.Text = CurrentClass.TeacherID;
-            if (CurrentClass.TeacherID == "")
+            if (string.IsNullOrEmpty(CurrentClass.TeacherID))
             {
                 MessageBox.Show("嗯，找到了匹配的班级，但好像没有老师绑定这个班。" +
                     "\r\n" +
                     "~快去叫他使用小板凳吧。" +
                     "\r\n\r\n" +
-                    "如果你是这个班的老师的话，先去\"设置\"页绑定一下你的班级！", "没有老师的班级");
+                    "如果你是这个班的老师的话，先去\"设置\"页绑定一下你的班级！", "孤儿班级");
                 ClsTName.Text = "";
                 ClsTPhoneNum.Text = "";
             }
             else
             {
-                BmobQuery TeacherDataQuery = new BmobQuery();
+                DatabaseQuery TeacherDataQuery = new DatabaseQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                var TeacherDataFindTask = _BmobWin.FindTaskAsync<UserObject>(WBConsts.TABLE_N_Gen_UserTable, TeacherDataQuery);
-                TeacherDataFindTask.Wait();
-                if (!TeacherDataFindTask.IsCompleted || TeacherDataFindTask.Result.results.Count == 0)
+                if (Database.QueryData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
                     MessageBox.Show("这不应该，这个班级有老师管理，但是查不到老师的任何信息。", "班主任溜了？");
                     ClsTName.Text = "";
@@ -195,42 +205,37 @@ namespace WBServicePlatform.WinClient.Views
                 }
                 else
                 {
-                    ClsTName.Text = TeacherDataFindTask.Result.results[0].RealName;
-                    ClsTPhoneNum.Text = TeacherDataFindTask.Result.results[0].PhoneNumber;
+                    ClsTName.Text = teacherresult[0].RealName;
+                    ClsTPhoneNum.Text = teacherresult[0].PhoneNumber;
                 }
             }
             Application.DoEvents();
+
             //if (MessageBox.Show("找到了班级，是否继续列出班里坐校车的学生？", "要继续吗", MessageBoxButtons.YesNo) == DialogResult.No)
             //    return;
-
-            BmobQuery StudentsQuery = new BmobQuery();
+            DatabaseQuery StudentsQuery = new DatabaseQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
-            Task<QueryCallbackData<StudentObject>> StudentsFindTask;
-            StudentsFindTask = _BmobWin.FindTaskAsync<StudentObject>(WBConsts.TABLE_N_Mgr_StuData, StudentsQuery);
-            StudentsFindTask.Wait();
-            if (StudentsFindTask.Result.results.Count == 0)
-            {
+            if (Database.QueryData(StudentsQuery, out List<StudentObject> results) == 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
-            }
             else
             {
-                for (int i = 0; i < StudentsFindTask.Result.results.Count; i++)
+                for (int i = 0; i < results.Count; i++)
                 {
-                    studentDataBindSourc.Add(StudentsFindTask.Result.results[i]);
-                    if (!BusDataPair.ContainsValue(StudentsFindTask.Result.results[i].BusID))
+                    studentDataBindSourc.Add(results[i]);
+                    if (!BusDataPair.ContainsValue(results[i].BusID))
                     {
                         MessageBox.Show("这就奇怪了，为啥校车列表里面没有这个学生的记录？？" +
-                            $"\r\n 学生姓名：{ StudentsFindTask.Result.results[i].StudentName }" +
-                            $" 奇怪的ID：{ StudentsFindTask.Result.results[i].BusID }");
+                            $"\r\n 学生姓名：{results[i].StudentName }" +
+                            $" 奇怪的ID：{ results[i].BusID }");
                         StudentData.Rows[i].Cells[2].Value = "";
                     }
                     else
                     {
-                        StudentData.Rows[i].Cells[2].Value = BusDataPair.ElementAt(BusDataPair.Values.ToList().IndexOf(StudentsFindTask.Result.results[i].BusID)).Key;
+                        StudentData.Rows[i].Cells[2].Value = BusDataPair.ElementAt(BusDataPair.Values.ToList().IndexOf(results[i].BusID)).Key;
                     }
                 }
             }
-            DoLog($"成功加载了 { StudentsFindTask.Result.results.Count} 条数据");
+            DoLog($"成功加载了 {results.Count} 条数据");
             StudentData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
@@ -238,50 +243,50 @@ namespace WBServicePlatform.WinClient.Views
         private void ExcelOperationWindow_Shown(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            ClassYear.SelectedIndex = 0;
-            ClassPartOS.SelectedIndex = 0;
-            ClassNum.SelectedIndex = 0;
-            BmobQuery query = new BmobQuery();
-            Task<QueryCallbackData<SchoolBusObject>> task;
-            task = _BmobWin.FindTaskAsync<SchoolBusObject>(WBConsts.TABLE_N_Mgr_BusData, query);
-            task.Wait();
-            if (task.IsCompleted)
+            DatabaseQuery query = new DatabaseQuery();
+            if (Database.QueryData(query, out List<SchoolBusObject> list) <= 0)
             {
-                List<SchoolBusObject> list = task.Result.results;
+                MessageBox.Show("出现了一些错误");
+            }
+            else
+            {
                 foreach (SchoolBusObject item in list)
                 {
                     schoolBusObjectBindingSource.Add(item);
                     BusDataPair.Add(item.BusName, item.objectId);
                 }
-            }
-            BusDirection.Items.AddRange(BusDataPair.Keys.ToArray());
-            BusDataGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        }
+                BusDirection.Items.AddRange(BusDataPair.Keys.ToArray());
+                BusDataGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-        private void StuPartOS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ClassYear.Items.Clear();
-            switch (ClassPartOS.Text)
-            {
-                case "小学部":
-                    ClassYear.Items.AddRange(new string[] { "一年级", "二年级", "三年级", "四年级", "五年级", "六年级" });
-                    break;
-                case "初中部":
-                    ClassYear.Items.AddRange(new string[] { "初一", "初二", "初三" });
-                    break;
-                case "普通高中部":
-                case "中加高中部":
-                    ClassYear.Items.AddRange(new string[] { "高一", "高二", "高三" });
-                    break;
-                case "剑桥高中部":
-                    ClassYear.Items.AddRange(new string[] { "Year 10", "Year 11", "Year 12", "Year 13" });
-                    break;
-                default:
-                    ClassYear.Items.Add("请选择学部");
-                    break;
+                LoadExistStudents_Click(sender, e);
             }
-            ClassYear.SelectedIndex = 0;
         }
+        #region UseLess
+        //private void StuPartOS_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    ClassYear.Items.Clear();
+        //    switch (ClassPartOS.Text)
+        //    {
+        //        case "小学部":
+        //            ClassYear.Items.AddRange(new string[] { "一年级", "二年级", "三年级", "四年级", "五年级", "六年级" });
+        //            break;
+        //        case "初中部":
+        //            ClassYear.Items.AddRange(new string[] { "初一", "初二", "初三" });
+        //            break;
+        //        case "普通高中部":
+        //        case "中加高中部":
+        //            ClassYear.Items.AddRange(new string[] { "高一", "高二", "高三" });
+        //            break;
+        //        case "剑桥高中部":
+        //            ClassYear.Items.AddRange(new string[] { "Year 10", "Year 11", "Year 12", "Year 13" });
+        //            break;
+        //        default:
+        //            ClassYear.Items.Add("请选择学部");
+        //            break;
+        //    }
+        //    ClassYear.SelectedIndex = 0;
+        //}
+        #endregion
 
         private void SureAndUpload(object sender, EventArgs e)
         {
@@ -364,49 +369,36 @@ namespace WBServicePlatform.WinClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECTID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    Task<CreateCallbackData> CreateTask = _BmobWin.CreateTaskAsync(StudentObj);
-                    try
+                    if (Database.CreateData(StudentObj) == 0)
                     {
-                        CreateTask.Wait();
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();
-                        LogWritter.DebugMessage(CreateTask.Result.ToString());
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Green;
                         continue;
                     }
-                    catch (Exception ex)
+                    else
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，出错！";
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Red;
                         StudentData.Rows[RowNum].DefaultCellStyle.ForeColor = Color.White;
-                        LogWritter.ErrorMessage(ex.InnerException.Message);
-                        ErrDetail.Add("\t" + StudentObj.StudentName + " : " + ex.InnerException.Message + ";" + "\r\n");
                     }
                 }
                 //Record is in the Database, only update needed
                 else
                 {
                     StudentObj.objectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
-                    Task<UpdateCallbackData> UpdateTask = _BmobWin.UpdateTaskAsync(StudentObj);
-                    try
+                    if (Database.UpdateData(StudentObj) == 0)
                     {
-                        UpdateTask.Wait();
-                        if (UpdateTask.IsCompleted)
-                        {
-                            statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
-                            LogWritter.DebugMessage(UpdateTask.Result.ToString());
-                            StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;
-                            Application.DoEvents();
-                            continue;
-                        }
+                        statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
+                        StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;
+                        Application.DoEvents();
+                        continue;
                     }
-                    catch (Exception ex)
+                    else
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，出错！";
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.Red;
                         StudentData.Rows[RowNum].DefaultCellStyle.ForeColor = Color.White;
-                        LogWritter.ErrorMessage(ex.InnerException.Message);
-                        ErrDetail.Add("\t" + StudentObj.StudentName + " : " + ex.InnerException.Message + ";" + "\r\n");
                     }
                 }
             }
@@ -450,20 +442,13 @@ namespace WBServicePlatform.WinClient.Views
                     case "彻底删除":
                         if (MessageBox.Show("确定要在服务器上删除这条数据吗？该操作不可撤销！", "警告", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            try
-                            {
-                                Task<DeleteCallbackData> task;
-                                task = _BmobWin.DeleteTaskAsync(WBConsts.TABLE_N_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value);
-                                task.Wait();
-                                StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
-                                DoLog("成功在服务器上删除:" + Name);
-                            }
-                            catch (Exception ex)
-                            {
-                                DoLog("删除 " + Name + " 时出现问题");
-                                MessageBox.Show(ex.Message);
-                                LogWritter.ErrorMessage(ex.Message + ex.InnerException == null ? "" : ex.InnerException.Message);
-                            }
+                            if (Database.DeleteData(WBConsts.TABLE_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value) == 0) ;
+                            StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
+                            DoLog("成功在服务器上删除:" + Name);
+                        }
+                        else
+                        {
+                            DoLog("删除 " + Name + " 时出现问题");
                         }
                         break;
                     case "移除":

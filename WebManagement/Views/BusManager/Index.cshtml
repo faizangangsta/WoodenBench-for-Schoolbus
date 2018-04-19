@@ -54,9 +54,7 @@
 <script>
     {
         Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-
-        var dayofWeek = new Array("日", "一", "二", "三", "四", "五", "六");
-
+        var currentBus;
         var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
 
         $("#UserID").text("你好，" + CurrentUser.RealName);

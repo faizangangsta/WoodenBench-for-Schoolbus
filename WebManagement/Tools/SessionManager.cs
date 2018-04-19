@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using cn.bmob.io;
-
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 
@@ -11,11 +10,11 @@ namespace WBServicePlatform.WebManagement.Tools
     public static class Sessions
     {
         private static Dictionary<string, SessionInfo> __SessionCollection { get; set; } = new Dictionary<string, SessionInfo>();
-        
+
         private static string _GetSessionString(UserObject LogonUser, string UA)
             => Crypto.SHA512Encrypt(Crypto.RandomString(10, true) + LogonUser.WeChatID + new Random().NextDouble().ToString() + LogonUser.UserGroup.ToString() +
                 DateTime.Now.TimeOfDay.TotalMilliseconds.ToString() + LogonUser.Password + UA + LogonUser.UserGroup.ToString());
-        
+
         public struct SessionInfo
         {
             public string UserAgent;
@@ -69,14 +68,12 @@ namespace WBServicePlatform.WebManagement.Tools
             Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("WeChatID", WeiXinID), out List<UserObject> UserList))
+            switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("WeChatID", WeiXinID), out List<UserObject> UserList))
             {
                 case -1: return null;
                 case 0:
-                    {
-                        LogonUser = WeiXinID;
-                        return "0";
-                    }
+                    LogonUser = WeiXinID;
+                    return "0";
                 case 1:
                     LogonUser = UserList[0];
                     string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);

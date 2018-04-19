@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using cn.bmob.io;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WBServicePlatform.Databases;
 using WBServicePlatform.StaticClasses;
 using WBServicePlatform.TableObject;
 using WBServicePlatform.WebManagement.Tools;
@@ -81,32 +81,32 @@ namespace WBServicePlatform.WebManagement.Controllers
                     (user.UserGroup.IsClassTeacher && user.UserGroup.ClassesIds.Contains(ClassID)) ||
                     (user.UserGroup.IsBusManager))
                 {
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID), out List<StudentObject> StudentList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID), out List<StudentObject> StudentList))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetStudentByID::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetStudentByID::0 :: StudentID = " + StudentID, user.WeChatID);
                     }
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", StudentList[0].ClassID), out List<ClassObject> ClassList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", StudentList[0].ClassID), out List<ClassObject> ClassList))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetClassByID::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetClassByID::0", user.WeChatID);
                     }
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereEqualTo("objectId", ClassList[0].TeacherID), out List<UserObject> TeacherList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", ClassList[0].TeacherID), out List<UserObject> TeacherList))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetTeacherByID::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetTeacherByID::0", user.WeChatID);
                     }
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].ParentsID.Split(';')), out List<UserObject> Parents))
+                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", StudentList[0].ParentsID.Split(';')), out List<UserObject> Parents))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetParentsByGroup::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetParentsByGroup::0", user.WeChatID);
                     }
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", StudentList[0].BusID), out List<SchoolBusObject> BusList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", StudentList[0].BusID), out List<SchoolBusObject> BusList))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusByGroup::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusByGroup::0", user.WeChatID);
                     }
-                    switch (QueryHelper.BmobQueryData(new BmobQuery().WhereContainedIn("objectId", BusList[0].TeacherID), out List<UserObject> BusTeacherList))
+                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", BusList[0].TeacherID), out List<UserObject> BusTeacherList))
                     {
                         case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusTeacherByGroup::-1", user.WeChatID);
                         case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusTeacherByGroup::0", user.WeChatID);

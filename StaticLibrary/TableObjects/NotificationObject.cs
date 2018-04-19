@@ -5,36 +5,39 @@ using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.TableObject
 {
-    public class NotificationObject : BmobTable
+    public class NotificationObject : DataTable
     {
         //以下对应云端字段名称
-        public string Name { get; set; }
-        public string Notification_Title { get; set; }
-        public string Notification_Content { get; set; }
-        public string OtherData { get; set; }
-        
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string Sender { get; set; }
+        public NotificationType Type { get; set; }
+        public string Receiver { get; set; }
+
         public NotificationObject() { }
 
-        public override string table => WBConsts.TABLE_N_Gen_Notifi;
+        public override string table => WBConsts.TABLE_Gen_Notification;
 
 
         public override void readFields(BmobInput input)
         {
             base.readFields(input);
-            Name = input.getString("Name");
-            Notification_Title = input.getString("NTitle");
-            Notification_Content = input.getString("DataContent");
-            OtherData = input.getString("OtherData");
+            Title = input.getString("Title");
+            Content = input.getString("Content");
+            Sender = input.getString("Sender");
+            Receiver = input.getString("Receiver");
+            Type = (NotificationType)input.getInt("Type").Get();
         }
 
         //写字段信息
         public override void write(BmobOutput output, bool all)
         {
             base.write(output, all);
-            output.Put("Name", this.Name);
-            output.Put("NTitle", this.Notification_Title);
-            output.Put("DataContent", this.Notification_Content);
-            output.Put("OtherData", this.OtherData);
+            output.Put("Title", Title);
+            output.Put("Content", Content);
+            output.Put("Type", (int)Type);
+            output.Put("Sender", Sender);
+            output.Put("Receiver", Receiver);
         }
     }
 }

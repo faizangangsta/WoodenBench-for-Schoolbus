@@ -62,7 +62,7 @@ namespace WBServicePlatform.StaticClasses
             }
         }
 
-        public int LastLine(int StartFrom, int EndAt, int ifErrReturnVal = 0, int WorkSheetNum = 1, int ColumnNumber = 1)
+        public int LastLine(int StartFrom, int EndAt, int ifErrReturnVal = -1, int WorkSheetNum = 1, int ColumnNumber = 1)
         {
             int LineNum;
             for (LineNum = StartFrom; LineNum <= EndAt; LineNum++)
@@ -72,9 +72,7 @@ namespace WBServicePlatform.StaticClasses
             return ifErrReturnVal;
         }
 
-        public T ReadContent<T>(int LineNum, int ColNum, int WorkSheetNum = 1)
-        {
-            return (T)(((Excel.Worksheet)(xWorkbook.Worksheets[WorkSheetNum])).Cells[LineNum, ColNum] as Excel.Range).Value;
-        }
+        public T ReadContent<T>(int LineNum, int ColNum, int sheetNum = 1)
+            => (T)((xWorkbook.Worksheets[sheetNum] as Excel.Worksheet).Cells[LineNum, ColNum] as Excel.Range).Value;
     }
 }

@@ -62,7 +62,7 @@ namespace WBServicePlatform.WinClient.Views
                 !CurrentUser.UserGroup.IsClassTeacher &&
                 !CurrentUser.UserGroup.IsBusManager)
             {
-                MessageBox.Show("小板凳Windows客户端暂不支持家长使用，感谢您的支持。请使用微信管理入口！", "抱歉");
+                MessageBox.Show("小板凳Windows客户端暂不支持家长使用，感谢您的支持。\r\n请使用微信管理入口！", "抱歉");
                 return;
             }
             userRole.Text = "";
@@ -71,17 +71,19 @@ namespace WBServicePlatform.WinClient.Views
             if (!CurrentUser.UserGroup.IsAdmin && !CurrentUser.UserGroup.IsBusManager)
                 MyStudentDataInfo.Enabled = false;
             MgrLoginTile.Enabled = CurrentUser.UserGroup.IsAdmin;
-            labelX2.Text = "<div align=\"right\"><font size=\"+4\">" + CurrentUser.RealName + "</font><br/>" + CurrentUser.objectId + "</div>";
+            labelX2.Text =
+                "<div align=\"right\"><font size=\"+4\">" +
+                CurrentUser.RealName +
+                "</font><br/>" +
+                CurrentUser.objectId +
+                "</div>";
             if (CurrentUser.HeadImagePath != "#")
                 FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory + "//Temp//" + GlobalFunc.CurrentUser.objectId + "-HImg");
-            if (CurrentUser.UserGroup.IsAdmin)
-                userRole.Text += "管理员;";
-            if (CurrentUser.UserGroup.IsClassTeacher)
-                userRole.Text += "班主任;";
-            if (CurrentUser.UserGroup.IsBusManager)
-                userRole.Text += "校车老师;";
-            if (CurrentUser.UserGroup.IsParents)
-                userRole.Text += "家长;";
+
+            if (CurrentUser.UserGroup.IsAdmin) userRole.Text += "管理员;";
+            if (CurrentUser.UserGroup.IsClassTeacher) userRole.Text += "班主任;";
+            if (CurrentUser.UserGroup.IsBusManager) userRole.Text += "校车老师;";
+            if (CurrentUser.UserGroup.IsParents) userRole.Text += "家长;";
 
         }
         public void DnFinished(FileIOEventArgs e)
@@ -101,16 +103,18 @@ namespace WBServicePlatform.WinClient.Views
             }
             if (!e.isSucceed)
             {
-                if (pictureBox1.InvokeRequired) Invoke(new Action(delegate { pictureBox1.BackgroundImage = Resources.User1; }));
+                if (pictureBox1.InvokeRequired) Invoke(new Action(delegate { pictureBox1.BackgroundImage = Resources.DefaultUserImage; }));
                 MessageBox.Show("尝试获取用户头像失败，" + e.ErrDescription);
             }
         }
 
         protected override void OnResize(EventArgs e)
         {
-            itemPanel1.Location = new Point((Width - itemPanel1.Width) / 2 + 10, ((Height - labelX1.Height - 10) - itemPanel1.Height) / 2 + labelX1.Height );
-            labelX1.Location = new Point((Width - itemPanel1.Width) / 2, ((Height - labelX1.Height - 16) - itemPanel1.Height) / 2 + labelX1.Height - 80);
             base.OnResize(e);
+            mainPanel.Location = new Point((Width - mainPanel.Width) / 2 + 10,
+                ((Height - userLbl.Height - 10) - mainPanel.Height) / 2 + userLbl.Height);
+            userLbl.Location = new Point((Width - mainPanel.Width) / 2,
+                ((Height - userLbl.Height - 16) - mainPanel.Height) / 2 + userLbl.Height - 80);
         }
 
         private void LogOutUsrTile(object sender, EventArgs e)

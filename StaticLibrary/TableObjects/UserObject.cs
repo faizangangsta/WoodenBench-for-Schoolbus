@@ -1,14 +1,16 @@
-﻿using cn.bmob.io;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
+
+using cn.bmob.io;
+
 using WBServicePlatform.StaticClasses;
+
 using static WBServicePlatform.StaticClasses.Crypto;
 
 namespace WBServicePlatform.TableObject
 {
-    public class UserObject : BmobTable
+    public class UserObject : DataTable
     {
-        public override string table => WBConsts.TABLE_N_Gen_UserTable;
+        public override string table => WBConsts.TABLE_Gen_UserTable;
         public string UserName { get; set; }
         public string Password { get; set; }
         public string RealName { get; set; }

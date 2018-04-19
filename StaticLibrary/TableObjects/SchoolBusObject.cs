@@ -4,7 +4,7 @@ using WBServicePlatform.StaticClasses;
 
 namespace WBServicePlatform.TableObject
 {
-    public class SchoolBusObject : BmobTable
+    public class SchoolBusObject : DataTable
     {
         public string BusName { get; set; }
         public string TeacherID { get; set; }
@@ -13,7 +13,7 @@ namespace WBServicePlatform.TableObject
         public bool LSChecked { get; set; }
 
         public SchoolBusObject() { }
-        public override string table => WBConsts.TABLE_N_Mgr_BusData;
+        public override string table => WBConsts.TABLE_Mgr_BusData;
 
         public override void readFields(BmobInput input)
         {

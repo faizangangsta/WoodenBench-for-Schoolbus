@@ -7,9 +7,9 @@ using static WBServicePlatform.StaticClasses.Crypto;
 
 namespace WBServicePlatform.TableObject
 {
-    public class UserChangeRequest : BmobTable
+    public class UserChangeRequest : DataTable
     {
-        public override string table => WBConsts.TABLE_N_Gen_UserTable;
+        public override string table => WBConsts.TABLE_Gen_UserTable;
         public string UserID { get; set; }
         public string SolverID { get; set; }
         public UserChangeRequestTypes RequestTypes { get; set; }
