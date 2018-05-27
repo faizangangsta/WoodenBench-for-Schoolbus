@@ -7,10 +7,10 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WinClient.DelegateClasses;
+using WBPlatform.StaticClasses;
+using WBPlatform.WinClient.DelegateClasses;
 
-namespace WBServicePlatform.WinClient.StaticClasses
+namespace WBPlatform.WinClient.StaticClasses
 {
     public class FileIO
     {

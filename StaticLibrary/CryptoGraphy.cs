@@ -8,7 +8,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBPlatform.StaticClasses
 {
     public static class Crypto
     {

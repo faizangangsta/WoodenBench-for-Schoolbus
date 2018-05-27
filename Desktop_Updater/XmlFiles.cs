@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace WBServicePlatform.InstallFinaliser
+namespace WBPlatform.InstallFinaliser
 {
 	/// <summary>
 	/// XmlFiles 的摘要说明。

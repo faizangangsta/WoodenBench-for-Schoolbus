@@ -1,18 +1,17 @@
-﻿using cn.bmob.io;
-using cn.bmob.response;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
-using static WBServicePlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
+
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/SignStudents")]
@@ -39,7 +38,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             DatabaseQuery busFindQuery = new DatabaseQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (Database.QueryData(busFindQuery, out List<SchoolBusObject> BusList))
+            switch (Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
@@ -49,7 +48,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                         DatabaseQuery _stuQuery = new DatabaseQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
-                        switch (Database.QueryData(_stuQuery, out List<StudentObject> StuList))
+                        switch (Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
@@ -60,15 +59,17 @@ namespace WBServicePlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return WebAPIResponseErrors.RequestIllegal;
-                                Task<UpdateCallbackData> task3 = _Bmob.UpdateTaskAsync(stu);
-                                task3.Wait();
-                                Dictionary<string, string> dict = stu.ToDictionary();
-                                dict.Add("ErrCode", "0");
-                                dict.Add("ErrMessage", "null");
-                                dict.Add("SignMode", SType);
-                                dict.Add("SignResult", Value.ToString());
-                                dict.Add("Updated", task3.Result.updatedAt);
-                                return dict;
+                                if (Database.UpdateData(stu) == 0)
+                                {
+                                    Dictionary<string, string> dict = stu.ToDictionary();
+                                    dict.Add("ErrCode", "0");
+                                    dict.Add("ErrMessage", "null");
+                                    dict.Add("SignMode", SType);
+                                    dict.Add("SignResult", Value.ToString());
+                                    dict.Add("Updated", DateTime.Now.ToString());
+                                    return dict;
+                                }
+                                else return WebAPIResponseErrors.InternalError;
                         }
                     }
                     else return WebAPIResponseErrors.RequestIllegal;

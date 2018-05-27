@@ -10,13 +10,13 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
 
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class CheckMyStudents : MetroForm
     {
@@ -52,7 +52,7 @@ namespace WBServicePlatform.WinClient.Views
                 SchoolBusObject busObject = new SchoolBusObject();
                 DatabaseQuery query = new DatabaseQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                int resultX = Database.QueryData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                int resultX = Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
                 if (resultX == 0)
                     MessageBox.Show("找不到任何你管理的校车");
                 else if (resultX == 1)
@@ -91,7 +91,7 @@ namespace WBServicePlatform.WinClient.Views
             studentDataObjectBindingSource.Clear();
             DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            int resultX = Database.QueryData<StudentObject>(query, out List<StudentObject> result);
+            int resultX = Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
             if (resultX >= 0)
             {
                 foreach (StudentObject item in result)

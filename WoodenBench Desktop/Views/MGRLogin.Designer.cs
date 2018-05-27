@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.WinClient.Views
+﻿namespace WBPlatform.WinClient.Views
 {
     partial class MGRLoginWindow
     {

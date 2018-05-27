@@ -5,19 +5,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using WBServicePlatform.StaticClasses;
+using WBPlatform.StaticClasses;
 
-namespace WBServicePlatform.WebManagement.Tools
+namespace WBPlatform.WebManagement.Tools
 {
     public class WeChatMessage
     {
         public WeChat.RcvdMessageType MessageType { get; set; }
-
         public WeChat.Event Event { get; set; }
-
         public PointF Location { get; set; }
         public decimal Precision { get; set; }
-
         public string FromUser { get; set; }
         public string ToUser { get; set; }
         public int AgentID { get; set; }

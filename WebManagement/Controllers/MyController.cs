@@ -1,18 +1,37 @@
-﻿using System;
-
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WebManagement.Tools;
+using System;
+using System.Collections.Generic;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using WBPlatform.StaticClasses;
+using WBPlatform.WebManagement.Tools;
+
+namespace WBPlatform.WebManagement.Controllers
 {
-    public abstract class _Controller : Controller
+    public abstract class _Controller : Controller, IInternalController
     {
         public abstract IActionResult Index();
+
+        public HttpResponse procRespCookies(HttpResponse resp, string user, Dictionary<string, string> cookiePair)
+        {
+            if (cookiePair == null || cookiePair.Count == 0)
+            {
+
+            }
+            else
+            {
+                foreach (KeyValuePair<string, string> item in cookiePair)
+                {
+                    resp.Cookies.Append(item.Key, item.Value);
+                }
+            }
+            resp.Cookies.Append("identifiedUID", user);
+            return resp;
+        }
 
         protected IActionResult _LoginFailed(string RedirectPage)
         {
@@ -21,12 +40,11 @@ namespace WBServicePlatform.WebManagement.Controllers
             return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
-        protected IActionResult _OnInternalError(ErrorAt _Where, ErrorType _ErrorType, string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
             string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + ((Frame)((DefaultHttpContext)Response.HttpContext).Features).RawTarget;
             Exception ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-            if (ex != null)
-                DetailedInfo = ex.InnerException == null ? ex.Message : ex.Message + ":::" + ex.InnerException.Message;
+            if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : ex.Message + ":::" + ex.InnerException.Message;
 
             Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
             ViewData["where"] = HomeController.ControllerName;
@@ -35,20 +53,29 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["DetailedInfo"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
-            WeChatMessage _Message = new WeChatMessage
-            {
-                MessageType = WeChat.RcvdMessageType._DEVELOPER_ERROR_REPORT,
-                TextContent = "ERROR!" +
-                "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
-                "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
-                "\r\nCODE:" + Response.StatusCode + "\r\n" +
-                "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
-                "\r\nLUSR:" + LoginUsr + "\r\n" +
-                "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
-                "\r\nDNFO:" + ViewData["DetailedInfo"]
-            };
-            lock (WeChatMessageProc.MessageList) WeChatMessageProc.MessageList.Add(_Message);
+            BuildWeChatPacket(LoginUsr, ViewData, Response);
             return View("Error");
         }
+
+        private static void BuildWeChatPacket(string LoginUsr, ViewDataDictionary ViewData, HttpResponse Response)
+        {
+            WeChatMessage _Message = new WeChatMessage
+            {
+                MessageType = WeChat.RcvdMessageType._INJECTION_DEVELOPER_ERROR_REPORT,
+                TextContent = "ERROR!" +
+                            "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
+                            "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
+                            "\r\nCODE:" + Response.StatusCode + "\r\n" +
+                            "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
+                            "\r\nLUSR:" + LoginUsr + "\r\n" +
+                            "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
+                            "\r\nDNFO:" + ViewData["DetailedInfo"]
+            };
+            WeChatMessageProc.SendWeChatMessage(_Message);
+        }
+    }
+    public interface IInternalController
+    {
+        IActionResult Index();
     }
 }

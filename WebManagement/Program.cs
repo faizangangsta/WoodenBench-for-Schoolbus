@@ -7,26 +7,26 @@ using cn.bmob.api;
 
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.WebManagement.Tools;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WebManagement.Tools;
-
-namespace WBServicePlatform.WebManagement
+namespace WBPlatform.WebManagement
 {
     public class Program
     {
-        public static BmobWindows _Bmob { get; set; }
         public static string Version { get; private set; }
         public static DateTime StartUpTime { get; private set; }
         public static void Main(string[] args)
         {
+            StartUpTime = DateTime.Now;
+            LogWritter.InitLog();
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
-            _Bmob = new BmobWindows();
-            _Bmob.initialize(WBConsts.BmobAppKey, WBConsts.BmobRESTKey);
             WeChat.ReNewWCCodes();
+            Database.Initialise();
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
             WeChatMessageProc.StartProc();
-            StartUpTime = DateTime.Now;
+            MessageBackup.BeginBackup();
             var webHost = BuildWebHost(args);
             WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
                 "小板凳服务器启动成功",

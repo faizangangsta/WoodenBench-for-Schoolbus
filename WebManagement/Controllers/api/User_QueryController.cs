@@ -1,14 +1,12 @@
-﻿using cn.bmob.io;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
-using static WBServicePlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using Microsoft.AspNetCore.Mvc;
+using WBPlatform.Databases;
+using WBPlatform.TableObject;
+
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Query")]
@@ -22,19 +20,17 @@ namespace WBServicePlatform.WebManagement.Controllers
             if (Int32.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
-            BmobQuery query = new BmobQuery();
+            DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo(ColName, Equals2Obj);
-
-            var FindRst = _Bmob.FindTaskAsync<UserObject>(WBConsts.TABLE_Gen_UserTable, query);
-            FindRst.Wait();
-            if (FindRst.IsCompleted)
+            
+            if (Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 dict.Add("ErrCode", "0");
                 dict.Add("ErrMessage", "null");
-                dict.Add("count", FindRst.Result.results.Count.ToString());
-                foreach (UserObject userObj in FindRst.Result.results)
+                dict.Add("count", list.Count.ToString());
+                foreach (UserObject userObj in list)
                 {
-                    dict.Add("num_" + FindRst.Result.results.IndexOf(userObj).ToString() + "", userObj.ToString());
+                    dict.Add("num_" + list.IndexOf(userObj).ToString() + "", userObj.ToString());
                 }
             }
             else

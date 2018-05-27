@@ -1,13 +1,14 @@
 ﻿using cn.bmob.io;
 using System.Collections.Generic;
-using WBServicePlatform.StaticClasses;
+using WBPlatform.StaticClasses;
 
-namespace WBServicePlatform.TableObject
+namespace WBPlatform.TableObject
 {
     public class SchoolBusObject : DataTable
     {
         public string BusName { get; set; }
         public string TeacherID { get; set; }
+
         public bool AHChecked { get; set; }
         public bool CSChecked { get; set; }
         public bool LSChecked { get; set; }

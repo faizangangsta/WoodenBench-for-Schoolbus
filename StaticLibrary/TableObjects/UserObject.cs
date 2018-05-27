@@ -2,11 +2,11 @@
 
 using cn.bmob.io;
 
-using WBServicePlatform.StaticClasses;
+using WBPlatform.StaticClasses;
 
-using static WBServicePlatform.StaticClasses.Crypto;
+using static WBPlatform.StaticClasses.Crypto;
 
-namespace WBServicePlatform.TableObject
+namespace WBPlatform.TableObject
 {
     public class UserObject : DataTable
     {
@@ -20,11 +20,9 @@ namespace WBServicePlatform.TableObject
 
         public bool FirstLogin { get; set; }
         public bool WebNotiSeen { get; set; }
-
-        public string WeChatID { get; set; }
+        
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
-
 
         public override void readFields(BmobInput input)
         {
@@ -32,7 +30,6 @@ namespace WBServicePlatform.TableObject
             UserName = input.getString("Username");
             Password = input.getString("Password");
             Sex = input.getString("Sex");
-            WeChatID = input.getString("WeChatID");
             UserGroup = new UserGroup(input.getString("UserGroup"));
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
@@ -48,7 +45,6 @@ namespace WBServicePlatform.TableObject
             output.Put("Username", UserName);
             output.Put("Password", Password);
             output.Put("Sex", Sex);
-            output.Put("WeChatID", WeChatID);
             output.Put("UserGroup", UserGroup.ToString());
             output.Put("RealName", RealName);
             output.Put("IsFstLgn", FirstLogin);
@@ -62,13 +58,16 @@ namespace WBServicePlatform.TableObject
             objectId = RandomString(10, true, CustomStr: RandomString(5, true));
             UserName = RandomString(10, true, CustomStr: RandomString(5, true));
             Password = RandomString(10, true, CustomStr: RandomString(5, true));
-            WeChatID = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
             HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
             UserGroup = new UserGroup("A0,T0|,P0,B0");
             WebNotiSeen = false;
             FirstLogin = false;
             return this;
+        }
+        public string GetIdentifyCode()
+        {
+            return UserName + "-" + objectId;
         }
 
         public static UserObject RandomValue => new UserObject().SetEveryThingNull();
@@ -80,7 +79,6 @@ namespace WBServicePlatform.TableObject
             return new Dictionary<string, string>
             {
                 { "userID", objectId },
-                { "WeChatID", WeChatID },
                 { "RealName", RealName },
                 { "Username", UserName },
                 { "CreatedAt", createdAt },

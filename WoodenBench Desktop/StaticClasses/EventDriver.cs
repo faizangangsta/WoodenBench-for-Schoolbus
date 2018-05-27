@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WinClient.StaticClasses;
-using WBServicePlatform.WinClient.Users;
 
-namespace WBServicePlatform.WinClient.DelegateClasses
+using WBPlatform.StaticClasses;
+using WBPlatform.WinClient.StaticClasses;
+using WBPlatform.WinClient.Users;
+
+namespace WBPlatform.WinClient.DelegateClasses
 {
     public delegate void FileIOCompletedEventHandler(FileIOEventArgs e);
 

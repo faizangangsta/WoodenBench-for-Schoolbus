@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Reflection;
-using WBServicePlatform.StaticClasses.Properties;
+using WBPlatform.StaticClasses.Properties;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBPlatform.StaticClasses
 {
 
     public static partial class WBConsts
@@ -28,7 +28,7 @@ namespace WBServicePlatform.StaticClasses
     }
     public enum UserChangeRequestTypes { Realname, PhoneNumber, ClassID, ChildID, BusID }
     public enum OperationStatus { Completed, Failed }
-    public enum LogLevel { Error, Infomation, LongChain }
+    public enum LogType { Err, Info, LongChain }
     public enum NotificationType { WindowsClient, WeChatC2C, WeChatMultiCast, WeChatBroadCast }
     public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
 }

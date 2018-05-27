@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WBServicePlatform.WinClient.Users
+namespace WBPlatform.WinClient.Users
 {
     public static class Mysterious
 	{

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
+
+namespace WBPlatform.WebManagement.Controllers
 {
     public class BusManagerController : _Controller
     {
@@ -20,10 +18,15 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
-            else return _LoginFailed("/" + ControllerName + "/");
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName + "/");
+            }
         }
 
         public IActionResult WeekIssue()
@@ -31,10 +34,15 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
-            else return _LoginFailed("/" + ControllerName + "/WeekIssue");
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName + "/WeekIssue");
+            }
         }
 
         public IActionResult SignStudent(string signmode)
@@ -43,6 +51,7 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["SignMode"] = signmode;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 ViewData["cUser"] = user.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
@@ -50,9 +59,13 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _OnInternalError(ErrorAt.BusManage_SignStudents, ErrorType.RequestInvalid, "_SignStudent::CookieExpire", LoginUsr: user.WeChatID);
+                else return _OnInternalError(ServerSideAction.BusManage_SignStudents, ErrorType.RequestInvalid, "_SignStudent::CookieExpire", LoginUsr: user.UserName);
             }
-            else return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
+            }
         }
 
         public IActionResult ArriveHomeScan()
@@ -60,67 +73,93 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 ViewData["cUser"] = user.ToString();
                 if (user.UserGroup.IsBusManager && (!string.IsNullOrEmpty(user.UserGroup.BusID) || (user.UserGroup.BusID != "0")))
                 {
                     ViewData["cBus"] = user.UserGroup.BusID;
                     ViewData["cTeacher"] = user.objectId;
                 }
-                else return _OnInternalError(ErrorAt.BusManage_CodeGenerate, ErrorType.UserGroupError, "_ArriveHomeSigning::UserGroupInvalid", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "_ArriveHomeSigning::UserGroupInvalid", user.UserName, ErrorRespCode.PermisstionDenied);
             }
-            else return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
+            }
             return View();
         }
 
+        private IActionResult CheckFlag(int flag, bool isSingleRequest, UserObject user, string info)
+        {
+            switch (flag)
+            {
+                case -1: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case 0: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.ItemsNotFound, info + ":" + flag, user.UserName);
+                case 1: return null;
+                case 2: return isSingleRequest ? _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName) : null;
+                default: return null;
+            }
+        }
         public IActionResult ViewStudent(string StudentID, string ClassID, string BusID)
         {
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                if (user.UserGroup.IsParents ||
-                    (user.UserGroup.IsClassTeacher && user.UserGroup.ClassesIds.Contains(ClassID)) ||
-                    (user.UserGroup.IsBusManager))
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+
+                // User Group Check
+                if (user.UserGroup.IsParents || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
-                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID), out List<StudentObject> StudentList))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetStudentByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetStudentByID::0 :: StudentID = " + StudentID, user.WeChatID);
-                    }
-                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", StudentList[0].ClassID), out List<ClassObject> ClassList))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetClassByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetClassByID::0", user.WeChatID);
-                    }
-                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", ClassList[0].TeacherID), out List<UserObject> TeacherList))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetTeacherByID::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetTeacherByID::0", user.WeChatID);
-                    }
-                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", StudentList[0].ParentsID.Split(';')), out List<UserObject> Parents))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetParentsByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetParentsByGroup::0", user.WeChatID);
-                    }
-                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", StudentList[0].BusID), out List<SchoolBusObject> BusList))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusByGroup::0", user.WeChatID);
-                    }
-                    switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("objectId", BusList[0].TeacherID), out List<UserObject> BusTeacherList))
-                    {
-                        case -1: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.DataBaseError, "_GetBusTeacherByGroup::-1", user.WeChatID);
-                        case 0: return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.ItemsNotFound, "_GetBusTeacherByGroup::0", user.WeChatID);
-                    }
-                    if (StudentList[0].ClassID == ClassID && StudentList[0].BusID == BusID)
-                    {
-                        return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(StudentList[0], ClassList[0], TeacherList[0], Parents.ToArray(), BusList[0], BusTeacherList[0]));
-                    }
-                    else return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.RequestInvalid, "Students::ClassID & BusID !Match", user.WeChatID);
+                    int flag = 0xff;
+                    IActionResult result = null;
+
+                    //Search student with spec ClassID and StudentID and BusID
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID).WhereEqualTo("BusID", BusID), out StudentObject Student);
+                    result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
+                    if (result != null) return result;
+
+                    //Get Class information with ClassID
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
+                    result = CheckFlag(flag, true, user, "GetClassBy_CID");
+                    if (result != null) return result;
+
+                    //Get Class Teacher Information
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
+                    result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
+                    if (result != null) return result;
+
+                    //Get Parents
+                    flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("objectId", Student.ParentsID.Split(';')), out List<UserObject> Parents);
+                    result = CheckFlag(flag, false, user, "GetParentsBy_UID");
+                    if (result != null) return result;
+
+
+                    // Get SchoolBus
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereContainedIn("objectId", Student.BusID), out SchoolBusObject Bus);
+                    result = CheckFlag(flag, true, user, "GetBusBy_BID");
+                    if (result != null) return result;
+
+                    // Get SchoolBus Teacher.
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereContainedIn("objectId", Bus.TeacherID), out UserObject BusTeacher);
+                    result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
+                    if (result != null) return result;
+
+
+                    //  Is in user's class?                                     Is in user's Bus??                          Is user's child??                           I am the god...
+                    if (user.UserGroup.ClassesIds.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || Student.ParentsID.Contains(user.objectId) || user.UserGroup.IsAdmin)
+                        return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(Student, Class, Teacher, Parents.ToArray(), Bus, BusTeacher));
+                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "ViewStudent::NoPermissionToViewStudent", user.UserName, ErrorRespCode.PermisstionDenied);
                 }
-                else return _OnInternalError(ErrorAt.General_ViewStudent, ErrorType.UserGroupError, "ViewStudent_Request::UserGroup_PermissionDenied", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "ViewStudent::NoUserGroupProvided", user.UserName, ErrorRespCode.RequestIllegal);
             }
+
             //Return to Home because this is privacy-related function
-            else return _LoginFailed("/");
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/");
+            }
         }
     }
 }

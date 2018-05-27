@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
-using static WBServicePlatform.WebManagement.Program;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
+using static WBPlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/QueryStudents")]
@@ -22,7 +22,7 @@ namespace WBServicePlatform.WebManagement.Controllers
 
             DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("objectId", BusID);
-            switch (Database.QueryData(query, out List<SchoolBusObject> BusList))
+            switch (Database.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
@@ -35,7 +35,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                         DatabaseQuery query2 = new DatabaseQuery();
                         query2.WhereEqualTo("BusID", BusList[0].objectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
-                        switch (Database.QueryData(query2, out List<StudentObject> StudentList))
+                        switch (Database.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

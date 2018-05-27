@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
-namespace WBServicePlatform.WebManagement.Tools
+namespace WBPlatform.WebManagement.Tools
 {
     public static class Sessions
     {
         private static Dictionary<string, SessionInfo> __SessionCollection { get; set; } = new Dictionary<string, SessionInfo>();
 
         private static string _GetSessionString(UserObject LogonUser, string UA)
-            => Crypto.SHA512Encrypt(Crypto.RandomString(10, true) + LogonUser.WeChatID + new Random().NextDouble().ToString() + LogonUser.UserGroup.ToString() +
+            => Crypto.SHA512Encrypt(Crypto.RandomString(10, true) + LogonUser.UserName + new Random().NextDouble().ToString() + LogonUser.UserGroup.ToString() +
                 DateTime.Now.TimeOfDay.TotalMilliseconds.ToString() + LogonUser.Password + UA + LogonUser.UserGroup.ToString());
 
         public struct SessionInfo
@@ -68,7 +68,7 @@ namespace WBServicePlatform.WebManagement.Tools
             Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (Database.QueryData(new DatabaseQuery().WhereContainedIn("WeChatID", WeiXinID), out List<UserObject> UserList))
+            switch (Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("Username", WeiXinID), out List<UserObject> UserList))
             {
                 case -1: return null;
                 case 0:

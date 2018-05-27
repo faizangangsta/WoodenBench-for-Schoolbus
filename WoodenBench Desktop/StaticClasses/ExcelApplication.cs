@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WBServicePlatform.WinClient.DelegateClasses;
+using WBPlatform.WinClient.DelegateClasses;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBPlatform.StaticClasses
 {
     public class ExcelApplication
     {

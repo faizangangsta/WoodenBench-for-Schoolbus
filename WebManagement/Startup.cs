@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WBServicePlatform.WebManagement
+namespace WBPlatform.WebManagement
 {
     public class Startup
     {
@@ -24,12 +24,12 @@ namespace WBServicePlatform.WebManagement
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
-            if (env.IsDevelopment())
-            {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseBrowserLink();
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
             {
                 //app.UseStatusCodePages(builder => builder.Run(handler));
                 app.UseExceptionHandler("/Home/Error");

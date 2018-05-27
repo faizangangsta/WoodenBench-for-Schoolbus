@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DevComponents.DotNetBar.Metro;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WinClient.Users;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WinClient.Users;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class BusesManager : MetroForm
     {
@@ -53,7 +53,7 @@ namespace WBServicePlatform.WinClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DatabaseQuery query = new DatabaseQuery();
-            if (Database.QueryData(query, out List<SchoolBusObject> list) >= 0)
+            if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
             {
                 foreach (SchoolBusObject item in list)
                 {
@@ -189,7 +189,7 @@ namespace WBServicePlatform.WinClient.Views
         {
             DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            if (Database.QueryData(query, out List<UserObject> list) >= 0)
+            if (Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 foreach (UserObject item in list)
                 {

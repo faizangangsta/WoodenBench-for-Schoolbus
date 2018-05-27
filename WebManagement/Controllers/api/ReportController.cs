@@ -1,14 +1,14 @@
-﻿using cn.bmob.response;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using static WBServicePlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using Microsoft.AspNetCore.Mvc;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/gen/NewReport")]
@@ -27,14 +27,11 @@ namespace WBServicePlatform.WebManagement.Controllers
                     ReportType = (BusReportTypeE)Convert.ToInt32(ReportType),
                     OtherData = Content
                 };
-
-                Task<CreateCallbackData> task = _Bmob.CreateTaskAsync(busReport);
-                task.Wait();
-                if (task.IsCompleted)
+                if (Database.CreateData(busReport) == 0)
                 {
-                    dict.Add("CreatedAt", task.Result.createdAt);
+                    dict.Add("CreatedAt", DateTime.Now.ToString());
                     dict.Add("ErrCode", "0");
-                    dict.Add("ReportID", task.Result.objectId);
+                    dict.Add("ReportID", "");
                     dict.Add("ErrMessage", "null");
                 }
 

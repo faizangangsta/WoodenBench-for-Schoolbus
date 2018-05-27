@@ -5,15 +5,15 @@ using System.Windows.Forms;
 
 using Newtonsoft.Json.Linq;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WinClient.DelegateClasses;
-using WBServicePlatform.WinClient.StaticClasses;
-using WBServicePlatform.WinClient.Users;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WinClient.DelegateClasses;
+using WBPlatform.WinClient.StaticClasses;
+using WBPlatform.WinClient.Users;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -37,7 +37,6 @@ namespace WBServicePlatform.WinClient.Views
         }
         #region For us easier to call
         private static UsrLoginWindow defaultInstance { get; set; }
-
         public static UsrLoginWindow Default
         {
             get

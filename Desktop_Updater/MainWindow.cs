@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
-namespace WBServicePlatform.InstallFinaliser
+namespace WBPlatform.InstallFinaliser
 {
     /// <summary>
     /// Form1 的摘要说明。

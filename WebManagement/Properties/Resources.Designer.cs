@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WBServicePlatform.WebManagement.Properties {
+namespace WBPlatform.WebManagement.Properties {
     using System;
     
     

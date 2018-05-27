@@ -1,9 +1,8 @@
-﻿//Game表对应的模型类
-using cn.bmob.io;
-using System;
-using WBServicePlatform.StaticClasses;
+﻿using cn.bmob.io;
 
-namespace WBServicePlatform.TableObject
+using WBPlatform.StaticClasses;
+
+namespace WBPlatform.TableObject
 {
     public class BusReport : DataTable
     {
@@ -17,8 +16,7 @@ namespace WBServicePlatform.TableObject
         public BusReport() { }
 
         public override string table => WBConsts.TABLE_Mgr_WeekIssue;
-
-        //读字段信息
+                //读字段信息
         public override void readFields(BmobInput input)
         {
             base.readFields(input);

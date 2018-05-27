@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 using QRCoder;
 
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Properties;
-using WBServicePlatform.WebManagement.Tools;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Properties;
+using WBPlatform.WebManagement.Tools;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("image/Jpeg")]
     [Route("api/QRCode")]

@@ -1,4 +1,4 @@
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     partial class UserSettings
     {
@@ -32,12 +32,10 @@ namespace WBServicePlatform.WinClient.Views
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PhoneNumLAbel = new System.Windows.Forms.LinkLabel();
             this.realnameLabel = new System.Windows.Forms.LinkLabel();
-            this.userWeChatIDLabel = new System.Windows.Forms.Label();
             this.UserLogonNamelabel = new System.Windows.Forms.Label();
             this.userIDLabel = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ClassLabel = new System.Windows.Forms.LinkLabel();
             this.SexLabel = new System.Windows.Forms.LinkLabel();
@@ -79,12 +77,10 @@ namespace WBServicePlatform.WinClient.Views
             // 
             this.groupBox1.Controls.Add(this.PhoneNumLAbel);
             this.groupBox1.Controls.Add(this.realnameLabel);
-            this.groupBox1.Controls.Add(this.userWeChatIDLabel);
             this.groupBox1.Controls.Add(this.UserLogonNamelabel);
             this.groupBox1.Controls.Add(this.userIDLabel);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.ClassLabel);
             this.groupBox1.Controls.Add(this.SexLabel);
@@ -127,15 +123,6 @@ namespace WBServicePlatform.WinClient.Views
             this.realnameLabel.Text = "Ð¡ºìºìºìºì";
             this.realnameLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.realnameLabel_LinkClicked);
             // 
-            // userWeChatIDLabel
-            // 
-            this.userWeChatIDLabel.AutoSize = true;
-            this.userWeChatIDLabel.Location = new System.Drawing.Point(60, 69);
-            this.userWeChatIDLabel.Name = "userWeChatIDLabel";
-            this.userWeChatIDLabel.Size = new System.Drawing.Size(87, 17);
-            this.userWeChatIDLabel.TabIndex = 0;
-            this.userWeChatIDLabel.Text = "wechatIDIDID";
-            // 
             // UserLogonNamelabel
             // 
             this.UserLogonNamelabel.AutoSize = true;
@@ -172,15 +159,6 @@ namespace WBServicePlatform.WinClient.Views
             this.label6.TabIndex = 0;
             this.label6.Text = "ÐÕÃû£º";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 69);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 17);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Î¢ÐÅ£º";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -205,7 +183,7 @@ namespace WBServicePlatform.WinClient.Views
             // SexLabel
             // 
             this.SexLabel.AutoSize = true;
-            this.SexLabel.Location = new System.Drawing.Point(244, 24);
+            this.SexLabel.Location = new System.Drawing.Point(60, 68);
             this.SexLabel.Name = "SexLabel";
             this.SexLabel.Size = new System.Drawing.Size(32, 17);
             this.SexLabel.TabIndex = 0;
@@ -283,7 +261,7 @@ namespace WBServicePlatform.WinClient.Views
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(194, 24);
+            this.label15.Location = new System.Drawing.Point(15, 68);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(44, 17);
             this.label15.TabIndex = 0;
@@ -582,8 +560,6 @@ namespace WBServicePlatform.WinClient.Views
         private System.Windows.Forms.TextBox DetailReasons;
         private System.Windows.Forms.Label label4;
         private DevComponents.DotNetBar.ButtonX ClearRequest;
-        private System.Windows.Forms.Label userWeChatIDLabel;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label UserLogonNamelabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label userIDLabel;

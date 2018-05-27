@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Controls;
+using DevComponents.DotNetBar.Metro;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,17 +14,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Controls;
-using DevComponents.DotNetBar.Metro;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
-
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class StudentUploadWindow : MetroForm
     {
@@ -171,7 +171,7 @@ namespace WBServicePlatform.WinClient.Views
             DatabaseQuery ClassQuery = new DatabaseQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.UserGroup.ClassesIds[0]);
-            int resultCode = Database.QueryData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            int resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
             if (resultCode == 0)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
@@ -197,7 +197,7 @@ namespace WBServicePlatform.WinClient.Views
             {
                 DatabaseQuery TeacherDataQuery = new DatabaseQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                if (Database.QueryData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
+                if (Database.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
                     MessageBox.Show("这不应该，这个班级有老师管理，但是查不到老师的任何信息。", "班主任溜了？");
                     ClsTName.Text = "";
@@ -215,7 +215,7 @@ namespace WBServicePlatform.WinClient.Views
             //    return;
             DatabaseQuery StudentsQuery = new DatabaseQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
-            if (Database.QueryData(StudentsQuery, out List<StudentObject> results) == 0)
+            if (Database.QueryMultipleData(StudentsQuery, out List<StudentObject> results) == 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
             else
             {
@@ -244,7 +244,7 @@ namespace WBServicePlatform.WinClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DatabaseQuery query = new DatabaseQuery();
-            if (Database.QueryData(query, out List<SchoolBusObject> list) <= 0)
+            if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
             {
                 MessageBox.Show("出现了一些错误");
             }
@@ -366,7 +366,7 @@ namespace WBServicePlatform.WinClient.Views
                 statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项。";
                 DoLog("学生姓名：" + StudentObj.StudentName);
                 Application.DoEvents();
-                //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECTID" GIVEN
+                //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
                     if (Database.CreateData(StudentObj) == 0)

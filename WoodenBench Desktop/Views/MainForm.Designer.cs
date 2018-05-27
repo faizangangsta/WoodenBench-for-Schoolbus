@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.WinClient.Views
+﻿namespace WBPlatform.WinClient.Views
 {
     partial class MainForm
     {
@@ -110,7 +110,7 @@
             // 
             // UploadStuDataTile
             // 
-            this.UploadStuDataTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Invoice;
+            this.UploadStuDataTile.Image = global::WBPlatform.WinClient.Properties.Resources.Invoice;
             this.UploadStuDataTile.Name = "UploadStuDataTile";
             this.UploadStuDataTile.SymbolColor = System.Drawing.Color.Empty;
             this.UploadStuDataTile.Text = "\r\n<br/>\r\n<font size=\"+4\">上传<br/>学生信息</font>";
@@ -132,7 +132,7 @@
             // 
             // MyStudentDataInfo
             // 
-            this.MyStudentDataInfo.Image = global::WBServicePlatform.WinClient.Properties.Resources.Web;
+            this.MyStudentDataInfo.Image = global::WBPlatform.WinClient.Properties.Resources.Web;
             this.MyStudentDataInfo.Name = "MyStudentDataInfo";
             this.MyStudentDataInfo.SymbolColor = System.Drawing.Color.Empty;
             this.MyStudentDataInfo.Text = "\r\n<br/>\r\n<font size=\"+4\">签到信息<br/>查询</font>";
@@ -154,7 +154,7 @@
             // 
             // NotificationCenter
             // 
-            this.NotificationCenter.Image = global::WBServicePlatform.WinClient.Properties.Resources.Charts;
+            this.NotificationCenter.Image = global::WBPlatform.WinClient.Properties.Resources.Charts;
             this.NotificationCenter.Name = "NotificationCenter";
             this.NotificationCenter.SymbolColor = System.Drawing.Color.Empty;
             this.NotificationCenter.Text = "\r\n<br/>\r\n<font size=\"+4\">通知查看</font>\r\n<br/>\r\n查看使用通知";
@@ -197,7 +197,7 @@
             // 
             // MgrLoginTile
             // 
-            this.MgrLoginTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.TableReportt;
+            this.MgrLoginTile.Image = global::WBPlatform.WinClient.Properties.Resources.TableReportt;
             this.MgrLoginTile.Name = "MgrLoginTile";
             this.MgrLoginTile.SymbolColor = System.Drawing.Color.Empty;
             this.MgrLoginTile.Text = "\r\n<br/>\r\n<font size=\"+4\">管理中心</font><br/>\r\n管理通知和用户";
@@ -219,7 +219,7 @@
             // 
             // helpTile
             // 
-            this.helpTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Help;
+            this.helpTile.Image = global::WBPlatform.WinClient.Properties.Resources.Help;
             this.helpTile.Name = "helpTile";
             this.helpTile.SymbolColor = System.Drawing.Color.Empty;
             this.helpTile.Text = "\r\n<br/>\r\n<font size=\"+4\">帮助</font>\r\n<br/>如何使用本软件";
@@ -264,7 +264,7 @@
             // 
             // appSettingsTile
             // 
-            this.appSettingsTile.Image = global::WBServicePlatform.WinClient.Properties.Resources.Details;
+            this.appSettingsTile.Image = global::WBPlatform.WinClient.Properties.Resources.Details;
             this.appSettingsTile.Name = "appSettingsTile";
             this.appSettingsTile.SymbolColor = System.Drawing.Color.Empty;
             this.appSettingsTile.Text = "\r\n<br/>\r\n<font size=\"+4\">应用设置</font>\r\n<br/>更改首选项";
@@ -334,7 +334,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.ForeColor = System.Drawing.Color.Black;
-            this.pictureBox1.InitialImage = global::WBServicePlatform.WinClient.Properties.Resources.Person;
+            this.pictureBox1.InitialImage = global::WBPlatform.WinClient.Properties.Resources.Person;
             this.pictureBox1.Location = new System.Drawing.Point(605, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 58);

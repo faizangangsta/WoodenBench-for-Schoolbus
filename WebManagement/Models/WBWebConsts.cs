@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using WBServicePlatform.WebManagement.Tools;
+using WBPlatform.WebManagement.Tools;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBPlatform.StaticClasses
 {
     public static class WebAPIResponseErrors
     {
@@ -12,7 +12,13 @@ namespace WBServicePlatform.StaticClasses
         public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string> { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };
         public static Dictionary<string, string> SpecialisedError(string ErrorMessage) => new Dictionary<string, string> { { "ErrCode", "998" }, { "ErrMessage", ErrorMessage } };
     }
-    public enum ErrorAt
+    public static class Constants
+    {
+        public static readonly string identifiedUID_CookieName = "identifiedUID";
+        public static readonly string UnknownUID = "unknownUser";
+
+    }
+    public enum ServerSideAction
     {
         WeChatLogin_PreExecute,
         WeChatLogin_PostExecute,
@@ -37,24 +43,44 @@ namespace WBServicePlatform.StaticClasses
         General_ViewStudent,
         INTERNAL_ERROR
     }
-    public enum ErrorType { ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR }
+    public enum ErrorType
+    {
+        ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR,
+        MultipleRecordsFound_inSingleRequest
+    }
     public enum ErrorRespCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalError = 500, NotSet = 0 }
     public static class WeChat
     {
+        public const int agentId = 41;
+
         public const string CorpID = "wx68bec13e85ca6465";
         public const string CorpSecret = "DatZ0P349SEAS-yDiqpHbb_3VR-kAnKtSaZj39KuWmhJqiiIjmW83LDpIvE49-Gt";
-        public const int agentId = 41;
         public const string sToken = "2Sfp4gdyUgxDYFvKNRDkgcrJ";
         public const string sEncodingAESKey = "ak5E1GUNu5TAeEnpfUykRKNxoxe5cFo1dh1bTbKjcgB";
 
         public static WXEncryptedXMLHelper WeChatEncryptor { get; set; }
         public static string AccessTicket { get; set; }
-        public static DateTime AvailableTime_Ticket { get; set; }
         public static string AccessToken { get; set; }
+        public static DateTime AvailableTime_Ticket { get; set; }
         public static DateTime AvailableTime_Token { get; set; }
         public const string GetAccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + CorpID + "&corpsecret=" + CorpSecret;
-        public enum Event { subscribe, enter_agent, LOCATION, batch_job_result, change_contact, click, view, scancode_push, scancode_waitmsg, pic_sysphoto, pic_photo_or_album, pic_weixin, location_select }
-        public enum RcvdMessageType { text, EVENT, image, voice, video, location, link, _DEVELOPER_ERROR_REPORT }
+        public enum Event
+        {
+            subscribe,
+            enter_agent,
+            LOCATION,
+            batch_job_result,
+            change_contact,
+            click,
+            view,
+            scancode_push,
+            scancode_waitmsg,
+            pic_sysphoto,
+            pic_photo_or_album,
+            pic_weixin,
+            location_select
+        }
+        public enum RcvdMessageType { text, image, voice, video, location, link, EVENT, _INJECTION_DEVELOPER_ERROR_REPORT }
         public enum SentMessageType { text, image, voice, video, file, textcard, news, mpnews }
 
         private static bool InitialiseWeChatCodes()

@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBPlatform.WebManagement.Controllers
 {
     public class MyChildController : _Controller
     {
@@ -26,16 +26,17 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                if (ID == null) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                if (ID == null) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
-                if (IDSplit.Length != 2) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.WeChatID, ErrorRespCode.RequestIllegal);
-                if (!user.UserGroup.IsParents) return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                if (IDSplit.Length != 2) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
+                if (!user.UserGroup.IsParents) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.UserName, ErrorRespCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
-                switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
+                switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case -1: return _OnInternalError(ErrorAt.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.WeChatID, ErrorRespCode.InternalError);
+                    case -1: return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.UserName, ErrorRespCode.InternalError);
                     case 0: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         foreach (StudentObject item in StudentListInBus)
@@ -59,7 +60,12 @@ namespace WBServicePlatform.WebManagement.Controllers
                 ViewData["cTeacherID"] = BusTeacherID;
                 return View();
             }
-            else return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
+            else
+            {
+
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
+            }
         }
     }
 }

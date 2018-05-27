@@ -1,4 +1,4 @@
-﻿namespace WBServicePlatform.WinClient.Views
+﻿namespace WBPlatform.WinClient.Views
 {
     partial class StudentUploadWindow
     {
@@ -210,7 +210,7 @@
             // 
             // studentDataBindSourc
             // 
-            this.studentDataBindSourc.DataSource = typeof(WBServicePlatform.TableObject.StudentObject);
+            this.studentDataBindSourc.DataSource = typeof(WBPlatform.TableObject.StudentObject);
             // 
             // SureAndUploadBtn
             // 
@@ -367,7 +367,7 @@
             // 
             // schoolBusObjectBindingSource
             // 
-            this.schoolBusObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.SchoolBusObject);
+            this.schoolBusObjectBindingSource.DataSource = typeof(WBPlatform.TableObject.SchoolBusObject);
             // 
             // groupBox1
             // 

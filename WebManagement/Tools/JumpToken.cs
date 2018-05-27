@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WBServicePlatform.WebManagement.Tools
+namespace WBPlatform.WebManagement.Tools
 {
     public static class JumpTokens
     {

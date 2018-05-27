@@ -9,13 +9,13 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WinClient.StaticClasses;
-using WBServicePlatform.WinClient.Users;
+using WBPlatform.StaticClasses;
+using WBPlatform.WinClient.StaticClasses;
+using WBPlatform.WinClient.Users;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class UserSettings : MetroForm
     {

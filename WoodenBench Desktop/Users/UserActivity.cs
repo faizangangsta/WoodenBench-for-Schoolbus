@@ -12,16 +12,16 @@ using System.Windows.Forms;
 
 
 using Newtonsoft.Json.Linq;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WinClient.DelegateClasses;
-using WBServicePlatform.WinClient.StaticClasses;
-using WBServicePlatform.WinClient.Views;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WinClient.DelegateClasses;
+using WBPlatform.WinClient.StaticClasses;
+using WBPlatform.WinClient.Views;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Users
+namespace WBPlatform.WinClient.Users
 {
     public partial class UserActivity
     {
@@ -72,7 +72,7 @@ namespace WBServicePlatform.WinClient.Users
             DatabaseQuery UserNameQuery = new DatabaseQuery();
             UserNameQuery.WhereContainedIn("Username", xUserName);
             UserNameQuery.WhereContainedIn("Password", HashedPs);
-            if (Database.QueryData(UserNameQuery, out List<UserObject> list) > 0)
+            if (Database.QueryMultipleData(UserNameQuery, out List<UserObject> list) > 0)
             {
                 user = list[0];
                 return true;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WBServicePlatform.StaticClasses
+namespace WBPlatform.StaticClasses
 {
     public static partial class PinYin
     {

@@ -5,13 +5,14 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WinClient.Users;
-using WBServicePlatform.WinClient.Views;
 
-namespace WBServicePlatform.WinClient.StaticClasses
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WinClient.Users;
+using WBPlatform.WinClient.Views;
+
+namespace WBPlatform.WinClient.StaticClasses
 {
     public static partial class GlobalFunc
     {
@@ -38,9 +39,9 @@ namespace WBServicePlatform.WinClient.StaticClasses
 
         private static void FileIO_onFileIOCompleted(FileIOEventArgs e)
         {
-            if (e.isSucceed) LogWritter.WriteLog(LogLevel.Infomation, $"Headimage download completed, at: {e.LocalFilePath}");
-            else LogWritter.WriteLog(LogLevel.Error, e.ErrDescription);
-            LogWritter.WriteLog(LogLevel.LongChain);
+            if (e.isSucceed) LogWritter.WriteLog(LogType.Info, $"Headimage download completed, at: {e.LocalFilePath}");
+            else LogWritter.WriteLog(LogType.Err, e.ErrDescription);
+            LogWritter.WriteLog(LogType.LongChain);
         }
     }
 }

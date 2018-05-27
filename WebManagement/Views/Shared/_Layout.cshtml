@@ -1,5 +1,5 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
-@using WBServicePlatform.WebManagement.Controllers;
+@using WBPlatform.WebManagement.Controllers;
 <!DOCTYPE public html>
 <html>
 <head>
@@ -7,20 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewData["Title"]-小板凳校车管理平台</title>
-    <script type="text/javascript">
-        var appInsights = window.appInsights || function (a)
-        {
-            function b(a)
-            {
-                c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) }
-            } var c = { config: a }, d = document, e = window;
-            setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
-        }({
-            instrumentationKey: "2b23ce60-3a9d-4d39-aa8b-f6b38100581f"
-        });
 
-        window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
-    </script>
     <script src="~/js/jquery.js"></script>
     <script src="~/js/CryptoJS/core.js"></script>
     <script src="~/js/bmob.js"></script>
@@ -28,12 +15,18 @@
     <script src="~/js/CryptoJS/crypto-js.js"></script>
     <script src="~/SchBMgr_js/WeiXinModule.js"></script>
     <script src="~/SchBMgr_js/UserActivity.js"></script>
-    <script src="~/SchBMgr_js/WCServicesProvider.js"></script>
     <script src="~/js/Encryption/Base64.js"></script>
     <script src="~/js/Encryption/MD5.js"></script>
     <script src="~/js/Encryption/SHAHash.js"></script>
     <script src="~/js/bootstrap.js"></script>
-
+    <script src="~/SchBMgr_js/WCServicesProvider.js"></script>
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (a) {
+            function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
+        }({ instrumentationKey: "2b23ce60-3a9d-4d39-aa8b-f6b38100581f" });
+        appInsights.setAuthenticatedUserContext(getCookie("identifiedUID"));
+        window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
+    </script>
     <link rel="stylesheet" href="~/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/WBWeb.css" />
     @Html.Raw(JavaScriptSnippet.FullScript)
@@ -64,10 +57,10 @@
     @RenderBody()
     <div class="xnav" id="xnav" style="font-size: 11px;" onclick="fx();"></div>
     <script>
-        var a = 'Woodenbench for Schoolbus 2018 ~ 2019';
-        var b = 'Copyright Leroy.H.Y 2018 ~ 2019';
-        var c = 'Core Version: @WBServicePlatform.StaticClasses.WBConsts.CurrentCoreVersion';
-        var d = 'Web Management Module Version: @Program.Version';
+        var a = 'Woodenbench for Schoolbus 2018 ~ 2020';
+        var b = 'Copyright Leroy.H.Y 2018 ~ 2020';
+        var c = 'Core Version: @WBPlatform.StaticClasses.WBConsts.CurrentCoreVersion';
+        var d = 'Web Management Module Version: @WBPlatform.WebManagement.Program.Version';
         var e = 'Request Time: @DateTime.Now.ToString()';
         var z = "a";
         function fx()

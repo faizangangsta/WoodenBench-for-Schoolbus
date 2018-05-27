@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using static WBServicePlatform.WebManagement.Program;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using static WBPlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Register")]

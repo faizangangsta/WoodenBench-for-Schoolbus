@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using WBServicePlatform.StaticClasses;
-using static WBServicePlatform.StaticClasses.Crypto;
+using WBPlatform.StaticClasses;
+using static WBPlatform.StaticClasses.Crypto;
 
-namespace WBServicePlatform.TableObject
+namespace WBPlatform.TableObject
 {
     public class UserChangeRequest : DataTable
     {

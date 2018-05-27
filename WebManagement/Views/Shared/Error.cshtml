@@ -9,14 +9,13 @@
 <div class="container">
     @if (ViewData["RespCode"].ToString() == "404")
     {
-        <h3>哎 →_→</h3>
-        <h4>你遇到了一个404</h4>
+        <h3>Oops</h3>
+        <h4>你要找的东西不见了</h4>
     }
     else
     {
-        <h3>啊！！！</h3>
-        <h4>我们在处理时发生了</h4>
-        <h4>很严重的问题</h4>
+        <h3>出现了一些问题</h3>
+        <h4>服务器内部错误……</h4>
     }
     <h5>以下是详细内容：</h5>
     <div class=" container">
@@ -30,7 +29,7 @@
         <br />
         @if (ViewData["RespCode"].ToString() != "404")
         {
-            <strong>异常发生的地址:</strong>
+            <strong>异常类型</strong>
             <br />
             <code>@ViewData["ErrorAT"]</code>
             <br />
@@ -38,7 +37,7 @@
             <br />
             <code>@DateTime.Now.TimeOfDay.ToString()</code>
             <br />
-            <strong>其他可供参考的信息：</strong>
+            <strong>其他参考信息</strong>
             <br />
             <code>@ViewData["DetailedInfo"]</code>
         }

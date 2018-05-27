@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 
-using WBServicePlatform.StaticClasses;
+using WBPlatform.StaticClasses;
 //-40001 ： 签名验证错误
 //-40002 :  xml解析失败
 //-40003 :  sha加密生成签名失败
@@ -16,7 +16,7 @@ using WBServicePlatform.StaticClasses;
 //-40008 ： 解密后得到的buffer非法
 //-40009 :  base64加密异常
 //-40010 :  base64解密异常
-namespace WBServicePlatform.WebManagement.Tools
+namespace WBPlatform.WebManagement.Tools
 {
     public class WXEncryptedXMLHelper
     {

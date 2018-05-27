@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WBServicePlatform.WinClient</RootNamespace>
+    <RootNamespace>WBPlatform.WinClient</RootNamespace>
     <AssemblyName>校车小板凳</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WBServicePlatform.WinClient.StaticClasses.GlobalFunc</StartupObject>
+    <StartupObject>WBPlatform.WinClient.StaticClasses.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>

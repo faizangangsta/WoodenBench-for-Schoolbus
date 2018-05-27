@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.WinClient.Views;
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using WBPlatform.StaticClasses;
+using WBPlatform.WinClient.Views;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

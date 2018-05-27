@@ -1,17 +1,16 @@
-﻿using cn.bmob.io;
-using cn.bmob.response;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
-using static WBServicePlatform.WebManagement.Program;
 
-namespace WBServicePlatform.WebManagement.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
+
+namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Change")]
@@ -51,10 +50,6 @@ namespace WBServicePlatform.WebManagement.Controllers
                         case "password":
                             user.Password = (string)Equals2Obj;
                             break;
-                        case "wechatid":
-                            if (Equals2Obj.ToString().ToLower() == "null") Equals2Obj = "####";
-                            user.WeChatID = (string)Equals2Obj;
-                            break;
                         case "notice":
                             user.WebNotiSeen = (bool)Equals2Obj;
                             break;
@@ -66,13 +61,12 @@ namespace WBServicePlatform.WebManagement.Controllers
                             break;
                     }
 
-                    Task<UpdateCallbackData> taskupdate = _Bmob.UpdateTaskAsync(WBConsts.TABLE_Gen_UserTable, SessionUser.objectId, user);
-                    taskupdate.Wait();
-                    if (taskupdate.IsCompleted)
+                    
+                    if (Database.UpdateData(user) == 0)
                     {
                         DatabaseQuery query = new DatabaseQuery();
                         query.WhereEqualTo("objectId", SessionUser.objectId);
-                        switch (Database.QueryData(query, out List<UserObject> UserList))
+                        switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
                         {
                             case -1: return WebAPIResponseErrors.InternalError;
                             case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
@@ -82,7 +76,7 @@ namespace WBServicePlatform.WebManagement.Controllers
                                 Response.Cookies.Append("Session", NewSession, new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
                                 dict.Add("ErrCode", "0");
                                 dict.Add("ErrMessage", "null");
-                                dict.Add("updated_At", taskupdate.Result.updatedAt);
+                                dict.Add("updated_At", DateTime.Now.ToString());
                                 return dict;
                         }
                     }

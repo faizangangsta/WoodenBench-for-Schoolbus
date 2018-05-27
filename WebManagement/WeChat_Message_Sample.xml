@@ -1,4 +1,4 @@
-===============================TEXT
+<!--===============================TEXT-->
 <xml>
 <ToUserName><![CDATA[wx68bec13e85ca6465]]></ToUserName>
 <FromUserName><![CDATA[liuhaoyu]]></FromUserName>
@@ -8,7 +8,7 @@
 <MsgId>944962884</MsgId>
 <AgentID>41</AgentID>
 </xml>
-===============================BUTTON
+<!--===============================BUTTON-->
 <xml>
 <ToUserName><![CDATA[wx68bec13e85ca6465]]></ToUserName>
 <FromUserName><![CDATA[liuhaoyu]]></FromUserName>
@@ -18,7 +18,7 @@
 <Event><![CDATA[click]]></Event>
 <EventKey><![CDATA[MyInfo]]></EventKey>
 </xml>
-===============================POSITION
+<!--===============================POSITION-->
 <xml>
 <ToUserName><![CDATA[wx68bec13e85ca6465]]></ToUserName>
 <FromUserName><![CDATA[liuhaoyu]]></FromUserName>

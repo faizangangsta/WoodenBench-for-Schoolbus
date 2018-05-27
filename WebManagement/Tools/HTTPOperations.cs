@@ -6,7 +6,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-namespace WBServicePlatform.WebManagement.Tools
+namespace WBPlatform.WebManagement.Tools
 {
     public class HTTPOperations
     {

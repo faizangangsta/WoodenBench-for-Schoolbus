@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WBServicePlatform.StaticClasses.Properties {
+namespace WBPlatform.StaticClasses.Properties {
     using System;
     
     

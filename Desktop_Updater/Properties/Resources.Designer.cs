@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WBServicePlatform.InstallFinaliser.Properties {
+namespace WBPlatform.InstallFinaliser.Properties {
     using System;
     
     

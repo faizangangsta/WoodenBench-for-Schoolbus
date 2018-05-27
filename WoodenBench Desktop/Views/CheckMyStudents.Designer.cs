@@ -1,4 +1,4 @@
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     partial class CheckMyStudents
     {
@@ -346,7 +346,7 @@ namespace WBServicePlatform.WinClient.Views
             // 
             // studentDataObjectBindingSource
             // 
-            this.studentDataObjectBindingSource.DataSource = typeof(WBServicePlatform.TableObject.StudentObject);
+            this.studentDataObjectBindingSource.DataSource = typeof(WBPlatform.TableObject.StudentObject);
             // 
             // ExDescription
             // 

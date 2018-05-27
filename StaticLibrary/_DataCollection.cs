@@ -1,4 +1,6 @@
-﻿namespace WBServicePlatform.StaticClasses
+﻿using WBPlatform.TableObject;
+
+namespace WBPlatform.StaticClasses
 {
     public class _DataCollection<T>
     {

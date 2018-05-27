@@ -7,18 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Linq;
 using DevComponents.DotNetBar.Metro;
 
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WinClient.Users;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WinClient.Users;
 
-using static WBServicePlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
 
-namespace WBServicePlatform.WinClient.Views
+namespace WBPlatform.WinClient.Views
 {
     public partial class Notifications : MetroForm
     {
+        private List<NotificationObject> NotificationLists { get; set; } = new List<NotificationObject>();
         public Notifications()
         {
             InitializeComponent();
@@ -53,10 +56,39 @@ namespace WBServicePlatform.WinClient.Views
         {
             MainForm.Default.Show();
         }
-        
+
         private void loadMessage_Click(object sender, EventArgs e)
         {
-            //var FindMessagesTask = _BmobWin.FindTaskAsync()
+            if (Database.QueryMultipleData(new DatabaseQuery(), out List<NotificationObject> list) >= 0)
+            {
+                listView1.Items.Clear();
+                NotificationLists.Clear();
+                foreach (NotificationObject item in list)
+                {
+                    NotificationLists.Add(item);
+                    listView1.Items.Add(new ListViewItem(new string[] { item.Sender, item.createdAt, new string(item.Content.Take(20).ToArray()) + "...." }));
+                }
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                NotificationObject @object = NotificationLists[listView1.SelectedItems[0].Index];
+                msgTitle.Text = @object.Title;
+                msgTime.Text = @object.createdAt;
+                msgType.Text = @object.Type.ToString();
+                msgSendID.Text = @object.Sender;
+                msgRecvID.Text = @object.GetStringRecivers();
+                msgContent.Text = @object.Content;
+            }
+        }
+
+        private void copyMessage_Click(object sender, EventArgs e)
+        {
+            string clip = $"信息标题：{msgTitle.Text} \r\n发送者：{msgSendID.Text} \r\n接收者：{msgRecvID.Text}\r\n发送时间：{msgTime.Text}\r\n消息内容：{msgContent.Text}";
+            Clipboard.SetText(clip);
         }
     }
 }

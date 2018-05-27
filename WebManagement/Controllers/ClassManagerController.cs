@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using WBServicePlatform.Databases;
-using WBServicePlatform.StaticClasses;
-using WBServicePlatform.TableObject;
-using WBServicePlatform.WebManagement.Tools;
+using WBPlatform.Databases;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
+using WBPlatform.WebManagement.Tools;
 
-namespace WBServicePlatform.WebManagement.Controllers
+namespace WBPlatform.WebManagement.Controllers
 {
     public class ClassManagerController : _Controller
     {
@@ -18,12 +18,13 @@ namespace WBServicePlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 if (user.UserGroup.IsClassTeacher)
                 {
-                    switch (Database.QueryData(new DatabaseQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
+                    switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
                     {
-                        case -1: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.WeChatID, ErrorRespCode.InternalError);
-                        case 0: return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.WeChatID);
+                        case -1: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.UserName, ErrorRespCode.InternalError);
+                        case 0: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.UserName);
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].objectId;
@@ -31,9 +32,14 @@ namespace WBServicePlatform.WebManagement.Controllers
                             return View();
                     }
                 }
-                else return _OnInternalError(ErrorAt.MyClass_Index, ErrorType.UserGroupError, "你现在不是班主任，暂时不能使用 “班级管理” 功能", user.WeChatID, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.UserGroupError, "你现在不是班主任，暂时不能使用 “班级管理” 功能", user.UserName, ErrorRespCode.PermisstionDenied);
             }
-            else return _LoginFailed("/ClassManager/Index/");
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/ClassManager/Index/");
+            }
+
         }
     }
 }
