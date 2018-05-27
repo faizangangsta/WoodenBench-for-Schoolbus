@@ -1,16 +1,33 @@
+realtime message sending services	(NOTHING HAS FINISHED, EVEN NOT STARTED..yet)
+    |-- SINGLE C2C
+    |-- MULTICAST
+    |-- BROADCAST
+
+
+
 MyAccount Page				(NOT THAT NECESSARY, Don't worry)
+
 Windows Client Management feature	(25% FINISHED, HALF UI, NO CODE)
-CheckMyStudents				(HALF FINISHED, not online)
+
+CheckMyStudents				(Windows Client. functionless)
+					(UPDATED: 2018-05-27: Ready to do it..)
+
 Notification System			(SHOULD BE INTEGRATED INTO BUS ISSUE)
+
 UserRequest Post			(UI FINISHED, CODE NEEDED)
-BusDataUpload				(NOT AT ALL)
+
+BusDataUpload				(NOT started  AT ALL)
+
 Post Request data to admins		(SAME AS USER REQUEST AND Bus ISSUE)
+
 online register				(HALF FINISHED)
 
 parents login on windows client		(V2, not for V1)
+
 location services			(V2, locate bus teacher)
 
 IMPORTANTS:::::
 
 Move Config data outside codes		(Before V1 Release)
 Database structure			(Need fix, even move to SERVER)
+					(UPDATED: 2018-05-27 : Nearly finished, need a final check.)
