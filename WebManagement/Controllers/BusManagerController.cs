@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -95,12 +94,19 @@ namespace WBPlatform.WebManagement.Controllers
             switch (flag)
             {
                 case -1: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
-                case 0: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.ItemsNotFound, info + ":" + flag, user.UserName);
+                case 0: return null; ///_OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.ItemsNotFound, info + ":" + flag, user.UserName);
                 case 1: return null;
                 case 2: return isSingleRequest ? _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName) : null;
                 default: return null;
             }
         }
+        /// <summary>
+        /// TODO: If Parents Does not exist.. or Bus doesnot exist,, give a special warning instead of an functionless ERROR....
+        /// </summary>
+        /// <param name="StudentID"></param>
+        /// <param name="ClassID"></param>
+        /// <param name="BusID"></param>
+        /// <returns></returns>
         public IActionResult ViewStudent(string StudentID, string ClassID, string BusID)
         {
             ViewData["where"] = HomeController.ControllerName;
@@ -109,7 +115,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
 
                 // User Group Check
-                if (user.UserGroup.IsParents || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
+                if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
                     int flag = 0xff;
                     IActionResult result = null;
@@ -130,24 +136,24 @@ namespace WBPlatform.WebManagement.Controllers
                     if (result != null) return result;
 
                     //Get Parents
-                    flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("objectId", Student.ParentsID.Split(';')), out List<UserObject> Parents);
+                    flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainsAll("ChildList", Student.objectId), out List<UserObject> Parents);
                     result = CheckFlag(flag, false, user, "GetParentsBy_UID");
                     if (result != null) return result;
 
 
                     // Get SchoolBus
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereContainedIn("objectId", Student.BusID), out SchoolBusObject Bus);
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
                     result = CheckFlag(flag, true, user, "GetBusBy_BID");
                     if (result != null) return result;
 
                     // Get SchoolBus Teacher.
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereContainedIn("objectId", Bus.TeacherID), out UserObject BusTeacher);
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
                     result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
                     if (result != null) return result;
 
 
                     //  Is in user's class?                                     Is in user's Bus??                          Is user's child??                           I am the god...
-                    if (user.UserGroup.ClassesIds.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || Student.ParentsID.Contains(user.objectId) || user.UserGroup.IsAdmin)
+                    if (user.ClassList.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
                         return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(Student, Class, Teacher, Parents.ToArray(), Bus, BusTeacher));
                     else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "ViewStudent::NoPermissionToViewStudent", user.UserName, ErrorRespCode.PermisstionDenied);
                 }

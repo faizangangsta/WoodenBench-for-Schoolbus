@@ -8,61 +8,36 @@ namespace WBPlatform.StaticClasses
         public bool IsAdmin { get; private set; }
         public bool IsBusManager { get; private set; }
         public bool IsClassTeacher { get; private set; }
-        public bool IsParents { get; private set; }
+        public bool IsParent { get; private set; }
 
-        public string[] ClassesIds { get; set; }
+        //public int ChildCounts { get; private set; }
+        //public int ClassCounts { get; private set; }
         public string BusID { get; set; }
 
-        public UserGroup(bool Teacher, bool BusManager, bool Parent)
-        {
-            IsAdmin = false;
-            IsClassTeacher = Teacher;
-            IsBusManager = BusManager;
-            IsParents = Parent;
-
-            ClassesIds = IsClassTeacher ? new string[] { "1" } : new string[] { "0" };
-            BusID = IsBusManager ? "1" : "0";
-        }
+        //public UserGroup(bool Teacher, bool BusManager, int ChildIDs)
+        //{
+        //    IsAdmin = false;
+        //    IsClassTeacher = Teacher;
+        //    IsBusManager = BusManager;
+        //    IsParents = !(ChildIDs == 0);
+        //    ChildCounts = ChildIDs;
+        //    ClassesIds = IsClassTeacher ? new string[] { "1" } : new string[] { "0" };
+        //    BusID = IsBusManager ? "1" : "0";
+        //}
 
         public UserGroup(string groupIdentifier)
         {
             string[] tmpA = groupIdentifier.Split(new char[] { ',' });
-            IsAdmin = Convert.ToBoolean(Convert.ToInt32(tmpA[0].Substring(1)));
+            IsAdmin = tmpA[0].Substring(1) == "1";
 
-            ClassesIds = tmpA[1].Substring(1).Split(new char[] { '|' }).Take(1).ToArray();
-            //ClassesIds = ClassesIds.Take(ClassesIds.Length - 1).ToArray();
-            IsClassTeacher = !(ClassesIds[0] == "0");
+            IsClassTeacher = tmpA[1].Substring(1) != "0";
 
-            IsParents = !(tmpA[2].Substring(1) == "0");
+            IsParent = tmpA[2].Substring(1) != "0";
 
             BusID = tmpA[3].Substring(1);
-            IsBusManager = !(BusID == "0");
+            IsBusManager = BusID != "0";
         }
 
-        public string GetClassIdString(char Splitter)
-        {
-            string result = "";
-            foreach (string item in ClassesIds)
-            {
-                result = result + item + Splitter.ToString();
-            }
-            return result;
-        }
-
-        public override string ToString()
-        {
-            if (BusID == null || ClassesIds == null)
-            {
-                return null;
-            }
-            string toStr = "A" + (Convert.ToInt32(IsAdmin)).ToString() + ",T";
-            foreach (string item in ClassesIds)
-            {
-                toStr = toStr + item + "|";
-            }
-            toStr = toStr + ",P" + (IsParents ? "1" : "0");
-            toStr = toStr + ",B" + BusID;
-            return toStr;
-        }
+        public override string ToString() => (BusID == null) ? null : "A" + (IsAdmin ? "1" : "0") + ",T" + (IsClassTeacher ? "1" : "0") + ",P" + (IsParent ? "1" : "0") + ",B" + BusID;
     }
 }

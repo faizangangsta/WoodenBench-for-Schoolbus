@@ -70,8 +70,8 @@ namespace WBPlatform.WinClient.Users
             xUserName = xUserName.ToLower();
             string HashedPs = Crypto.SHA256Encrypt(xPassword);
             DatabaseQuery UserNameQuery = new DatabaseQuery();
-            UserNameQuery.WhereContainedIn("Username", xUserName);
-            UserNameQuery.WhereContainedIn("Password", HashedPs);
+            UserNameQuery.WhereEqualTo("Username", xUserName);
+            UserNameQuery.WhereEqualTo("Password", HashedPs);
             if (Database.QueryMultipleData(UserNameQuery, out List<UserObject> list) > 0)
             {
                 user = list[0];

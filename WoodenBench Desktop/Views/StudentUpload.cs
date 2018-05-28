@@ -170,7 +170,7 @@ namespace WBPlatform.WinClient.Views
             studentDataBindSourc.Clear();
             DatabaseQuery ClassQuery = new DatabaseQuery();
 
-            ClassQuery.WhereEqualTo("objectId", CurrentUser.UserGroup.ClassesIds[0]);
+            ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
             int resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
             if (resultCode == 0)
             {

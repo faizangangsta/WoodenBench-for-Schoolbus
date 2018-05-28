@@ -75,7 +75,7 @@ namespace WBPlatform.WinClient.Views
                     MainForm.Default.Show();
                     Hide();
                 }
-                else if (user.UserGroup.IsParents)
+                else if (user.UserGroup.IsParent)
                 {
                     MessageBox.Show("暂时不支持家长使用小板凳 Windows 客户端哦！");
                 }

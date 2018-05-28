@@ -16,7 +16,22 @@ namespace WBPlatform.WebManagement.Controllers
         public const string ControllerName = "MyChild";
         public override IActionResult Index()
         {
-            throw new NotImplementedException("This method is not ready.......", new InvalidOperationException("This Method IS Still Under Developing"));
+            ViewData["where"] = HomeController.ControllerName;
+            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                ViewData["cUser"] = user.ToString();
+                //ViewData["ChildCount"] = user.ChildList.Count;
+
+                return View();
+            }
+            else
+            {
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                return _LoginFailed("/" + ControllerName);
+            }
+
+            //throw new NotImplementedException("This method is not ready.......", new InvalidOperationException("This Method IS Still Under Developing"));
         }
 
         public IActionResult ParentCheck(string ID) //ID = BusID;UserID
@@ -30,7 +45,7 @@ namespace WBPlatform.WebManagement.Controllers
                 if (ID == null) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
                 if (IDSplit.Length != 2) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
-                if (!user.UserGroup.IsParents) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.UserName, ErrorRespCode.PermisstionDenied);
+                if (!user.UserGroup.IsParent) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "MyChild::ParentsCheck ==> UserGroup(NOT PARENT)", user.UserName, ErrorRespCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
@@ -41,7 +56,7 @@ namespace WBPlatform.WebManagement.Controllers
                     default:
                         foreach (StudentObject item in StudentListInBus)
                         {
-                            if (item.ParentsID.Contains(user.objectId))
+                            if (user.ChildList.Contains(item.objectId))
                             {
                                 ToBeSignedStudents.Add(item);
                             }
@@ -62,7 +77,6 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-
                 Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
                 return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
             }

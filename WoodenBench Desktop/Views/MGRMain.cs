@@ -57,16 +57,16 @@ namespace WBPlatform.WinClient.Views
 
             if (ContentTxBox.Text.ToLower() == "true")
             {
-                query.WhereContainedIn<bool>(ColNameTx.Text, true);
+                query.WhereEqualTo(ColNameTx.Text, true);
 
             }
             else if (ContentTxBox.Text.ToLower() == "false")
             {
-                query.WhereContainedIn<bool>(ColNameTx.Text, false);
+                query.WhereEqualTo(ColNameTx.Text, false);
             }
             else
             {
-                query.WhereContainedIn<string>(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
+                query.WhereEqualTo(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
             }
             //query.Skip(CurrNum);
             if (Database.QueryMultipleData<UserObject>(query, out List<UserObject> result) < 0)

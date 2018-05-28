@@ -83,7 +83,7 @@
       <publishTime>05/23/2018 08:44:13</publishTime>
     </File>
     <File Include="System.Composition.Convention.dll">
-      <publishTime>04/18/2018 18:06:05</publishTime>
+      <publishTime>05/23/2018 08:44:13</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
       <publishTime>05/23/2018 08:44:13</publishTime>
@@ -98,31 +98,31 @@
       <publishTime>10/21/2017 09:43:48</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>05/23/2018 10:12:07</publishTime>
+      <publishTime>05/28/2018 23:23:05</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>05/23/2018 10:12:07</publishTime>
+      <publishTime>05/28/2018 23:23:05</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>05/23/2018 10:01:27</publishTime>
+      <publishTime>05/28/2018 22:44:58</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>05/23/2018 10:01:27</publishTime>
+      <publishTime>05/28/2018 22:44:58</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
-      <publishTime>05/23/2018 10:12:04</publishTime>
+      <publishTime>05/28/2018 23:23:01</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.pdb">
-      <publishTime>05/23/2018 10:12:04</publishTime>
+      <publishTime>05/28/2018 23:23:01</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>05/23/2018 10:12:07</publishTime>
+      <publishTime>05/28/2018 23:23:05</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>05/23/2018 10:01:20</publishTime>
+      <publishTime>05/28/2018 22:44:53</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>05/23/2018 10:01:20</publishTime>
+      <publishTime>05/28/2018 22:44:53</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>11/11/2017 00:00:00</publishTime>
@@ -548,10 +548,10 @@
       <publishTime>02/20/2018 19:23:08</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/UserActivity.js">
-      <publishTime>03/20/2018 17:58:49</publishTime>
+      <publishTime>05/28/2018 22:43:18</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WCServicesProvider.js">
-      <publishTime>03/29/2018 19:20:49</publishTime>
+      <publishTime>05/28/2018 23:09:41</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WeiXinModule.js">
       <publishTime>02/20/2018 21:34:58</publishTime>

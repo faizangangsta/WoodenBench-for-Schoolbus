@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿using cn.bmob.io;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections;
+using System.Collections.Generic;
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -11,19 +10,18 @@ using WBPlatform.WebManagement.Tools;
 namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
-    [Route("api/class/getStudents")]
-    public class GetClassStudentsController : Controller
+    [Route("api/parent/getMyChild")]
+    public class GetMyChildController : Controller
     {
         [HttpGet]
-        public IEnumerable Get(string ClassID, string TeacherID)
+        public IEnumerable Get(string parentId)
         {
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseErrors.SessionError;
-            if (!(user.ClassList.Contains(ClassID) && user.objectId == TeacherID)) return WebAPIResponseErrors.UserGroupError;
+            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseErrors.UserGroupError;
 
             DatabaseQuery StudentQuery = new DatabaseQuery();
-            StudentQuery.WhereEqualTo("ClassID", ClassID);
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
+            switch (Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
                 case -1: return WebAPIResponseErrors.InternalError;
                 case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");

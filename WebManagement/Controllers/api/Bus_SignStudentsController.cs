@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement.Controllers
             //THIS FUNCTION IS SHARED BY BUSTEACHER AND PARENTS
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
                 return WebAPIResponseErrors.SessionError;
-            if (!(user.UserGroup.IsParents || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin))
+            if (!(user.UserGroup.IsParent || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin))
                 return WebAPIResponseErrors.UserGroupError;
             string str = Encoding.UTF8.GetString(Convert.FromBase64String(Data));
             if (str.Contains(";") && str.Split(';').Length != 5) return WebAPIResponseErrors.RequestIllegal;

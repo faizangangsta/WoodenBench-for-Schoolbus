@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
                 if (user.UserGroup.IsClassTeacher)
                 {
-                    switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", user.UserGroup.ClassesIds[0]), out List<ClassObject> ClassList))
+                    switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
                     {
                         case -1: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.UserName, ErrorRespCode.InternalError);
                         case 0: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.UserName);

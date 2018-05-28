@@ -1,6 +1,4 @@
-﻿using WBPlatform.TableObject;
-
-namespace WBPlatform.StaticClasses
+﻿namespace WBPlatform.StaticClasses
 {
     public class _DataCollection<T>
     {

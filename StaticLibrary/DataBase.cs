@@ -114,11 +114,18 @@ namespace WBPlatform.Databases
     public class DatabaseQuery : BmobQuery
     {
         public new DatabaseQuery WhereEqualTo(string column, object value) => (DatabaseQuery)base.WhereEqualTo(column, value);
-        public new DatabaseQuery WhereContainedIn<T>(string column, params T[] values) => (DatabaseQuery)base.WhereContainedIn<T>(column, values);
+        public new DatabaseQuery WhereContainedIn<T>(string column, params T[] values) => (DatabaseQuery)base.WhereContainedIn(column, values);
+        public new DatabaseQuery WhereContainsAll<T>(string column, params T[] values) => (DatabaseQuery)base.WhereContainsAll(column, values);
     }
 }
 
 namespace WBPlatform.TableObject
 {
-    public class DataTable : BmobTable { }
+    public class DataTable : BmobTable
+    {
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+    }
 }

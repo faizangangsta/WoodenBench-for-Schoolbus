@@ -21,7 +21,7 @@ namespace WBPlatform.TableObject
         public bool CSChecked { get; set; }
         public bool AHChecked { get; set; }
 
-        public string ParentsID { get; set; }
+        //public string ParentsID { get; set; }
         
 
         public override string table => WBConsts.TABLE_Mgr_StuData;
@@ -33,7 +33,7 @@ namespace WBPlatform.TableObject
             BusID = input.getString("BusID");
             Sex = input.getString("Sex");
             ClassID = input.getString("ClassID");
-            ParentsID = input.getString("ParentsIDs");
+            //ParentsID = input.getString("ParentsIDs");
             CSChecked = input.getBoolean("CSChecked").Get();
             LSChecked = input.getBoolean("LSChecked").Get();
             AHChecked = input.getBoolean("CHChecked").Get();
@@ -46,7 +46,7 @@ namespace WBPlatform.TableObject
             output.Put("BusID", BusID);
             output.Put("Sex", Sex);
             output.Put("ClassID", ClassID);
-            output.Put("ParentsIDs", ParentsID);
+            //output.Put("ParentsIDs", ParentsID);
             output.Put("CHChecked", AHChecked);
             output.Put("CSChecked", CSChecked);
             output.Put("LSChecked", LSChecked);

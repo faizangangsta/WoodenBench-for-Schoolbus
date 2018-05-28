@@ -18,7 +18,7 @@ namespace WBPlatform.WebManagement.Controllers
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
-                if ((user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParents || user.UserGroup.IsAdmin))
+                if ((user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin))
                 {
                     if (Request.Cookies["LoginRedirect"] != null)
                     {

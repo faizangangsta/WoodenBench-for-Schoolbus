@@ -68,7 +68,7 @@ namespace WBPlatform.WebManagement.Tools
             Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("Username", WeiXinID), out List<UserObject> UserList))
+            switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("Username", WeiXinID), out List<UserObject> UserList))
             {
                 case -1: return null;
                 case 0:

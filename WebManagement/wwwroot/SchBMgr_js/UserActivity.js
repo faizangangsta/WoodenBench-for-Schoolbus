@@ -136,3 +136,14 @@ function GetClassStudents(ClassID, UserID, GetCallback)
     });
 
 }
+function GetMyChild(UserID, GetCallback)
+{
+    "use strict";
+    $.ajax({
+        url: location.protocol + "//" + location.host + "/api/parent/getMyChild?parentId=" + UserID,
+        type: 'GET',
+        success: function (data) { GetCallback(data); },
+        error: function (err) { GetCallback(false); }
+    });
+
+}

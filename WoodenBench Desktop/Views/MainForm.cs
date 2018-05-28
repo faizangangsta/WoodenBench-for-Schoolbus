@@ -57,7 +57,7 @@ namespace WBPlatform.WinClient.Views
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (CurrentUser.UserGroup.IsParents &&
+            if (CurrentUser.UserGroup.IsParent &&
                 !CurrentUser.UserGroup.IsAdmin &&
                 !CurrentUser.UserGroup.IsClassTeacher &&
                 !CurrentUser.UserGroup.IsBusManager)
@@ -83,7 +83,7 @@ namespace WBPlatform.WinClient.Views
             if (CurrentUser.UserGroup.IsAdmin) userRole.Text += "管理员;";
             if (CurrentUser.UserGroup.IsClassTeacher) userRole.Text += "班主任;";
             if (CurrentUser.UserGroup.IsBusManager) userRole.Text += "校车老师;";
-            if (CurrentUser.UserGroup.IsParents) userRole.Text += "家长;";
+            if (CurrentUser.UserGroup.IsParent) userRole.Text += "家长;";
 
         }
         public void DnFinished(FileIOEventArgs e)

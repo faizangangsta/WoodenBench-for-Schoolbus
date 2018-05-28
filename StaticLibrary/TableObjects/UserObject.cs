@@ -20,9 +20,12 @@ namespace WBPlatform.TableObject
 
         public bool FirstLogin { get; set; }
         public bool WebNotiSeen { get; set; }
-        
+
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
+
+        public List<string> ChildList { get; set; } = new List<string>();
+        public List<string> ClassList { get; set; } = new List<string>();
 
         public override void readFields(BmobInput input)
         {
@@ -36,6 +39,9 @@ namespace WBPlatform.TableObject
             FirstLogin = input.getBoolean("IsFstLgn").Get();
             HeadImagePath = input.getString("HeadImage");
             PhoneNumber = input.getString("PhoneNumber");
+
+            ClassList = input.getList<string>("ClassIDs");
+            ChildList = input.getList<string>("ChildList");
         }
 
         public override void write(BmobOutput output, bool all)
@@ -51,6 +57,8 @@ namespace WBPlatform.TableObject
             output.Put("HeadImage", HeadImagePath);
             output.Put("PhoneNumber", PhoneNumber);
 
+            output.Put("ClassIDs", ClassList);
+            output.Put("ChildList", ChildList);
         }
 
         public UserObject SetEveryThingNull()
@@ -74,6 +82,17 @@ namespace WBPlatform.TableObject
 
         public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
 
+        public string GetClassIdString(char Splitter)
+        {
+            string result = "";
+            foreach (string item in ClassList)
+            {
+                result = result + item + Splitter.ToString();
+            }
+            return result;
+        }
+
+
         public Dictionary<string, string> ToDictionary()
         {
             return new Dictionary<string, string>
@@ -89,10 +108,10 @@ namespace WBPlatform.TableObject
                 { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },
                 //UserGroup
                 { "IsBusTeacher", UserGroup.IsBusManager.ToString().ToLower() },
-                { "IsParent" ,UserGroup.IsParents.ToString().ToLower()},
+                { "IsParent" ,UserGroup.IsParent.ToString().ToLower()},
                 { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
                 { "BusID", UserGroup.BusID },
-                { "ClassIDs", UserGroup.GetClassIdString(';') }
+                { "ClassIDs", GetClassIdString(';') }
             };
         }
     }
