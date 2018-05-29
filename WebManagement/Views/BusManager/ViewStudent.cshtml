@@ -1,5 +1,5 @@
 ﻿@using WBPlatform.TableObject;
-@model WBPlatform.StaticClasses._DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>
+@model WBPlatform.WebManagement.Tools.ViewStudentInfo;
 @{
     ViewData["Title"] = "学生信息";
 }
@@ -42,32 +42,66 @@
         <label>学生基本信息</label>
         <table id="tfhover1" class="tftable" border="1">
             <tr><th>名称</th><th>值</th></tr>
-            <tr><td>姓名</td><td>@Model.Object1.StudentName</td></tr>
-            <tr><td>性别</td><td>@(Model.Object1.Sex == "F" ? "女" : "男")</td></tr>
-            <tr><td>学部</td><td>@Model.Object2.CDepartment</td></tr>
-            <tr><td>班级</td><td>@Model.Object2.CGrade@Model.Object2.CNumber</td></tr>
-            <tr><td>班主任</td><td>@Model.Object3.RealName</td></tr>
-            <tr><td>班主任联系方式</td><td><a href="tel://@Model.Object3.PhoneNumber">@Model.Object3.PhoneNumber</a></td></tr>
-            <tr><td>离校确认</td><td>@(Model.Object1.LSChecked ? "√  已签到" : "×  未签到")</td></tr>
-            <tr><td>返校确认</td><td>@(Model.Object1.CSChecked ? "√  已签到" : "×  未签到")</td></tr>
-            <tr><td>到家确认</td><td>@(Model.Object1.AHChecked ? "√  已确认" : "×  未确认")</td></tr>
+            <tr><td>姓名</td><td>@Model._student.StudentName</td></tr>
+            <tr><td>性别</td><td>@(Model._student.Sex == "F" ? "女" : "男")</td></tr>
+            <tr><td>离校确认</td><td>@(Model._student.LSChecked ? "√  已签到" : "×  未签到")</td></tr>
+            <tr><td>返校确认</td><td>@(Model._student.CSChecked ? "√  已签到" : "×  未签到")</td></tr>
+            <tr><td>到家确认</td><td>@(Model._student.AHChecked ? "√  已确认" : "×  未确认")</td></tr>
+
+        </table>
+        <br />
+        <label>班级信息</label>
+        <table id="tfhover2" class="tftable" border="1">
+            @if (Model.ClassFound)
+            {
+                <tr><th>名称</th><th>值</th></tr>
+                <tr><td>学部</td><td>@Model._class.CDepartment</td></tr>
+                <tr><td>班级</td><td>@Model._class.CGrade@Model._class.CNumber</td></tr>
+                @if (Model.ClassTeacherFound)
+                {
+                    <tr><td>班主任</td><td>@Model._CTeacher.RealName</td></tr>
+                    <tr><td>班主任联系方式</td><td><a href="tel://@Model._CTeacher.PhoneNumber">@Model._CTeacher.PhoneNumber</a></td></tr>
+                }
+                else
+                {
+                    <tr><td colspan="2">找不到当前班级的班主任！</td></tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="2">找不到学生的班级信息！</td></tr>
+            }
         </table>
         <br />
         <label>校车信息</label>
-        <table id="tfhover2" class="tftable" border="1">
-            <tr><th>名称</th><th>值</th></tr>
-            <tr><td>校车方向</td><td>@(Model.Object5.BusName)</td></tr>
-            <tr><td>校车老师</td><td>@(Model.Object6.RealName)</td></tr>
-            <tr><td>联系方式</td><td><a href="tel://@Model.Object6.PhoneNumber">@Model.Object6.PhoneNumber</a></td></tr>
+        <table id="tfhover3" class="tftable" border="1">
+            @if (Model.BusFound && Model.BusTeacherFound)
+            {
+                <tr><th>名称</th><th>值</th></tr>
+                <tr><td>校车方向</td><td>@(Model._schoolbus.BusName)</td></tr>
+                <tr><td>校车老师</td><td>@(Model._BTeacher.RealName)</td></tr>
+                <tr><td>联系方式</td><td><a href="tel://@Model._BTeacher.PhoneNumber">@Model._BTeacher.PhoneNumber</a></td></tr>
+            }
+            else
+            {
+                <tr><td colspan="2">找不到学生乘坐的校车！</td></tr>
+            }
         </table>
         <br />
         <label>家长信息</label>
-        <table id="tfhover3" class="tftable" border="1">
-            <tr><th>名称</th><th>值</th></tr>
-            @for (int i = 0; i < Model.Object4.Length; i++)
+        <table id="tfhover4" class="tftable" border="1">
+            @if (Model.ParentsCount > 0)
             {
-                <tr><td>@(Model.Object4[i].Sex == "M" ? "父亲" : "母亲")姓名</td><td>@Model.Object4[i].RealName</td></tr>
-                <tr><td>@(Model.Object4[i].Sex == "M" ? "父亲" : "母亲")联系方式</td><td><a href="tel://@Model.Object4[i].PhoneNumber">@Model.Object4[i].PhoneNumber</a></td></tr>
+                <tr><th>名称</th><th>值</th></tr>
+                @for (int i = 0; i < Model.ParentsCount; i++)
+                {
+                    <tr><td>@(Model._Parents[i].Sex == "M" ? "父亲" : "母亲")姓名</td><td>@Model._Parents[i].RealName</td></tr>
+                    <tr><td>@(Model._Parents[i].Sex == "M" ? "父亲" : "母亲")联系方式</td><td><a href="tel://@Model._Parents[i].PhoneNumber">@Model._Parents[i].PhoneNumber</a></td></tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="2">找不到家长信息！</td></tr>
             }
         </table>
     </div>

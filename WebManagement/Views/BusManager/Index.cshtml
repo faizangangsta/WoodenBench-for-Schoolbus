@@ -10,7 +10,7 @@
             <h5 id="BusDirection">我的校车: 加载中...</h5>
         </div>
     </div>
-    <br>
+    <hr />
     <div class="container">
         <p id="ExpNumber">校车总人数: 加载中...</p>
         <p id="LSChecked">离校上车人数: 加载中...</p>
@@ -38,22 +38,12 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <button class="btn btn-danger btn-md center-all" style="width: 100%" onClick="SignStudents('CD');">修改数据</button>
         </div>
-    </div>
-    <br>
-    <br><br>
-    <h5 class="container">你还可以：</h5>
-    <div class="center-all">
-        <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-default center-all" style="width: 100%" onClick="location.href = '/BusManager/WeekIssue';">汇报问题</button>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-default btn-md center-all" style="width: 100%" onClick="location.href = '/';">返回主菜单</button>
-        </div>
-    </div>
+    </div><br />
+
 </div>
+
 <script>
     {
-        Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
         var currentBus;
         var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
 
@@ -61,7 +51,7 @@
         $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
 
         GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
-        
+
         function BusCallBack(data)
         {
             currentBus = data;

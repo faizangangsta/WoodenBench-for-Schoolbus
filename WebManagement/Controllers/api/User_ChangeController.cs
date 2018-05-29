@@ -61,15 +61,15 @@ namespace WBPlatform.WebManagement.Controllers
                             break;
                     }
 
-                    
+
                     if (Database.UpdateData(user) == 0)
                     {
                         DatabaseQuery query = new DatabaseQuery();
                         query.WhereEqualTo("objectId", SessionUser.objectId);
                         switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
                         {
-                            case -1: return WebAPIResponseErrors.InternalError;
-                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
                                 Dictionary<string, string> dict = UserList[0].ToDictionary();
                                 string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);

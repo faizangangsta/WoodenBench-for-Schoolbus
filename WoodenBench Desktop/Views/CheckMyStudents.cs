@@ -52,16 +52,16 @@ namespace WBPlatform.WinClient.Views
                 SchoolBusObject busObject = new SchoolBusObject();
                 DatabaseQuery query = new DatabaseQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                int resultX = Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
-                if (resultX == 0)
-                    MessageBox.Show("找不到任何你管理的校车");
-                else if (resultX == 1)
-                    busObject = result[0];
-                else
+                DatabaseQueryResult resultX = Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+
+                if (resultX == DatabaseQueryResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
+                else if (resultX == DatabaseQueryResult.ONE_RESULT) busObject = result[0];
+                else if (resultX == DatabaseQueryResult.MORE_RESULTS)
                 {
                     MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
                     busObject = result[0];
                 }
+
                 myID.Text = busObject.objectId;
                 myDirection.Text = busObject.BusName;
                 LeavingChecked.Text = busObject.LSChecked.ToString();
@@ -91,8 +91,8 @@ namespace WBPlatform.WinClient.Views
             studentDataObjectBindingSource.Clear();
             DatabaseQuery query = new DatabaseQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            int resultX = Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
-            if (resultX >= 0)
+            DatabaseQueryResult resultX = Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            if (resultX != DatabaseQueryResult.INTERNAL_ERROR && resultX != DatabaseQueryResult.NO_RESULTS)
             {
                 foreach (StudentObject item in result)
                 {

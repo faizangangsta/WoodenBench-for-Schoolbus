@@ -46,7 +46,7 @@
                     <li id="busmgr"><a asp-controller="@BusManagerController.ControllerName" asp-action="Index">校车管理</a></li>
                     <li id="classmgr"><a asp-controller="@ClassManagerController.ControllerName" asp-action="Index">班级管理</a></li>
                     <li id="mychild"><a asp-controller="@MyChildController.ControllerName" asp-action="Index">我的孩子</a></li>
-                    <li id="usermgr"><a asp-controller="@AccountController.ControllerName" asp-action="Index">用户管理</a></li>
+                    <li id="usermgr"><a asp-controller="@AccountController.ControllerName" asp-action="Index">我的账户</a></li>
                     <li id="bugreport"><a asp-controller="@HomeController.ControllerName" asp-action="@nameof(HomeController.ReportBugs)">反馈Bug</a></li>
                 </ul>
             </div>
@@ -55,6 +55,19 @@
 
     @RenderSection("Scripts", required: false)
     @RenderBody()
+    <div id="otherOptions" class="container">
+        <br />
+        <br />
+        <h5 class="container">你还可以：</h5>
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-default center-all" style="width: 100%" onClick="location.href = '/Home/ReportBugs';">汇报问题</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-default btn-md center-all" style="width: 100%" onClick="location.href = '/';">返回主菜单</button>
+            </div>
+        </div>
+    </div>
     <div class="xnav" id="xnav" style="font-size: 11px;" onclick="fx();"></div>
     <script>
         var a = 'Woodenbench for Schoolbus 2018 ~ 2020';

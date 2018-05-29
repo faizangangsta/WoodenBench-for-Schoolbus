@@ -70,11 +70,11 @@ namespace WBPlatform.WebManagement.Tools
             string WeiXinID = JSON["UserId"];
             switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("Username", WeiXinID), out List<UserObject> UserList))
             {
-                case -1: return null;
-                case 0:
+                case DatabaseQueryResult.INTERNAL_ERROR: return null;
+                case DatabaseQueryResult.NO_RESULTS:
                     LogonUser = WeiXinID;
                     return "0";
-                case 1:
+                case DatabaseQueryResult.ONE_RESULT:
                     LogonUser = UserList[0];
                     string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);
                     lock (__SessionCollection)

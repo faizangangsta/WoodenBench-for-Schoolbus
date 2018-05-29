@@ -17,7 +17,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = "Home";
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 if ((user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin))
                 {
                     if (Request.Cookies["LoginRedirect"] != null)
@@ -87,7 +87,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 string Session = Sessions.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
                 if (string.IsNullOrEmpty(Session))
-                    return _OnInternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, "UNKNOWN ERROR", "WECHAT_LOGIN", ErrorRespCode.InternalError);
+                    return _OnInternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "UNKNOWN ERROR", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
                 else if (Session == "0")
                 {
                     string token = Crypto.SHA512Encrypt(Crypto.RandomString(20, true));

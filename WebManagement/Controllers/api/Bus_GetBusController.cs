@@ -22,14 +22,14 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", UserID).WhereEqualTo("objectId", BusID), out List<SchoolBusObject> BusList))
                     {
-                        case -1: return WebAPIResponseErrors.InternalError;
-                        case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("BusID", BusID), out List<StudentObject> StudentList))
                             {
-                                case -1: return WebAPIResponseErrors.InternalError;
-                                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)

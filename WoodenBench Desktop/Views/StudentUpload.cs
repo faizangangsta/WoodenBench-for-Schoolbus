@@ -171,8 +171,8 @@ namespace WBPlatform.WinClient.Views
             DatabaseQuery ClassQuery = new DatabaseQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            int resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
-            if (resultCode == 0)
+            DatabaseQueryResult resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            if (resultCode == DatabaseQueryResult.NO_RESULTS)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
                 return;

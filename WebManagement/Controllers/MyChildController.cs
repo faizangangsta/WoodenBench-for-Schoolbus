@@ -19,7 +19,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 ViewData["cUser"] = user.ToString();
                 //ViewData["ChildCount"] = user.ChildList.Count;
 
@@ -41,7 +41,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 if (ID == null) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
                 if (IDSplit.Length != 2) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
@@ -51,7 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case -1: return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.UserName, ErrorRespCode.InternalError);
+                    case DatabaseQueryResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "MyChild::ParentsCheck ==> FetchStudentListError", user.UserName, ErrorRespCode.InternalError);
                     case 0: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         foreach (StudentObject item in StudentListInBus)

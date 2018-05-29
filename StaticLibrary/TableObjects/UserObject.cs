@@ -73,7 +73,7 @@ namespace WBPlatform.TableObject
             FirstLogin = false;
             return this;
         }
-        public string GetIdentifyCode()
+        public string GetIdentifiableCode()
         {
             return UserName + "-" + objectId;
         }
@@ -86,6 +86,16 @@ namespace WBPlatform.TableObject
         {
             string result = "";
             foreach (string item in ClassList)
+            {
+                result = result + item + Splitter.ToString();
+            }
+            return result;
+        }
+
+        public string GetChildIdString(char Splitter)
+        {
+            string result = "";
+            foreach (string item in ChildList)
             {
                 result = result + item + Splitter.ToString();
             }

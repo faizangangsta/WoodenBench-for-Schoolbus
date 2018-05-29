@@ -1,50 +1,65 @@
 ﻿@{
-    ViewData["Title"] = "用户管理";
+    ViewData["Title"] = "校车管理";
 }
-<h4 id="ProcInfo" style="text-align: center; text-decoration-style: double; color: red;"></h4>
-<br>
+@model WBPlatform.TableObject.UserObject;
 <div class="container">
     <div class="container">
-        <div class="col-lg-1 col-sm-2 col-md-2 col-xs-4"><img id="UserHImg" src="Backgrounds/404-1.jpg" width="64" height="64" alt="" /></div>
-        <label>当前登陆用户</label>
-        <label id="CUserRName">加载中...</label>
-        <br>
-        <label>微信账号</label>
-        <label id="CUserWCharID">加载中...</label>
-    </div>
-
-
-    <div class="container">
-        <label>绑定当前的微信号</label>
-        <br>
-        @Model.Password
-        <div class="container">
-            <p id="bongdingInfo">(绑定后可以使用微信登录)</p>
-            <button type="button" id="bongdingWCBtn" class="btn btn-sm btn-default" onclick="JumpToWeChatLogin('bonding');">绑定当前微信号</button>
-            <button type="button" id="UbongdingWCBtn" class="btn btn-sm btn-danger" onclick="UBondingCheck();" style="display: none">解绑微信号</button>
+        <div class="col-lg-1 col-sm-2 col-xs-4 col-lg-offset-0"><img id="UserHImg" src="#" width="64" height="64" alt="" /></div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5 id="BusDirection">查看我的用户信息</h5>
         </div>
     </div>
-    <hr>
+    <hr />
     <div class="container">
-        <label>添加密码</label>
-        <br>
+        <label>用户名：</label>@Model.UserName<br />
+        <label>用户ID：</label>@Model.objectId<br />
+        <label>真实姓名：</label>@Model.RealName<br />
+        <label>性别：</label>@(Model.Sex == "M" ? "男" : "女")<br />
+        <label>手机号码：</label>@Model.PhoneNumber<br />
+        <label>已经设置密码：</label>@(string.IsNullOrEmpty(Model.Password) ? "否❌" : "是✔")<br />
+        <button class="btn btn-default btn-sm">修改或添加密码</button> <br /><br />
+        <label>用户权限分配：</label>
         <div class="container">
-            <p id="ChangPsWdLabel" style="margin-bottom: 5px">
-                点击按钮修改密码：
-                <button type="button" class="btn btn-sm btn-default" id="ChangePsBtn">添加密码</button>
-            </p>
-            <div id="NewPs" class="text-center" style="display: none">
-                <input class="TxBox" style="display: block;" value="" id="NPsW1" type="password" placeholder="输入新密码" />
-                <input class="TxBox" style="display: block;" value="" id="NPsW2" type="password" placeholder="再次输入新密码" />
-                <button type="button" class="btn btn-sm btn-default" style="margin-top: 8px; width: 60%" onclick="DoChangePsWd();">提交</button>
-            </div>
+            <label>家长：</label>@(Model.UserGroup.IsParent ? "是✔" : "否❌")<br />
+            <label>校车老师：</label>@(Model.UserGroup.IsBusManager ? "是✔" : "否❌")<br />
+            <label>班主任：</label>@(Model.UserGroup.IsClassTeacher ? "是✔" : "否❌")<br />
+            <label>系统管理员：</label>@(Model.UserGroup.IsAdmin ? "是✔" : "否❌")<br />
         </div>
     </div>
-    <hr>
+    <hr />
+    <div id="techInfo" class="container">
+        <label id="techBtnlabel">其他：</label>
+        <button class="btn btn-warning btn-sm" onClick="location.href = '/Account/RequestChange'">申请修改用户数据</button>
+        <button id="showTechinfoBtn" class="btn btn-info btn-sm" onclick="showTechinfo();">显示技术信息</button>
+        <button id="hideTechinfoBtn" class="btn btn-info btn-sm hidden" onclick="hideTechinfo();">隐藏技术信息</button>
+        <div id="innerTechInfo" class="hidden">
+            <br />
+            <label>技术信息: </label><br />
+            <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
+            <label>ChildList：</label>@Model.GetChildIdString(';')<br />
+            <label>ClassList：</label>@Model.GetClassIdString(';')<br />
+            <label>BusID：</label>@Model.UserGroup.BusID<br />
+            <label>CreationTime：</label>@Model.createdAt<br />
+            <label>ModifiedTime：</label>@Model.updatedAt<br />
+        </div>
+    </div>
 </div>
 <script>
-    function DoChangePsWd()
     {
-        WriteUserData()
+        var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
+
+        $("#UserID").text("你好，" + CurrentUser.RealName);
+        $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+        function showTechinfo() {
+            $("#innerTechInfo").removeClass("hidden");
+            $("#showTechinfoBtn").addClass("hidden");
+            $("#hideTechinfoBtn").removeClass("hidden");
+        }
+        function hideTechinfo() {
+            $("#innerTechInfo").addClass("hidden");
+            $("#showTechinfoBtn").removeClass("hidden");
+            $("#hideTechinfoBtn").addClass("hidden");
+        }
     }
 </script>

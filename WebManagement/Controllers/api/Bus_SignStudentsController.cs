@@ -40,8 +40,8 @@ namespace WBPlatform.WebManagement.Controllers
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
-                case -1: return WebAPIResponseErrors.InternalError;
-                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
@@ -50,8 +50,8 @@ namespace WBPlatform.WebManagement.Controllers
                         _stuQuery.WhereEqualTo("BusID", BusID);
                         switch (Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
-                            case -1: return WebAPIResponseErrors.InternalError;
-                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
                                 if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseErrors.RequestIllegal;
                                 StudentObject stu = StuList[0];

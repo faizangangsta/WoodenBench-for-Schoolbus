@@ -25,8 +25,8 @@ namespace WBPlatform.WebManagement.Controllers
             Dictionary<string, string> dict = new Dictionary<string, string>();
             switch (Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
             {
-                case -1: return WebAPIResponseErrors.InternalError;
-                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

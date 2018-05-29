@@ -24,8 +24,8 @@ namespace WBPlatform.WebManagement.Controllers
             query.WhereEqualTo("objectId", BusID);
             switch (Database.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
-                case -1: return WebAPIResponseErrors.InternalError;
-                case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                 default:
                     {
                         object Equals2Obj = Content;
@@ -37,8 +37,8 @@ namespace WBPlatform.WebManagement.Controllers
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (Database.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
-                            case -1: return WebAPIResponseErrors.InternalError;
-                            case 0: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

@@ -19,17 +19,17 @@ namespace WBPlatform.Databases
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _Bmob.initialize(Resources.BmobDatabaseApplicationID, Resources.BmobDatabaseREST);
         }
-        public static int QuerySingleData<T>(DatabaseQuery query, out T Result) where T : DataTable, new()
+        public static DatabaseQueryResult QuerySingleData<T>(DatabaseQuery query, out T Result) where T : DataTable, new()
         {
             Result = null;
+            DatabaseQueryResult ret = QueryMultipleData(query, out List<T> Results, 1);
             try
             {
-                int ret = QueryMultipleData(query, out List<T> Results, 1);
-                if (ret > 1)
+                if (ret == DatabaseQueryResult.MORE_RESULTS)
                 {
                     throw new Exception("Multiple results found in 'QuerySingleData' Function, unexpected data loss.");
                 }
-                else if (ret == 0)
+                else if (ret == DatabaseQueryResult.NO_RESULTS)
                 {
                     throw new Exception("No results found in 'QuerySingleData' Function, unexpected data loss.");
                 }
@@ -42,10 +42,10 @@ namespace WBPlatform.Databases
             catch (Exception ex)
             {
                 LogWritter.ErrorMessage(ex.Message);
-                return 2;
+                return ret;
             }
         }
-        public static int QueryMultipleData<T>(DatabaseQuery query, out List<T> Result, int queryLimit = 100) where T : DataTable, new()
+        public static DatabaseQueryResult QueryMultipleData<T>(DatabaseQuery query, out List<T> Result, int queryLimit = 100) where T : DataTable, new()
         {
             query.Limit(queryLimit);
             Result = new List<T>();
@@ -57,14 +57,19 @@ namespace WBPlatform.Databases
                 if (FindTask.IsCompleted)
                 {
                     Result = FindTask.Result.results;
-                    return Result.Count;
+                    switch (Result.Count)
+                    {
+                        case 0: return DatabaseQueryResult.NO_RESULTS;
+                        case 1: return DatabaseQueryResult.ONE_RESULT;
+                        default: return DatabaseQueryResult.MORE_RESULTS;
+                    };
                 }
-                else return -1;
+                else return DatabaseQueryResult.INTERNAL_ERROR;
             }
             catch (Exception ex)
             {
                 LogWritter.ErrorMessage(ex.Message + "::" + ex.InnerException?.Message);
-                return -1;
+                return DatabaseQueryResult.INTERNAL_ERROR;
             }
         }
 

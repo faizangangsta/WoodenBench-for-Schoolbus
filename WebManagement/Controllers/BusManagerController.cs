@@ -17,7 +17,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
@@ -50,7 +50,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["SignMode"] = signmode;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 ViewData["cUser"] = user.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
@@ -72,7 +72,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 ViewData["cUser"] = user.ToString();
                 if (user.UserGroup.IsBusManager && (!string.IsNullOrEmpty(user.UserGroup.BusID) || (user.UserGroup.BusID != "0")))
                 {
@@ -89,19 +89,19 @@ namespace WBPlatform.WebManagement.Controllers
             return View();
         }
 
-        private IActionResult CheckFlag(int flag, bool isSingleRequest, UserObject user, string info)
+        private IActionResult CheckFlag(DatabaseQueryResult flag, bool isSingleRequest, UserObject user, string info)
         {
             switch (flag)
             {
-                case -1: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
-                case 0: return null; ///_OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.ItemsNotFound, info + ":" + flag, user.UserName);
-                case 1: return null;
-                case 2: return isSingleRequest ? _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName) : null;
+                case DatabaseQueryResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case DatabaseQueryResult.MORE_RESULTS:
+                    if (isSingleRequest) _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName);
+                    return null;
                 default: return null;
             }
         }
         /// <summary>
-        /// TODO: If Parents Does not exist.. or Bus doesnot exist,, give a special warning instead of an functionless ERROR....
+        /// TODO: If Parents Does not exist.. or Bus does not exist,, give a special warning instead of an functionless ERROR....
         /// </summary>
         /// <param name="StudentID"></param>
         /// <param name="ClassID"></param>
@@ -112,50 +112,121 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifyCode());
-
+                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
                 // User Group Check
                 if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
-                    int flag = 0xff;
+                    DatabaseQueryResult flag;
                     IActionResult result = null;
 
+                    ViewStudentInfo info = new ViewStudentInfo();
+
                     //Search student with spec ClassID and StudentID and BusID
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("ClassID", ClassID).WhereEqualTo("objectId", StudentID).WhereEqualTo("BusID", BusID), out StudentObject Student);
+                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
                     result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
                     if (result != null) return result;
+                    if (Student != null)
+                    {
+                        info.StudentFound = true;
+                        info._student = Student;
 
-                    //Get Class information with ClassID
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
-                    result = CheckFlag(flag, true, user, "GetClassBy_CID");
-                    if (result != null) return result;
+                        //Get Class information with ClassID
+                        flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
+                        result = CheckFlag(flag, true, user, "GetClassBy_CID");
+                        if (result != null) return result;
+                        else
+                        {
+                            if (flag == DatabaseQueryResult.NO_RESULTS)
+                            {
+                                info.ClassFound = false;
+                                info._class = null;
+                            }
+                            else
+                            {
+                                info.ClassFound = true;
+                                info._class = Class;
+                                //Get Class Teacher Information
+                                flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
+                                result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
+                                if (result != null) return result;
+                                else
+                                {
+                                    if (flag == DatabaseQueryResult.NO_RESULTS)
+                                    {
+                                        info.ClassTeacherFound = false;
+                                        info._CTeacher = null;
+                                    }
+                                    else
+                                    {
+                                        info.ClassTeacherFound = true;
+                                        info._CTeacher = Teacher;
+                                    }
+                                }
+                            }
+                        }
 
-                    //Get Class Teacher Information
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
-                    result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
-                    if (result != null) return result;
-
-                    //Get Parents
-                    flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainsAll("ChildList", Student.objectId), out List<UserObject> Parents);
-                    result = CheckFlag(flag, false, user, "GetParentsBy_UID");
-                    if (result != null) return result;
-
-
-                    // Get SchoolBus
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
-                    result = CheckFlag(flag, true, user, "GetBusBy_BID");
-                    if (result != null) return result;
-
-                    // Get SchoolBus Teacher.
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
-                    result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
-                    if (result != null) return result;
+                        //Get Parents
+                        flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainsAll("ChildList", Student.objectId), out List<UserObject> Parents);
+                        result = CheckFlag(flag, false, user, "GetParentsBy_UID");
+                        if (result != null) return result;
+                        else
+                        {
+                            if (flag == DatabaseQueryResult.NO_RESULTS)
+                            {
+                                info.ParentsCount = 0;
+                                info._Parents = null;
+                            }
+                            else
+                            {
+                                info.ParentsCount = Parents.Count;
+                                info._Parents = Parents.ToArray();
+                            }
+                        }
 
 
-                    //  Is in user's class?                                     Is in user's Bus??                          Is user's child??                           I am the god...
-                    if (user.ClassList.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
-                        return View(new _DataCollection<StudentObject, ClassObject, UserObject, UserObject[], SchoolBusObject, UserObject>(Student, Class, Teacher, Parents.ToArray(), Bus, BusTeacher));
-                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "ViewStudent::NoPermissionToViewStudent", user.UserName, ErrorRespCode.PermisstionDenied);
+                        // Get SchoolBus
+                        flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
+                        result = CheckFlag(flag, true, user, "GetBusBy_BID");
+                        if (result != null) return result;
+                        else
+                        {
+                            if (flag == DatabaseQueryResult.NO_RESULTS)
+                            {
+                                info.BusFound = false;
+                                info._schoolbus = null;
+                            }
+                            else
+                            {
+                                info.BusFound = true;
+                                info._schoolbus = Bus;
+                                // Get SchoolBus Teacher.
+                                flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
+                                result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
+                                if (result != null) return result;
+                                else
+                                {
+                                    if (flag == DatabaseQueryResult.NO_RESULTS)
+                                    {
+                                        info.BusTeacherFound = false;
+                                        info._BTeacher = null;
+                                    }
+                                    else
+                                    {
+                                        info.BusTeacherFound = true;
+                                        info._BTeacher = BusTeacher;
+                                    }
+                                }
+                            }
+                        }
+
+                        //        Is in user's class?                             Is in user's Bus??                          Is user's child??                  I am the god...
+                        if (user.ClassList.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
+                        {
+                            return View(info);
+                        }
+                        else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "ViewStudent::NoPermissionToViewStudent", user.UserName, ErrorRespCode.PermisstionDenied);
+                    }
+                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "ViewStudent::RequestIsNotValid", user.UserName, ErrorRespCode.RequestIllegal);
                 }
                 else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "ViewStudent::NoUserGroupProvided", user.UserName, ErrorRespCode.RequestIllegal);
             }

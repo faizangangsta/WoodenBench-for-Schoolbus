@@ -31,4 +31,8 @@ namespace WBPlatform.StaticClasses
     public enum LogType { Err, Info, LongChain }
     public enum NotificationType { WindowsClient, WeChatC2C, WeChatMultiCast, WeChatBroadCast }
     public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
+    public enum DatabaseQueryResult
+    {
+        INTERNAL_ERROR = -1, NO_RESULTS = 0, ONE_RESULT = 1, MORE_RESULTS
+    }
 }
