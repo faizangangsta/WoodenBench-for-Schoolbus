@@ -17,13 +17,13 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName + "/");
             }
         }
@@ -33,13 +33,13 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
                 return View();
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName + "/WeekIssue");
             }
         }
@@ -50,11 +50,12 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["SignMode"] = signmode;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
-                    ViewData["cBus"] = user.UserGroup.BusID;
+                    Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    ViewData["cBus"] = busObject.objectId;
                     ViewData["mode"] = signmode;
                     return View();
                 }
@@ -62,7 +63,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
             }
         }
@@ -72,18 +73,27 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
-                if (user.UserGroup.IsBusManager && (!string.IsNullOrEmpty(user.UserGroup.BusID) || (user.UserGroup.BusID != "0")))
+                if (user.UserGroup.IsBusManager)//&& (!string.IsNullOrEmpty(user.UserGroup.BusID) || (user.UserGroup.BusID != "0")))
                 {
-                    ViewData["cBus"] = user.UserGroup.BusID;
+                    /// TEST
+                    /// 
+                    /// 
+                    /// 
+                    /// 
+                    /// 
+                    ///
+
+                    Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;
                 }
                 else return _OnInternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "_ArriveHomeSigning::UserGroupInvalid", user.UserName, ErrorRespCode.PermisstionDenied);
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
             }
             return View();
@@ -112,7 +122,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 // User Group Check
                 if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
@@ -220,7 +230,7 @@ namespace WBPlatform.WebManagement.Controllers
                         }
 
                         //        Is in user's class?                             Is in user's Bus??                          Is user's child??                  I am the god...
-                        if (user.ClassList.Contains(Student.ClassID) || user.UserGroup.BusID == Student.BusID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
+                        if (user.ClassList.Contains(Student.ClassID) || user.objectId == Bus.TeacherID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
                         {
                             return View(info);
                         }
@@ -234,7 +244,7 @@ namespace WBPlatform.WebManagement.Controllers
             //Return to Home because this is privacy-related function
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/");
             }
         }

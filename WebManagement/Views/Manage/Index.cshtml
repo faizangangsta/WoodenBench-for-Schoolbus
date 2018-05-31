@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "校车管理";
+}
+<div class="container">
+    <div class="container">
+
+        <div class="col-lg-1 col-sm-2 col-xs-4 col-lg-offset-0"><img id="UserHImg" src="#" width="64" height="64" alt="" /></div>
+        <div class="col-lg-offset-0 col-lg-3">
+            <h4 id="UserID">加载中...</h4>
+            <h5 id="BusDirection">在这里管理小板凳平台</h5>
+        </div>
+    </div>
+    <hr />
+
+    <!--This is Function Choosing Part-->
+    <div class="container">
+        <label>用户管理</label>
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-success center-all" style="width: 100%" onclick="location.href = '/Manage/Query?targ=user&allowedit=true' ">用户查询/编辑</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-success btn-md center-all" style="width: 100%" onclick="location.href = '/Manage/regUser' ">手动注册用户</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-success center-all" style="width: 100%" onclick="location.href = '/Manage/Query?targ=changereq&allowedit=true' ">工单查询/处理</button>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="container">
+        <label>校车数据管理</label>
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-warning center-all" style="width: 100%" onclick="location.href = '/Manage/Query?targ=bus&allowedit=true' ">校车查询/编辑</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-warning btn-md center-all" style="width: 100%">重置签到数据</button>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+          <div class="container">
+              <label>学生数据管理</label>
+              <div class="center-all">
+                  <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <button class="btn btn-danger center-all" style="width: 100%" onclick="location.href = '/Manage/Query?targ=student&allowedit=true' ">学生查询/编辑</button>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <button class="btn btn-danger btn-md center-all" style="width: 100%" onclick="location.href = '/Manage/Query?targ=class&allowedit=true' ">班级管理</button>
+                  </div>
+              </div>
+              <br /><br />
+              <div class="center-all">
+                  <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <button class="btn btn-danger center-all" style="width: 100%" onclick="location.href = '/Manage/ParentsRelationship' ">家庭关系编辑</button>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <button class="btn btn-danger btn-md center-all" style="width: 100%">重置签到数据</button>
+                  </div>
+              </div>
+          </div>
+    <br /><br />
+    <div class="container">
+        <label>消息群发</label>
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-info center-all" style="width: 100%" onclick="location.href = '/Manage/SendMessage?targ=allusers' ">所有用户</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-info btn-md center-all" style="width: 100%" onclick="location.href = '/Manage/SendMessage?targ=cteachers' ">所有班主任</button>
+            </div>
+        </div>
+        <br /><br />
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-info center-all" style="width: 100%" onclick="location.href = '/Manage/SendMessage?targ=bteachers' ">所有校车老师</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-info btn-md center-all" style="width: 100%" onclick="location.href = '/Manage/SendMessage?targ=parents' ">所有家长</button>
+            </div>
+        </div>
+        <br /><br />
+        <div class="center-all">
+            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-info center-all" style="width: 100%" onclick="location.href = '/Manage/SendMessage?targ=list' ">其他条件筛选</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    {
+        var currentBus;
+        var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
+
+        $("#UserID").text("你好，" + CurrentUser.RealName);
+        $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
+    }
+</script>

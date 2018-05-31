@@ -61,7 +61,7 @@
                 $("#TimeoutLabel").text("刷新时间：正在刷新");
                 $("#LSChecked").text("离校签到人数: 加载中...");
                 $("#CSChecked").text("返校签到人数: 加载中...");
-                GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+                GetMgmtBus(CurrentUser.userID, getCookie("Session"), BusCallBack);
             }
             TOut--;
         }
@@ -91,7 +91,7 @@
         var totalStudents;
         var CurrentBus;
         var SignMode = "@((string)ViewData["SignMode"])";
-        GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack_M);
+        GetMgmtBus(CurrentUser.userID, getCookie("Session"), BusCallBack_M);
         function BusCallBack_M(data)
         {
             CurrentBus = data;

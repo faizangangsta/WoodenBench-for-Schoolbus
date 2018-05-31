@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 
 using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement.Controllers
@@ -15,7 +16,6 @@ namespace WBPlatform.WebManagement.Controllers
     public abstract class _Controller : Controller, IInternalController
     {
         public abstract IActionResult Index();
-
         public HttpResponse procRespCookies(HttpResponse resp, string user, Dictionary<string, string> cookiePair)
         {
             if (cookiePair == null || cookiePair.Count == 0)
@@ -35,10 +35,16 @@ namespace WBPlatform.WebManagement.Controllers
 
         protected IActionResult _LoginFailed(string RedirectPage)
         {
+            AIUnknownUser();
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
             return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
+
+        private static readonly string identifiedUID_CookieName = "identifiedUID";
+        private static readonly string UnknownUID = "unknownUser";
+        public void AIKnownUser(UserObject user) => Response.Cookies.Append(identifiedUID_CookieName, user.GetIdentifiableCode());
+        public void AIUnknownUser() => Response.Cookies.Append(identifiedUID_CookieName, UnknownUID);
 
         protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
@@ -59,19 +65,16 @@ namespace WBPlatform.WebManagement.Controllers
 
         private static void BuildWeChatPacket(string LoginUsr, ViewDataDictionary ViewData, HttpResponse Response)
         {
-            WeChatMessage _Message = new WeChatMessage
-            {
-                MessageType = WeChat.RcvdMessageType._INJECTION_DEVELOPER_ERROR_REPORT,
-                TextContent = "ERROR!" +
-                            "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
-                            "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
-                            "\r\nCODE:" + Response.StatusCode + "\r\n" +
-                            "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
-                            "\r\nLUSR:" + LoginUsr + "\r\n" +
-                            "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
-                            "\r\nDNFO:" + ViewData["DetailedInfo"]
-            };
-            WeChatMessageProc.SendWeChatMessage(_Message);
+            WeChatSentMessage _Message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
+                "ERROR!" +
+                "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
+                "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
+                "\r\nCODE:" + Response.StatusCode + "\r\n" +
+                "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
+                "\r\nLUSR:" + LoginUsr + "\r\n" +
+                "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
+                "\r\nDNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
+            WeChatMessageSystem.AddToSendList(_Message);
         }
     }
     public interface IInternalController

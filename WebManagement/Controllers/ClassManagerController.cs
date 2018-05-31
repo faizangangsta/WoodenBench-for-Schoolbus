@@ -18,7 +18,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 if (user.UserGroup.IsClassTeacher)
                 {
                     switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
@@ -36,7 +36,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIKnownUser(user);
                 return _LoginFailed("/ClassManager/Index/");
             }
 

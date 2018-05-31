@@ -39,10 +39,15 @@
             <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
             <label>ChildList：</label>@Model.GetChildIdString(';')<br />
             <label>ClassList：</label>@Model.GetClassIdString(';')<br />
-            <label>BusID：</label>@Model.UserGroup.BusID<br />
             <label>CreationTime：</label>@Model.createdAt<br />
             <label>ModifiedTime：</label>@Model.updatedAt<br />
         </div>
+        @if (Model.UserGroup.IsAdmin)
+        {
+            <br /> <br />
+            <label>管理员选项: </label>
+            <button id="enterManageZone" class="btn btn-danger btn-sm" onclick="location.href = '/Manage/'">进入管理后台</button>
+        }
     </div>
 </div>
 <script>

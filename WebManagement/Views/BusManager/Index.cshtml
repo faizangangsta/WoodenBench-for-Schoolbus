@@ -50,17 +50,17 @@
         $("#UserID").text("你好，" + CurrentUser.RealName);
         $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
 
-        GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+        GetMgmtBus(CurrentUser.userID, getCookie("Session"), BusCallBack);
 
         function BusCallBack(data)
         {
             currentBus = data;
             setCookie("CBusID", currentBus.busID);
             $("#BusDirection").text("我的校车: " + currentBus.Name);
-            $("#ExpNumber").text("校车总人数: " + currentBus.Total);
-            $("#LSChecked").text("离校上车人数: " + currentBus.LSChecked);
-            $("#AHChecked").text("到家确认人数: " + currentBus.AHChecked);
-            $("#CSChecked").text("返校上车人数: " + currentBus.CSChecked);
+            $("#ExpNumber").text("校车总人数: " + currentBus.Total + "人");
+            $("#LSChecked").text("离校上车人数: " + currentBus.LSChecked + "人");
+            $("#AHChecked").text("到家确认人数: " + currentBus.AHChecked + "人");
+            $("#CSChecked").text("返校上车人数: " + currentBus.CSChecked + "人");
         }
 
         function SignStudents(Mode)

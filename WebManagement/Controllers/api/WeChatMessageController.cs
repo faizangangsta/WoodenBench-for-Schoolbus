@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
+﻿using System.IO;
 using System.Text;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.StaticClasses;
 using WBPlatform.WebManagement.Tools;
 
@@ -49,10 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Response.StatusCode = 500;
                 return;
             }
-            lock (WeChatMessageProc.MessageList)
-            {
-                WeChatMessageProc.MessageList.Add(new WeChatMessage(XML_Message));
-            }
+            WeChatMessageSystem.onMsgRcvd(new WeChatRcvdMessage(XML_Message));
             Response.StatusCode = 200;
             Response.WriteAsync("");
         }

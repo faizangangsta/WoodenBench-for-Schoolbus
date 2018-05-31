@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RootNamespace>WBServicePlatform.WebManagement</RootNamespace>
+    <RootNamespace>WBPlatform.WebManagement</RootNamespace>
     <UserSecretsId>5b336559-346a-40e3-8458-681de1ec5c08</UserSecretsId>
     <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
     <SignAssembly>false</SignAssembly>
@@ -77,6 +77,10 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\api\adminOnlyapi\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -19,7 +19,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
                 //ViewData["ChildCount"] = user.ChildList.Count;
 
@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName);
             }
 
@@ -41,7 +41,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 if (ID == null) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
                 if (IDSplit.Length != 2) return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "MyChild::ParentsCheck ==> Req_Error", user.UserName, ErrorRespCode.RequestIllegal);
@@ -77,7 +77,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
             }
         }

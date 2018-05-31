@@ -33,7 +33,14 @@ namespace WBPlatform.TableObject
             UserName = input.getString("Username");
             Password = input.getString("Password");
             Sex = input.getString("Sex");
-            UserGroup = new UserGroup(input.getString("UserGroup"));
+
+            UserGroup = new UserGroup(
+                isAdmin: input.getBoolean("isAdmin").Get(), 
+                isTeacher: input.getBoolean("isClassTeacher").Get(), 
+                isBusManager: input.getBoolean("isBusTeacher").Get(), 
+                isParent: input.getBoolean("isParent").Get());
+
+
             WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
             RealName = input.getString("RealName");
             FirstLogin = input.getBoolean("IsFstLgn").Get();
@@ -51,7 +58,12 @@ namespace WBPlatform.TableObject
             output.Put("Username", UserName);
             output.Put("Password", Password);
             output.Put("Sex", Sex);
-            output.Put("UserGroup", UserGroup.ToString());
+
+            //output.Put("isAdmin", UserGroup.IsAdmin);  DISABLED DUE TO SECURTY ISSUE....
+            output.Put("isClassTeacher", UserGroup.IsClassTeacher);
+            output.Put("isBusTeacher", UserGroup.IsBusManager);
+            output.Put("isParent", UserGroup.IsParent);
+
             output.Put("RealName", RealName);
             output.Put("IsFstLgn", FirstLogin);
             output.Put("HeadImage", HeadImagePath);
@@ -68,7 +80,7 @@ namespace WBPlatform.TableObject
             Password = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
             HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
-            UserGroup = new UserGroup("A0,T0|,P0,B0");
+            UserGroup = new UserGroup(false, false, false, false);
             WebNotiSeen = false;
             FirstLogin = false;
             return this;
@@ -120,7 +132,7 @@ namespace WBPlatform.TableObject
                 { "IsBusTeacher", UserGroup.IsBusManager.ToString().ToLower() },
                 { "IsParent" ,UserGroup.IsParent.ToString().ToLower()},
                 { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
-                { "BusID", UserGroup.BusID },
+                //{ "BusID", UserGroup.BusID },
                 { "ClassIDs", GetClassIdString(';') }
             };
         }

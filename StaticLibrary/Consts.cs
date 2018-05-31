@@ -26,13 +26,14 @@ namespace WBPlatform.StaticClasses
         public const string TABLE_Gen_UserRequest = "UserRequest";
 
     }
-    public enum UserChangeRequestTypes { Realname, PhoneNumber, ClassID, ChildID, BusID }
+    public enum UserChangeRequestTypes { 真实姓名, 手机号码, 班级, 孩子, 校车 }
     public enum OperationStatus { Completed, Failed }
     public enum LogType { Err, Info, LongChain }
     public enum NotificationType { WindowsClient, WeChatC2C, WeChatMultiCast, WeChatBroadCast }
     public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
-    public enum DatabaseQueryResult
+    public enum DatabaseQueryResult { INTERNAL_ERROR = -1, NO_RESULTS = 0, ONE_RESULT = 1, MORE_RESULTS }
+    public enum GlobalMessageTypes
     {
-        INTERNAL_ERROR = -1, NO_RESULTS = 0, ONE_RESULT = 1, MORE_RESULTS
+        UCR_Created, UCR_Solved
     }
 }

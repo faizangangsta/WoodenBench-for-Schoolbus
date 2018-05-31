@@ -54,7 +54,7 @@
                 $("#TimeoutLabel").text("刷新时间：正在刷新");
                 $("#ExpNumber").text("校车总人数: 加载中...");
                 $("#AHChecked").text("到家确认人数: 加载中...");
-                GetMgmtBus(CurrentUser.userID, CurrentUser.BusID, getCookie("Session"), BusCallBack);
+                GetMgmtBus(CurrentUser.userID, getCookie("Session"), BusCallBack);
             }
             TOut--;
         }

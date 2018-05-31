@@ -1,16 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "登陆";
+    ViewData["Title"] = "重新登陆";
 }
 <script>
     $("#navBar01").remove();
     $("#navBar01_btn").remove();
 </script>
 <div class="container text-center">
-    <p>操作失败了</p>
+    <p>用户会话超时</p>
     <p>请重新登陆.......</p>
-    <br />
     <div class="container">
         <button class="btn btn-danger" onclick="location.href = '/'">尝试重新登陆</button>
     </div>
-    <p>多次重试还是登陆失败的话,你可以<a href="/Home/ReportBugs">反馈Bug</a></p>
 </div>

@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "requestResult";
+}
+@{ 
+    string request = "";
+    if ((string)ViewData["req"] == "changereq")
+    {
+        request = "提交工单";
+    }
+    string result = (string)ViewData["status"] == "ok" ? "成功" : "出错";
+    string callbackAddr = (string)ViewData["callback"];
+}
+<div class="container text-center">
+    <h3>请求处理@(result)</h3>
+    @if ((string)ViewData["status"] == "ok")
+    {
+        <p>你刚才的 @(request) 请求已经提交成功！</p>
+    }
+    else
+    {
+        <p>你刚才的 @(request) 在提交时出现问题！</p>
+        <p>请及时反馈Bug！</p>
+    }
+    <button class="btn btn-default btn-success" onclick="location.href = '@callbackAddr'">继续操作</button>
+</div>
+<script id="rm_">
+    function rm() {
+        $("#otherOptions").remove();
+        $("#rm_").remove();
+    }
+</script>
+<script>
+    setTimeout(rm, 500);
+</script>

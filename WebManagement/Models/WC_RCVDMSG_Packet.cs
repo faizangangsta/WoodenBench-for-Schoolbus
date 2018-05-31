@@ -9,7 +9,7 @@ using WBPlatform.StaticClasses;
 
 namespace WBPlatform.WebManagement.Tools
 {
-    public class WeChatMessage
+    public class WeChatRcvdMessage
     {
         public WeChat.RcvdMessageType MessageType { get; set; }
         public WeChat.Event Event { get; set; }
@@ -25,8 +25,8 @@ namespace WBPlatform.WebManagement.Tools
         public string MediaId { get; set; }
         public string EventKey { get; set; }
 
-        public WeChatMessage() { }
-        public WeChatMessage(string XMLMessage)
+        public WeChatRcvdMessage() { }
+        public WeChatRcvdMessage(string XMLMessage)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(XMLMessage);

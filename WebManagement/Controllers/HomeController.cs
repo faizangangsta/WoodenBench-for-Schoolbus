@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
 
-using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -17,7 +17,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = "Home";
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, user.GetIdentifiableCode());
+                AIKnownUser(user);
                 if ((user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin))
                 {
                     if (Request.Cookies["LoginRedirect"] != null)
@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+                AIUnknownUser();
                 string Stamp = DateTime.Now.TimeOfDay.TotalMilliseconds + ";WCLogin";
                 string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
                     "appid=" + WeChat.CorpID +
@@ -59,14 +59,31 @@ namespace WBPlatform.WebManagement.Controllers
             return View();
         }
 
+        public IActionResult requestResult(string req, string status, string callback)
+        {
+            ViewData["where"] = ControllerName;
+            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            {
+                ViewData["req"] = req;
+                ViewData["status"] = status;
+                ViewData["callback"] = callback;
+                return View();
+            }
+            else
+            {
+                AIUnknownUser();
+                return _LoginFailed(callback);
+            }
+        }
+
         public IActionResult Error()
         {
-            return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, LoginUsr: "系统错误");
+            return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, LoginUsr: "SYSTEM");
         }
 
         public IActionResult Register(string token, string user, string action)
         {
-            Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+            AIUnknownUser();
             ViewData["where"] = ControllerName;
             if (token == null || Request.Cookies["Token"] == null) return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "TokenInvalid", "REGISTER", ErrorRespCode.RequestIllegal);
             if (JumpTokens.OnAccessed(token, out JumpTokens.TokenInfo? info) && (info?.User_Agent == Request.Headers["User-Agent"]))
@@ -79,7 +96,7 @@ namespace WBPlatform.WebManagement.Controllers
 
         public IActionResult WeChatLogin(string state, string code)
         {
-            Response.Cookies.Append(Constants.identifiedUID_CookieName, Constants.UnknownUID);
+            AIUnknownUser();
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
                 return _OnInternalError(ServerSideAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "Login State Seems Strange", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
@@ -90,7 +107,7 @@ namespace WBPlatform.WebManagement.Controllers
                     return _OnInternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "UNKNOWN ERROR", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
                 else if (Session == "0")
                 {
-                    string token = Crypto.SHA512Encrypt(Crypto.RandomString(20, true));
+                    string token = JumpTokens.CreateToken(); 
                     JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = Request.Headers["User-Agent"], WeChatUserName = (string)user });
                     Response.Cookies.Append("Token", token);
                     return Redirect($"/Home/Register?token={token}&user=&action=register");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WBPlatform.StaticClasses;
 
 namespace WBPlatform.WebManagement.Tools
 {
@@ -23,6 +24,8 @@ namespace WBPlatform.WebManagement.Tools
             }
             return true;
         }
+
+        public static string CreateToken() => Crypto.SHA512Encrypt(Crypto.RandomString(20, true));
 
         public static bool OnAccessed(string Token, out TokenInfo? Info)
         {

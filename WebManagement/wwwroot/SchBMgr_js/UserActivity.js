@@ -1,11 +1,10 @@
 
-function GetMgmtBus(UserID, BusID, Session, CallBackFunction)
+function GetMgmtBus(UserID, Session, CallBackFunction)
 {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetBuses?" +
             "UserID=" + UserID +
-            "&BusID=" + BusID +
             "&Session=" + Session,
         type: 'GET',
         success: function (data2)

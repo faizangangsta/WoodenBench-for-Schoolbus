@@ -46,18 +46,18 @@ namespace WBPlatform.WebManagement.Tools
         {
             user = null;
             if (SessionString == null || UserAgent == null) return false;
-            lock (__SessionCollection)
+            if (__SessionCollection.ContainsKey(SessionString) && __SessionCollection[SessionString].UserAgent == UserAgent)
             {
-                if (__SessionCollection.ContainsKey(SessionString) && __SessionCollection[SessionString].UserAgent == UserAgent)
+                SessionInfo SI = __SessionCollection[SessionString];
+                SI.LastSeenAlive = DateTime.Now;
+                lock (__SessionCollection)
                 {
-                    SessionInfo SI = __SessionCollection[SessionString];
-                    SI.LastSeenAlive = DateTime.Now;
                     __SessionCollection[SessionString] = SI;
-                    user = __SessionCollection[SessionString].user;
-                    return true;
                 }
-                else return false;
+                user = __SessionCollection[SessionString].user;
+                return true;
             }
+            else return false;
         }
 
 

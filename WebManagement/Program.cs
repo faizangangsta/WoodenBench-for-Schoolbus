@@ -3,10 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using cn.bmob.api;
-
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.WebManagement.Tools;
@@ -25,16 +24,19 @@ namespace WBPlatform.WebManagement
             WeChat.ReNewWCCodes();
             Database.Initialise();
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
-            WeChatMessageProc.StartProc();
+
+            WeChatMessageSystem.StartProc();
             MessageBackup.BeginBackup();
+            MessagingSystem.StartProcess();
+
             var webHost = BuildWebHost(args);
-            WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
-                "小板凳服务器启动成功",
-                "这是当前版本信息: <br />" +
-                "启动の时间: " + StartUpTime.ToString() + "<br /><br />" +
-                "服务端版本: " + Version + "<br />" +
-                "核心库版本: " + WBConsts.CurrentCoreVersion + "<br />" +
-                "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top");
+            //WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
+            //    "小板凳服务器启动成功",
+            //    "这是当前版本信息: <br />" +
+            //    "启动の时间: " + StartUpTime.ToString() + "<br /><br />" +
+            //    "服务端版本: " + Version + "<br />" +
+            //    "核心库版本: " + WBConsts.CurrentCoreVersion + "<br />" +
+            //    "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top");
             webHost.Run();
         }
 

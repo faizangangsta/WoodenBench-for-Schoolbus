@@ -1,0 +1,56 @@
+﻿@model WBPlatform.TableObject.UserChangeRequest
+
+@{
+    ViewData["Title"] = "修改工单提交";
+}
+<div class="container">
+    <h2>修改数据</h2>
+    <h5>提交工单，审核过后即可修改成功</h5>
+    <hr />
+    <div class="row container">
+        <div class="col-md-4">
+            <form asp-action="RequestChange">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label>要更改的数据</label>
+                    <select id="selection" asp-for="RequestTypes" class="form-control">
+                        @{
+                            string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UserChangeRequestTypes));
+                            foreach (string item in p)
+                            {
+                                <option>@item</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>简要说明更改原因</label>
+                    <input type="text" asp-for="DetailTexts" class="form-control" />
+                    <span asp-validation-for="DetailTexts" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>输入新内容</label>
+                    <input asp-for="NewContent" class="form-control" />
+                    <span asp-validation-for="NewContent" class="text-danger"></span>
+                </div>
+                <div class="form-group center-all">
+                    <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <button class="btn btn-sm btn-danger" style="width: 100%" asp-action="Index">放弃申请</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <input type="submit" style="width: 100%" class="btn btn-sm btn-success" value="提交申请" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script id="rm_">
+    function rm() {
+        $("#otherOptions").remove();
+        $("#rm_").remove();
+    }
+    setTimeout(rm, 500);
+</script>

@@ -12,12 +12,6 @@ namespace WBPlatform.StaticClasses
         public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string> { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };
         public static Dictionary<string, string> SpecialisedError(string ErrorMessage) => new Dictionary<string, string> { { "ErrCode", "998" }, { "ErrMessage", ErrorMessage } };
     }
-    public static class Constants
-    {
-        public static readonly string identifiedUID_CookieName = "identifiedUID";
-        public static readonly string UnknownUID = "unknownUser";
-
-    }
     public enum ServerSideAction
     {
         WeChatLogin_PreExecute,
@@ -80,7 +74,7 @@ namespace WBPlatform.StaticClasses
             pic_weixin,
             location_select
         }
-        public enum RcvdMessageType { text, image, voice, video, location, link, EVENT, _INJECTION_DEVELOPER_ERROR_REPORT }
+        public enum RcvdMessageType { text, image, voice, video, location, link, EVENT /*, _INJECTION_DEVELOPER_ERROR_REPORT*/ }
         public enum SentMessageType { text, image, voice, video, file, textcard, news, mpnews }
 
         private static bool InitialiseWeChatCodes()

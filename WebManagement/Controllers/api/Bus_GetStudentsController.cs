@@ -18,9 +18,9 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable Get(string BusID, string TeacherID, string Session, string STAMP)
         {
             if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseErrors.SessionError;
-            if (!(user.UserGroup.BusID == BusID && user.objectId == TeacherID))
+            if (!( user.objectId == TeacherID))//user.UserGroup.BusID == BusID &&
                 return WebAPIResponseErrors.UserGroupError;
-            if (Crypto.SHA256Encrypt(user.UserGroup.BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseErrors.RequestIllegal;
+            if (Crypto.SHA256Encrypt(BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseErrors.RequestIllegal;
             DatabaseQuery BusQuery = new DatabaseQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
