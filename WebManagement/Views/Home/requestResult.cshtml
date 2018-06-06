@@ -16,6 +16,7 @@
     @if ((string)ViewData["status"] == "ok")
     {
         <p>你刚才的 @(request) 请求已经提交成功！</p>
+        <p>请等待管理员审核，审核结果将通过微信消息发送给您。</p>
     }
     else
     {

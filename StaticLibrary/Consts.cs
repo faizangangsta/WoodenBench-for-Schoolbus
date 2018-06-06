@@ -34,6 +34,7 @@ namespace WBPlatform.StaticClasses
     public enum DatabaseQueryResult { INTERNAL_ERROR = -1, NO_RESULTS = 0, ONE_RESULT = 1, MORE_RESULTS }
     public enum GlobalMessageTypes
     {
-        UCR_Created, UCR_Solved
+        UCR_Created_TO_ADMIN, UCR_Created_TO_User,
+        UCR__Solved_TO_ADMIN, UCR__Solved_TO_User
     }
 }

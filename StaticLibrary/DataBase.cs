@@ -45,9 +45,10 @@ namespace WBPlatform.Databases
                 return ret;
             }
         }
-        public static DatabaseQueryResult QueryMultipleData<T>(DatabaseQuery query, out List<T> Result, int queryLimit = 100) where T : DataTable, new()
+        public static DatabaseQueryResult QueryMultipleData<T>(DatabaseQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : DataTable, new()
         {
             query.Limit(queryLimit);
+            query.Skip(0);
             Result = new List<T>();
             try
             {
@@ -101,11 +102,14 @@ namespace WBPlatform.Databases
                 return -1;
             }
         }
-        public static int CreateData<T>(T data) where T : DataTable, new()
+        public static int CreateData<T>(T data, out string objectId) where T : DataTable, new()
         {
+            objectId = "";
             try
             {
-                _Bmob.CreateTaskAsync(data).Wait();
+                var wait = _Bmob.CreateTaskAsync(data);
+                wait.Wait();
+                objectId = wait.Result.objectId;
                 return 0;
             }
             catch (Exception ex)

@@ -64,6 +64,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                AIKnownUser(user);
                 ViewData["req"] = req;
                 ViewData["status"] = status;
                 ViewData["callback"] = callback;

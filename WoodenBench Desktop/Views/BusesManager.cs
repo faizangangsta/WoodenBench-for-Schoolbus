@@ -171,7 +171,7 @@ namespace WBPlatform.WinClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                return Database.CreateData(busObject) == 0;
+                return Database.CreateData(busObject, out string objectId) == 0;
             }
             else
             {

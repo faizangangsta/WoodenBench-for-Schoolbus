@@ -1,0 +1,115 @@
+﻿@model WBPlatform.TableObject.UserChangeRequest
+
+@{
+    ViewData["Title"] = "工单查询";
+    bool isManage = (string)ViewData["mode"] == "manage";
+    bool isListView = (Model == null);
+    WBPlatform.TableObject.UserChangeRequest[] requests = isListView ? (WBPlatform.TableObject.UserChangeRequest[])ViewData["list"] : null;
+}
+<div class="container">
+    <div class="container">
+        @if (isManage && isListView)
+        {<h2>工单列表</h2>}
+        else if (isManage && !isListView)
+        { <h2>工单审核</h2>}
+        else if (!isManage && isListView)
+        {<h2>我的工单列表</h2>}
+        else if (!isManage && !isListView)
+        {
+            <h2>我的工单 </h2>
+            <h5>工单ID: @Model.objectId</h5>
+        }
+        <br />
+        <div class="">
+            @if (isListView)
+            {
+                <div class="row">
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">提交时间</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">类型</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">已审核</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">查看</div>
+                </div>
+                <br />
+                @foreach (var item in requests)
+                {
+                    <div class="row">
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                            <p>@item.createdAt.Replace("-", "")</p>
+                        </div>
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                            <p>@item.RequestTypes.ToString()</p>
+                        </div>
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                            <p>@(item.IsSolved ? "是✔" : "否❌")</p>
+                        </div>
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                            <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.objectId">查看🔍</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div id="singleView" class="container">
+                    <label>工单提交时间：</label>
+                    <div class="container">@Model.createdAt</div>
+                    <label>修改类型：</label>
+                    <div class="container">@Model.RequestTypes.ToString()</div>
+                    <label>新内容：</label>
+                    <div class="container">@Model.NewContent</div>
+                    <label>申请理由：</label>
+                    <div class="container">&nbsp;@Model.DetailTexts</div>
+                    <label>提交者ID：</label>
+                    <div id="userID" class="container">
+                        @Model.UserID
+                        <button class="btn btn-sm" onclick="GetName('@Model.UserID', 'userID' ,getName_Callback)">查看</button>
+                    </div>
+                    <label>处理状态：</label>
+                    <div class="container">@(Model.IsSolved ? "已处理✔" : "未处理❌")</div>
+                    <label>处理者ID：</label>
+                    <div id="solveID" class="container">
+                        @(string.IsNullOrEmpty(Model.SolverID) ? "未处理" : Model.SolverID)
+                        <button class="btn btn-sm" onclick="GetName('@Model.SolverID', 'solveID' ,getName_Callback)">查看</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+        <!--BOTTOM THINGS....-->
+        <div class="container">
+            @if (!isListView)
+            {
+                <button class="btn btn-danger btn-sm" style="width:100%" onclick="location.href = '/Manage/ChangeRequest?arg=@(isManage? "manage" : "my")'">返回列表</button>
+            }
+            @if (isManage && !isListView)
+            {
+                <button class="btn btn-danger btn-sm" onclick="doCommitIt();">提交修改</button>
+                <button class="btn btn-danger btn-sm" onclick="resetForm();">放弃更改</button>
+            }
+            else if (isManage && !isListView)
+            {
+                <button class="btn btn-info btn-sm">返回管理页面</button>
+            }
+
+            else if (!isManage && isListView)
+            {
+                <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Account/'">返回我的信息</button>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    var p, m;
+    function getName_Callback(HTMLNode, data) {
+        p = HTMLNode; m = data;
+        if (data.ErrCode == "0") {
+            $("#" + HTMLNode).html(data.Value);
+        }
+    }
+    function doCommitIt() {
+
+    }
+    function resetForm() {
+
+    }
+</script>

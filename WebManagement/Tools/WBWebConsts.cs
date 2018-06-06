@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.StaticClasses
 {
     public static class WebAPIResponseErrors
     {
-        public static Dictionary<string, string> RequestIllegal { get; } = new Dictionary<string, string> { { "ErrCode", "999" }, { "ErrMessage", "Request Illegal" } };
-        public static Dictionary<string, string> SessionError { get; } = new Dictionary<string, string> { { "ErrCode", "1" }, { "ErrMessage", "Session Invalid" } };
-        public static Dictionary<string, string> InternalError { get; } = new Dictionary<string, string> { { "ErrCode", "997" }, { "ErrMessage", "Internal Error" } };
-        public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string> { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };
-        public static Dictionary<string, string> SpecialisedError(string ErrorMessage) => new Dictionary<string, string> { { "ErrCode", "998" }, { "ErrMessage", ErrorMessage } };
+        public static Dictionary<string, string> SessionError { get; } = new Dictionary<string, string>
+        { { "ErrCode", "1" }, { "ErrMessage", "Session Invalid" } };
+
+        public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string>
+        { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };
+        public static Dictionary<string, string> InternalError { get; } = new Dictionary<string, string>
+        { { "ErrCode", "997" }, { "ErrMessage", "Internal Error" } };
+        public static Dictionary<string, string> SpecialisedError(string ErrorMessage) => new Dictionary<string, string>
+        { { "ErrCode", "998" }, { "ErrMessage", ErrorMessage } };
+        public static Dictionary<string, string> RequestIllegal { get; } = new Dictionary<string, string>
+        { { "ErrCode", "999" }, { "ErrMessage", "Request Illegal" } };
     }
     public enum ServerSideAction
     {
@@ -33,8 +40,11 @@ namespace WBPlatform.StaticClasses
         MyClass_Index,
 
         MyAccount_Index,
+        MyAccount_CreateChangeRequest,
 
         General_ViewStudent,
+        General_ViewChangeRequests,
+
         INTERNAL_ERROR
     }
     public enum ErrorType
@@ -42,7 +52,7 @@ namespace WBPlatform.StaticClasses
         ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR,
         MultipleRecordsFound_inSingleRequest
     }
-    public enum ErrorRespCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalError = 500, NotSet = 0 }
+    public enum ErrorRespCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalError = 500, NotSet = 200 }
     public static class WeChat
     {
         public const int agentId = 41;

@@ -24,6 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
                 return _LoginFailed("/" + ControllerName);
             }
         }
+        
         public IActionResult RequestChange()
         {
             ViewData["where"] = HomeController.ControllerName;
@@ -34,12 +35,17 @@ namespace WBPlatform.WebManagement.Controllers
                     Microsoft.AspNetCore.Http.IFormCollection form = Request.Form;
                     string userID = Request.Cookies["userID"].Split('-')[1];
                     string userName = Request.Cookies["userID"].Split('-')[0];
+                    if (user.objectId != userID && userName != user.UserName)
+                    {
+                        return _OnInternalError(ServerSideAction.MyAccount_CreateChangeRequest, ErrorType.RequestInvalid, "你的Cookie信息包含异常内容", user.UserName, ErrorRespCode.NotSet);
+                    }
                     UserChangeRequestTypes types = (UserChangeRequestTypes)Enum.Parse(typeof(UserChangeRequestTypes), form[nameof(UserChangeRequest.RequestTypes)][0]);
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
-                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, NewContent = newVal, IsSolved = false, RequestTypes = types, UserID = userID };
-                    Databases.Database.CreateData(request);
-                    MessagingSystem.onChangeRequest_Created();
+                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, IsSolved = false, RequestTypes = types, UserID = userID };
+                    Databases.Database.CreateData(request, out string objectId);
+                    request.objectId = objectId;
+                    MessagingSystem.onChangeRequest_Created(request, user);
                     return Redirect($"/{HomeController.ControllerName}/{nameof(HomeController.requestResult)}?req=changereq&status=ok&callback=/Account/");
                 }
                 else
