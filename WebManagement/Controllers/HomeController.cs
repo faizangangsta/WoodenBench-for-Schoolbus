@@ -30,7 +30,7 @@ namespace WBPlatform.WebManagement.Controllers
                 else
                 {
                     Response.Cookies.Delete("Session");
-                    return _OnInternalError(ServerSideAction.Home_Index, ErrorType.UserGroupError, "Home_MainMenu::UserGroupInvalid", user.UserName, ErrorRespCode.PermisstionDenied);
+                    return _OnInternalError(ServerSideAction.Home_Index, ErrorType.UserGroupError, "用户组无效，请联系管理员", user.UserName, ErrorRespCode.PermisstionDenied);
                 }
             }
             else
@@ -92,7 +92,7 @@ namespace WBPlatform.WebManagement.Controllers
                 ViewData["UserName"] = info?.WeChatUserName;
                 return View();
             }
-            return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "TokenInvalid", "REGISTER", ErrorRespCode.RequestIllegal);
+            return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token超时或不存在，请重试", LoginUsr: "REGISTER", ResponseCode: ErrorRespCode.RequestIllegal);
         }
 
         public IActionResult WeChatLogin(string state, string code)
@@ -100,12 +100,12 @@ namespace WBPlatform.WebManagement.Controllers
             AIUnknownUser();
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
-                return _OnInternalError(ServerSideAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "Login State Seems Strange", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
+                return _OnInternalError(ServerSideAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "微信请求状态异常，请重试请求", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
             else
             {
                 string Session = Sessions.OnWeChatCodeRcvd_Login(code, Request.Headers["User-Agent"], out object user);
                 if (string.IsNullOrEmpty(Session))
-                    return _OnInternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "UNKNOWN ERROR", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
+                    return _OnInternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "未获取到Session信息，请重试", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
                 else if (Session == "0")
                 {
                     string token = JumpTokens.CreateToken(); 

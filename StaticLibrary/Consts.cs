@@ -26,15 +26,57 @@ namespace WBPlatform.StaticClasses
         public const string TABLE_Gen_UserRequest = "UserRequest";
 
     }
-    public enum UserChangeRequestTypes { 真实姓名, 手机号码, 班级, 孩子, 校车 }
-    public enum OperationStatus { Completed, Failed }
-    public enum LogType { Err, Info, LongChain }
-    public enum NotificationType { WindowsClient, WeChatC2C, WeChatMultiCast, WeChatBroadCast }
-    public enum BusReportTypeE { 堵车 = 0, 事故 = 1, 其他 = 9, }
-    public enum DatabaseQueryResult { INTERNAL_ERROR = -1, NO_RESULTS = 0, ONE_RESULT = 1, MORE_RESULTS }
+    public enum UserChangeRequestTypes
+    {
+        真实姓名 = 0,
+        手机号码 = 1,
+        班级 = 2,
+        孩子 = 3,
+        校车 = 4
+    }
+
+    public enum OperationStatus
+    {
+        Completed = 1,
+        Failed = 0
+    }
+    public enum LogType
+    {
+        Err = 3,
+        Info = 1,
+        LongChain = 0
+    }
+    public enum NotificationType
+    {
+        WindowsClient = 1,
+        WeChatC2C = 2,
+        WeChatMultiCast = 3,
+        WeChatBroadCast = 4
+    }
+    public enum BusReportTypeE
+    {
+        堵车 = 0,
+        事故 = 1,
+        其他 = 9,
+    }
+    public enum DatabaseQueryResult
+    {
+        INTERNAL_ERROR = -1,
+        NO_RESULTS = 0,
+        ONE_RESULT = 1,
+        MORE_RESULTS
+    }
+    /// <summary>
+    /// Message Types ===>   0b + MessageType + (int)isForUser
+    /// </summary>
     public enum GlobalMessageTypes
     {
-        UCR_Created_TO_ADMIN, UCR_Created_TO_User,
-        UCR__Solved_TO_ADMIN, UCR__Solved_TO_User
+        UCR_Created_TO_ADMIN = 0b00000010, UCR_Created_TO_User = 0b00000011,
+
+        UCR_Solved_TO_ADMIN = 0b00000100, UCR_Solved_TO_User = 0b00000101
+    }
+    public enum UserChangeRequestRefuseReasons
+    {
+        理由不充分 = 0, 格式有误_请重新填写 = 1, 其他原因 = -1
     }
 }

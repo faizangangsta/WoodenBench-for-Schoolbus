@@ -65,7 +65,7 @@ namespace WBPlatform.WebManagement.Tools
                         adminWeChatIDs.ToArray());
                     WeChatMessageSystem.AddToSendList(UCR_Created_TO_ADMIN_Msg);
                     break;
-                case GlobalMessageTypes.UCR__Solved_TO_ADMIN:
+                case GlobalMessageTypes.UCR_Solved_TO_ADMIN:
                     break;
                 case GlobalMessageTypes.UCR_Created_TO_User:
                     WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单提交成功！",
@@ -74,7 +74,7 @@ namespace WBPlatform.WebManagement.Tools
                                     "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, message.user.UserName);
                     WeChatMessageSystem.AddToSendList(UCR_Created_TO_User_Msg);
                     break;
-                case GlobalMessageTypes.UCR__Solved_TO_User:
+                case GlobalMessageTypes.UCR_Solved_TO_User:
                     break;
                 default:
                     break;

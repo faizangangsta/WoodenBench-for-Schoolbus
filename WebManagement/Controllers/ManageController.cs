@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -17,7 +19,7 @@ namespace WBPlatform.WebManagement.Controllers
                 if (!user.UserGroup.IsAdmin)
                 {
                     LogWritter.ErrorMessage("Someone trying access illegal page!, Page: index, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
-                    return Redirect("/Account/");
+                    return NotFound();
                 }
                 AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
@@ -31,7 +33,7 @@ namespace WBPlatform.WebManagement.Controllers
         }
         public IActionResult ChangeRequest(string arg, string reqId)
         {
-            ViewData["where"] = HomeController.ControllerName;
+            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 AIKnownUser(user);
@@ -72,12 +74,20 @@ namespace WBPlatform.WebManagement.Controllers
                             if (!user.UserGroup.IsAdmin)
                             {
                                 LogWritter.ErrorMessage("Someone trying access illegal page!, Page: changeRequest: arg=manage, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
-                                return Redirect("/Account/");
+                                return NotFound();
                             }
                             if (string.IsNullOrEmpty(reqId))
                             {
-                                // VD[mode] == 'manage' && model != null
-                                return View();
+                                switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
+                                {
+                                    case DatabaseQueryResult.INTERNAL_ERROR:
+                                        return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                    default:
+                                        {
+                                            ViewData["list"] = requests.ToArray();
+                                            return View();
+                                        }
+                                }
                             }
                             else
                             {

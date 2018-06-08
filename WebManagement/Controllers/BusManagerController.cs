@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _OnInternalError(ServerSideAction.BusManage_SignStudents, ErrorType.RequestInvalid, "_SignStudent::CookieExpire", LoginUsr: user.UserName);
+                else return _OnInternalError(ServerSideAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: user.UserName);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;
                 }
-                else return _OnInternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "_ArriveHomeSigning::UserGroupInvalid", user.UserName, ErrorRespCode.PermisstionDenied);
+                else return _OnInternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.PermisstionDenied);
             }
             else
             {
@@ -119,7 +119,7 @@ namespace WBPlatform.WebManagement.Controllers
         /// <returns></returns>
         public IActionResult ViewStudent(string StudentID, string ClassID, string BusID)
         {
-            ViewData["where"] = HomeController.ControllerName;
+            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 AIKnownUser(user);
@@ -229,16 +229,16 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                         }
 
-                        //        Is in user's class?                             Is in user's Bus??                          Is user's child??                  I am the god...
+                        //        Is in user's class?                           Is in user's Bus??                      Is user's child??                Or the god...
                         if (user.ClassList.Contains(Student.ClassID) || user.objectId == Bus.TeacherID || user.ChildList.Contains(Student.objectId) || user.UserGroup.IsAdmin)
                         {
                             return View(info);
                         }
-                        else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "ViewStudent::NoPermissionToViewStudent", user.UserName, ErrorRespCode.PermisstionDenied);
+                        else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", user.UserName, ErrorRespCode.PermisstionDenied);
                     }
-                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "ViewStudent::RequestIsNotValid", user.UserName, ErrorRespCode.RequestIllegal);
+                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "请求非法", user.UserName, ErrorRespCode.RequestIllegal);
                 }
-                else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "ViewStudent::NoUserGroupProvided", user.UserName, ErrorRespCode.RequestIllegal);
+                else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.RequestIllegal);
             }
 
             //Return to Home because this is privacy-related function

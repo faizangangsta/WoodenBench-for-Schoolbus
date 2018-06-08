@@ -23,8 +23,8 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "Internal Error", user.UserName, ErrorRespCode.InternalError);
-                        case DatabaseQueryResult.NO_RESULTS: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "None of your class found", user.UserName);
+                        case DatabaseQueryResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", user.UserName, ErrorRespCode.InternalError);
+                        case DatabaseQueryResult.NO_RESULTS: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", user.UserName);
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].objectId;

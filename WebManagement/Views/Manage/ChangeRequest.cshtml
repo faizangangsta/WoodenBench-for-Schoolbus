@@ -9,18 +9,18 @@
 <div class="container">
     <div class="container">
         @if (isManage && isListView)
-        {<h2>工单列表</h2>}
+        {<h3>工单列表</h3>}
         else if (isManage && !isListView)
-        { <h2>工单审核</h2>}
+        { <h3>工单审核</h3>}
         else if (!isManage && isListView)
-        {<h2>我的工单列表</h2>}
+        {<h3>我的工单列表</h3>}
         else if (!isManage && !isListView)
         {
-            <h2>我的工单 </h2>
+            <h3>我的工单 </h3>
             <h5>工单ID: @Model.objectId</h5>
         }
-        <br />
-        <div class="">
+        <hr />
+        <div>
             @if (isListView)
             {
                 <div class="row">
@@ -40,7 +40,7 @@
                             <p>@item.RequestTypes.ToString()</p>
                         </div>
                         <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
-                            <p>@(item.IsSolved ? "是✔" : "否❌")</p>
+                            <p>@(item.HasProcessed ? "是✔" : "否❌")</p>
                         </div>
                         <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
                             <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.objectId">查看🔍</a>
@@ -62,54 +62,82 @@
                     <label>提交者ID：</label>
                     <div id="userID" class="container">
                         @Model.UserID
-                        <button class="btn btn-sm" onclick="GetName('@Model.UserID', 'userID' ,getName_Callback)">查看</button>
+                        <button class="btn btn-sm btn-default" onclick="GetName('@Model.UserID', 'userID' ,getName_Callback)">查看</button>
                     </div>
                     <label>处理状态：</label>
-                    <div class="container">@(Model.IsSolved ? "已处理✔" : "未处理❌")</div>
-                    <label>处理者ID：</label>
-                    <div id="solveID" class="container">
-                        @(string.IsNullOrEmpty(Model.SolverID) ? "未处理" : Model.SolverID)
-                        <button class="btn btn-sm" onclick="GetName('@Model.SolverID', 'solveID' ,getName_Callback)">查看</button>
-                    </div>
+                    <div class="container">@(Model.HasProcessed ? "已处理✔" : "未处理❌")</div>
+                    @if (Model.HasProcessed)
+                    {
+                        <label>处理者ID：</label>
+                        <div id="solveID" class="container">
+                            @(string.IsNullOrEmpty(Model.SolverID) ? "未处理" : Model.SolverID)
+                            <button class="btn btn-sm btn-default" onclick="GetName('@Model.SolverID', 'solveID' ,getName_Callback)">查看</button>
+                        </div>
+                    }
                 </div>
             }
         </div>
-        <br />
+        <hr />
         <!--BOTTOM THINGS....-->
         <div class="container">
-            @if (!isListView)
+            @if (isManage)
             {
-                <button class="btn btn-danger btn-sm" style="width:100%" onclick="location.href = '/Manage/ChangeRequest?arg=@(isManage? "manage" : "my")'">返回列表</button>
+                //Manage
+                if (isListView)
+                {
+                    //Manage_List
+                    <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Manage/'">返回管理页面</button>
+                    <br />
+                }
+                else
+                {
+                    //Manage_ViewDetail
+                    if (!Model.HasProcessed)
+                    {
+                        <div class="center-margin center-all">
+                            <button class="btn btn-success btn-sm" style="width: 49%" onclick="doCommitIt();">同意更改</button>
+                            <button class="btn btn-danger btn-sm" style="width: 49%" onclick="resetForm();">拒绝更改</button>
+                        </div>
+                        <div id="refuseReasons" class="container center-all center-margin">
+                            <input type="text" class="TxBox" id="reason" />
+                            <button class="btn btn-warning btn-sm">提交</button>
+                        </div>
+                        <br />
+                    }
+                }
             }
-            @if (isManage && !isListView)
+            else
             {
-                <button class="btn btn-danger btn-sm" onclick="doCommitIt();">提交修改</button>
-                <button class="btn btn-danger btn-sm" onclick="resetForm();">放弃更改</button>
-            }
-            else if (isManage && !isListView)
-            {
-                <button class="btn btn-info btn-sm">返回管理页面</button>
+                if (isListView)
+                {
+                    <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Account/'">返回我的信息</button>
+                    <br />
+                }
             }
 
-            else if (!isManage && isListView)
+            @if (!isListView)
             {
-                <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Account/'">返回我的信息</button>
+                <button class="btn btn-info btn-sm" style="width:100%" onclick="location.href = '/Manage/ChangeRequest?arg=@(isManage? "manage" : "my")'">返回列表</button>
+                <br />
             }
         </div>
     </div>
 </div>
 <script>
-    var p, m;
     function getName_Callback(HTMLNode, data) {
-        p = HTMLNode; m = data;
         if (data.ErrCode == "0") {
             $("#" + HTMLNode).html(data.Value);
         }
     }
-    function doCommitIt() {
-
-    }
-    function resetForm() {
-
-    }
 </script>
+@if (isManage && !isListView)
+{
+    <script>
+        function doCommitIt() {
+
+        }
+        function resetForm() {
+
+        }
+    </script>
+}

@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Controllers
         
         public IActionResult RequestChange()
         {
-            ViewData["where"] = HomeController.ControllerName;
+            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 if (Request.HasFormContentType)
@@ -42,7 +42,7 @@ namespace WBPlatform.WebManagement.Controllers
                     UserChangeRequestTypes types = (UserChangeRequestTypes)Enum.Parse(typeof(UserChangeRequestTypes), form[nameof(UserChangeRequest.RequestTypes)][0]);
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
-                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, IsSolved = false, RequestTypes = types, UserID = userID };
+                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, HasProcessed = false, RequestTypes = types, UserID = userID };
                     Databases.Database.CreateData(request, out string objectId);
                     request.objectId = objectId;
                     MessagingSystem.onChangeRequest_Created(request, user);

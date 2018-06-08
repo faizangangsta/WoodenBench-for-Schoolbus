@@ -14,7 +14,9 @@ namespace WBPlatform.TableObject
         public string SolverID { get; set; }
         public UserChangeRequestTypes RequestTypes { get; set; }
         public string DetailTexts { get; set; }
-        public bool IsSolved { get; set; }
+        public bool HasProcessed { get; set; }
+        public bool ProcessResult { get; set; }
+        public int ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
         public override void readFields(BmobInput input)
@@ -24,8 +26,9 @@ namespace WBPlatform.TableObject
             SolverID = input.getString("SolverID");
             RequestTypes = (UserChangeRequestTypes)(input.getInt("SolverID").Get());
             DetailTexts = input.getString("DetailTexts");
-            IsSolved = input.getBoolean("IsSolved").Get();
+            HasProcessed = input.getBoolean("IsSolved").Get();
             NewContent = input.getString("NewContent");
+            ProcessResultReason = input.getInt("ResultReason").Get();
         }
 
         public override void write(BmobOutput output, bool all)
@@ -35,9 +38,9 @@ namespace WBPlatform.TableObject
             output.Put("SolverID", SolverID);
             output.Put("RequestType", (int)RequestTypes);
             output.Put("DetailTexts", DetailTexts);
-            output.Put("IsSolved", IsSolved);
+            output.Put("IsSolved", HasProcessed);
             output.Put("NewContent", NewContent);
-
+            output.Put("Result", ProcessResult);
         }
         public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
 
@@ -51,7 +54,7 @@ namespace WBPlatform.TableObject
                 { "RequestType", RequestTypes.ToString() },
                 { "CreatedAt", createdAt },
                 { "NewContent", NewContent },
-                { "IsSolved", IsSolved.ToString() },
+                { "IsSolved", HasProcessed.ToString() },
                 { "DetailTexts", DetailTexts }
             };
         }

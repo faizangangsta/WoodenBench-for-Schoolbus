@@ -59,11 +59,12 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["DetailedInfo"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
-            BuildWeChatPacket(LoginUsr, ViewData, Response);
+            string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", " -- ");
+            LogWritter.ErrorMessage(logString);
             return View("Error");
         }
 
-        private static void BuildWeChatPacket(string LoginUsr, ViewDataDictionary ViewData, HttpResponse Response)
+        private static WeChatSentMessage BuildWeChatPacket(string LoginUsr, ViewDataDictionary ViewData, HttpResponse Response)
         {
             WeChatSentMessage _Message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
                 "ERROR!" +
@@ -75,6 +76,7 @@ namespace WBPlatform.WebManagement.Controllers
                 "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
                 "\r\nDNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
             WeChatMessageSystem.AddToSendList(_Message);
+            return _Message;
         }
     }
     public interface IInternalController
