@@ -1,19 +1,27 @@
-﻿@model WBPlatform.TableObject.UserChangeRequest
+﻿@using WBPlatform.TableObject;
+@model UserChangeRequest
 
 @{
     ViewData["Title"] = "工单查询";
     bool isManage = (string)ViewData["mode"] == "manage";
     bool isListView = (Model == null);
-    WBPlatform.TableObject.UserChangeRequest[] requests = isListView ? (WBPlatform.TableObject.UserChangeRequest[])ViewData["list"] : null;
+    UserChangeRequest[] requests = isListView ? (UserChangeRequest[])ViewData["list"] : null;
 }
 <div class="container">
-    <div class="container">
+    <div class="">
         @if (isManage && isListView)
-        {<h3>工单列表</h3>}
+        {
+            <h3>工单列表</h3>
+        }
         else if (isManage && !isListView)
-        { <h3>工单审核</h3>}
+        {
+            <h3>工单审核</h3>
+            <h5>工单ID: @Model.objectId</h5>
+        }
         else if (!isManage && isListView)
-        {<h3>我的工单列表</h3>}
+        {
+            <h3>我的工单列表</h3>
+        }
         else if (!isManage && !isListView)
         {
             <h3>我的工单 </h3>
@@ -40,7 +48,7 @@
                             <p>@item.RequestTypes.ToString()</p>
                         </div>
                         <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
-                            <p>@(item.HasProcessed ? "是✔" : "否❌")</p>
+                            <p>@(item.Status != UserChangeRequestProcessStatus.NotSolved ? "是✔" : "否❌")</p>
                         </div>
                         <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
                             <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.objectId">查看🔍</a>
@@ -58,20 +66,33 @@
                     <label>新内容：</label>
                     <div class="container">@Model.NewContent</div>
                     <label>申请理由：</label>
-                    <div class="container">&nbsp;@Model.DetailTexts</div>
+                    <div class="container">@Model.DetailTexts&nbsp;</div>
                     <label>提交者ID：</label>
                     <div id="userID" class="container">
                         @Model.UserID
                         <button class="btn btn-sm btn-default" onclick="GetName('@Model.UserID', 'userID' ,getName_Callback)">查看</button>
                     </div>
                     <label>处理状态：</label>
-                    <div class="container">@(Model.HasProcessed ? "已处理✔" : "未处理❌")</div>
-                    @if (Model.HasProcessed)
+                    @switch (Model.Status)
+                    {
+                        case UserChangeRequestProcessStatus.NotSolved:
+                            <div class="container">未处理❌</div>
+                            break;
+                        case UserChangeRequestProcessStatus.Accepted:
+                            <div class="container">已处理并同意更改😊</div>
+                            break;
+                        case UserChangeRequestProcessStatus.Refused:
+                            <div class="container">已处理但拒绝更改😭</div>
+                            <label>原因：</label>
+                            <div class="container">@Model.ProcessResultReason.ToString()</div>
+                            break;
+                    }
+                    @if (Model.Status != UserChangeRequestProcessStatus.NotSolved)
                     {
                         <label>处理者ID：</label>
                         <div id="solveID" class="container">
                             @(string.IsNullOrEmpty(Model.SolverID) ? "未处理" : Model.SolverID)
-                            <button class="btn btn-sm btn-default" onclick="GetName('@Model.SolverID', 'solveID' ,getName_Callback)">查看</button>
+                            <button class="btn btn-sm btn-default" onclick="GetName('@Model.SolverID', 'solveID', getName_Callback)">查看</button>
                         </div>
                     }
                 </div>
@@ -92,15 +113,25 @@
                 else
                 {
                     //Manage_ViewDetail
-                    if (!Model.HasProcessed)
+                    if (Model.Status == UserChangeRequestProcessStatus.NotSolved)
                     {
-                        <div class="center-margin center-all">
-                            <button class="btn btn-success btn-sm" style="width: 49%" onclick="doCommitIt();">同意更改</button>
-                            <button class="btn btn-danger btn-sm" style="width: 49%" onclick="resetForm();">拒绝更改</button>
+                        <div id="optionss" class="center-margin center-all">
+                            <button class="btn btn-success btn-sm" style="width: 49%" onclick="accepted();">同意更改</button>
+                            <button class="btn btn-danger btn-sm" style="width: 49%" onclick="refuse();">拒绝更改</button>
                         </div>
-                        <div id="refuseReasons" class="container center-all center-margin">
-                            <input type="text" class="TxBox" id="reason" />
-                            <button class="btn btn-warning btn-sm">提交</button>
+                        <div id="refuseReasons" class="center-all center-margin hidden">
+                            <select id="selection" asp-for="ProcessResultReason" class="form-control">
+                                @{
+                                    string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UserChangeRequestRefusedReasons));
+                                    foreach (string item in p)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+                            <br />
+                            <button class="btn btn-warning btn-sm" style="width: 49%" onclick="refused()">提交</button>
+                            <button class="btn btn-danger btn-sm" style="width: 49%" onclick="cancel()">取消</button>
                         </div>
                         <br />
                     }
@@ -123,21 +154,55 @@
         </div>
     </div>
 </div>
-<script>
-    function getName_Callback(HTMLNode, data) {
-        if (data.ErrCode == "0") {
-            $("#" + HTMLNode).html(data.Value);
-        }
-    }
-</script>
-@if (isManage && !isListView)
+@if (!isListView)
 {
     <script>
-        function doCommitIt() {
-
-        }
-        function resetForm() {
-
+        function getName_Callback(HTMLNode, data) {
+            if (data.ErrCode == "0") $("#" + HTMLNode).html(data.Value);
         }
     </script>
+    @if (isManage && !isListView)
+    {
+        <script>
+            function refuse() {
+                $("#refuseReasons").removeClass("hidden");
+                $("#optionss").addClass("hidden");
+            }
+            function cancel() {
+                $("#refuseReasons").addClass("hidden");
+                $("#optionss").removeClass("hidden");
+            }
+
+            function accepted() { ProcessRequest("@Model.objectId", 0, $("#selection").val(), callback); }
+            function refused() { ProcessRequest("@Model.objectId", 1, $("#selection").val(), callback);  }
+            function callback(data) {
+                if (data == false) {
+                    alert("出现了一些问题，请刷新页面重试。");
+                } else {
+                    alert(data.ErrMessage);
+                    location.href = location.href;
+                }
+            }
+            var proc = false;
+            function ProcessRequest(reqId, request, detail, CallBackFunction) {
+                "use strict";
+                if (!proc) {
+                    proc = true;
+                    $.ajax({
+                        url: location.protocol + "//" + location.host + "/api/admin/ProcessUserRequest?"+
+                        "reqId=" + reqId + "&mode=" + request + "&detail=" + detail,
+                        type: 'GET',
+                        success: function (data2) {
+                            CallBackFunction(data2);
+                        },
+                        error: function (err) {
+                            CallBackFunction(false);
+                        }
+                    });
+                } else {
+                    alert("请不要重复请求。");
+                }
+            }
+        </script>
+    }
 }

@@ -17,17 +17,17 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string BusID, string TeacherID, string Session, string STAMP)
         {
-            if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseErrors.SessionError;
+            if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
             if (!( user.objectId == TeacherID))//user.UserGroup.BusID == BusID &&
-                return WebAPIResponseErrors.UserGroupError;
-            if (Crypto.SHA256Encrypt(BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseErrors.RequestIllegal;
+                return WebAPIResponseCollections.UserGroupError;
+            if (Crypto.SHA256Encrypt(BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseCollections.RequestIllegal;
             DatabaseQuery BusQuery = new DatabaseQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (Database.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     {
                         DatabaseQuery StudentQuery = new DatabaseQuery();
@@ -35,8 +35,8 @@ namespace WBPlatform.WebManagement.Controllers
                         Dictionary<string, string> dict = new Dictionary<string, string>();
                         switch (Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
                         {
-                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                             default:
                                 dict.Add("count", StudentList.Count.ToString());
                                 for (int i = 0; i < StudentList.Count; i++)

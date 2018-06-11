@@ -80,7 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\api\adminOnlyapi\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

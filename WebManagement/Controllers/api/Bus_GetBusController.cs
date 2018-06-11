@@ -22,14 +22,14 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
-                                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)
@@ -48,9 +48,9 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                     }
                 }
-                else return WebAPIResponseErrors.RequestIllegal;
+                else return WebAPIResponseCollections.RequestIllegal;
             }
-            else return WebAPIResponseErrors.SessionError;
+            else return WebAPIResponseCollections.SessionError;
         }
     }
 }

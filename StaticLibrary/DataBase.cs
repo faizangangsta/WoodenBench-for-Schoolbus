@@ -16,6 +16,7 @@ namespace WBPlatform.Databases
         private static BmobWindows _Bmob { get; set; } = new BmobWindows();
         public static void Initialise()
         {
+            LogWritter.DebugMessage("Database Initialising...");
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _Bmob.initialize(Resources.BmobDatabaseApplicationID, Resources.BmobDatabaseREST);
         }

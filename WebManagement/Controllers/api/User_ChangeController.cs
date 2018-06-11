@@ -33,61 +33,54 @@ namespace WBPlatform.WebManagement.Controllers
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
             string[] SessionVerify = STAMP.Split("_v3_");
-            if (SessionVerify.Length != 2) return WebAPIResponseErrors.RequestIllegal;
-            try
+            if (SessionVerify.Length != 2) return WebAPIResponseCollections.RequestIllegal;
+            if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
+                SessionVerify[0] == Crypto.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
             {
-                if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
-                    SessionVerify[0] == Crypto.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
+                UserObject user = new UserObject();
+                //user.objectId = SessionUser.objectId;
+                //user.UserGroup = SessionUser.UserGroup;
+                switch (Column.ToLower())
                 {
-                    UserObject user = new UserObject();
-                    //user.objectId = SessionUser.objectId;
-                    //user.UserGroup = SessionUser.UserGroup;
-                    switch (Column.ToLower())
-                    {
-                        case "realname":
-                            user.RealName = (string)Equals2Obj;
-                            break;
-                        case "password":
-                            user.Password = (string)Equals2Obj;
-                            break;
-                        case "notice":
-                            user.WebNotiSeen = (bool)Equals2Obj;
-                            break;
-                        case "firstlogin":
-                            user.FirstLogin = (bool)Equals2Obj;
-                            break;
-                        default:
+                    case "realname":
+                        user.RealName = (string)Equals2Obj;
+                        break;
+                    case "password":
+                        user.Password = (string)Equals2Obj;
+                        break;
+                    case "notice":
+                        user.WebNotiSeen = (bool)Equals2Obj;
+                        break;
+                    case "firstlogin":
+                        user.FirstLogin = (bool)Equals2Obj;
+                        break;
+                    default:
 
-                            break;
-                    }
-
-
-                    if (Database.UpdateData(user) == 0)
-                    {
-                        DatabaseQuery query = new DatabaseQuery();
-                        query.WhereEqualTo("objectId", SessionUser.objectId);
-                        switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
-                        {
-                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
-                            default:
-                                Dictionary<string, string> dict = UserList[0].ToDictionary();
-                                string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
-                                Response.Cookies.Append("Session", NewSession, new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
-                                dict.Add("ErrCode", "0");
-                                dict.Add("ErrMessage", "null");
-                                dict.Add("updated_At", DateTime.Now.ToString());
-                                return dict;
-                        }
-                    }
-                    else return WebAPIResponseErrors.InternalError;
+                        break;
                 }
-                else return WebAPIResponseErrors.RequestIllegal;
+
+
+                if (Database.UpdateData(user) == 0)
+                {
+                    DatabaseQuery query = new DatabaseQuery();
+                    query.WhereEqualTo("objectId", SessionUser.objectId);
+                    switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
+                    {
+                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        default:
+                            Dictionary<string, string> dict = UserList[0].ToDictionary();
+                            string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
+                            Response.Cookies.Append("Session", NewSession, new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
+                            dict.Add("ErrCode", "0");
+                            dict.Add("ErrMessage", "null");
+                            dict.Add("updated_At", DateTime.Now.ToString());
+                            return dict;
+                    }
+                }
+                else return WebAPIResponseCollections.InternalError;
             }
-            catch (Exception e)
-            {
-                return WebAPIResponseErrors.SpecialisedError(e.Message);
-            }
+            else return WebAPIResponseCollections.RequestIllegal;
         }
     }
 }

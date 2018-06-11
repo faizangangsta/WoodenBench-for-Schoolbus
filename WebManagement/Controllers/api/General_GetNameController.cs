@@ -21,20 +21,20 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(UserID))
                 {
-                    return WebAPIResponseErrors.RequestIllegal;
+                    return WebAPIResponseCollections.RequestIllegal;
                 }
                 else
                 {
                     switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", UserID), out UserObject user))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
+                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                         case DatabaseQueryResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
-                        case DatabaseQueryResult.MORE_RESULTS: return WebAPIResponseErrors.InternalError;
+                        case DatabaseQueryResult.MORE_RESULTS: return WebAPIResponseCollections.InternalError;
                         default: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"{user.RealName}({user.objectId})" } };
                     }
                 }
             }
-            else return WebAPIResponseErrors.SessionError;
+            else return WebAPIResponseCollections.SessionError;
         }
     }
 }

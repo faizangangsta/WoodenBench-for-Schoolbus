@@ -73,9 +73,14 @@ namespace WBPlatform.StaticClasses
     {
         UCR_Created_TO_ADMIN = 0b00000010, UCR_Created_TO_User = 0b00000011,
 
-        UCR_Solved_TO_ADMIN = 0b00000100, UCR_Solved_TO_User = 0b00000101
+        //THIS HAS NO USE....
+        UCR_Procced_TO_ADMIN = 0b00000100, UCR_Procced_TO_User = 0b00000101
     }
-    public enum UserChangeRequestRefuseReasons
+    public enum UserChangeRequestProcessStatus
+    {
+        NotSolved = -1, Accepted = 0, Refused = 1
+    }
+    public enum UserChangeRequestRefusedReasons
     {
         理由不充分 = 0, 格式有误_请重新填写 = 1, 其他原因 = -1
     }

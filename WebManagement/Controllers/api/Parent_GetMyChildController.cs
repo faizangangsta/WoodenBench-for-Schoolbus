@@ -16,15 +16,15 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string parentId)
         {
-            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseErrors.SessionError;
-            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseErrors.UserGroupError;
+            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
+            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseCollections.UserGroupError;
 
             DatabaseQuery StudentQuery = new DatabaseQuery();
             Dictionary<string, string> dict = new Dictionary<string, string>();
             switch (Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

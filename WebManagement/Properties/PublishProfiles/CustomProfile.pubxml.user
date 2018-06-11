@@ -11,19 +11,19 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>02/20/2018 19:23:06</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>03/30/2018 16:54:44</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="Bmob-Windows.dll">
       <publishTime>04/02/2017 13:24:52</publishTime>
     </File>
     <File Include="bundleconfig.json">
-      <publishTime>02/20/2018 20:42:36</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="Connected Services/Application Insights/ConnectedService.json">
-      <publishTime>03/30/2018 16:54:50</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="dotnet-aspnet-codegenerator-design.dll">
       <publishTime>02/20/2018 20:41:26</publishTime>
@@ -98,106 +98,106 @@
       <publishTime>10/21/2017 09:43:48</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>06/01/2018 00:07:37</publishTime>
+      <publishTime>06/11/2018 14:38:33</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>06/01/2018 00:07:37</publishTime>
+      <publishTime>06/11/2018 14:38:33</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>06/01/2018 00:06:08</publishTime>
+      <publishTime>06/11/2018 14:34:09</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>06/01/2018 00:06:08</publishTime>
+      <publishTime>06/11/2018 14:34:09</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
-      <publishTime>06/01/2018 00:07:34</publishTime>
+      <publishTime>06/11/2018 14:34:26</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.pdb">
-      <publishTime>06/01/2018 00:07:34</publishTime>
+      <publishTime>06/11/2018 14:34:26</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>06/01/2018 00:07:37</publishTime>
+      <publishTime>06/11/2018 14:38:33</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>06/01/2018 00:06:03</publishTime>
+      <publishTime>06/11/2018 13:52:19</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>05/30/2018 00:13:04</publishTime>
+      <publishTime>06/11/2018 13:52:19</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404err.gif">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/adminbackg.jpg">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/back.jpg">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/back1.jpg">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/back2.jpg">
-      <publishTime>12/01/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/back3.jpg">
-      <publishTime>12/03/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/post1.jpg">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/_notes/dwsync.xml">
       <publishTime>02/19/2018 21:52:04</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap-theme.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap-theme.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap-theme.min.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap-theme.min.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap.min.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/bootstrap.min.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/css/font-awesome.min.css">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/css/ImgCodingStyles.css">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/quill.core.css">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/css/quill.snow.css">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/css/style.css">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/css/WBWeb.css">
-      <publishTime>03/08/2018 17:28:26</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/css/WBWeb.min.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
-      <publishTime>11/12/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.eot">
       <publishTime>02/20/2018 19:23:07</publishTime>
@@ -263,160 +263,160 @@
       <publishTime>02/20/2018 19:23:08</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/aes.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/cipher-core.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/core.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/crypto-js.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/enc-base64.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/enc-hex.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/enc-latin1.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/enc-utf16.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/enc-utf8.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/evpkdf.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/format-hex.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/format-openssl.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-md5.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-ripemd160.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha1.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha224.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha256.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha3.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha384.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac-sha512.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/hmac.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/index.js">
-      <publishTime>02/20/2018 20:16:55</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/lib-typedarrays.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/md5.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/mode-cfb.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/mode-ctr-gladman.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/mode-ctr.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/mode-ecb.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/mode-ofb.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-ansix923.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-iso10126.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-iso97971.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-nopadding.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-pkcs7.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pad-zeropadding.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/pbkdf2.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/rabbit-legacy.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/rabbit.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/rc4.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/ripemd160.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha1.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha224.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha256.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha3.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha384.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/sha512.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/tripledes.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/x64-core.js">
-      <publishTime>02/20/2018 20:17:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/_notes/dwsync.xml">
       <publishTime>02/19/2018 21:53:12</publishTime>
     </File>
     <File Include="wwwroot/js/Encryption/Base64.js">
-      <publishTime>12/06/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/Encryption/MD5.js">
-      <publishTime>12/06/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/Encryption/SHAHash.js">
-      <publishTime>12/06/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/Encryption/_notes/dwsync.xml">
       <publishTime>02/19/2018 21:53:15</publishTime>
@@ -440,43 +440,43 @@
       <publishTime>02/20/2018 19:23:08</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.validate.unobtrusive.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/npm.js">
-      <publishTime>02/20/2018 20:23:46</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/site.min.js">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/.bower.json">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
       <publishTime>02/20/2018 19:23:07</publishTime>
@@ -500,58 +500,58 @@
       <publishTime>02/20/2018 19:23:08</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/LICENSE">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/.bower.json">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/.bower.json">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/.bower.json">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/LICENSE.txt">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:12</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/UserActivity.js">
-      <publishTime>05/31/2018 23:45:38</publishTime>
+      <publishTime>06/06/2018 08:54:47</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WCServicesProvider.js">
-      <publishTime>05/28/2018 23:09:41</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WeiXinModule.js">
       <publishTime>02/20/2018 21:34:58</publishTime>

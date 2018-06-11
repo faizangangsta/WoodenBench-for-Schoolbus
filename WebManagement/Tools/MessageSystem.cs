@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -20,6 +19,12 @@ namespace WBPlatform.WebManagement.Tools
             GlobalMessage messageAdmin = new GlobalMessage() { type = GlobalMessageTypes.UCR_Created_TO_ADMIN, dataObject = request, user = user, objectId = request.objectId };
             GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Created_TO_User, dataObject = request, user = user, objectId = request.objectId };
             AddToList(messageAdmin, message_User);
+        }
+
+        public static void onChangeRequest_Solved(UserChangeRequest request, UserObject user)
+        {
+            GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Procced_TO_User, dataObject = request, user = user, objectId = request.UserID };
+            AddToList(message_User);
         }
 
         private static void AddToList(params GlobalMessage[] message) { lock (MessageList) MessageList.AddRange(message); }
@@ -47,34 +52,55 @@ namespace WBPlatform.WebManagement.Tools
             switch (message.type)
             {
                 case GlobalMessageTypes.UCR_Created_TO_ADMIN:
-                    DatabaseQuery query = new DatabaseQuery();
-                    query.WhereEqualTo("isAdmin", true);
-                    if ((int)Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
                     {
-                        LogWritter.ErrorMessage("No Administrator found!!, thus no UserRequest can be solved!");
-                        // DO ERROR LOG HERE....
-                        return;
+                        DatabaseQuery query = new DatabaseQuery();
+                        query.WhereEqualTo("isAdmin", true);
+                        if ((int)Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
+                        {
+                            LogWritter.ErrorMessage("No Administrator found!!, thus no UserRequest can be solved!");
+                            // DO ERROR LOG HERE....
+                            return;
+                        }
+                        List<string> adminWeChatIDs = new List<string>();
+                        foreach (UserObject admin in adminUsers) adminWeChatIDs.Add(admin.UserName);
+                        WeChatSentMessage UCR_Created_TO_ADMIN_Msg = new WeChatSentMessage(
+                            WeChat.SentMessageType.textcard,
+                            "管理员通知",
+                            $"你有一条来自 {message.user.RealName} 的工单有待处理：\r\n{message.user.RealName}请求把 {((UserChangeRequest)message.dataObject).RequestTypes.ToString()} 修改成{((UserChangeRequest)message.dataObject).NewContent }\r\n请尽快处理！",
+                            "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=manage&reqId=" + message.objectId,
+                            adminWeChatIDs.ToArray());
+                        WeChatMessageSystem.AddToSendList(UCR_Created_TO_ADMIN_Msg);
+                        break;
                     }
-                    List<string> adminWeChatIDs = new List<string>();
-                    foreach (UserObject admin in adminUsers) adminWeChatIDs.Add(admin.UserName);
-                    WeChatSentMessage UCR_Created_TO_ADMIN_Msg = new WeChatSentMessage(
-                        WeChat.SentMessageType.textcard,
-                        "管理员通知",
-                        $"你有一条来自 {message.user.RealName} 的工单有待处理：\r\n{message.user.RealName}请求把 {((UserChangeRequest)message.dataObject).RequestTypes.ToString()} 修改成{((UserChangeRequest)message.dataObject).NewContent }\r\n请尽快处理！",
-                        "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=manage&reqId=" + message.objectId,
-                        adminWeChatIDs.ToArray());
-                    WeChatMessageSystem.AddToSendList(UCR_Created_TO_ADMIN_Msg);
-                    break;
-                case GlobalMessageTypes.UCR_Solved_TO_ADMIN:
-                    break;
                 case GlobalMessageTypes.UCR_Created_TO_User:
-                    WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单提交成功！",
-                                    "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经提交成功！\r\n" +
-                                    "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
-                                    "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, message.user.UserName);
-                    WeChatMessageSystem.AddToSendList(UCR_Created_TO_User_Msg);
-                    break;
-                case GlobalMessageTypes.UCR_Solved_TO_User:
+                    {
+                        WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单提交成功！",
+                                        "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经提交成功！\r\n" +
+                                        "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
+                                        "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, message.user.UserName);
+                        WeChatMessageSystem.AddToSendList(UCR_Created_TO_User_Msg);
+                        break;
+                    }
+                case GlobalMessageTypes.UCR_Procced_TO_User:
+                    {
+                        switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
+                        {
+                            case DatabaseQueryResult.ONE_RESULT:
+                                string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "审核未通过";
+                                WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
+                                    "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经审核完毕！\r\n" +
+                                        "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
+                                        "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, requestSender.UserName);
+                                WeChatMessageSystem.AddToSendList(_WMessage);
+                                break;
+                            case DatabaseQueryResult.INTERNAL_ERROR:
+                            case DatabaseQueryResult.NO_RESULTS:
+                            case DatabaseQueryResult.MORE_RESULTS:
+                            default:
+                                LogWritter.ErrorMessage("Failed to get user who requested to change something.... userId=" + message.objectId);
+                                break;
+                        }
+                    }
                     break;
                 default:
                     break;

@@ -42,7 +42,7 @@ namespace WBPlatform.WebManagement.Controllers
                     UserChangeRequestTypes types = (UserChangeRequestTypes)Enum.Parse(typeof(UserChangeRequestTypes), form[nameof(UserChangeRequest.RequestTypes)][0]);
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
-                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, HasProcessed = false, RequestTypes = types, UserID = userID };
+                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = userID };
                     Databases.Database.CreateData(request, out string objectId);
                     request.objectId = objectId;
                     MessagingSystem.onChangeRequest_Created(request, user);
@@ -52,7 +52,6 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     AIKnownUser(user);
                     ViewData["cUser"] = user.ToString();
-                    Response.Cookies.Append("userID", user.GetIdentifiableCode());
                     return View(new UserChangeRequest() { UserID = user.objectId });
                 }
             }
@@ -67,7 +66,6 @@ namespace WBPlatform.WebManagement.Controllers
         {
             AIUnknownUser();
             ViewData["where"] = HomeController.ControllerName;
-            ViewData["Message"] = "登陆失败";
             return View();
         }
     }

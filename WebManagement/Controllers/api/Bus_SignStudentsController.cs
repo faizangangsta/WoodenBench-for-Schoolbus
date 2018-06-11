@@ -22,26 +22,26 @@ namespace WBPlatform.WebManagement.Controllers
         {
             //THIS FUNCTION IS SHARED BY BUSTEACHER AND PARENTS
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
-                return WebAPIResponseErrors.SessionError;
+                return WebAPIResponseCollections.SessionError;
             if (!(user.UserGroup.IsParent || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin))
-                return WebAPIResponseErrors.UserGroupError;
+                return WebAPIResponseCollections.UserGroupError;
             string str = Encoding.UTF8.GetString(Convert.FromBase64String(Data));
-            if (str.Contains(";") && str.Split(';').Length != 5) return WebAPIResponseErrors.RequestIllegal;
+            if (str.Contains(";") && str.Split(';').Length != 5) return WebAPIResponseCollections.RequestIllegal;
             string[] p = str.Split(';');
             string SType = p[0];
             string SValue = p[1];
             //P[2] = SALT
             string TeacherID = p[3];
             string StudentID = p[4];
-            if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseErrors.RequestIllegal;
+            if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseCollections.RequestIllegal;
 
             DatabaseQuery busFindQuery = new DatabaseQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
@@ -50,15 +50,15 @@ namespace WBPlatform.WebManagement.Controllers
                         _stuQuery.WhereEqualTo("BusID", BusID);
                         switch (Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
-                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseErrors.InternalError;
-                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseErrors.SpecialisedError("No Result Found");
+                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                             default:
-                                if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseErrors.RequestIllegal;
+                                if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseCollections.RequestIllegal;
                                 StudentObject stu = StuList[0];
                                 if (SType.ToLower() == "leave") stu.LSChecked = Value;
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
-                                else return WebAPIResponseErrors.RequestIllegal;
+                                else return WebAPIResponseCollections.RequestIllegal;
                                 if (Database.UpdateData(stu) == 0)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
@@ -69,10 +69,10 @@ namespace WBPlatform.WebManagement.Controllers
                                     dict.Add("Updated", DateTime.Now.ToString());
                                     return dict;
                                 }
-                                else return WebAPIResponseErrors.InternalError;
+                                else return WebAPIResponseCollections.InternalError;
                         }
                     }
-                    else return WebAPIResponseErrors.RequestIllegal;
+                    else return WebAPIResponseCollections.RequestIllegal;
             }
         }
     }
