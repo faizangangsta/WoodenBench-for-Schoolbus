@@ -20,8 +20,7 @@ namespace WBPlatform.WebManagement.Tools
             NotificationType _type = users == "@all" ? NotificationType.WeChatBroadCast : NotificationType.WeChatC2C;
 
             // If is broadcast, set "@all" into the list., else, convert users into a list.
-            List<string> targetUsers = new List<string>();
-            targetUsers = _type == NotificationType.WeChatBroadCast ? new List<string>() { "@all" } : users.Split(';').ToList();
+            List<string> targetUsers = _type == NotificationType.WeChatBroadCast ? new List<string>() { "@all" } : users.Split(';').ToList();
 
             // If reciver is larger than 1; set tp multicast....
             _type = targetUsers.Count > 1 ? NotificationType.WeChatMultiCast : _type;

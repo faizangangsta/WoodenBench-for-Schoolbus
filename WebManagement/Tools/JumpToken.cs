@@ -9,7 +9,7 @@ namespace WBPlatform.WebManagement.Tools
         private static Dictionary<string, TokenInfo?> JumpToken { get; set; } = new Dictionary<string, TokenInfo?>();
         public struct TokenInfo
         {
-            public string User_Agent;
+            public string User_Agent { get; set; }
             public string WeChatUserName;
             public DateTime Validate_To;
         }

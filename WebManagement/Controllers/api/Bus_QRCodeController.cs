@@ -1,6 +1,6 @@
 ﻿using System;
-using System.DrawingCore;
-using System.DrawingCore.Imaging;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 using Microsoft.AspNetCore.Mvc;

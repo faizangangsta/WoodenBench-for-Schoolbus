@@ -1,15 +1,22 @@
 ﻿@{
     ViewData["Title"] = "出错啦";
 }
+<script id="rm_">
+    function rm() {
+        $("#otherOptions").remove();
+        $("#rm_").remove();
+    }
+</script>
 <script id="removeme">
     $("#Headernav").remove();
     $("#removeme").remove();
+    setTimeout(rm, 500);
 </script>
 
 <div class="container">
     @if (ViewData["RespCode"].ToString() == "404")
     {
-        <h3>Oops</h3>
+        <h3>Oops..</h3>
         <h4>你要找的东西不见了</h4>
     }
     else
@@ -17,36 +24,50 @@
         <h3>出现了一些问题</h3>
         <h4>服务器内部错误……</h4>
     }
-    <h5>以下是详细内容：</h5>
-    <div class=" container">
-        <h5 class="text-danger">@ViewData["ErrorMessage"]</h5>
+    <div class="container">
+        <h5S class="text-danger">@ViewData["ErrorMessage"]</h5S>
         @if (ViewData["RespCode"].ToString() == "404")
         {
             <strong> 请求URL:</strong>
             <br />
-            <textarea readonly inputmode="url" rows="5" style="overflow: scroll; scrollbar-base-color:black; width:100%">@ViewData["RAWResp"]</textarea>
+            <textarea class="TxBox" readonly inputmode="url" rows="5" style="overflow: scroll; scrollbar-base-color:black; width:100%">@ViewData["RAWResp"]</textarea>
         }
         <br />
+        <label>详细信息</label>
+        <button id="expBtn" class="btn btn-default btn-xs" onclick="expand();">展开</button>
+        <button id="colBtn" class="btn btn-default btn-xs hidden" onclick="collapse();">收起</button>
         @if (ViewData["RespCode"].ToString() != "404")
         {
-            <strong>异常类型</strong>
-            <br />
-            <code>@ViewData["ErrorAT"]</code>
-            <br />
-            <strong>请求时间:</strong>
-            <br />
-            <code>@DateTime.Now.TimeOfDay.ToString()</code>
-            <br />
-            <strong>其他参考信息</strong>
-            <br />
-            <code>@ViewData["DetailedInfo"]</code>
+            <div id="detail" class="hidden container">
+                <strong>出现异常的位置</strong>
+                <br />
+                <code>@ViewData["ErrorAT"]</code>
+                <br />
+                <strong>请求时间</strong>
+                <br />
+                <code>@DateTime.Now.TimeOfDay.ToString()</code>
+                <br />
+                <strong>其他参考信息</strong>
+                <br />
+                <code>@ViewData["DetailedInfo"]</code>
+            </div>
+            <script>
+                function collapse() {
+                    $("#detail").addClass("hidden");
+                    $("#colBtn").addClass("hidden");
+                    $("#expBtn").removeClass("hidden");
+                }
+                function expand() {
+                    $("#detail").removeClass("hidden");
+                    $("#expBtn").addClass("hidden");
+                    $("#colBtn").removeClass("hidden");
+                }
+            </script>
         }
-    </div>
-    <br />
-    <hr />
-    <h4>我该怎么办？？</h4>
-    <div class="center-all center-margin">
-        <button class="btn-danger btn" style="width: 45%" onclick="location.href='/'">带我返回主页</button>
-        <button class="btn-success btn" style="width: 45%" onclick="location.href='/Home/ReportBugs'">反馈一个Bug</button>
+        <br />
+        <div class="center-all">
+            <button class="btn btn-sm btn-success center-all" asp-action="Index" asp-controller="Home" style="width: 90%">返回主页</button>
+        </div>
+        <p style="font-size: 7px"><br />*为了提升服务质量，此次错误详细信息将会被提交至开发者</p>
     </div>
 </div>

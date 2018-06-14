@@ -9,11 +9,18 @@ namespace WBPlatform.WebManagement.Tools
 {
     public static class Sessions
     {
-        private static Dictionary<string, SessionInfo> __SessionCollection { get; set; } = new Dictionary<string, SessionInfo>();
+        private static Dictionary<string, SessionInfo> __SessionCollection = new Dictionary<string, SessionInfo>();
 
-        private static string _GetSessionString(UserObject LogonUser, string UA)
-            => Crypto.SHA512Encrypt(Crypto.RandomString(10, true) + LogonUser.UserName + new Random().NextDouble().ToString() + LogonUser.UserGroup.ToString() +
-                DateTime.Now.TimeOfDay.TotalMilliseconds.ToString() + LogonUser.Password + UA + LogonUser.UserGroup.ToString());
+        private static string _GeSessionString(UserObject LogonUser, string UA)
+            => Crypto.SHA512Encrypt(
+                Crypto.RandomString(10, true) +
+                LogonUser.UserName +
+                new Random().NextDouble().ToString() +
+                LogonUser.UserGroup.ToString() +
+                DateTime.Now.TimeOfDay.TotalMilliseconds.ToString() +
+                LogonUser.Password +
+                UA +
+                LogonUser.UserGroup.ToString());
 
         public struct SessionInfo
         {
@@ -25,7 +32,7 @@ namespace WBPlatform.WebManagement.Tools
 
         public static string RenewSession(string SessionString, string UserAgent, UserObject sessionInfo)
         {
-            string _Str = _GetSessionString(sessionInfo, UserAgent);
+            string _Str = _GeSessionString(sessionInfo, UserAgent);
             lock (__SessionCollection)
             {
                 if (__SessionCollection.ContainsKey(SessionString))
@@ -45,8 +52,8 @@ namespace WBPlatform.WebManagement.Tools
         public static bool OnSessionReceived(string SessionString, string UserAgent, out UserObject user)
         {
             user = null;
-            if (SessionString == null || UserAgent == null) return false;
-            if (__SessionCollection.ContainsKey(SessionString) && __SessionCollection[SessionString].UserAgent == UserAgent)
+            if (string.IsNullOrEmpty(SessionString) || string.IsNullOrEmpty(UserAgent)) return false;
+            if (__SessionCollection.ContainsKey(SessionString) && (UserAgent == "JumpToken_FreeLogin" || __SessionCollection[SessionString].UserAgent == UserAgent))
             {
                 SessionInfo SI = __SessionCollection[SessionString];
                 SI.LastSeenAlive = DateTime.Now;
@@ -60,8 +67,7 @@ namespace WBPlatform.WebManagement.Tools
             else return false;
         }
 
-
-        public static string OnWeChatCodeRcvd_Login(string Code, string UserAgent, out object LogonUser)
+        public static string LoginOrCreateUser_Core(string Code, string UserAgent, out object LogonUser)
         {
             WeChat.ReNewWCCodes();
             LogonUser = null;
@@ -76,19 +82,28 @@ namespace WBPlatform.WebManagement.Tools
                     return "0";
                 case DatabaseQueryResult.ONE_RESULT:
                     LogonUser = UserList[0];
-                    string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);
-                    lock (__SessionCollection)
-                    {
-                        __SessionCollection.Add(SessionString, new SessionInfo()
-                        {
-                            LastSeenAlive = DateTime.Now,
-                            UserAgent = UserAgent,
-                            user = (UserObject)LogonUser,
-                        });
-                        return SessionString;
-                    }
+                    return Login_Core(UserAgent, LogonUser);
                 default: return null;
             }
+        }
+
+        private static string Login_Core(string UserAgent, object LogonUser)
+        {
+            string SessionString = _GeSessionString((UserObject)LogonUser, UserAgent);
+            lock (__SessionCollection)
+            {
+                __SessionCollection.Add(SessionString, new SessionInfo()
+                {
+                    LastSeenAlive = DateTime.Now,
+                    UserAgent = UserAgent,
+                    user = (UserObject)LogonUser,
+                });
+                return SessionString;
+            }
+        }
+        internal static string JumpToken_Login()
+        {
+            return "";
         }
     }
 }

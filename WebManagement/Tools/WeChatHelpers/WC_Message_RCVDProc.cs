@@ -46,10 +46,15 @@ namespace WBPlatform.WebManagement.Tools
                             switch (Message.EventKey)
                             {
                                 case "ADD_PASSWORD":
+                                    string token = JumpTokens.CreateToken();
+                                    if (JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = "JumpToken_FreeLogin", WeChatUserName = Message.FromUser }))
+                                    {
+
+                                    }
                                     return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                         "要是想使用Windows 客户端登陆的话\r\n" +
                                         ///Home/Register?token={token}&user=&action=register
-                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
+                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?token=" + token + "&action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
                                         "给自己加一个密码吧!", null);
                                 case "WEB_SERV_VER":
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,
@@ -58,7 +63,7 @@ namespace WBPlatform.WebManagement.Tools
                                         "启动の时间: " + Program.StartUpTime.ToString() + "\r\n\r\n" +
                                         "服务端版本: " + Program.Version + "\r\n" +
                                         "核心库版本: " + WBConsts.CurrentCoreVersion + "\r\n" +
-                                        "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top/Home/Version");
+                                        "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://status.schoolbus.lhy0403.top/");
                                 default: return null;
                             }
                         default: return null;

@@ -38,26 +38,30 @@ namespace WBPlatform.WebManagement.Controllers
             AIUnknownUser();
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
-            return RedirectToAction("LoginFailed", AccountController.ControllerName);
+            //Response.WriteAsync("正在登陆");
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
         private static readonly string identifiedUID_CookieName = "identifiedUID";
         private static readonly string UnknownUID = "unknownUser";
+
         public void AIKnownUser(UserObject user) => Response.Cookies.Append(identifiedUID_CookieName, user.GetIdentifiableCode());
+
         public void AIUnknownUser() => Response.Cookies.Append(identifiedUID_CookieName, UnknownUID);
 
-        protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供详细错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
-            string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + ((Frame)((DefaultHttpContext)Response.HttpContext).Features).RawTarget;
+            string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
             Exception ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
             if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : ex.Message + ":::" + ex.InnerException.Message;
 
             Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
             ViewData["where"] = HomeController.ControllerName;
-            ViewData["ErrorMessage"] = Response.StatusCode == 404 ? ErrorType.ItemsNotFound.ToString() : _ErrorType.ToString();
+            ViewData["DetailedInfo"] = Response.StatusCode == 404 ? ErrorType.ItemsNotFound.ToString() : _ErrorType.ToString();
             ViewData["ErrorAT"] = _Where.ToString();
             ViewData["RespCode"] = Response.StatusCode.ToString();
-            ViewData["DetailedInfo"] = DetailedInfo;
+            ViewData["ErrorMessage"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
             string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", " -- ");
             LogWritter.ErrorMessage(logString);

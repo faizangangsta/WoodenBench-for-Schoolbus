@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAArAQ2TaE6iUWcLKjyJIs4vQAAAAACAAAAAAAQZgAAAAEAACAAAAB0t2PjLS1xwgohhn/I9vN0TD4tQIc0QXoBO4U7o6ZkfwAAAAAOgAAAAAIAACAAAAAvnOEtbAa8QVcvFeE0mtL0Z14PAtR5HYDS/XBE8axDJRAAAAAN6372pk7kT5N4EatEqNI3QAAAAEudxsWxxEUPpDeTa4z5F18ziClgnbrHVmEc+qxgDMHQ7RhUrbe1HINPMx1N6AqQD7wzTGA3eSdytEI0fi1ctaU=</EncryptedPassword>
+    <_PublishTargetUrl>ftp://www.lhy0403.top/</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>06/14/2018 23:14:47</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>06/14/2018 23:20:57</publishTime>
+    </File>
+    <File Include="Bmob-Windows.dll">
+      <publishTime>04/02/2017 13:24:52</publishTime>
+    </File>
+    <File Include="bundleconfig.json">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="Connected Services/Application Insights/ConnectedService.json">
+      <publishTime>06/14/2018 23:21:01</publishTime>
+    </File>
+    <File Include="Microsoft.AI.DependencyCollector.dll">
+      <publishTime>05/21/2018 14:55:46</publishTime>
+    </File>
+    <File Include="Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>05/21/2018 15:08:02</publishTime>
+    </File>
+    <File Include="Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>05/21/2018 20:31:36</publishTime>
+    </File>
+    <File Include="Microsoft.AI.WindowsServer.dll">
+      <publishTime>05/21/2018 15:06:18</publishTime>
+    </File>
+    <File Include="Microsoft.ApplicationInsights.AspNetCore.dll">
+      <publishTime>05/23/2018 22:09:42</publishTime>
+    </File>
+    <File Include="Microsoft.ApplicationInsights.dll">
+      <publishTime>05/21/2018 20:28:02</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
+      <publishTime>11/14/2016 20:41:30</publishTime>
+    </File>
+    <File Include="ServiceStatus.deps.json">
+      <publishTime>06/15/2018 00:33:08</publishTime>
+    </File>
+    <File Include="ServiceStatus.dll">
+      <publishTime>06/15/2018 00:32:54</publishTime>
+    </File>
+    <File Include="ServiceStatus.pdb">
+      <publishTime>06/15/2018 00:32:54</publishTime>
+    </File>
+    <File Include="ServiceStatus.PrecompiledViews.dll">
+      <publishTime>06/14/2018 23:48:55</publishTime>
+    </File>
+    <File Include="ServiceStatus.PrecompiledViews.pdb">
+      <publishTime>06/14/2018 23:48:55</publishTime>
+    </File>
+    <File Include="ServiceStatus.runtimeconfig.json">
+      <publishTime>06/15/2018 00:33:08</publishTime>
+    </File>
+    <File Include="ServiceStatus.Views.dll">
+      <publishTime>06/15/2018 00:32:55</publishTime>
+    </File>
+    <File Include="ServiceStatus.Views.pdb">
+      <publishTime>06/15/2018 00:32:55</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.deps.json">
+      <publishTime>06/15/2018 00:36:28</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.dll">
+      <publishTime>06/15/2018 00:36:21</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.pdb">
+      <publishTime>06/15/2018 00:36:21</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.runtimeconfig.json">
+      <publishTime>06/15/2018 00:36:28</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.Views.dll">
+      <publishTime>06/15/2018 00:36:23</publishTime>
+    </File>
+    <File Include="WBPlatformServ_Status.Views.pdb">
+      <publishTime>06/15/2018 00:36:23</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>06/15/2018 00:36:28</publishTime>
+    </File>
+    <File Include="WoodenBench_Helper.dll">
+      <publishTime>06/15/2018 00:36:19</publishTime>
+    </File>
+    <File Include="WoodenBench_Helper.pdb">
+      <publishTime>06/15/2018 00:36:19</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.min.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner1.svg">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner2.svg">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner3.svg">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner4.svg">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.min.js">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/.bower.json">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css.map">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>06/14/2018 23:14:48</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/.bower.json">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>06/14/2018 23:14:50</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>06/14/2018 23:14:50</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/.bower.json">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/.bower.json">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>06/14/2018 23:14:49</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

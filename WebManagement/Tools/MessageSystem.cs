@@ -90,7 +90,7 @@ namespace WBPlatform.WebManagement.Tools
                                 WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经审核完毕！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
-                                        "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, requestSender.UserName);
+                                        "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)(message.dataObject)).objectId, requestSender.UserName);
                                 WeChatMessageSystem.AddToSendList(_WMessage);
                                 break;
                             case DatabaseQueryResult.INTERNAL_ERROR:

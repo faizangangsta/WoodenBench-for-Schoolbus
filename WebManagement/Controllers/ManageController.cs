@@ -33,7 +33,6 @@ namespace WBPlatform.WebManagement.Controllers
         }
         public IActionResult ChangeRequest(string arg, string reqId)
         {
-            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 AIKnownUser(user);
@@ -43,6 +42,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         case "my":
                             ViewData["mode"] = "my";
+                            ViewData["where"] = AccountController.ControllerName;
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
@@ -70,6 +70,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 }
                             }
                         case "manage":
+                            ViewData["where"] = ControllerName;
                             ViewData["mode"] = "manage";
                             if (!user.UserGroup.IsAdmin)
                             {

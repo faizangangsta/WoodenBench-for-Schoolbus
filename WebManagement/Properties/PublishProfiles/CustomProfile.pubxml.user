@@ -6,7 +6,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA6ME7j4++pUCmyswep4NhkAAAAAACAAAAAAAQZgAAAAEAACAAAAB8mYxhwPKoExW/LshQ+Q68m8XSou7NGwWcZjFV7J//lAAAAAAOgAAAAAIAACAAAAD2J7MS45TpCMWREPY7W+sQiOSZdkl6ew5HBHpegz68QxAAAAC3MP1kt0SuJ4TRnYCCDSnkQAAAAA+g4hjboMRrXcX5r05aVhBdhSmqU1lIyruqpkgL6QB4HV8MikbKj8fvbB2SAkbViBDSZEiHk+64vCUQwCWrw7Q=</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAArAQ2TaE6iUWcLKjyJIs4vQAAAAACAAAAAAAQZgAAAAEAACAAAAC+H//jvpUuEyzgnrRCMqJzZxenHogEDf2yXF1Hpo6ZlAAAAAAOgAAAAAIAACAAAAATJKVzT8Kv1vWiXbuABEUagbZ/DBTNpeh7CDOSsj7MWhAAAADzoSUH4kn12s+i9tt2TgZnQAAAACZbUjtfyixxip89RKPBqSHNYl52E28J2gO2HFYak3mtVX5Yqw2DgHnawmOLuSkqCSMZxjVTtNU0tF6pyHgfbmw=</EncryptedPassword>
     <_PublishTargetUrl>ftp://118.190.144.179/</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
@@ -26,103 +26,124 @@
       <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="dotnet-aspnet-codegenerator-design.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.AI.DependencyCollector.dll">
-      <publishTime>02/22/2018 16:25:18</publishTime>
+      <publishTime>05/21/2018 14:55:46</publishTime>
     </File>
     <File Include="Microsoft.AI.PerfCounterCollector.dll">
-      <publishTime>02/22/2018 16:36:44</publishTime>
+      <publishTime>05/21/2018 15:08:02</publishTime>
     </File>
     <File Include="Microsoft.AI.ServerTelemetryChannel.dll">
-      <publishTime>02/22/2018 14:39:42</publishTime>
+      <publishTime>05/21/2018 20:31:36</publishTime>
+    </File>
+    <File Include="Microsoft.AI.WindowsServer.dll">
+      <publishTime>05/21/2018 15:06:18</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.AspNetCore.dll">
-      <publishTime>02/23/2018 13:07:56</publishTime>
+      <publishTime>05/23/2018 22:09:42</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.dll">
-      <publishTime>02/22/2018 14:36:52</publishTime>
+      <publishTime>05/21/2018 20:28:02</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
-      <publishTime>05/23/2018 08:44:09</publishTime>
+      <publishTime>06/15/2018 00:01:50</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
-      <publishTime>05/23/2018 08:44:13</publishTime>
+      <publishTime>06/15/2018 00:01:50</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
+      <publishTime>11/14/2016 20:41:30</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:39</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
-      <publishTime>02/20/2018 20:41:26</publishTime>
+      <publishTime>06/15/2018 00:01:40</publishTime>
     </File>
     <File Include="Newtonsoft.Json.dll">
       <publishTime>06/18/2017 13:57:10</publishTime>
     </File>
     <File Include="NuGet.Frameworks.dll">
-      <publishTime>05/23/2018 08:44:08</publishTime>
+      <publishTime>06/15/2018 00:01:37</publishTime>
     </File>
     <File Include="QRCoder.dll">
-      <publishTime>10/21/2017 09:43:48</publishTime>
+      <publishTime>04/22/2018 09:30:28</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll">
+      <publishTime>11/14/2017 15:14:46</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll">
+      <publishTime>11/14/2017 15:14:46</publishTime>
     </File>
     <File Include="System.Composition.AttributedModel.dll">
-      <publishTime>05/23/2018 08:44:13</publishTime>
+      <publishTime>06/15/2018 00:01:41</publishTime>
     </File>
     <File Include="System.Composition.Convention.dll">
-      <publishTime>05/23/2018 08:44:13</publishTime>
+      <publishTime>06/15/2018 00:01:41</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
-      <publishTime>05/23/2018 08:44:13</publishTime>
+      <publishTime>06/15/2018 00:01:41</publishTime>
     </File>
     <File Include="System.Composition.Runtime.dll">
-      <publishTime>05/23/2018 08:44:08</publishTime>
+      <publishTime>06/15/2018 00:01:41</publishTime>
     </File>
     <File Include="System.Composition.TypedParts.dll">
-      <publishTime>05/23/2018 08:44:08</publishTime>
+      <publishTime>06/15/2018 00:01:41</publishTime>
+    </File>
+    <File Include="System.Drawing.Common.dll">
+      <publishTime>11/14/2017 15:14:46</publishTime>
     </File>
     <File Include="UnityEngine.dll">
-      <publishTime>10/21/2017 09:43:48</publishTime>
+      <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>06/11/2018 14:38:33</publishTime>
+      <publishTime>06/15/2018 00:43:19</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>06/11/2018 14:38:33</publishTime>
+      <publishTime>06/15/2018 00:43:19</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>06/11/2018 14:34:09</publishTime>
+      <publishTime>06/15/2018 00:42:52</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>06/11/2018 14:34:09</publishTime>
+      <publishTime>06/15/2018 00:42:52</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
       <publishTime>06/11/2018 14:34:26</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.pdb">
-      <publishTime>06/11/2018 14:34:26</publishTime>
+      <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>06/11/2018 14:38:33</publishTime>
+      <publishTime>06/15/2018 00:43:19</publishTime>
+    </File>
+    <File Include="WebManagement.Views.dll">
+      <publishTime>06/15/2018 00:42:53</publishTime>
+    </File>
+    <File Include="WebManagement.Views.pdb">
+      <publishTime>06/15/2018 00:42:53</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>06/11/2018 13:52:19</publishTime>
+      <publishTime>06/15/2018 00:36:19</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>06/11/2018 13:52:19</publishTime>
+      <publishTime>06/15/2018 00:36:19</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>06/01/2018 07:58:10</publishTime>
@@ -200,67 +221,67 @@
       <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/banner1.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/banner2.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/banner3.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/banner4.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/bus.png">
-      <publishTime>03/08/2018 17:09:28</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/child.svg">
-      <publishTime>03/08/2018 13:15:57</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/class.png">
-      <publishTime>03/08/2018 12:54:57</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/images/myaccount.png">
-      <publishTime>03/08/2018 17:10:06</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/additional-methods.js">
-      <publishTime>02/20/2018 20:19:15</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/additional-methods.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bmob.js">
-      <publishTime>12/09/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bmob.min.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bmobSocketIo.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bmobSocketIo.min.js">
-      <publishTime>11/11/2017 00:00:00</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bootstrap.js">
-      <publishTime>02/20/2018 20:40:44</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/bootstrap.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/aes.js">
       <publishTime>06/01/2018 07:58:11</publishTime>
@@ -422,22 +443,22 @@
       <publishTime>02/19/2018 21:53:15</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.min.map">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.validate.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.validate.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.validate.unobtrusive.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/js/jquery.validate.unobtrusive.min.js">
       <publishTime>06/01/2018 07:58:11</publishTime>
@@ -479,25 +500,25 @@
       <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>02/20/2018 19:23:07</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
-      <publishTime>02/20/2018 19:23:08</publishTime>
+      <publishTime>06/01/2018 07:58:11</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
       <publishTime>06/01/2018 07:58:11</publishTime>
@@ -554,7 +575,7 @@
       <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/WeiXinModule.js">
-      <publishTime>02/20/2018 21:34:58</publishTime>
+      <publishTime>06/01/2018 07:58:10</publishTime>
     </File>
     <File Include="wwwroot/SchBMgr_js/_notes/dwsync.xml">
       <publishTime>02/19/2018 22:54:03</publishTime>
