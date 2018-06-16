@@ -9,6 +9,7 @@ namespace WBPlatform.WebManagement.Tools
 {
     public static class Sessions
     {
+        public static int GetCount { get => __SessionCollection.Count; }
         private static Dictionary<string, SessionInfo> __SessionCollection = new Dictionary<string, SessionInfo>();
 
         private static string _GeSessionString(UserObject LogonUser, string UA)

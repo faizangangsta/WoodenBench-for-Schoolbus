@@ -72,13 +72,13 @@ namespace WBPlatform.WebManagement.Controllers
         {
             WeChatSentMessage _Message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
                 "ERROR!" +
-                "\r\nREQT:" + DateTime.Now.ToString() + "\r\n" +
-                "\r\nPURL:" + ViewData["RAWResp"] + "\r\n" +
-                "\r\nCODE:" + Response.StatusCode + "\r\n" +
-                "\r\nEMSG:" + ViewData["ErrorMessage"] + "\r\n" +
-                "\r\nLUSR:" + LoginUsr + "\r\n" +
-                "\r\nSTCK:" + ViewData["ErrorAT"] + "\r\n" +
-                "\r\nDNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
+                "\r\nRQT:" + DateTime.Now.ToString() +
+                "\r\nURL:" + ViewData["RAWResp"] +
+                "\r\nCOE:" + Response.StatusCode +
+                "\r\nMSG:" + ViewData["ErrorMessage"] +
+                "\r\nUSR:" + LoginUsr +
+                "\r\nSTK:" + ViewData["ErrorAT"] +
+                "\r\nNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
             WeChatMessageSystem.AddToSendList(_Message);
             return _Message;
         }

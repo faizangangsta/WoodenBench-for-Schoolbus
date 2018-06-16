@@ -18,6 +18,7 @@ namespace WBPlatform.StaticClasses
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
             Fs.AutoFlush = true;
+            WriteLog(LogType.Info, "Started Log...");
         }
         public static void WriteLog(LogType level, string Message = "")
         {

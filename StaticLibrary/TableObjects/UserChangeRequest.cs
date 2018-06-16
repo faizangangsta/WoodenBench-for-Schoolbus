@@ -23,7 +23,7 @@ namespace WBPlatform.TableObject
             base.readFields(input);
             UserID = input.getString("UserID");
             SolverID = input.getString("SolverID");
-            RequestTypes = (UserChangeRequestTypes)(input.getInt("SolverID").Get());
+            RequestTypes = (UserChangeRequestTypes)(input.getInt("RequestType").Get());
             DetailTexts = input.getString("DetailTexts");
             NewContent = input.getString("NewContent");
             ProcessResultReason = (UserChangeRequestRefusedReasons)input.getInt("ResultReason").Get();

@@ -24,7 +24,35 @@ namespace WBPlatform.WebManagement.Controllers
                 return _LoginFailed("/" + ControllerName);
             }
         }
-        
+        public IActionResult Register(string token, string user, string _action)
+        {
+            AIUnknownUser();
+            ViewData["where"] = ControllerName;
+            if (token != null && JumpTokens.OnAccessed(token, out JumpTokens.TokenInfo? info) && user == info?.WeChatUserName && (info?.User_Agent == "JumpToken_FreeLogin" || info?.User_Agent == Request.Headers["User-Agent"]))
+            {
+                ViewData["UserName"] = info?.WeChatUserName;
+                ViewData["mode"] = _action;
+                if (_action == "AddPassword")
+                {
+
+                    return View();
+                }
+                else if (_action == "changePassword")
+                {
+                    throw new NotImplementedException("Not Supported ChangePassword.... Go to Windows Client...");
+                }
+                else if (_action == "register")
+                {
+
+                    return View();
+                }
+                else
+                {
+                    return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "请求所带的参数无效", user + ":" + info?.WeChatUserName);
+                }
+            }
+            return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token 超时或不存在，请重试", LoginUsr: user, ResponseCode: ErrorRespCode.RequestIllegal);
+        }
         public IActionResult RequestChange()
         {
             ViewData["where"] = ControllerName;
@@ -33,16 +61,10 @@ namespace WBPlatform.WebManagement.Controllers
                 if (Request.HasFormContentType)
                 {
                     Microsoft.AspNetCore.Http.IFormCollection form = Request.Form;
-                    string userID = Request.Cookies["userID"].Split('-')[1];
-                    string userName = Request.Cookies["userID"].Split('-')[0];
-                    if (user.objectId != userID && userName != user.UserName)
-                    {
-                        return _OnInternalError(ServerSideAction.MyAccount_CreateChangeRequest, ErrorType.RequestInvalid, "你的Cookie信息包含异常内容", user.UserName, ErrorRespCode.NotSet);
-                    }
                     UserChangeRequestTypes types = (UserChangeRequestTypes)Enum.Parse(typeof(UserChangeRequestTypes), form[nameof(UserChangeRequest.RequestTypes)][0]);
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
-                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = userID };
+                    UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = user.objectId };
                     Databases.Database.CreateData(request, out string objectId);
                     request.objectId = objectId;
                     MessagingSystem.onChangeRequest_Created(request, user);

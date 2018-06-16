@@ -107,7 +107,8 @@
                 for (var i = 0; i < data.count; i++)
                 {
                     var TMP = JSON.parse(eval("data.num_" + i));
-                    var Content = "<div id='" + TMP.StuID + "' class=\"row container\"><div class=\"col-sm-7 col-lg-7 col-xs-6 col-md-7\"><h6 style='font-size:15px' class='text-underline' >" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></h6></div>";
+                    var Content =
+                        "<div id='" + TMP.StuID + "' class=\"row container\"><div class=\"col-sm-7 col-lg-7 col-xs-6 col-md-7\"><h6 style='font-size:15px' class='text-underline' >" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=BusManager&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></h6></div>";
                     var Came = TMP.ComingChecked.toLowerCase() === "true", Leaved = TMP.LeavingChecked.toLowerCase() === "true";
                     Content = Content + eval(unescape(decodeURI("@ButtonArrays")));
                     Content = Content + "</div>";

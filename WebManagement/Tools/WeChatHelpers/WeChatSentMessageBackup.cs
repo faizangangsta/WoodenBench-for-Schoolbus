@@ -10,9 +10,11 @@ namespace WBPlatform.WebManagement.Tools
 {
     public class MessageBackup
     {
+        public static int GetCount { get => list.Count; }
+        public static bool GetStatus { get => NotificationBackupThread.IsAlive; }
         private static Thread NotificationBackupThread = new Thread(new ThreadStart(_Process));
         private static List<NotificationObject> list { get; set; } = new List<NotificationObject>();
-        public static void BeginBackup() => NotificationBackupThread.Start();
+        public static void StartBackupThread() => NotificationBackupThread.Start();
 
         public static void AddToSendList(string users, string Title, string Content)
         {
@@ -27,7 +29,7 @@ namespace WBPlatform.WebManagement.Tools
 
             NotificationObject notification = new NotificationObject()
             {
-                Content = (Title ?? "NO_TITLE " + Content),
+                Content = (Content ?? ""),
                 Receivers = targetUsers,
                 Sender = "WebServer",
                 Title = Title ?? "",

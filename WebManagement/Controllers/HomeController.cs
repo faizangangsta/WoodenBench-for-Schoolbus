@@ -79,24 +79,10 @@ namespace WBPlatform.WebManagement.Controllers
 
         public IActionResult Error()
         {
-            return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, LoginUsr: "SYSTEM");
+            return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, "未知原因异常：异常汇报程序未提供任何内容", LoginUsr: "SYSTEM");
         }
 
-        public IActionResult Register(string token, string user, string action)
-        {
-            AIUnknownUser();
-            ViewData["where"] = ControllerName;
-            if (token != null && JumpTokens.OnAccessed(token, out JumpTokens.TokenInfo? info) && user == info?.WeChatUserName && (info?.User_Agent == "JumpToken_FreeLogin" || info?.User_Agent == Request.Headers["User-Agent"]))
-            {
-                ViewData["UserName"] = info?.WeChatUserName;
-                if (action == "AddPassword")
-                {
-
-                }
-                return View();
-            }
-            return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token 超时或不存在，请重试", LoginUsr: user, ResponseCode: ErrorRespCode.RequestIllegal);
-        }
+     
 
         public IActionResult WeChatLogin(string state, string code)
         {

@@ -117,12 +117,16 @@ namespace WBPlatform.WebManagement.Controllers
         /// <param name="ClassID"></param>
         /// <param name="BusID"></param>
         /// <returns></returns>
-        public IActionResult ViewStudent(string StudentID, string ClassID, string BusID)
+        public IActionResult ViewStudent(string StudentID, string ClassID, string BusID, string from)
         {
-            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                if (string.IsNullOrEmpty(from))
+                {
+                    return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", user.UserName);
+                }
                 AIKnownUser(user);
+                ViewData["where"] = from;
                 // User Group Check
                 if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {

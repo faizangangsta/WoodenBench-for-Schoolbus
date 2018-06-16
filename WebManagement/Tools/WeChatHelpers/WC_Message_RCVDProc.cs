@@ -11,8 +11,8 @@ namespace WBPlatform.WebManagement.Tools
     {
         private static List<WeChatRcvdMessage> RcvdMessageList { get; set; } = new List<WeChatRcvdMessage>();
         private static Thread ProcessorRCVDThread = new Thread(new ThreadStart(_ProcessRCVD));
-
-        public static void StartProc()
+        public static object[] Status() => new object[] { ProcessorRCVDThread.IsAlive, ProcessorSENTThread.IsAlive, RcvdMessageList.Count, SentMessageList.Count };
+        public static void StartProcessThreads()
         {
             ProcessorSENTThread.Start();
             ProcessorRCVDThread.Start();
@@ -54,7 +54,7 @@ namespace WBPlatform.WebManagement.Tools
                                     return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                         "要是想使用Windows 客户端登陆的话\r\n" +
                                         ///Home/Register?token={token}&user=&action=register
-                                        "就点击<a href='https://schoolbus.lhy0403.top/Home/Register/?token=" + token + "&action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
+                                        "就点击<a href='https://schoolbus.lhy0403.top/Account/Register/?token=" + token + "&_action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
                                         "给自己加一个密码吧!", null);
                                 case "WEB_SERV_VER":
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,

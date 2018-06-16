@@ -10,10 +10,12 @@ namespace WBPlatform.WebManagement.Tools
 {
     public static class MessagingSystem
     {
+        public static int GetCount { get => MessageList.Count; }
+        public static bool GetStatus { get => ProcThread.IsAlive; }
         private static List<GlobalMessage> MessageList { get; set; } = new List<GlobalMessage>();
         private static Thread ProcThread = new Thread(new ThreadStart(_ProcThread));
 
-        public static void StartProcess() => ProcThread.Start();
+        public static void StartProcessThread() => ProcThread.Start();
         public static void onChangeRequest_Created(UserChangeRequest request, UserObject user)
         {
             GlobalMessage messageAdmin = new GlobalMessage() { type = GlobalMessageTypes.UCR_Created_TO_ADMIN, dataObject = request, user = user, objectId = request.objectId };

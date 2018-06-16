@@ -18,6 +18,7 @@ namespace WBPlatform.WebManagement
         public static DateTime StartUpTime { get; private set; }
         public static void Main(string[] args)
         {
+            StatusMonitor.StartMonitorThread();
             StartUpTime = DateTime.Now;
             LogWritter.InitLog();
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
@@ -25,9 +26,9 @@ namespace WBPlatform.WebManagement
             Database.Initialise();
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
-            WeChatMessageSystem.StartProc();
-            MessageBackup.BeginBackup();
-            MessagingSystem.StartProcess();
+            WeChatMessageSystem.StartProcessThreads();
+            MessageBackup.StartBackupThread();
+            MessagingSystem.StartProcessThread();
 
             var webHost = BuildWebHost(args);
             //WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
@@ -40,14 +41,11 @@ namespace WBPlatform.WebManagement
             webHost.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
                 .UseKestrel()
                 .UseApplicationInsights()
                 .UseStartup<Startup>()
                 .Build();
-        }
     }
 }

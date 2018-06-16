@@ -18,7 +18,29 @@
         <label>性别：</label>@(Model.Sex == "M" ? "男" : "女")<br />
         <label>手机号码：</label>@Model.PhoneNumber<br />
         <label>已经设置密码：</label>@(string.IsNullOrEmpty(Model.Password) ? "否❌" : "是✔")<br />
-        <button class="btn btn-default btn-sm">修改或添加密码</button> <br /><br />
+        @if (string.IsNullOrEmpty(Model.Password))
+        {
+            <button class="btn btn-default btn-sm" onclick="jump(@(string.IsNullOrEmpty(Model.Password).ToString().ToLower()))">设置密码</button> <br /><br />
+            <script>
+            function jump(isCreate) {
+                $.ajax({
+                    url: location.protocol + "//" + location.host + "/api/users/Register?userId=@Model.objectId&mode=" + isCreate,
+                    type: 'GET',
+                    success: function (data2) {
+                        if (data2.ErrCode == "0") {
+                            location.href = "/Home/Register?token=" + data2.ErrMessage + "&user=@Model.UserName&_action=" + (isCreate ? "AddPassword" : "changePassword");
+                        } else {
+                            alert("请求出错，请刷新页面后重试.");
+                        }
+                    },
+                    error: function (err) {
+                        alert("请求出错，请刷新页面后重试.");
+                    }
+                });
+            }
+            </script>
+        }
+
         <label>用户权限分配：</label>
         <div class="container">
             <label>家长：</label>@(Model.UserGroup.IsParent ? "是✔" : "否❌")<br />

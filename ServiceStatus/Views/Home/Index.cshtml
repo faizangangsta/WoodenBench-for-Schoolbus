@@ -3,4 +3,9 @@
 }
 <div class="container">
     <h1>小板凳校车管理平台 - 服务状态</h1>
+    <pre id="show"></pre>
+    <script>
+        var jsObj = JSON.parse(decodeURI("@Uri.EscapeUriString(ViewData["msg"].ToString())"));
+        document.getElementById("show").innerHTML = (JSON.stringify(jsObj, null, 4));    // 缩进4个空格
+    </script>
 </div>

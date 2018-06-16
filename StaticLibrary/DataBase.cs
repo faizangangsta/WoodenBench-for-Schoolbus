@@ -1,9 +1,9 @@
-﻿using cn.bmob.api;
+﻿using System;
+using System.Collections.Generic;
+
+using cn.bmob.api;
 using cn.bmob.io;
 using cn.bmob.tools;
-
-using System;
-using System.Collections.Generic;
 
 using WBPlatform.StaticClasses;
 using WBPlatform.StaticClasses.Properties;
@@ -14,6 +14,7 @@ namespace WBPlatform.Databases
     public static class Database
     {
         private static BmobWindows _Bmob { get; set; } = new BmobWindows();
+        public static bool isInitiallised = false;
         public static void Initialise()
         {
             LogWritter.DebugMessage("Database Initialising...");
@@ -49,7 +50,7 @@ namespace WBPlatform.Databases
         public static DatabaseQueryResult QueryMultipleData<T>(DatabaseQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : DataTable, new()
         {
             query.Limit(queryLimit);
-            query.Skip(0);
+            query.Skip(skip);
             Result = new List<T>();
             try
             {

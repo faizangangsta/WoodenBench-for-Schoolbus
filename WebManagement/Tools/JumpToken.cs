@@ -6,6 +6,7 @@ namespace WBPlatform.WebManagement.Tools
 {
     public static class JumpTokens
     {
+        public static int GetCount { get => JumpToken.Count; }
         private static Dictionary<string, TokenInfo?> JumpToken { get; set; } = new Dictionary<string, TokenInfo?>();
         public struct TokenInfo
         {

@@ -2,15 +2,18 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:19582/",
+    "iis": {
+      "applicationUrl": "http://status.schoolbus.lhy0403.top",
       "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://status.schoolbus.lhy0403.top",
+      "sslPort": 44381
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -21,7 +24,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://0.0.0.0"
+      "applicationUrl": "http://status.schoolbus.lhy0403.top"
     }
   }
 }

@@ -41,11 +41,27 @@ namespace WBPlatform.WebManagement.Controllers
                                 default: return WebAPIResponseCollections.RequestIllegal;
                             }
                             if (Database.UpdateData(request) == -1) return WebAPIResponseCollections.DatabaseError;
-                            else
+                            if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
-                                MessagingSystem.onChangeRequest_Solved(request, SessionUser);
-                                return WebAPIResponseCollections.SpecialisedInfo("修改成功");
+                                switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
+                                {
+                                    case DatabaseQueryResult.ONE_RESULT:
+                                        switch (request.RequestTypes)
+                                        {
+                                            case UserChangeRequestTypes.真实姓名:
+                                                user.RealName = request.NewContent;
+                                                break;
+                                            case UserChangeRequestTypes.手机号码:
+                                                user.PhoneNumber = request.NewContent;
+                                                break;
+                                            default: return WebAPIResponseCollections.SpecialisedInfo("提交成功，部分内容需要手动修改");
+                                        }
+                                        MessagingSystem.onChangeRequest_Solved(request, SessionUser);
+                                        break;
+                                    default: return WebAPIResponseCollections.DatabaseError;
+                                }
                             }
+                            return WebAPIResponseCollections.SpecialisedInfo("提交成功");
                         case DatabaseQueryResult.NO_RESULTS:
                         case DatabaseQueryResult.MORE_RESULTS:
                         case DatabaseQueryResult.INTERNAL_ERROR:

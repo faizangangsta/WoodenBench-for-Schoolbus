@@ -2,9 +2,13 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://0.0.0.0/",
+    "iis": {
+      "applicationUrl": "http://schoolbus.lhy0403.top",
       "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://schoolbus.lhy0403.top",
+      "sslPort": 44325
     }
   },
   "profiles": {
@@ -19,7 +23,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://0.0.0.0"
+      "applicationUrl": "http://schoolbus.lhy0403.top"
     }
   }
 }
