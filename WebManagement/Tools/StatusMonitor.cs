@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.IO.Pipes;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection;
@@ -19,6 +20,7 @@ namespace WBPlatform.WebManagement.Tools
         private static Dictionary<string, object> status = new Dictionary<string, object>();
         private static UdpClient client = new UdpClient(0, AddressFamily.InterNetwork);
         private static IPEndPoint endpoint = new IPEndPoint(IPAddress.Broadcast, 58720);
+        private static NamedPipeServerStream pipe = new NamedPipeServerStream("83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.Out) { };
 
         public static void StartMonitorThread() => _MonitorThread.Start();
         private static void ThreadWork()
@@ -43,12 +45,17 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("ServerVer", Program.Version);
                 status.Add("CoreLibVer", WBConsts.CurrentCoreVersion);
                 status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion);
-
-
                 string data = SimpleJson.SimpleJson.SerializeObject(status);
 
                 byte[] ipByte = Encoding.UTF8.GetBytes(data);
-                client.Send(ipByte, ipByte.Length, endpoint);
+                //client.Send(ipByte, ipByte.Length, endpoint);
+                if (!pipe.IsConnected)
+                {
+                    pipe.WaitForConnection();
+                }
+                pipe.Write(ipByte, 0, ipByte.Length);
+                pipe.Flush();
+                pipe.WaitForPipeDrain();
                 Thread.Sleep(5000);
             }
         }

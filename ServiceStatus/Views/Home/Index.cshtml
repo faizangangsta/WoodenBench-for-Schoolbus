@@ -1,11 +1,40 @@
 ﻿@{
     ViewData["Title"] = "小板凳校车管理平台 - 服务状态";
+    Dictionary<string, object> status = (Dictionary<string, object>)ViewData["parsedMsg"];
+    bool SessionThread = (bool)status["SessionThread"];
+    bool WeChatRCVDThreadStatus = (bool)status["WeChatRCVDThreadStatus"];
+    bool WeChatSENTThreadStatus = (bool)status["WeChatSENTThreadStatus"];
+    bool CoreMessageSystemThread = (bool)status["CoreMessageSystemThread"];
+    bool MessageBackupThread = (bool)status["MessageBackupThread"];
+    bool isWorking = SessionThread && WeChatRCVDThreadStatus && WeChatSENTThreadStatus && CoreMessageSystemThread && MessageBackupThread;
 }
+<br />
+<h4>小板凳校车管理平台 - 服务状态</h4>
 <div class="container">
-    <h1>小板凳校车管理平台 - 服务状态</h1>
+    <label>整体状态</label>
+    <p style="font-size: 20px;font-weight: bold" class="text-center text-@(isWorking?"success":"danger")">@(isWorking ? "工作正常✔" : "出现问题❌")</p>
+
+    <label>详细信息</label>
     <pre id="show"></pre>
-    <script>
-        var jsObj = JSON.parse(decodeURI("@Uri.EscapeUriString(ViewData["msg"].ToString())"));
-        document.getElementById("show").innerHTML = (JSON.stringify(jsObj, null, 4));    // 缩进4个空格
-    </script>
 </div>
+<script>
+        var jsObj = JSON.parse(decodeURI("@Uri.EscapeUriString(ViewData["msg"].ToString())"));
+    document.getElementById("show").innerHTML = (JSON.stringify(jsObj, null, 1));    // 缩进4个空格
+    document.onload = p;
+    document.onclick = p;
+    document.onscroll = p;
+    document.ondrag = p;
+    function p() {
+        if (false) {
+            var Url2 = "复制了好多内容啊，复制了好多内容啊，复制了好多内容啊，复制了好多内容啊，复制了好多内容啊，复制了好多内容啊，";
+            var oInput = document.createElement('input');
+            oInput.value = Url2;
+            document.body.appendChild(oInput);
+            oInput.select(); // 选择对象
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            oInput.className = 'oInput';
+            oInput.style.display = 'none';
+            console.log("Cpoied");
+        }
+    }
+</script>

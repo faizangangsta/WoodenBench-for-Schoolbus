@@ -11,7 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "StaticLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebManagement", "WebManagement\WebManagement.csproj", "{057EF188-ACD4-45C7-BEF8-41205C0F0E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStatus", "ServiceStatus\ServiceStatus.csproj", "{80529275-FDCC-4653-8C02-F1B013D97DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStatus", "ServiceStatus\ServiceStatus.csproj", "{80529275-FDCC-4653-8C02-F1B013D97DD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{057EF188-ACD4-45C7-BEF8-41205C0F0E42} = {057EF188-ACD4-45C7-BEF8-41205C0F0E42}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
