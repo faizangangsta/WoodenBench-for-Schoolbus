@@ -16,22 +16,22 @@ namespace WBPlatform.WebManagement.Controllers
     public abstract class _Controller : Controller, IInternalController
     {
         public abstract IActionResult Index();
-        public HttpResponse procRespCookies(HttpResponse resp, string user, Dictionary<string, string> cookiePair)
-        {
-            if (cookiePair == null || cookiePair.Count == 0)
-            {
-
-            }
-            else
-            {
-                foreach (KeyValuePair<string, string> item in cookiePair)
-                {
-                    resp.Cookies.Append(item.Key, item.Value);
-                }
-            }
-            resp.Cookies.Append("identifiedUID", user);
-            return resp;
-        }
+        // public HttpResponse procRespCookies(HttpResponse resp, string user, Dictionary<string, string> cookiePair)
+        // {
+        //     if (cookiePair == null || cookiePair.Count == 0)
+        //     {
+        //
+        //     }
+        //     else
+        //     {
+        //         foreach (KeyValuePair<string, string> item in cookiePair)
+        //         {
+        //             resp.Cookies.Append(item.Key, item.Value);
+        //         }
+        //     }
+        //     resp.Cookies.Append("identifiedUID", user);
+        //     return resp;
+        // }
 
         protected IActionResult _LoginFailed(string RedirectPage)
         {
@@ -39,7 +39,7 @@ namespace WBPlatform.WebManagement.Controllers
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
             //Response.WriteAsync("正在登陆");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", HomeController.ControllerName);
             //return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
@@ -52,9 +52,10 @@ namespace WBPlatform.WebManagement.Controllers
 
         protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
-            string Page = Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
-            Exception ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-            if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : ex.Message + ":::" + ex.InnerException.Message;
+            string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
+            Exception ex = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+            Page = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Path;
+            if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : (ex.Message + ":::" + ex.InnerException.Message);
 
             Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
             ViewData["where"] = HomeController.ControllerName;
@@ -63,7 +64,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["ErrorMessage"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
-            string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", " -- ");
+            string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", "--");
             LogWritter.ErrorMessage(logString);
             return View("Error");
         }

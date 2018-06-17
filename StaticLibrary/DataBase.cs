@@ -57,17 +57,13 @@ namespace WBPlatform.Databases
                 string TableName = new T().table;
                 var FindTask = _Bmob.FindTaskAsync<T>(TableName, query);
                 FindTask.Wait();
-                if (FindTask.IsCompleted)
+                Result = FindTask.Result.results;
+                switch (Result.Count)
                 {
-                    Result = FindTask.Result.results;
-                    switch (Result.Count)
-                    {
-                        case 0: return DatabaseQueryResult.NO_RESULTS;
-                        case 1: return DatabaseQueryResult.ONE_RESULT;
-                        default: return DatabaseQueryResult.MORE_RESULTS;
-                    };
+                    case 0: return DatabaseQueryResult.NO_RESULTS;
+                    case 1: return DatabaseQueryResult.ONE_RESULT;
+                    default: return DatabaseQueryResult.MORE_RESULTS;
                 }
-                else return DatabaseQueryResult.INTERNAL_ERROR;
             }
             catch (Exception ex)
             {

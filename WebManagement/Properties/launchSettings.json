@@ -19,7 +19,7 @@
       }
     },
     "WebManagement": {
-      "commandName": "IIS",
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -82,8 +82,6 @@ namespace WBPlatform.WebManagement.Controllers
             return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, "未知原因异常：异常汇报程序未提供任何内容", LoginUsr: "SYSTEM");
         }
 
-     
-
         public IActionResult WeChatLogin(string state, string code)
         {
             AIUnknownUser();

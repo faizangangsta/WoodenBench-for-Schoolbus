@@ -240,7 +240,7 @@ namespace WBPlatform.WebManagement.Controllers
                         }
                         else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", user.UserName, ErrorRespCode.PermisstionDenied);
                     }
-                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "请求非法", user.UserName, ErrorRespCode.RequestIllegal);
+                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", user.UserName, ErrorRespCode.RequestIllegal);
                 }
                 else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.RequestIllegal);
             }
