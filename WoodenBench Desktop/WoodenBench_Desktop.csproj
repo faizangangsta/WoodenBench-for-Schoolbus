@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53D38988-D1CD-4EB0-AF9C-093EA6C3D2A6}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WBPlatform.WinClient</RootNamespace>
     <AssemblyName>校车小板凳</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>

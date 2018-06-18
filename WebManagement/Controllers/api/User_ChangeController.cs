@@ -49,10 +49,10 @@ namespace WBPlatform.WebManagement.Controllers
                         user.Password = (string)Equals2Obj;
                         break;
                     case "notice":
-                        user.WebNotiSeen = (bool)Equals2Obj;
+                        //user.WebNotiSeen = (bool)Equals2Obj;
                         break;
                     case "firstlogin":
-                        user.FirstLogin = (bool)Equals2Obj;
+                        //user.FirstLogin = (bool)Equals2Obj;
                         break;
                     default:
 

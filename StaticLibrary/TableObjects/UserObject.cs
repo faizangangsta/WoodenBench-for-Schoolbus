@@ -17,10 +17,7 @@ namespace WBPlatform.TableObject
         public string Sex { get; set; }
 
         public UserGroup UserGroup;
-
-        public bool FirstLogin { get; set; }
-        public bool WebNotiSeen { get; set; }
-
+        
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
 
@@ -40,21 +37,18 @@ namespace WBPlatform.TableObject
                 isBusManager: input.getBoolean("isBusTeacher").Get(), 
                 isParent: input.getBoolean("isParent").Get());
 
-
-            WebNotiSeen = input.getBoolean("WebNotiSeen").Get();
+            
             RealName = input.getString("RealName");
-            FirstLogin = input.getBoolean("IsFstLgn").Get();
             HeadImagePath = input.getString("HeadImage");
             PhoneNumber = input.getString("PhoneNumber");
 
             ClassList = input.getList<string>("ClassIDs");
-            ChildList = input.getList<string>("ChildList");
+            ChildList = input.getList<string>("ChildIDs");
         }
 
         public override void write(BmobOutput output, bool all)
         {
             base.write(output, all);
-            output.Put("WebNotiSeen", WebNotiSeen);
             output.Put("Username", UserName);
             output.Put("Password", Password);
             output.Put("Sex", Sex);
@@ -65,12 +59,11 @@ namespace WBPlatform.TableObject
             output.Put("isParent", UserGroup.IsParent);
 
             output.Put("RealName", RealName);
-            output.Put("IsFstLgn", FirstLogin);
             output.Put("HeadImage", HeadImagePath);
             output.Put("PhoneNumber", PhoneNumber);
 
             output.Put("ClassIDs", ClassList);
-            output.Put("ChildList", ChildList);
+            output.Put("ChildIDs", ChildList);
         }
 
         public UserObject SetEveryThingNull()
@@ -81,8 +74,6 @@ namespace WBPlatform.TableObject
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
             HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
             UserGroup = new UserGroup(false, false, false, false);
-            WebNotiSeen = false;
-            FirstLogin = false;
             return this;
         }
         public string GetIdentifiableCode()
@@ -124,8 +115,6 @@ namespace WBPlatform.TableObject
                 { "Username", UserName },
                 { "CreatedAt", createdAt },
                 { "HeadImagePath", HeadImagePath },
-                { "FirstLogin", FirstLogin.ToString().ToLower() },
-                { "WebNotiSeen", WebNotiSeen.ToString().ToLower() },
                 { "PhoneNumber", PhoneNumber },
                 { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },
                 //UserGroup

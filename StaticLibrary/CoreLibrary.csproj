@@ -67,13 +67,14 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="CryptoGraphy.cs" />
+    <Compile Include="DataBase\DatabaseSocketsClient.cs" />
     <Compile Include="LogWritter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DataBase.cs" />
+    <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="TableObjects\BusReportObject.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="Pinyin.cs" />

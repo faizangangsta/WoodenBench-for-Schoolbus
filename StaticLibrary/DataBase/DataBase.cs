@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using cn.bmob.api;
 using cn.bmob.io;
 using cn.bmob.tools;
-
+using WBPlatform.Databases.DataBaseCore;
 using WBPlatform.StaticClasses;
 using WBPlatform.StaticClasses.Properties;
 using WBPlatform.TableObject;
@@ -17,6 +17,8 @@ namespace WBPlatform.Databases
         public static bool isInitiallised = false;
         public static void Initialise()
         {
+            DatabaseSocketsClient.Initialise();
+
             LogWritter.DebugMessage("Database Initialising...");
             BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
             _Bmob.initialize(Resources.BmobDatabaseApplicationID, Resources.BmobDatabaseREST);
