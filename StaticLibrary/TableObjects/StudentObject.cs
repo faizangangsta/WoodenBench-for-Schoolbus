@@ -1,14 +1,13 @@
-﻿using cn.bmob.io;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+
+using Newtonsoft.Json;
+
+using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class StudentObject : DataTable
+    public class StudentObject : DataTableObject
     {
 
         public string StudentName { get; set; }
@@ -26,7 +25,7 @@ namespace WBPlatform.TableObject
 
         public override string table => WBConsts.TABLE_Mgr_StuData;
 
-        public override void readFields(BmobInput input)
+        public override void readFields(DataBaseInput input)
         {
             base.readFields(input);
             StudentName = input.getString("StuName");
@@ -34,12 +33,12 @@ namespace WBPlatform.TableObject
             Sex = input.getString("Sex");
             ClassID = input.getString("ClassID");
             //ParentsID = input.getString("ParentsIDs");
-            CSChecked = input.getBoolean("CSChecked").Get();
-            LSChecked = input.getBoolean("LSChecked").Get();
-            AHChecked = input.getBoolean("CHChecked").Get();
+            CSChecked = input.getBoolean("CSChecked");
+            LSChecked = input.getBoolean("LSChecked");
+            AHChecked = input.getBoolean("CHChecked");
         }
 
-        public override void write(BmobOutput output, bool all)
+        public override void write(DataBaseOutput output, bool all)
         {
             base.write(output, all);
             output.Put("StuName", StudentName);
@@ -65,9 +64,6 @@ namespace WBPlatform.TableObject
                 { "ParentLeavingChecked", AHChecked.ToString() },
             };
         }
-        public override string ToString()
-        {
-            return SimpleJson.SimpleJson.SerializeObject(ToDictionary());
-        }
+        public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
     }
 }

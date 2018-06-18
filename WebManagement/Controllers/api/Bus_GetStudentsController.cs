@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
             if (!( user.objectId == TeacherID))//user.UserGroup.BusID == BusID &&
                 return WebAPIResponseCollections.UserGroupError;
             if (Crypto.SHA256Encrypt(BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return WebAPIResponseCollections.RequestIllegal;
-            DatabaseQuery BusQuery = new DatabaseQuery();
+            DataBaseQuery BusQuery = new DataBaseQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (Database.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
@@ -30,7 +30,7 @@ namespace WBPlatform.WebManagement.Controllers
                 case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     {
-                        DatabaseQuery StudentQuery = new DatabaseQuery();
+                        DataBaseQuery StudentQuery = new DataBaseQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
                         switch (Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))

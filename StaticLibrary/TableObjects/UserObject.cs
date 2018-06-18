@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-
-using cn.bmob.io;
-
+using Newtonsoft.Json;
+using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 
 using static WBPlatform.StaticClasses.Crypto;
 
 namespace WBPlatform.TableObject
 {
-    public class UserObject : DataTable
+    public class UserObject : DataTableObject
     {
         public override string table => WBConsts.TABLE_Gen_UserTable;
         public string UserName { get; set; }
@@ -24,7 +23,7 @@ namespace WBPlatform.TableObject
         public List<string> ChildList { get; set; } = new List<string>();
         public List<string> ClassList { get; set; } = new List<string>();
 
-        public override void readFields(BmobInput input)
+        public override void readFields(DataBaseInput input)
         {
             base.readFields(input);
             UserName = input.getString("Username");
@@ -32,10 +31,10 @@ namespace WBPlatform.TableObject
             Sex = input.getString("Sex");
 
             UserGroup = new UserGroup(
-                isAdmin: input.getBoolean("isAdmin").Get(), 
-                isTeacher: input.getBoolean("isClassTeacher").Get(), 
-                isBusManager: input.getBoolean("isBusTeacher").Get(), 
-                isParent: input.getBoolean("isParent").Get());
+                isAdmin: input.getBoolean("isAdmin"), 
+                isTeacher: input.getBoolean("isClassTeacher"), 
+                isBusManager: input.getBoolean("isBusTeacher"), 
+                isParent: input.getBoolean("isParent"));
 
             
             RealName = input.getString("RealName");
@@ -46,7 +45,7 @@ namespace WBPlatform.TableObject
             ChildList = input.getList<string>("ChildIDs");
         }
 
-        public override void write(BmobOutput output, bool all)
+        public override void write(DataBaseOutput output, bool all)
         {
             base.write(output, all);
             output.Put("Username", UserName);
@@ -83,7 +82,7 @@ namespace WBPlatform.TableObject
 
         public static UserObject RandomValue => new UserObject().SetEveryThingNull();
 
-        public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
+        public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
 
         public string GetClassIdString(char Splitter)
         {

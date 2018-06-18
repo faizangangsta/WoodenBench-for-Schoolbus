@@ -1,13 +1,13 @@
 ﻿//Game表对应的模型类
-using cn.bmob.io;
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+
+using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class NotificationObject : DataTable
+    public class NotificationObject : DataTableObject
     {
         //以下对应云端字段名称
         public string Title { get; set; }
@@ -21,18 +21,18 @@ namespace WBPlatform.TableObject
         public override string table => WBConsts.TABLE_Gen_Notification;
 
 
-        public override void readFields(BmobInput input)
+        public override void readFields(DataBaseInput input)
         {
             base.readFields(input);
             Title = input.getString("Title");
             Content = input.getString("Content");
             Sender = input.getString("Sender");
             Receivers = input.getString("Receiver").Split(';').ToList();
-            Type = (NotificationType)input.getInt("Type").Get();
+            Type = (NotificationType)input.getInt("Type");
         }
 
         //写字段信息
-        public override void write(BmobOutput output, bool all)
+        public override void write(DataBaseOutput output, bool all)
         {
             string recv = GetStringRecivers();
             base.write(output, all);

@@ -22,7 +22,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.UserGroup.IsAdmin)
                 {
-                    switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
+                    switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
                         case DatabaseQueryResult.ONE_RESULT:
                             request.SolverID = SessionUser.objectId;
@@ -43,7 +43,7 @@ namespace WBPlatform.WebManagement.Controllers
                             if (Database.UpdateData(request) == -1) return WebAPIResponseCollections.DatabaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
-                                switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
+                                switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
                                     case DatabaseQueryResult.ONE_RESULT:
                                         switch (request.RequestTypes)

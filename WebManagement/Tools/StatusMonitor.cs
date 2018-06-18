@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
+using Newtonsoft.Json;
 
 namespace WBPlatform.WebManagement.Tools
 {
@@ -18,8 +19,6 @@ namespace WBPlatform.WebManagement.Tools
     {
         private static Thread _MonitorThread = new Thread(new ThreadStart(ThreadWork));
         private static Dictionary<string, object> status = new Dictionary<string, object>();
-        private static UdpClient client = new UdpClient(0, AddressFamily.InterNetwork);
-        private static IPEndPoint endpoint = new IPEndPoint(IPAddress.Broadcast, 58720);
         private static NamedPipeServerStream pipe = new NamedPipeServerStream("83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.Out) { };
 
         public static void StartMonitorThread() => _MonitorThread.Start();
@@ -45,7 +44,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("ServerVer", Program.Version);
                 status.Add("CoreLibVer", WBConsts.CurrentCoreVersion);
                 status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion);
-                string data = SimpleJson.SimpleJson.SerializeObject(status);
+                string data = JsonConvert.SerializeObject(status);
 
                 byte[] ipByte = Encoding.UTF8.GetBytes(data);
                 //client.Send(ipByte, ipByte.Length, endpoint);

@@ -32,18 +32,20 @@ namespace WBPlatform.Databases.DataBaseCore
             socketwatch.Listen(20);
 
             //负责监听客户端的线程:创建一个监听线程  
-            Thread threadwatch = new Thread(watchconnecting);
-
-            //将窗体线程设置为与后台同步，随着主线程结束而结束  
-            threadwatch.IsBackground = true;
+            Thread threadwatch = new Thread(watchconnecting)
+            {
+                //将窗体线程设置为与后台同步，随着主线程结束而结束  
+                IsBackground = true
+            };
 
             //启动线程     
             threadwatch.Start();
 
             Console.WriteLine("开启监听。。。");
-            Console.WriteLine("点击输入任意数据回车退出程序。。。");
-            Console.ReadKey();
-            Console.WriteLine("退出监听，并关闭程序。");
+            while (true)
+            {
+                Thread.Sleep(100);
+            }
         }
 
         //监听客户端发来的请求  
@@ -86,9 +88,11 @@ namespace WBPlatform.Databases.DataBaseCore
 
                 //创建一个通信线程      
                 ParameterizedThreadStart pts = new ParameterizedThreadStart(recv);
-                Thread thread = new Thread(pts);
-                //设置为后台线程，随着主线程退出而退出 
-                thread.IsBackground = true;
+                Thread thread = new Thread(pts)
+                {
+                    //设置为后台线程，随着主线程退出而退出 
+                    IsBackground = true
+                };
                 //启动线程     
                 thread.Start(connection);
             }
@@ -101,7 +105,7 @@ namespace WBPlatform.Databases.DataBaseCore
         static void recv(object socketclientpara)
         {
             Socket socketServer = socketclientpara as Socket;
-            
+
             while (true)
             {
                 //创建一个内存缓冲区，其大小为1024*1024字节  即1M     

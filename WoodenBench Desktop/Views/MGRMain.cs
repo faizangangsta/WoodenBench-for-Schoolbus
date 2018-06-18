@@ -52,7 +52,7 @@ namespace WBPlatform.WinClient.Views
             bool IsGoing = true;
             int CurrNum = 0;
             allUserObjectBindingSource.Clear();
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
 
 
             if (ContentTxBox.Text.ToLower() == "true")

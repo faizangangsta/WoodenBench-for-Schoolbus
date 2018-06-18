@@ -47,7 +47,7 @@ namespace WBPlatform.WebManagement.Controllers
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
-                switch (Database.QueryMultipleData(new DatabaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
+                switch (Database.QueryMultipleData(new DataBaseQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
                     case DatabaseQueryResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "内部错误，数据库查询出错", user.UserName, ErrorRespCode.InternalError);
                     case DatabaseQueryResult.NO_RESULTS: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));

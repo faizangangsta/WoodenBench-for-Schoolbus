@@ -168,7 +168,7 @@ namespace WBPlatform.WinClient.Views
         private void LoadExistStudents_Click(object sender, EventArgs e)
         {
             studentDataBindSourc.Clear();
-            DatabaseQuery ClassQuery = new DatabaseQuery();
+            DataBaseQuery ClassQuery = new DataBaseQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
             DatabaseQueryResult resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
@@ -195,7 +195,7 @@ namespace WBPlatform.WinClient.Views
             }
             else
             {
-                DatabaseQuery TeacherDataQuery = new DatabaseQuery();
+                DataBaseQuery TeacherDataQuery = new DataBaseQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
                 if (Database.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
@@ -213,7 +213,7 @@ namespace WBPlatform.WinClient.Views
 
             //if (MessageBox.Show("找到了班级，是否继续列出班里坐校车的学生？", "要继续吗", MessageBoxButtons.YesNo) == DialogResult.No)
             //    return;
-            DatabaseQuery StudentsQuery = new DatabaseQuery();
+            DataBaseQuery StudentsQuery = new DataBaseQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
             if (Database.QueryMultipleData(StudentsQuery, out List<StudentObject> results) == 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
@@ -243,7 +243,7 @@ namespace WBPlatform.WinClient.Views
         private void ExcelOperationWindow_Shown(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
             if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
             {
                 MessageBox.Show("出现了一些错误");

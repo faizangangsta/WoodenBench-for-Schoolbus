@@ -50,7 +50,7 @@ namespace WBPlatform.WinClient.Views
             if (CurrentUser.UserGroup.IsBusManager)
             {
                 SchoolBusObject busObject = new SchoolBusObject();
-                DatabaseQuery query = new DatabaseQuery();
+                DataBaseQuery query = new DataBaseQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
                 DatabaseQueryResult resultX = Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
 
@@ -89,7 +89,7 @@ namespace WBPlatform.WinClient.Views
         private void LoadAll_Click(object sender, EventArgs e)
         {
             studentDataObjectBindingSource.Clear();
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
             query.WhereEqualTo("BusID", myID.Text);
             DatabaseQueryResult resultX = Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
             if (resultX != DatabaseQueryResult.INTERNAL_ERROR && resultX != DatabaseQueryResult.NO_RESULTS)

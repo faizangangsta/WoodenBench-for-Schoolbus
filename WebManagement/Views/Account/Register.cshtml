@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <form action="/api/users/Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="_type" class="form-control hidden" value="@ViewData["mode"].ToString()" />
+            <input class="form-control hidden" value="@ViewData["mode"].ToString()" />
             <label asp-for="UserName" class="control-label hidden">@ViewData["UserName"].ToString()</label>
             <input asp-for="UserName" class="form-control" />
             <input asp-for="objectId" class="form-control" value="" />

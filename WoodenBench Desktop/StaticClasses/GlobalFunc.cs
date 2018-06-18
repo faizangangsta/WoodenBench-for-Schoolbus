@@ -21,9 +21,9 @@ namespace WBPlatform.WinClient.StaticClasses
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            Database.Initialise();
+            Database.InitialiseClient();
             Application.EnableVisualStyles();
-            FileIO.onFileIOCompleted += Views.MainForm.Default.DnFinished;
+            FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");
 
             FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;

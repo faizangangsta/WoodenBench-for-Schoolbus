@@ -55,7 +55,7 @@ namespace WBPlatform.WebManagement.Tools
             {
                 case GlobalMessageTypes.UCR_Created_TO_ADMIN:
                     {
-                        DatabaseQuery query = new DatabaseQuery();
+                        DataBaseQuery query = new DataBaseQuery();
                         query.WhereEqualTo("isAdmin", true);
                         if ((int)Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
                         {
@@ -85,7 +85,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                 case GlobalMessageTypes.UCR_Procced_TO_User:
                     {
-                        switch (Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
+                        switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
                         {
                             case DatabaseQueryResult.ONE_RESULT:
                                 string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "审核未通过";

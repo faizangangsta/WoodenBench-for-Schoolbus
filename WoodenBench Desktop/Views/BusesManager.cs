@@ -52,7 +52,7 @@ namespace WBPlatform.WinClient.Views
         private void buttonX2_Click(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
             if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
             {
                 foreach (SchoolBusObject item in list)
@@ -187,7 +187,7 @@ namespace WBPlatform.WinClient.Views
 
         private void BusesManager_Shown(object sender, EventArgs e)
         {
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
             query.WhereEqualTo("isBusTeacher", true);
             if (Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {

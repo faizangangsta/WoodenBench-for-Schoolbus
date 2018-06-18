@@ -62,7 +62,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                 if (Database.UpdateData(user) == 0)
                 {
-                    DatabaseQuery query = new DatabaseQuery();
+                    DataBaseQuery query = new DataBaseQuery();
                     query.WhereEqualTo("objectId", SessionUser.objectId);
                     switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
                     {

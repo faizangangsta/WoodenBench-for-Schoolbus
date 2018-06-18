@@ -1,13 +1,11 @@
-﻿using cn.bmob.io;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
-using static WBPlatform.StaticClasses.Crypto;
 
 namespace WBPlatform.TableObject
 {
-    public class UserChangeRequest : DataTable
+    public class UserChangeRequest : DataTableObject
     {
         public override string table => WBConsts.TABLE_Gen_UserRequest;
         public string UserID { get; set; }
@@ -18,19 +16,19 @@ namespace WBPlatform.TableObject
         public UserChangeRequestRefusedReasons ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
-        public override void readFields(BmobInput input)
+        public override void readFields(DataBaseInput input)
         {
             base.readFields(input);
             UserID = input.getString("UserID");
             SolverID = input.getString("SolverID");
-            RequestTypes = (UserChangeRequestTypes)(input.getInt("RequestType").Get());
+            RequestTypes = (UserChangeRequestTypes)(input.getInt("RequestType"));
             DetailTexts = input.getString("DetailTexts");
             NewContent = input.getString("NewContent");
-            ProcessResultReason = (UserChangeRequestRefusedReasons)input.getInt("ResultReason").Get();
-            Status = (UserChangeRequestProcessStatus)input.getInt("Status").Get();
+            ProcessResultReason = (UserChangeRequestRefusedReasons)input.getInt("ResultReason");
+            Status = (UserChangeRequestProcessStatus)input.getInt("Status");
         }
 
-        public override void write(BmobOutput output, bool all)
+        public override void write(DataBaseOutput output, bool all)
         {
             base.write(output, all);
             output.Put("UserID", UserID);
@@ -41,7 +39,7 @@ namespace WBPlatform.TableObject
             output.Put("Status", (int)Status);
             output.Put("ResultReason", (int)ProcessResultReason);
         }
-        public override string ToString() => SimpleJson.SimpleJson.SerializeObject(ToDictionary());
+        public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
 
         public Dictionary<string, string> ToDictionary()
         {

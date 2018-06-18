@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Controllers
             string StudentID = p[4];
             if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseCollections.RequestIllegal;
 
-            DatabaseQuery busFindQuery = new DatabaseQuery();
+            DataBaseQuery busFindQuery = new DataBaseQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
@@ -45,7 +45,7 @@ namespace WBPlatform.WebManagement.Controllers
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
-                        DatabaseQuery _stuQuery = new DatabaseQuery();
+                        DataBaseQuery _stuQuery = new DataBaseQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
                         switch (Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))

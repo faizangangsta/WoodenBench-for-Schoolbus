@@ -69,20 +69,29 @@ namespace WBPlatform.WinClient.Users
         {
             xUserName = xUserName.ToLower();
             string HashedPs = Crypto.SHA256Encrypt(xPassword);
-            DatabaseQuery UserNameQuery = new DatabaseQuery();
+            DataBaseQuery UserNameQuery = new DataBaseQuery();
             UserNameQuery.WhereEqualTo("Username", xUserName);
             UserNameQuery.WhereEqualTo("Password", HashedPs);
-            if (Database.QueryMultipleData(UserNameQuery, out List<UserObject> list) > 0)
+            user = null;
+            switch (Database.QuerySingleData(UserNameQuery, out UserObject _user))
             {
-                user = list[0];
-                return true;
+                case DatabaseQueryResult.INTERNAL_ERROR:
+                    LogWritter.ErrorMessage("Internal DataBase Error");
+                    break;
+                case DatabaseQueryResult.NO_RESULTS:
+                    LogWritter.ErrorMessage("No User Found");
+                    break;
+                case DatabaseQueryResult.ONE_RESULT:
+                    LogWritter.ErrorMessage("User Found");
+                    user = _user;
+                    return true;
+                case DatabaseQueryResult.MORE_RESULTS:
+                    LogWritter.ErrorMessage("WTF Exception....");
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                LogWritter.ErrorMessage("User Login Error: No User Found.");
-                user = null;
-                return false;
-            }
+            return false;
 
         }
         //private static void onUserActivity(OperationStatus Status, UserActivityE Act, string Detail = "")

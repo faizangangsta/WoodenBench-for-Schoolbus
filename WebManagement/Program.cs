@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement
             LogWritter.InitLog();
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
             WeChat.ReNewWCCodes();
-            Database.Initialise();
+            Database.InitialiseClient();
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
             WeChatMessageSystem.StartProcessThreads();

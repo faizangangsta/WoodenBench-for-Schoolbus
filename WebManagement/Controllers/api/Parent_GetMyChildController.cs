@@ -1,7 +1,8 @@
-﻿using cn.bmob.io;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -19,9 +20,9 @@ namespace WBPlatform.WebManagement.Controllers
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
             if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseCollections.UserGroupError;
 
-            DatabaseQuery StudentQuery = new DatabaseQuery();
+            DataBaseQuery StudentQuery = new DataBaseQuery();
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (Database.QueryMultipleData(new DatabaseQuery().WhereContainedIn("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
+            switch (Database.QueryMultipleData(new DataBaseQuery().WhereExistsInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
                 case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;

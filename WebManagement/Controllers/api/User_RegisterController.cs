@@ -1,14 +1,11 @@
-﻿using cn.bmob.io;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using WBPlatform.Databases;
+
+using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WebManagement.Controllers;
 using WBPlatform.WebManagement.Tools;
-using static WBPlatform.WebManagement.Program;
 
 namespace WBPlatform.WebManagement.Controllers
 {

@@ -1,13 +1,11 @@
-﻿using cn.bmob.io;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class ClassObject : DataTable
+    public class ClassObject : DataTableObject
     {
         public string CDepartment { get; set; }
         public string CGrade { get; set; }
@@ -18,7 +16,7 @@ namespace WBPlatform.TableObject
         public ClassObject() { }
         public override string table => WBConsts.TABLE_Mgr_Classes;
         
-        public override void readFields(BmobInput input)
+        public override void readFields(DataBaseInput input)
         {
             base.readFields(input);
             CDepartment = input.getString("ClassDepartment");
@@ -27,7 +25,7 @@ namespace WBPlatform.TableObject
             TeacherID = input.getString("TeacherID");
         }
 
-        public override void write(BmobOutput output, bool all)
+        public override void write(DataBaseOutput output, bool all)
         {
             base.write(output, all);
             output.Put("ClassDepartment", CDepartment);
@@ -49,9 +47,6 @@ namespace WBPlatform.TableObject
                 { "UpdatedAt", updatedAt },
             };
         }
-        public override string ToString()
-        {
-            return SimpleJson.SimpleJson.SerializeObject(ToDictionary());
-        }
+        public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
     }
 }

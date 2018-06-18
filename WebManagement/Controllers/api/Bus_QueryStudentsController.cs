@@ -1,13 +1,12 @@
-﻿using cn.bmob.io;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
+
 using WBPlatform.Databases;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WebManagement.Tools;
-using static WBPlatform.WebManagement.Program;
 
 namespace WBPlatform.WebManagement.Controllers
 {
@@ -20,7 +19,7 @@ namespace WBPlatform.WebManagement.Controllers
         {
             if (Crypto.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return WebAPIResponseCollections.RequestIllegal;
 
-            DatabaseQuery query = new DatabaseQuery();
+            DataBaseQuery query = new DataBaseQuery();
             query.WhereEqualTo("objectId", BusID);
             switch (Database.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
@@ -32,7 +31,7 @@ namespace WBPlatform.WebManagement.Controllers
                         if (Int32.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
                         else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
                         else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
-                        DatabaseQuery query2 = new DatabaseQuery();
+                        DataBaseQuery query2 = new DataBaseQuery();
                         query2.WhereEqualTo("BusID", BusList[0].objectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (Database.QueryMultipleData(query2, out List<StudentObject> StudentList))

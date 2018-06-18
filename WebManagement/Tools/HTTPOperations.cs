@@ -40,7 +40,7 @@ namespace WBPlatform.WebManagement.Tools
             newStream.Close();
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            Dictionary<string, object> m = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, object>>(ret);
+            Dictionary<string, object> m = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
             foreach (KeyValuePair<string, object> item in m)
             {
                 dict.Add(item.Key, item.Value == null ? "" : item.Value.ToString());

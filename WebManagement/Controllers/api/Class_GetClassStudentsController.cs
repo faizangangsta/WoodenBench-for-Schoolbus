@@ -20,7 +20,7 @@ namespace WBPlatform.WebManagement.Controllers
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
             if (!(user.ClassList.Contains(ClassID) && user.objectId == TeacherID)) return WebAPIResponseCollections.UserGroupError;
 
-            DatabaseQuery StudentQuery = new DatabaseQuery();
+            DataBaseQuery StudentQuery = new DataBaseQuery();
             StudentQuery.WhereEqualTo("ClassID", ClassID);
             Dictionary<string, string> dict = new Dictionary<string, string>();
             switch (Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))

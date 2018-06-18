@@ -54,7 +54,7 @@ namespace WBPlatform.WebManagement.Controllers
                 ViewData["cUser"] = user.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
-                    Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["mode"] = signmode;
                     return View();
@@ -85,7 +85,7 @@ namespace WBPlatform.WebManagement.Controllers
                     /// 
                     ///
 
-                    Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;
                 }
@@ -136,7 +136,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewStudentInfo info = new ViewStudentInfo();
 
                     //Search student with spec ClassID and StudentID and BusID
-                    flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
+                    flag = Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
                     result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
                     if (result != null) return result;
                     if (Student != null)
@@ -145,7 +145,7 @@ namespace WBPlatform.WebManagement.Controllers
                         info._student = Student;
 
                         //Get Class information with ClassID
-                        flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
+                        flag = Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
                         result = CheckFlag(flag, true, user, "GetClassBy_CID");
                         if (result != null) return result;
                         else
@@ -160,7 +160,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 info.ClassFound = true;
                                 info._class = Class;
                                 //Get Class Teacher Information
-                                flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
+                                flag = Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
                                 result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
                                 if (result != null) return result;
                                 else
@@ -180,7 +180,7 @@ namespace WBPlatform.WebManagement.Controllers
                         }
 
                         //Get Parents
-                        flag = Database.QueryMultipleData(new DatabaseQuery().WhereContainsAll("ChildList", Student.objectId), out List<UserObject> Parents);
+                        flag = Database.QueryMultipleData(new DataBaseQuery().WhereExistsInArray("ChildList", Student.objectId), out List<UserObject> Parents);
                         result = CheckFlag(flag, false, user, "GetParentsBy_UID");
                         if (result != null) return result;
                         else
@@ -199,7 +199,7 @@ namespace WBPlatform.WebManagement.Controllers
 
 
                         // Get SchoolBus
-                        flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
+                        flag = Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
                         result = CheckFlag(flag, true, user, "GetBusBy_BID");
                         if (result != null) return result;
                         else
@@ -214,7 +214,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 info.BusFound = true;
                                 info._schoolbus = Bus;
                                 // Get SchoolBus Teacher.
-                                flag = Database.QuerySingleData(new DatabaseQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
+                                flag = Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
                                 result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
                                 if (result != null) return result;
                                 else

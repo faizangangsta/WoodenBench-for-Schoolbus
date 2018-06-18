@@ -36,13 +36,12 @@ namespace WBPlatform.Databases.DataBaseCore
                 return;
             }
 
-            threadclient = new Thread(recv);
-            threadclient.IsBackground = true;
+            threadclient = new Thread(Recv) { IsBackground = true };
             threadclient.Start();
         }
 
         // 接收服务端发来信息的方法    
-        static void recv()
+        static void Recv()
         {
             int x = 0;
             //持续监听服务端发来的消息 
@@ -66,12 +65,12 @@ namespace WBPlatform.Databases.DataBaseCore
                     {
                         Console.WriteLine(strRevMsg + "\r\n\n");
                         x = 1;
+                        ClientSendMsg("TEST");
                     }
-                    ClientSendMsg("TEST");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("远程服务器已经中断连接" + "\r\n\n");
+                    Console.WriteLine("远程服务器已经中断连接" + ex.Message + "\r\n\n");
                     break;
                 }
             }
