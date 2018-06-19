@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -21,16 +21,16 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.objectId == UserID && SessionUser.UserGroup.IsBusManager)//&& SessionUser.UserGroup.BusID == BusID
                 {
-                    switch (Database.QueryMultipleData(new DataBaseQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
+                    switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
-                            switch (Database.QueryMultipleData(new DataBaseQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
+                            switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
-                                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                                case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                                case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 
 using WBPlatform.StaticClasses;
-using WBPlatform.WinClient.DelegateClasses;
+using WBPlatform.DesktopClient.DelegateClasses;
 
-namespace WBPlatform.WinClient.StaticClasses
+namespace WBPlatform.DesktopClient.StaticClasses
 {
     public class FileIO
     {

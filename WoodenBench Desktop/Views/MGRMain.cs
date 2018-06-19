@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 using DevComponents.DotNetBar.Metro;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.Users;
-using WBPlatform.WinClient.Views;
+using WBPlatform.DesktopClient.Users;
+using WBPlatform.DesktopClient.Views;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class ManagementWindow : MetroForm
     {
@@ -52,7 +52,7 @@ namespace WBPlatform.WinClient.Views
             bool IsGoing = true;
             int CurrNum = 0;
             allUserObjectBindingSource.Clear();
-            DataBaseQuery query = new DataBaseQuery();
+            DBQuery query = new DBQuery();
 
 
             if (ContentTxBox.Text.ToLower() == "true")
@@ -69,7 +69,7 @@ namespace WBPlatform.WinClient.Views
                 query.WhereEqualTo(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
             }
             //query.Skip(CurrNum);
-            if (Database.QueryMultipleData<UserObject>(query, out List<UserObject> result) < 0)
+            if (Database.Database.QueryMultipleData<UserObject>(query, out List<UserObject> result) < 0)
             {
                 MessageBox.Show("Failed getting data");
                 return;

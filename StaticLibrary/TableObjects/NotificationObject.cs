@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class NotificationObject : DataTableObject
+    public class NotificationObject : _DataTableObject
     {
         //以下对应云端字段名称
         public string Title { get; set; }
@@ -21,18 +21,18 @@ namespace WBPlatform.TableObject
         public override string table => WBConsts.TABLE_Gen_Notification;
 
 
-        public override void readFields(DataBaseInput input)
+        public override void readFields(DBInput input)
         {
             base.readFields(input);
-            Title = input.getString("Title");
-            Content = input.getString("Content");
-            Sender = input.getString("Sender");
-            Receivers = input.getString("Receiver").Split(';').ToList();
-            Type = (NotificationType)input.getInt("Type");
+            Title = input.GetString("Title");
+            Content = input.GetString("Content");
+            Sender = input.GetString("Sender");
+            Receivers = input.GetString("Receiver").Split(';').ToList();
+            Type = (NotificationType)input.GetInt("Type");
         }
 
         //写字段信息
-        public override void write(DataBaseOutput output, bool all)
+        public override void write(DBOutput output, bool all)
         {
             string recv = GetStringRecivers();
             base.write(output, all);

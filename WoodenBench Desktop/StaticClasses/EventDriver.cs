@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading;
 
 using WBPlatform.StaticClasses;
-using WBPlatform.WinClient.StaticClasses;
-using WBPlatform.WinClient.Users;
+using WBPlatform.DesktopClient.StaticClasses;
+using WBPlatform.DesktopClient.Users;
 
-namespace WBPlatform.WinClient.DelegateClasses
+namespace WBPlatform.DesktopClient.DelegateClasses
 {
     public delegate void FileIOCompletedEventHandler(FileIOEventArgs e);
 

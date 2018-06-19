@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WBPlatform.WinClient.DelegateClasses;
+using WBPlatform.DesktopClient.DelegateClasses;
 
 namespace WBPlatform.StaticClasses
 {

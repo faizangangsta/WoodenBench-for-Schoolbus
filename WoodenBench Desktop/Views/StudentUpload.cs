@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class StudentUploadWindow : MetroForm
     {
@@ -168,11 +168,11 @@ namespace WBPlatform.WinClient.Views
         private void LoadExistStudents_Click(object sender, EventArgs e)
         {
             studentDataBindSourc.Clear();
-            DataBaseQuery ClassQuery = new DataBaseQuery();
+            DBQuery ClassQuery = new DBQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            DatabaseQueryResult resultCode = Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
-            if (resultCode == DatabaseQueryResult.NO_RESULTS)
+            DatabaseOperationResult resultCode = Database.Database.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            if (resultCode == DatabaseOperationResult.NO_RESULTS)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
                 return;
@@ -195,9 +195,9 @@ namespace WBPlatform.WinClient.Views
             }
             else
             {
-                DataBaseQuery TeacherDataQuery = new DataBaseQuery();
+                DBQuery TeacherDataQuery = new DBQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                if (Database.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
+                if (Database.Database.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
                     MessageBox.Show("这不应该，这个班级有老师管理，但是查不到老师的任何信息。", "班主任溜了？");
                     ClsTName.Text = "";
@@ -213,9 +213,9 @@ namespace WBPlatform.WinClient.Views
 
             //if (MessageBox.Show("找到了班级，是否继续列出班里坐校车的学生？", "要继续吗", MessageBoxButtons.YesNo) == DialogResult.No)
             //    return;
-            DataBaseQuery StudentsQuery = new DataBaseQuery();
+            DBQuery StudentsQuery = new DBQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
-            if (Database.QueryMultipleData(StudentsQuery, out List<StudentObject> results) == 0)
+            if (Database.Database.QueryMultipleData(StudentsQuery, out List<StudentObject> results) == 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
             else
             {
@@ -243,8 +243,8 @@ namespace WBPlatform.WinClient.Views
         private void ExcelOperationWindow_Shown(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            DataBaseQuery query = new DataBaseQuery();
-            if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
+            DBQuery query = new DBQuery();
+            if (Database.Database.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
             {
                 MessageBox.Show("出现了一些错误");
             }
@@ -369,7 +369,7 @@ namespace WBPlatform.WinClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    if (Database.CreateData(StudentObj, out string objectId) == 0)
+                    if (Database.Database.CreateData(StudentObj, out string objectId) == 0)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();
@@ -387,7 +387,7 @@ namespace WBPlatform.WinClient.Views
                 else
                 {
                     StudentObj.objectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
-                    if (Database.UpdateData(StudentObj) == 0)
+                    if (Database.Database.UpdateData(StudentObj) == 0)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;
@@ -442,7 +442,7 @@ namespace WBPlatform.WinClient.Views
                     case "彻底删除":
                         if (MessageBox.Show("确定要在服务器上删除这条数据吗？该操作不可撤销！", "警告", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (Database.DeleteData(WBConsts.TABLE_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value) == 0) ;
+                            if (Database.Database.DeleteData(WBConsts.TABLE_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value) == 0) ;
                             StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
                             DoLog("成功在服务器上删除:" + Name);
                         }

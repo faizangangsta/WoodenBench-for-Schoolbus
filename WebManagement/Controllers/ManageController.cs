@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -46,27 +46,27 @@ namespace WBPlatform.WebManagement.Controllers
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
-                                switch (Database.QueryMultipleData(new DataBaseQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
+                                switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
                                 {
-                                    case DatabaseQueryResult.INTERNAL_ERROR:
+                                    case DatabaseOperationResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["count"] = requests.Count;
                                         ViewData["list"] = requests.ToArray();
-                                        return View();
+                                        return base.View();
                                 }
                             }
                             else
                             {
                                 // MY SINGLE Viewer
-                                switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
-                                    case DatabaseQueryResult.INTERNAL_ERROR:
-                                    case DatabaseQueryResult.NO_RESULTS:
-                                    case DatabaseQueryResult.MORE_RESULTS:
+                                    case DatabaseOperationResult.INTERNAL_ERROR:
+                                    case DatabaseOperationResult.NO_RESULTS:
+                                    case DatabaseOperationResult.MORE_RESULTS:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
-                                        return View(requests);
+                                        return base.View(requests);
                                 }
                             }
                         case "manage":
@@ -79,27 +79,27 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             if (string.IsNullOrEmpty(reqId))
                             {
-                                switch (Database.QueryMultipleData(new DataBaseQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
+                                switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
                                 {
-                                    case DatabaseQueryResult.INTERNAL_ERROR:
+                                    case DatabaseOperationResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         {
                                             ViewData["list"] = requests.ToArray();
-                                            return View();
+                                            return base.View();
                                         }
                                 }
                             }
                             else
                             {
-                                switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
-                                    case DatabaseQueryResult.INTERNAL_ERROR:
-                                    case DatabaseQueryResult.NO_RESULTS:
-                                    case DatabaseQueryResult.MORE_RESULTS:
+                                    case DatabaseOperationResult.INTERNAL_ERROR:
+                                    case DatabaseOperationResult.NO_RESULTS:
+                                    case DatabaseOperationResult.MORE_RESULTS:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
-                                        return View(requests);
+                                        return base.View(requests);
                                 }
                             }
                         default:

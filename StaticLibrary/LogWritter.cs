@@ -9,7 +9,6 @@ namespace WBPlatform.StaticClasses
     {
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
-        public static void BmobDebugMsg(object Message) => WriteLog(LogType.Info, Message.ToString());
         public static void DebugMessage(string Message) => WriteLog(LogType.Info, Message);
         public static void ErrorMessage(string Message) => WriteLog(LogType.Err, Message);
         public static void InitLog()

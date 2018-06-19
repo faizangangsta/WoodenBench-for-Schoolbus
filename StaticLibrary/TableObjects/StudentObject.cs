@@ -2,12 +2,12 @@
 
 using Newtonsoft.Json;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class StudentObject : DataTableObject
+    public class StudentObject : _DataTableObject
     {
 
         public string StudentName { get; set; }
@@ -25,20 +25,20 @@ namespace WBPlatform.TableObject
 
         public override string table => WBConsts.TABLE_Mgr_StuData;
 
-        public override void readFields(DataBaseInput input)
+        public override void readFields(DBInput input)
         {
             base.readFields(input);
-            StudentName = input.getString("StuName");
-            BusID = input.getString("BusID");
-            Sex = input.getString("Sex");
-            ClassID = input.getString("ClassID");
+            StudentName = input.GetString("StuName");
+            BusID = input.GetString("BusID");
+            Sex = input.GetString("Sex");
+            ClassID = input.GetString("ClassID");
             //ParentsID = input.getString("ParentsIDs");
-            CSChecked = input.getBoolean("CSChecked");
-            LSChecked = input.getBoolean("LSChecked");
-            AHChecked = input.getBoolean("CHChecked");
+            CSChecked = input.GetBool("CSChecked");
+            LSChecked = input.GetBool("LSChecked");
+            AHChecked = input.GetBool("CHChecked");
         }
 
-        public override void write(DataBaseOutput output, bool all)
+        public override void write(DBOutput output, bool all)
         {
             base.write(output, all);
             output.Put("StuName", StudentName);

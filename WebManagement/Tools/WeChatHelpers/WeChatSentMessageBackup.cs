@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
@@ -52,7 +52,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                     else message = null;
                 }
-                if (message != null) Database.CreateData(message, out string objectId);
+                if (message != null) Database.Database.CreateData(message, out string objectId);
                 else Thread.Sleep(500);
                 Thread.Sleep(200);
             }

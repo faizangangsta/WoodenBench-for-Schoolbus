@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WBPlatform.WinClient.Properties {
+namespace WBPlatform.DesktopClient.Properties {
     using System;
     
     

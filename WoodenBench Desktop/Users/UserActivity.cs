@@ -12,16 +12,16 @@ using System.Windows.Forms;
 
 
 using Newtonsoft.Json.Linq;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.DelegateClasses;
-using WBPlatform.WinClient.StaticClasses;
-using WBPlatform.WinClient.Views;
+using WBPlatform.DesktopClient.DelegateClasses;
+using WBPlatform.DesktopClient.StaticClasses;
+using WBPlatform.DesktopClient.Views;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Users
+namespace WBPlatform.DesktopClient.Users
 {
     public partial class UserActivity
     {
@@ -46,7 +46,7 @@ namespace WBPlatform.WinClient.Users
             UserObject Change = new UserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
             Change.objectId = NowUser.objectId;
-            if (Databases.Database.UpdateData(Change) == 0)
+            if (Database.Database.UpdateData(Change) == 0)
             {
                 LogWritter.DebugMessage("Change Password Success!");
                 return true;
@@ -69,23 +69,23 @@ namespace WBPlatform.WinClient.Users
         {
             xUserName = xUserName.ToLower();
             string HashedPs = Crypto.SHA256Encrypt(xPassword);
-            DataBaseQuery UserNameQuery = new DataBaseQuery();
+            DBQuery UserNameQuery = new DBQuery();
             UserNameQuery.WhereEqualTo("Username", xUserName);
             UserNameQuery.WhereEqualTo("Password", HashedPs);
             user = null;
-            switch (Database.QuerySingleData(UserNameQuery, out UserObject _user))
+            switch (Database.Database.QuerySingleData(UserNameQuery, out UserObject _user))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR:
+                case DatabaseOperationResult.INTERNAL_ERROR:
                     LogWritter.ErrorMessage("Internal DataBase Error");
                     break;
-                case DatabaseQueryResult.NO_RESULTS:
+                case DatabaseOperationResult.NO_RESULTS:
                     LogWritter.ErrorMessage("No User Found");
                     break;
-                case DatabaseQueryResult.ONE_RESULT:
+                case DatabaseOperationResult.ONE_RESULT:
                     LogWritter.ErrorMessage("User Found");
                     user = _user;
                     return true;
-                case DatabaseQueryResult.MORE_RESULTS:
+                case DatabaseOperationResult.MORE_RESULTS:
                     LogWritter.ErrorMessage("WTF Exception....");
                     break;
                 default:

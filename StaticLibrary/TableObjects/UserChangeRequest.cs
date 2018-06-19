@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class UserChangeRequest : DataTableObject
+    public class UserChangeRequest : _DataTableObject
     {
         public override string table => WBConsts.TABLE_Gen_UserRequest;
         public string UserID { get; set; }
@@ -16,19 +16,19 @@ namespace WBPlatform.TableObject
         public UserChangeRequestRefusedReasons ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
-        public override void readFields(DataBaseInput input)
+        public override void readFields(DBInput input)
         {
             base.readFields(input);
-            UserID = input.getString("UserID");
-            SolverID = input.getString("SolverID");
-            RequestTypes = (UserChangeRequestTypes)(input.getInt("RequestType"));
-            DetailTexts = input.getString("DetailTexts");
-            NewContent = input.getString("NewContent");
-            ProcessResultReason = (UserChangeRequestRefusedReasons)input.getInt("ResultReason");
-            Status = (UserChangeRequestProcessStatus)input.getInt("Status");
+            UserID = input.GetString("UserID");
+            SolverID = input.GetString("SolverID");
+            RequestTypes = (UserChangeRequestTypes)(input.GetInt("RequestType"));
+            DetailTexts = input.GetString("DetailTexts");
+            NewContent = input.GetString("NewContent");
+            ProcessResultReason = (UserChangeRequestRefusedReasons)input.GetInt("ResultReason");
+            Status = (UserChangeRequestProcessStatus)input.GetInt("Status");
         }
 
-        public override void write(DataBaseOutput output, bool all)
+        public override void write(DBOutput output, bool all)
         {
             base.write(output, all);
             output.Put("UserID", UserID);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ReportType = (BusReportTypeE)Convert.ToInt32(ReportType),
                     OtherData = Content
                 };
-                if (Database.CreateData(busReport, out string objectId) == 0)
+                if (Database.Database.CreateData(busReport, out string objectId) == 0)
                 {
                     dict.Add("CreatedAt", DateTime.Now.ToString());
                     dict.Add("ErrCode", "0");

@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using Newtonsoft.Json;
 
@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("WeChatSENTThreadStatus", WeChatMessageSystem.Status()[1]);
                 status.Add("WeChatRCVDListCount", WeChatMessageSystem.Status()[2]);
                 status.Add("WeChatSENTListCount", WeChatMessageSystem.Status()[3]);
-                status.Add("Database", Database.isInitiallised);
+                status.Add("Database", Database.Database.isInitiallised);
                 status.Add("CoreMessageSystemThread", MessagingSystem.GetStatus);
                 status.Add("CoreMessageSystemCount", MessagingSystem.GetCount);
                 status.Add("MessageBackupThread", MessageBackup.GetStatus);

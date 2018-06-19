@@ -59,8 +59,9 @@ namespace WBPlatform.StaticClasses
         事故 = 1,
         其他 = 9,
     }
-    public enum DatabaseQueryResult
+    public enum DatabaseOperationResult
     {
+        NOT_CONNECTED = -2,
         INTERNAL_ERROR = -1,
         NO_RESULTS = 0,
         ONE_RESULT = 1,

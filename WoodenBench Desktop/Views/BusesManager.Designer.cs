@@ -1,4 +1,4 @@
-﻿namespace WBPlatform.WinClient.Views
+﻿namespace WBPlatform.DesktopClient.Views
 {
     partial class BusesManager
     {

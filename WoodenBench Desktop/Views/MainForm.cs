@@ -15,14 +15,14 @@ using DevComponents.DotNetBar.Metro;
 using DevComponents.DotNetBar.Metro.ColorTables;
 
 using WBPlatform.StaticClasses;
-using WBPlatform.WinClient.DelegateClasses;
-using WBPlatform.WinClient.Properties;
-using WBPlatform.WinClient.StaticClasses;
-using WBPlatform.WinClient.Users;
+using WBPlatform.DesktopClient.DelegateClasses;
+using WBPlatform.DesktopClient.Properties;
+using WBPlatform.DesktopClient.StaticClasses;
+using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class MainForm : MetroForm
     {

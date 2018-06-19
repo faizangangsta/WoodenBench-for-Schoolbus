@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 
 using static WBPlatform.StaticClasses.Crypto;
 
 namespace WBPlatform.TableObject
 {
-    public class UserObject : DataTableObject
+    public class UserObject : _DataTableObject
     {
         public override string table => WBConsts.TABLE_Gen_UserTable;
         public string UserName { get; set; }
@@ -23,29 +23,29 @@ namespace WBPlatform.TableObject
         public List<string> ChildList { get; set; } = new List<string>();
         public List<string> ClassList { get; set; } = new List<string>();
 
-        public override void readFields(DataBaseInput input)
+        public override void readFields(DBInput input)
         {
             base.readFields(input);
-            UserName = input.getString("Username");
-            Password = input.getString("Password");
-            Sex = input.getString("Sex");
+            UserName = input.GetString("Username");
+            Password = input.GetString("Password");
+            Sex = input.GetString("Sex");
 
             UserGroup = new UserGroup(
-                isAdmin: input.getBoolean("isAdmin"), 
-                isTeacher: input.getBoolean("isClassTeacher"), 
-                isBusManager: input.getBoolean("isBusTeacher"), 
-                isParent: input.getBoolean("isParent"));
+                isAdmin: input.GetBool("isAdmin"), 
+                isTeacher: input.GetBool("isClassTeacher"), 
+                isBusManager: input.GetBool("isBusTeacher"), 
+                isParent: input.GetBool("isParent"));
 
             
-            RealName = input.getString("RealName");
-            HeadImagePath = input.getString("HeadImage");
-            PhoneNumber = input.getString("PhoneNumber");
+            RealName = input.GetString("RealName");
+            HeadImagePath = input.GetString("HeadImage");
+            PhoneNumber = input.GetString("PhoneNumber");
 
-            ClassList = input.getList<string>("ClassIDs");
-            ChildList = input.getList<string>("ChildIDs");
+            ClassList = input.GetList<string>("ClassIDs");
+            ChildList = input.GetList<string>("ChildIDs");
         }
 
-        public override void write(DataBaseOutput output, bool all)
+        public override void write(DBOutput output, bool all)
         {
             base.write(output, all);
             output.Put("Username", UserName);

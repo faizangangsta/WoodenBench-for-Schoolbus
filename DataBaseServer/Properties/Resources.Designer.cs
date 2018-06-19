@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WBPlatform.Databases.DataBaseCore.Properties {
+namespace WBPlatform.Database.DBServer.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WBPlatform.Databases.DataBaseCore.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WBPlatform.Databases.DataBaseCore.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WBPlatform.Database.DBServer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -25,11 +25,11 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", UserID), out UserObject user))
+                    switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", UserID), out UserObject user))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseQueryResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
-                        case DatabaseQueryResult.MORE_RESULTS: return WebAPIResponseCollections.InternalError;
+                        case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseOperationResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
+                        case DatabaseOperationResult.MORE_RESULTS: return WebAPIResponseCollections.InternalError;
                         default: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"{user.RealName}({user.objectId})" } };
                     }
                 }

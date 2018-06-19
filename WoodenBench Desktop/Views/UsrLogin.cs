@@ -7,13 +7,13 @@ using Newtonsoft.Json.Linq;
 
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.DelegateClasses;
-using WBPlatform.WinClient.StaticClasses;
-using WBPlatform.WinClient.Users;
+using WBPlatform.DesktopClient.DelegateClasses;
+using WBPlatform.DesktopClient.StaticClasses;
+using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

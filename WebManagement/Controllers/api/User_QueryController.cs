@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.TableObject;
 
 namespace WBPlatform.WebManagement.Controllers
@@ -20,10 +20,10 @@ namespace WBPlatform.WebManagement.Controllers
             if (Int32.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
-            DataBaseQuery query = new DataBaseQuery();
+            DBQuery query = new DBQuery();
             query.WhereEqualTo(ColName, Equals2Obj);
             
-            if (Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
+            if (Database.Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 dict.Add("ErrCode", "0");
                 dict.Add("ErrMessage", "null");

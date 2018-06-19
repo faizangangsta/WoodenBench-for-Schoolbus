@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -60,14 +60,14 @@ namespace WBPlatform.WebManagement.Controllers
                 }
 
 
-                if (Database.UpdateData(user) == 0)
+                if (Database.Database.UpdateData(user) == 0)
                 {
-                    DataBaseQuery query = new DataBaseQuery();
+                    DBQuery query = new DBQuery();
                     query.WhereEqualTo("objectId", SessionUser.objectId);
-                    switch (Database.QueryMultipleData(query, out List<UserObject> UserList))
+                    switch (Database.Database.QueryMultipleData(query, out List<UserObject> UserList))
                     {
-                        case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
                             string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);

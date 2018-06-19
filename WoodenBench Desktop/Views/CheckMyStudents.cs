@@ -10,13 +10,13 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class CheckMyStudents : MetroForm
     {
@@ -50,13 +50,13 @@ namespace WBPlatform.WinClient.Views
             if (CurrentUser.UserGroup.IsBusManager)
             {
                 SchoolBusObject busObject = new SchoolBusObject();
-                DataBaseQuery query = new DataBaseQuery();
+                DBQuery query = new DBQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                DatabaseQueryResult resultX = Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                DatabaseOperationResult resultX = Database.Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
 
-                if (resultX == DatabaseQueryResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
-                else if (resultX == DatabaseQueryResult.ONE_RESULT) busObject = result[0];
-                else if (resultX == DatabaseQueryResult.MORE_RESULTS)
+                if (resultX == DatabaseOperationResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
+                else if (resultX == DatabaseOperationResult.ONE_RESULT) busObject = result[0];
+                else if (resultX == DatabaseOperationResult.MORE_RESULTS)
                 {
                     MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
                     busObject = result[0];
@@ -89,10 +89,10 @@ namespace WBPlatform.WinClient.Views
         private void LoadAll_Click(object sender, EventArgs e)
         {
             studentDataObjectBindingSource.Clear();
-            DataBaseQuery query = new DataBaseQuery();
+            DBQuery query = new DBQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            DatabaseQueryResult resultX = Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
-            if (resultX != DatabaseQueryResult.INTERNAL_ERROR && resultX != DatabaseQueryResult.NO_RESULTS)
+            DatabaseOperationResult resultX = Database.Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            if (resultX != DatabaseOperationResult.INTERNAL_ERROR && resultX != DatabaseOperationResult.NO_RESULTS)
             {
                 foreach (StudentObject item in result)
                 {
@@ -131,7 +131,7 @@ namespace WBPlatform.WinClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.UpdateData(item) == 0)
+                if (Database.Database.UpdateData(item) == 0)
                 {
                     ExDescription.Text = "成功更新项：" + item.StudentName;
                 }

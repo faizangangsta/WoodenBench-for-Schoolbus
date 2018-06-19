@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WBPlatform.Databases.DataBaseCore
+namespace WBPlatform.Database.DBServer
 {
     public partial class MainForm : Form
     {

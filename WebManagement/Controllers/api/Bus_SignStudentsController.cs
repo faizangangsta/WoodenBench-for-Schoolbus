@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -35,23 +35,23 @@ namespace WBPlatform.WebManagement.Controllers
             string StudentID = p[4];
             if (Crypto.SHA256Encrypt(SValue + p[2] + ";" + SType + BusID + TeacherID) != SignData) return WebAPIResponseCollections.RequestIllegal;
 
-            DataBaseQuery busFindQuery = new DataBaseQuery();
+            DBQuery busFindQuery = new DBQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
+            switch (Database.Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
-                        DataBaseQuery _stuQuery = new DataBaseQuery();
+                        DBQuery _stuQuery = new DBQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
-                        switch (Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
+                        switch (Database.Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
-                            case DatabaseQueryResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DatabaseQueryResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                            case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                             default:
                                 if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseCollections.RequestIllegal;
                                 StudentObject stu = StuList[0];
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return WebAPIResponseCollections.RequestIllegal;
-                                if (Database.UpdateData(stu) == 0)
+                                if (Database.Database.UpdateData(stu) == 0)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
                                     dict.Add("ErrCode", "0");

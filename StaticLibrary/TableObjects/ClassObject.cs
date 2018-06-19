@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class ClassObject : DataTableObject
+    public class ClassObject : _DataTableObject
     {
         public string CDepartment { get; set; }
         public string CGrade { get; set; }
@@ -16,16 +16,16 @@ namespace WBPlatform.TableObject
         public ClassObject() { }
         public override string table => WBConsts.TABLE_Mgr_Classes;
         
-        public override void readFields(DataBaseInput input)
+        public override void readFields(DBInput input)
         {
             base.readFields(input);
-            CDepartment = input.getString("ClassDepartment");
-            CGrade = input.getString("ClassGrade");
-            CNumber = input.getString("ClassNumber");
-            TeacherID = input.getString("TeacherID");
+            CDepartment = input.GetString("ClassDepartment");
+            CGrade = input.GetString("ClassGrade");
+            CNumber = input.GetString("ClassNumber");
+            TeacherID = input.GetString("TeacherID");
         }
 
-        public override void write(DataBaseOutput output, bool all)
+        public override void write(DBOutput output, bool all)
         {
             base.write(output, all);
             output.Put("ClassDepartment", CDepartment);

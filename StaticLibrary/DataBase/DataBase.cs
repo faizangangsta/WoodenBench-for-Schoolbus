@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//using cn.bmob.api;
-//using cn.bmob.io;
-//using cn.bmob.tools;
-using WBPlatform.Databases.DataBaseCore;
 using WBPlatform.StaticClasses;
 using WBPlatform.StaticClasses.Properties;
 using WBPlatform.TableObject;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace WBPlatform.Databases
+namespace WBPlatform.Database
 {
     public enum DataBaseOperation
     {
@@ -23,20 +19,25 @@ namespace WBPlatform.Databases
     }
     public static class Database
     {
+        private static readonly object LOCKER = new object();
+        private static string QueryToken = "";
         //private static BmobWindows _Bmob { get; set; } = new BmobWindows();
         public static bool isInitiallised = false;
         public static void InitialiseClient()
         {
             DatabaseSocketsClient.Initialise();
-
-            //LogWritter.DebugMessage("Database Initialising...");
-            //BmobDebug.Register(LogWritter.BmobDebugMsg, BmobDebug.Level.TRACE);
-            //_Bmob.initialize(Resources.BmobDatabaseApplicationID, Resources.BmobDatabaseREST);
+            //Initial Database Authorisation Packet.....
+            DatabaseSocketsClient.SendDatabaseOperations("", out string token);
+            LogWritter.DebugMessage("Database Connected! Identity: " + token);
         }
-        public static DatabaseQueryResult QuerySingleData<T>(DataBaseQuery query, out T Result) where T : DataTableObject, new()
+        public static DatabaseOperationResult QuerySingleData<T>(DBQuery query, out T Result) where T : _DataTableObject, new()
         {
-            Result = null;
-            return DatabaseQueryResult.INTERNAL_ERROR;
+            query.Limit(1);
+            DatabaseOperationResult databaseOperationResult = _DBRequestInternal(new T().table, DataBaseOperation.QuerySingle, query, null, out DBInput[] input, out QueryResultObject result);
+            T t = new T();
+            t.readFields(input[0]);
+            Result = t;
+            return databaseOperationResult;
         }
         //{
         //    Result = null;
@@ -63,10 +64,11 @@ namespace WBPlatform.Databases
         //        return ret;
         //    }
         //}
-        public static DatabaseQueryResult QueryMultipleData<T>(DataBaseQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : DataTableObject, new()
+        public static DatabaseOperationResult QueryMultipleData<T>(DBQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : _DataTableObject, new()
         {
+            T t = new T();
             Result = null;
-            return DatabaseQueryResult.INTERNAL_ERROR;
+            return _DBRequestInternal(t.table, DataBaseOperation.QueryMulti, query, null, out DBInput[] input, out QueryResultObject @object);
         }
         //{
         //    query.Limit(queryLimit);
@@ -92,7 +94,7 @@ namespace WBPlatform.Databases
         //    }
         //}
         //
-        public static int DeleteData(string Table, string ObjectID) => 0;
+        public static DatabaseOperationResult DeleteData(string Table, string ObjectID) => 0;
         //{
         //    try
         //    {
@@ -107,7 +109,7 @@ namespace WBPlatform.Databases
         //    }
         //}
         //
-        public static int UpdateData<T>(T item) where T : DataTableObject, new() { return 0; }
+        public static DatabaseOperationResult UpdateData<T>(T item) where T : _DataTableObject, new() { return 0; }
         //{
         //    try
         //    {
@@ -120,7 +122,7 @@ namespace WBPlatform.Databases
         //        return -1;
         //    }
         //}
-        public static int CreateData<T>(T data, out string objectId) where T : DataTableObject, new() { objectId = ""; return 0; }
+        public static DatabaseOperationResult CreateData<T>(T data, out string objectId) where T : _DataTableObject, new() { objectId = ""; return 0; }
         //{
         //    objectId = "";
         //    try
@@ -136,101 +138,52 @@ namespace WBPlatform.Databases
         //        return -1;
         //    }
         //}
-    }
 
-    public class DataBaseQuery : AutoDictionary<string, string>
-    {
-        public int DBOperation { get; set; }
-        public string Table { get; set; }
-        private AutoDictionary<string, object> whereEqualTo { get; set; } = new AutoDictionary<string, object>();
-        private AutoDictionary<string, List<object>> whereContains { get; set; } = new AutoDictionary<string, List<object>>();
-
-        public DataBaseQuery() { }
-
-        public DataBaseQuery WhereEqualTo(string column, object value)
+        private static DatabaseOperationResult _DBRequestInternal(string Table, DataBaseOperation operation, DBQuery query, DBOutput output, out DBInput[] inputs, out QueryResultObject result)
         {
-            whereEqualTo.Add(column, value);
-            return this;
-        }
-        public DataBaseQuery WhereExistsInArray<T>(string column, params T[] values)
-        {
-            whereContains.Add(column, new List<object>());
-            foreach (T item in values)
+            if ((operation == DataBaseOperation.QueryMulti || operation == DataBaseOperation.QuerySingle || operation == DataBaseOperation.Change || operation == DataBaseOperation.Delete) && query == null)
             {
-                whereContains[column].Add(item);
+                throw new ArgumentNullException("When using Query Single/Multi and Change, Delete. Arg: query cannot be null");
             }
-            return this;
-        }
-    }
-    public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue>
-    {
-        public new TValue this[TKey key]
-        {
-            get { if (ContainsKey(key)) { return base[key]; } else { return default(TValue); } }
-            set { if (ContainsKey(key)) { base[key] = value; } else { Add(key, value); } }
-        }
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
-    }
-
-    public class DataBaseInput
-    {
-        public DataBaseInput(IDictionary<string, object> data) { real = data; }
-        public string getString(string Key) => GetT<string>(Key);
-        public List<T> getList<T>(string Key) => GetT<List<T>>(Key);
-        public bool getBoolean(string Key) => GetT<bool>(Key);
-        public int getInt(string Key) => GetT<int>(Key);
-        private T GetT<T>(string Key)
-        {
-            if (real.ContainsKey(Key)) return (T)real[Key];
-            else throw new KeyNotFoundException("真的没有这个键..." + Key);
-        }
-        public IDictionary<string, object> real;
-    }
-
-    public class DataBaseOutput
-    {
-        public void Put(string column, object data)
-        {
-            if (real.ContainsKey(column))
+            if ((operation == DataBaseOperation.Create || operation == DataBaseOperation.Change) && output == null)
             {
-                real.Remove(column);
-                real.Add(column, data);
+                throw new ArgumentNullException("When using Query Create and Change. Arg: output cannot be null");
             }
-            else
+            DBInternalQuery internalQuery = new DBInternalQuery();
+            internalQuery.operation = (int)operation;
+            internalQuery.TableName = Table;
+            switch (operation)
             {
-                real.Add(column, data);
+                case DataBaseOperation.Create:
+                    internalQuery.queryObjectString = output.ToString();
+                    break;
+                case DataBaseOperation.QuerySingle:
+                case DataBaseOperation.QueryMulti:
+                    internalQuery.queryString = query.ToString();
+                    break;
+                case DataBaseOperation.Change:
+                    internalQuery.queryObjectString = output.ToString();
+                    internalQuery.queryString = query.ToString();
+                    break;
+                case DataBaseOperation.Delete:
+                    internalQuery.queryString = query.ToString();
+                    break;
             }
-        }
-        public IDictionary<string, object> GetData() => real;
-        public IDictionary<string, object> real;
-    }
-
-    public class DataTableObject
-    {
-        public virtual string table => GetType().Name;
-        public string objectId { get; set; }
-        public string createdAt { get; internal set; }
-        public string updatedAt { get; internal set; }
-
-        public virtual void readFields(DataBaseInput input)
-        {
-            objectId = input.getString("objectId");
-            createdAt = input.getString("createdAt");
-            updatedAt = input.getString("updatedAt");
-        }
-
-        // Token: 0x0600018E RID: 398 RVA: 0x00005844 File Offset: 0x00003A44
-        public virtual void write(DataBaseOutput output, bool all)
-        {
-            if (all)
+            string internalQueryString = internalQuery.ToString();
+            //...................ATOM.OPERATION.....................
+            lock (LOCKER)
             {
-                output.Put("objectId", this.objectId);
-                output.Put("createdAt", this.createdAt);
-                output.Put("updatedAt", this.updatedAt);
+                    inputs = null;
+                    result = null;
+                if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, out string rcvdData))
+                {
+                    inputs = null;
+                    result = null;
+                    return DatabaseOperationResult.NOT_CONNECTED;
+                }
+                DBInternalReply reply = DBInternalReply.GetParsedReply(rcvdData);
             }
+            return DatabaseOperationResult.INTERNAL_ERROR;
         }
     }
 }

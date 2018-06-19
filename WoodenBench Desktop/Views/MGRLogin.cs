@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WBPlatform.StaticClasses;
-using WBPlatform.WinClient.Views;
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using WBPlatform.DesktopClient.Views;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {

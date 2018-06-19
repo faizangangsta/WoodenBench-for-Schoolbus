@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
@@ -55,9 +55,9 @@ namespace WBPlatform.WebManagement.Tools
             {
                 case GlobalMessageTypes.UCR_Created_TO_ADMIN:
                     {
-                        DataBaseQuery query = new DataBaseQuery();
+                        DBQuery query = new DBQuery();
                         query.WhereEqualTo("isAdmin", true);
-                        if ((int)Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
+                        if ((int)Database.Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
                         {
                             LogWritter.ErrorMessage("No Administrator found!!, thus no UserRequest can be solved!");
                             // DO ERROR LOG HERE....
@@ -85,9 +85,9 @@ namespace WBPlatform.WebManagement.Tools
                     }
                 case GlobalMessageTypes.UCR_Procced_TO_User:
                     {
-                        switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
+                        switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
                         {
-                            case DatabaseQueryResult.ONE_RESULT:
+                            case DatabaseOperationResult.ONE_RESULT:
                                 string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "审核未通过";
                                 WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经审核完毕！\r\n" +
@@ -95,9 +95,9 @@ namespace WBPlatform.WebManagement.Tools
                                         "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)(message.dataObject)).objectId, requestSender.UserName);
                                 WeChatMessageSystem.AddToSendList(_WMessage);
                                 break;
-                            case DatabaseQueryResult.INTERNAL_ERROR:
-                            case DatabaseQueryResult.NO_RESULTS:
-                            case DatabaseQueryResult.MORE_RESULTS:
+                            case DatabaseOperationResult.INTERNAL_ERROR:
+                            case DatabaseOperationResult.NO_RESULTS:
+                            case DatabaseOperationResult.MORE_RESULTS:
                             default:
                                 LogWritter.ErrorMessage("Failed to get user who requested to change something.... userId=" + message.objectId);
                                 break;

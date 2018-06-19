@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WBPlatform.WinClient.StaticClasses.GlobalFunc</StartupObject>
+    <StartupObject>WBPlatform.DesktopClient.StaticClasses.GlobalFunc</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -79,21 +79,6 @@
     <Reference Include="DevComponents.SuperGrid.Design, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.TreeGX, Version=14.0.0.18, Culture=neutral, PublicKeyToken=7b7e84682f0f2e1a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\DatabaseDLL\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity">
-      <HintPath>..\DatabaseDLL\MySql.Data.Entity.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6">
-      <HintPath>..\DatabaseDLL\MySql.Data.Entity.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Fabric.Plugin">
-      <HintPath>..\DatabaseDLL\MySql.Fabric.Plugin.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Web">
-      <HintPath>..\DatabaseDLL\MySql.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>

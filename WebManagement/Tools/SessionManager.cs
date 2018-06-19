@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
@@ -75,13 +75,13 @@ namespace WBPlatform.WebManagement.Tools
             Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
+            switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
             {
-                case DatabaseQueryResult.INTERNAL_ERROR: return null;
-                case DatabaseQueryResult.NO_RESULTS:
+                case DatabaseOperationResult.INTERNAL_ERROR: return null;
+                case DatabaseOperationResult.NO_RESULTS:
                     LogonUser = WeiXinID;
                     return "0";
-                case DatabaseQueryResult.ONE_RESULT:
+                case DatabaseOperationResult.ONE_RESULT:
                     LogonUser = User;
                     return Login_Core(UserAgent, LogonUser);
                 default: return null;

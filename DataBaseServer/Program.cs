@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WBPlatform.StaticClasses;
 
-namespace WBPlatform.Databases.DataBaseCore
+namespace WBPlatform.Database.DBServer
 {
     static class Program
     {
-        /// <summary>
-        /// 应用程序的主入口点。
-        /// </summary>
+        public static MainForm mainForm { get; set; }
         [STAThread]
         static void Main()
         {
-            DatabaseOperationsCore.Initialise();
+            LogWritter.InitLog();
+            DatabaseCore.InitialiseConnection();
+            DatabaseSocketsServer.InitialiseSockets();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            mainForm = new MainForm();
+            Application.Run(mainForm);
         }
     }
 }

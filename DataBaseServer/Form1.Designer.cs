@@ -1,4 +1,4 @@
-﻿namespace WBPlatform.Databases.DataBaseCore
+﻿namespace WBPlatform.Database.DBServer
 {
     partial class MainForm
     {

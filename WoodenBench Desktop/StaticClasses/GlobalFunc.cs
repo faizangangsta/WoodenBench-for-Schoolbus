@@ -6,13 +6,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.Users;
-using WBPlatform.WinClient.Views;
+using WBPlatform.DesktopClient.Users;
+using WBPlatform.DesktopClient.Views;
 
-namespace WBPlatform.WinClient.StaticClasses
+namespace WBPlatform.DesktopClient.StaticClasses
 {
     public static partial class GlobalFunc
     {
@@ -21,7 +21,7 @@ namespace WBPlatform.WinClient.StaticClasses
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            Database.InitialiseClient();
+            Database.Database.InitialiseClient();
             Application.EnableVisualStyles();
             FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");

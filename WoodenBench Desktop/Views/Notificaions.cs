@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using System.Linq;
 using DevComponents.DotNetBar.Metro;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.Users;
+using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class Notifications : MetroForm
     {
@@ -59,7 +59,7 @@ namespace WBPlatform.WinClient.Views
 
         private void loadMessage_Click(object sender, EventArgs e)
         {
-            if (Database.QueryMultipleData(new DataBaseQuery(), out List<NotificationObject> list) >= 0)
+            if (Database.Database.QueryMultipleData(new DBQuery(), out List<NotificationObject> list) >= 0)
             {
                 listView1.Items.Clear();
                 NotificationLists.Clear();

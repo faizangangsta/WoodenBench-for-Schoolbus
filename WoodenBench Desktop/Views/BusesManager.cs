@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DevComponents.DotNetBar.Metro;
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
-using WBPlatform.WinClient.Users;
+using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.WinClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
 
-namespace WBPlatform.WinClient.Views
+namespace WBPlatform.DesktopClient.Views
 {
     public partial class BusesManager : MetroForm
     {
@@ -52,8 +52,8 @@ namespace WBPlatform.WinClient.Views
         private void buttonX2_Click(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
-            DataBaseQuery query = new DataBaseQuery();
-            if (Database.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
+            DBQuery query = new DBQuery();
+            if (Database.Database.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
             {
                 foreach (SchoolBusObject item in list)
                 {
@@ -100,7 +100,7 @@ namespace WBPlatform.WinClient.Views
                 switch (MessageBox.Show("是否在服务器上删除此项？", "删除项目", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes:
-                        if (Database.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
+                        if (Database.Database.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
                         {
                             busDataGrid.Rows.Remove(row);
                             msgLabel.Text = "成功在服务器上删除项目：" + Name;
@@ -171,12 +171,12 @@ namespace WBPlatform.WinClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                return Database.CreateData(busObject, out string objectId) == 0;
+                return Database.Database.CreateData(busObject, out string objectId) == 0;
             }
             else
             {
                 busObject.objectId = row.Cells[0].Value.ToString();
-                return Database.UpdateData(busObject) == 0;
+                return Database.Database.UpdateData(busObject) == 0;
             }
         }
 
@@ -187,9 +187,9 @@ namespace WBPlatform.WinClient.Views
 
         private void BusesManager_Shown(object sender, EventArgs e)
         {
-            DataBaseQuery query = new DataBaseQuery();
+            DBQuery query = new DBQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            if (Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
+            if (Database.Database.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 foreach (UserObject item in list)
                 {

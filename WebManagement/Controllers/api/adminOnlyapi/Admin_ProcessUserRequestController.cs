@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using WBPlatform.Databases;
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -22,9 +22,9 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.UserGroup.IsAdmin)
                 {
-                    switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
+                    switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
-                        case DatabaseQueryResult.ONE_RESULT:
+                        case DatabaseOperationResult.ONE_RESULT:
                             request.SolverID = SessionUser.objectId;
                             switch (mode)
                             {
@@ -40,12 +40,12 @@ namespace WBPlatform.WebManagement.Controllers
                                     break;
                                 default: return WebAPIResponseCollections.RequestIllegal;
                             }
-                            if (Database.UpdateData(request) == -1) return WebAPIResponseCollections.DatabaseError;
+                            if (Database.Database.UpdateData(request) == DatabaseOperationResult.INTERNAL_ERROR) return WebAPIResponseCollections.DatabaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
-                                switch (Database.QuerySingleData(new DataBaseQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
+                                switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
-                                    case DatabaseQueryResult.ONE_RESULT:
+                                    case DatabaseOperationResult.ONE_RESULT:
                                         switch (request.RequestTypes)
                                         {
                                             case UserChangeRequestTypes.真实姓名:
@@ -62,9 +62,9 @@ namespace WBPlatform.WebManagement.Controllers
                                 }
                             }
                             return WebAPIResponseCollections.SpecialisedInfo("提交成功");
-                        case DatabaseQueryResult.NO_RESULTS:
-                        case DatabaseQueryResult.MORE_RESULTS:
-                        case DatabaseQueryResult.INTERNAL_ERROR:
+                        case DatabaseOperationResult.NO_RESULTS:
+                        case DatabaseOperationResult.MORE_RESULTS:
+                        case DatabaseOperationResult.INTERNAL_ERROR:
                         default: return WebAPIResponseCollections.DatabaseError;
                     }
                 }
