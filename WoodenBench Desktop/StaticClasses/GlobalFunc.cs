@@ -11,6 +11,7 @@ using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.DesktopClient.Users;
 using WBPlatform.DesktopClient.Views;
+using System.Net;
 
 namespace WBPlatform.DesktopClient.StaticClasses
 {
@@ -21,7 +22,7 @@ namespace WBPlatform.DesktopClient.StaticClasses
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            Database.Database.InitialiseClient();
+            Database.DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
             Application.EnableVisualStyles();
             FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");

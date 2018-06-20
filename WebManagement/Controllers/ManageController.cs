@@ -46,7 +46,7 @@ namespace WBPlatform.WebManagement.Controllers
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
-                                switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
+                                switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
                                 {
                                     case DatabaseOperationResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                             else
                             {
                                 // MY SINGLE Viewer
-                                switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
                                     case DatabaseOperationResult.INTERNAL_ERROR:
                                     case DatabaseOperationResult.NO_RESULTS:
@@ -79,7 +79,7 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             if (string.IsNullOrEmpty(reqId))
                             {
-                                switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
+                                switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
                                 {
                                     case DatabaseOperationResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
@@ -92,7 +92,7 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             else
                             {
-                                switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
                                     case DatabaseOperationResult.INTERNAL_ERROR:
                                     case DatabaseOperationResult.NO_RESULTS:

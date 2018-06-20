@@ -52,7 +52,7 @@ namespace WBPlatform.DesktopClient.Views
                 SchoolBusObject busObject = new SchoolBusObject();
                 DBQuery query = new DBQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                DatabaseOperationResult resultX = Database.Database.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                DatabaseOperationResult resultX = Database.DBOperations.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
 
                 if (resultX == DatabaseOperationResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
                 else if (resultX == DatabaseOperationResult.ONE_RESULT) busObject = result[0];
@@ -91,8 +91,8 @@ namespace WBPlatform.DesktopClient.Views
             studentDataObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            DatabaseOperationResult resultX = Database.Database.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
-            if (resultX != DatabaseOperationResult.INTERNAL_ERROR && resultX != DatabaseOperationResult.NO_RESULTS)
+            DatabaseOperationResult resultX = DBOperations.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            if (resultX < 0)
             {
                 foreach (StudentObject item in result)
                 {
@@ -131,7 +131,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.Database.UpdateData(item) == 0)
+                if (Database.DBOperations.UpdateData(item) == 0)
                 {
                     ExDescription.Text = "成功更新项：" + item.StudentName;
                 }

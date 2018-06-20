@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 
 using Microsoft.AspNetCore;
@@ -23,7 +24,7 @@ namespace WBPlatform.WebManagement
             LogWritter.InitLog();
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
             WeChat.ReNewWCCodes();
-            Database.Database.InitialiseClient();
+            DBOperations.InitialiseClient(IPAddress.Loopback);
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
             WeChatMessageSystem.StartProcessThreads();

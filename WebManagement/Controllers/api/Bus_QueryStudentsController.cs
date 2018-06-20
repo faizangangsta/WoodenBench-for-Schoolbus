@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
 
             DBQuery query = new DBQuery();
             query.WhereEqualTo("objectId", BusID);
-            switch (Database.Database.QueryMultipleData(query, out List<SchoolBusObject> BusList))
+            switch (Database.DBOperations.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
                 case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
@@ -34,7 +34,7 @@ namespace WBPlatform.WebManagement.Controllers
                         DBQuery query2 = new DBQuery();
                         query2.WhereEqualTo("BusID", BusList[0].objectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
-                        switch (Database.Database.QueryMultipleData(query2, out List<StudentObject> StudentList))
+                        switch (Database.DBOperations.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
                             case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                             case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;

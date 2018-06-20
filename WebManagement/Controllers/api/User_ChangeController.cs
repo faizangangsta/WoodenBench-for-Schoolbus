@@ -60,11 +60,11 @@ namespace WBPlatform.WebManagement.Controllers
                 }
 
 
-                if (Database.Database.UpdateData(user) == 0)
+                if (Database.DBOperations.UpdateData(user) == 0)
                 {
                     DBQuery query = new DBQuery();
                     query.WhereEqualTo("objectId", SessionUser.objectId);
-                    switch (Database.Database.QueryMultipleData(query, out List<UserObject> UserList))
+                    switch (Database.DBOperations.QueryMultipleData(query, out List<UserObject> UserList))
                     {
                         case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                         case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;

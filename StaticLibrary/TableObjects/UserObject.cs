@@ -33,7 +33,7 @@ namespace WBPlatform.TableObject
             UserGroup = new UserGroup(
                 isAdmin: input.GetBool("isAdmin"), 
                 isTeacher: input.GetBool("isClassTeacher"), 
-                isBusManager: input.GetBool("isBusTeacher"), 
+                isBusManager: input.GetBool("isBusManager"), 
                 isParent: input.GetBool("isParent"));
 
             
@@ -41,8 +41,8 @@ namespace WBPlatform.TableObject
             HeadImagePath = input.GetString("HeadImage");
             PhoneNumber = input.GetString("PhoneNumber");
 
-            ClassList = input.GetList<string>("ClassIDs");
-            ChildList = input.GetList<string>("ChildIDs");
+            ClassList = input.GetList("ClassIDs");
+            ChildList = input.GetList("ChildIDs");
         }
 
         public override void write(DBOutput output, bool all)
@@ -112,7 +112,7 @@ namespace WBPlatform.TableObject
                 { "userID", objectId },
                 { "RealName", RealName },
                 { "Username", UserName },
-                { "CreatedAt", createdAt },
+                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "HeadImagePath", HeadImagePath },
                 { "PhoneNumber", PhoneNumber },
                 { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },

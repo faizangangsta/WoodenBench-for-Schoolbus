@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery StudentQuery = new DBQuery();
             StudentQuery.WhereEqualTo("ClassID", ClassID);
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (Database.Database.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
+            switch (Database.DBOperations.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
             {
                 case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;

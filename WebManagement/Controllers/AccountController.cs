@@ -65,7 +65,7 @@ namespace WBPlatform.WebManagement.Controllers
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
                     UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = user.objectId };
-                    Database.Database.CreateData(request, out string objectId);
+                    Database.DBOperations.CreateData(request, out string objectId);
                     request.objectId = objectId;
                     MessagingSystem.onChangeRequest_Created(request, user);
                     return Redirect($"/{HomeController.ControllerName}/{nameof(HomeController.requestResult)}?req=changereq&status=ok&callback=/Account/");

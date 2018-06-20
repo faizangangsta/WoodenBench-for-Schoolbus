@@ -43,8 +43,8 @@ namespace WBPlatform.TableObject
                 { "ClassGrade", CGrade },
                 { "ClassNumber", CNumber },
                 { "TeacherID", TeacherID },
-                { "CreatedAt", createdAt },
-                { "UpdatedAt", updatedAt },
+                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "UpdatedAt", updatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
             };
         }
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());

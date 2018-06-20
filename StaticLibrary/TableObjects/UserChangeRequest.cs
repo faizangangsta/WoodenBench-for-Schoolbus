@@ -49,7 +49,7 @@ namespace WBPlatform.TableObject
                 { "UserID", UserID },
                 { "SolverID", SolverID },
                 { "RequestType", RequestTypes.ToString() },
-                { "CreatedAt", createdAt },
+                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "NewContent", NewContent },
                 { "IsSolved", (Status != UserChangeRequestProcessStatus.NotSolved).ToString() },
                 { "DetailTexts", DetailTexts }

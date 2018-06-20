@@ -57,7 +57,7 @@ namespace WBPlatform.WebManagement.Tools
                     {
                         DBQuery query = new DBQuery();
                         query.WhereEqualTo("isAdmin", true);
-                        if ((int)Database.Database.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
+                        if ((int)Database.DBOperations.QueryMultipleData(query, out List<UserObject> adminUsers) < 1)
                         {
                             LogWritter.ErrorMessage("No Administrator found!!, thus no UserRequest can be solved!");
                             // DO ERROR LOG HERE....
@@ -85,7 +85,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                 case GlobalMessageTypes.UCR_Procced_TO_User:
                     {
-                        switch (Database.Database.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
+                        switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
                         {
                             case DatabaseOperationResult.ONE_RESULT:
                                 string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "审核未通过";

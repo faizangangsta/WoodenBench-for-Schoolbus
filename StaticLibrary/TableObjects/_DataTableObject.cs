@@ -2,6 +2,7 @@
 //using cn.bmob.io;
 //using cn.bmob.tools;
 
+using System;
 using WBPlatform.Database;
 
 namespace WBPlatform.TableObject
@@ -10,17 +11,16 @@ namespace WBPlatform.TableObject
     {
         public virtual string table => GetType().Name;
         public string objectId { get; set; }
-        public string createdAt { get; internal set; }
-        public string updatedAt { get; internal set; }
+        public DateTime createdAt { get; internal set; }
+        public DateTime updatedAt { get; internal set; }
 
         public virtual void readFields(DBInput input)
         {
             objectId = input.GetString("objectId");
-            createdAt = input.GetString("createdAt");
-            updatedAt = input.GetString("updatedAt");
+            createdAt = input.GetDate("createdAt");
+            updatedAt = input.GetDate("updatedAt");
         }
-
-        // Token: 0x0600018E RID: 398 RVA: 0x00005844 File Offset: 0x00003A44
+        
         public virtual void write(DBOutput output, bool all)
         {
             if (all)

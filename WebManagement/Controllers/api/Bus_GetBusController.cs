@@ -21,13 +21,13 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.objectId == UserID && SessionUser.UserGroup.IsBusManager)//&& SessionUser.UserGroup.BusID == BusID
                 {
-                    switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
+                    switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
                         case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                         case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
-                            switch (Database.Database.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
+                            switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
                                 case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                                 case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;

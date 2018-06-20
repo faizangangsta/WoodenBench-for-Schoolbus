@@ -7,6 +7,20 @@ namespace WBPlatform.StaticClasses
 {
     public static class LogWritter
     {
+        public class OnLogChangedEventArgs : EventArgs
+        {
+            public OnLogChangedEventArgs(string logString, LogType logType)
+            {
+                LogString = logString;
+                this.logType = logType;
+            }
+            public string LogString { get; set; }
+            public LogType logType { get; set; }
+        }
+        public delegate void OnLogWrited(OnLogChangedEventArgs logchange);
+        public static event OnLogWrited onLog;
+
+        private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogType.LongChain); 
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
         public static void DebugMessage(string Message) => WriteLog(LogType.Info, Message);
@@ -32,6 +46,9 @@ namespace WBPlatform.StaticClasses
                 Fs.Write(p, 0, p.Length);
                 Fs.Write(new char[] { '\r', '\n' }, 0, 2);
             }
+            logEvent.LogString = LogMsg + "\r\n";
+            logEvent.logType = level;
+            onLog?.Invoke(logEvent);
         }
     }
 }

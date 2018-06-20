@@ -6,6 +6,7 @@ using WBPlatform.StaticClasses.Properties;
 using WBPlatform.TableObject;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace WBPlatform.Database
 {
@@ -17,16 +18,15 @@ namespace WBPlatform.Database
         Change = 3,
         Delete = 4
     }
-    public static class Database
+    public static class DBOperations
     {
         private static readonly object LOCKER = new object();
         private static string QueryToken = "";
         //private static BmobWindows _Bmob { get; set; } = new BmobWindows();
         public static bool isInitiallised = false;
-        public static void InitialiseClient()
+        public static void InitialiseClient(IPAddress server)
         {
-            DatabaseSocketsClient.Initialise();
-            //Initial Database Authorisation Packet.....
+            DatabaseSocketsClient.Initialise(server);
             DatabaseSocketsClient.SendDatabaseOperations("", out string token);
             LogWritter.DebugMessage("Database Connected! Identity: " + token);
         }
@@ -34,66 +34,37 @@ namespace WBPlatform.Database
         {
             query.Limit(1);
             DatabaseOperationResult databaseOperationResult = _DBRequestInternal(new T().table, DataBaseOperation.QuerySingle, query, null, out DBInput[] input, out QueryResultObject result);
-            T t = new T();
-            t.readFields(input[0]);
-            Result = t;
-            return databaseOperationResult;
+            if (databaseOperationResult == DatabaseOperationResult.ONE_RESULT)
+            {
+                T t = new T();
+                t.readFields(input[0]);
+                Result = t;
+                return databaseOperationResult;
+            }
+            else
+            {
+                throw new Exception("数据库返回无效内容, " + databaseOperationResult.ToString());
+            }
         }
-        //{
-        //    Result = null;
-        //    DatabaseQueryResult ret = QueryMultipleData(query, out List<T> Results, 1);
-        //    try
-        //    {
-        //        if (ret == DatabaseQueryResult.MORE_RESULTS)
-        //        {
-        //            throw new Exception("Multiple results found in 'QuerySingleData' Function, unexpected data loss.");
-        //        }
-        //        else if (ret == DatabaseQueryResult.NO_RESULTS)
-        //        {
-        //            throw new Exception("No results found in 'QuerySingleData' Function, unexpected data loss.");
-        //        }
-        //        else
-        //        {
-        //            Result = Results[0];
-        //        }
-        //        return ret;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogWritter.ErrorMessage(ex.Message);
-        //        return ret;
-        //    }
-        //}
         public static DatabaseOperationResult QueryMultipleData<T>(DBQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : _DataTableObject, new()
         {
-            T t = new T();
-            Result = null;
-            return _DBRequestInternal(t.table, DataBaseOperation.QueryMulti, query, null, out DBInput[] input, out QueryResultObject @object);
+            query.Limit(queryLimit);
+            query.Skip(skip);
+            DatabaseOperationResult databaseOperationResult = _DBRequestInternal(new T().table, DataBaseOperation.QueryMulti, query, null, out DBInput[] inputs, out QueryResultObject @object);
+            if (databaseOperationResult >= 0)
+            {
+                List<T> _results = new List<T>((int)databaseOperationResult);
+                foreach (DBInput item in inputs)
+                {
+                    T t = new T();
+                    t.readFields(item);
+                    _results.Add(t);
+                }
+                Result = _results;
+            }
+            else Result = null;
+            return databaseOperationResult;
         }
-        //{
-        //    query.Limit(queryLimit);
-        //    query.Skip(skip);
-        //    Result = new List<T>();
-        //    try
-        //    {
-        //        string TableName = new T().table;
-        //        var FindTask = _Bmob.FindTaskAsync<T>(TableName, query);
-        //        FindTask.Wait();
-        //        Result = FindTask.Result.results;
-        //        switch (Result.Count)
-        //        {
-        //            case 0: return DatabaseQueryResult.NO_RESULTS;
-        //            case 1: return DatabaseQueryResult.ONE_RESULT;
-        //            default: return DatabaseQueryResult.MORE_RESULTS;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogWritter.ErrorMessage(ex.Message + "::" + ex.InnerException?.Message);
-        //        return DatabaseQueryResult.INTERNAL_ERROR;
-        //    }
-        //}
-        //
         public static DatabaseOperationResult DeleteData(string Table, string ObjectID) => 0;
         //{
         //    try
@@ -173,17 +144,32 @@ namespace WBPlatform.Database
             //...................ATOM.OPERATION.....................
             lock (LOCKER)
             {
-                    inputs = null;
-                    result = null;
+                inputs = null;
+                result = null;
                 if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, out string rcvdData))
                 {
                     inputs = null;
                     result = null;
                     return DatabaseOperationResult.NOT_CONNECTED;
                 }
-                DBInternalReply reply = DBInternalReply.GetParsedReply(rcvdData);
+                DBInternalReply reply = DBInternalReply.FromJSONString(rcvdData);
+                List<Dictionary<string, object>> DBQueryResultsCollection = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(reply.resultObjectString);
+
+                if (DBQueryResultsCollection.Count != reply.DBResultCode)
+                {
+                    throw new IndexOutOfRangeException("Database Result doesn't match with parsed object.");
+                }
+                else
+                {
+                    List<DBInput> inputsRAW = new List<DBInput>(reply.DBResultCode);
+                    foreach (var item in DBQueryResultsCollection)
+                    {
+                        inputsRAW.Add(new DBInput(item));
+                    }
+                    inputs = inputsRAW.ToArray();
+                    return (DatabaseOperationResult)reply.DBResultCode;
+                }
             }
-            return DatabaseOperationResult.INTERNAL_ERROR;
         }
     }
 }

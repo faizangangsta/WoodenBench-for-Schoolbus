@@ -59,14 +59,14 @@ namespace WBPlatform.DesktopClient.Views
 
         private void loadMessage_Click(object sender, EventArgs e)
         {
-            if (Database.Database.QueryMultipleData(new DBQuery(), out List<NotificationObject> list) >= 0)
+            if (Database.DBOperations.QueryMultipleData(new DBQuery(), out List<NotificationObject> list) >= 0)
             {
                 listView1.Items.Clear();
                 NotificationLists.Clear();
                 foreach (NotificationObject item in list)
                 {
                     NotificationLists.Add(item);
-                    listView1.Items.Add(new ListViewItem(new string[] { item.Sender, item.createdAt, new string(item.Content.Take(20).ToArray()) + "...." }));
+                    listView1.Items.Add(new ListViewItem(new string[] { item.Sender, item.createdAt.ToString("yyyy-MM-dd HH:mm:ss"), new string(item.Content.Take(20).ToArray()) + "...." }));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 NotificationObject @object = NotificationLists[listView1.SelectedItems[0].Index];
                 msgTitle.Text = @object.Title;
-                msgTime.Text = @object.createdAt;
+                msgTime.Text = @object.createdAt.ToString("yyyy-MM-dd HH:mm:ss");
                 msgType.Text = @object.Type.ToString();
                 msgSendID.Text = @object.Sender;
                 msgRecvID.Text = @object.GetStringRecivers();

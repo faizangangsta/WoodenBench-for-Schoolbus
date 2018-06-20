@@ -38,7 +38,7 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery busFindQuery = new DBQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (Database.Database.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
+            switch (Database.DBOperations.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
                 case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
@@ -48,7 +48,7 @@ namespace WBPlatform.WebManagement.Controllers
                         DBQuery _stuQuery = new DBQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
-                        switch (Database.Database.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
+                        switch (Database.DBOperations.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
                             case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                             case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return WebAPIResponseCollections.RequestIllegal;
-                                if (Database.Database.UpdateData(stu) == 0)
+                                if (Database.DBOperations.UpdateData(stu) == 0)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
                                     dict.Add("ErrCode", "0");

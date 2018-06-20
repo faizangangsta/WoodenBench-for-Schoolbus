@@ -20,11 +20,10 @@
     },
     "ServiceStatus": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://status.schoolbus.lhy0403.top"
+      "applicationUrl": "http://status.schoolbus.lhy0403.top:81"
     }
   }
 }

@@ -28,7 +28,7 @@ namespace WBPlatform.TableObject
             Content = input.GetString("Content");
             Sender = input.GetString("Sender");
             Receivers = input.GetString("Receiver").Split(';').ToList();
-            Type = (NotificationType)input.GetInt("Type");
+            Type = (NotificationType)input.GetInt("type");
         }
 
         //写字段信息

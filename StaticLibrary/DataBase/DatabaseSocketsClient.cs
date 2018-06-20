@@ -17,10 +17,10 @@ namespace WBPlatform.Database
         private static bool Received { get; set; } = false;
         private static bool Read { get; set; } = false;
         private static bool Connected { get; set; } = false;
-        public static void Initialise()
+        public static void Initialise(IPAddress ServerIP)
         {
             socketclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint point = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8098);
+            IPEndPoint point = new IPEndPoint(ServerIP, 8098);
             for (int i = 0; i < 5; i++)
             {
                 try

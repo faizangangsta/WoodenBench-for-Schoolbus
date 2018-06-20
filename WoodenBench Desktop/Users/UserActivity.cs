@@ -46,7 +46,7 @@ namespace WBPlatform.DesktopClient.Users
             UserObject Change = new UserObject();
             Change.Password = Crypto.SHA256Encrypt(NewPasswrd);
             Change.objectId = NowUser.objectId;
-            if (Database.Database.UpdateData(Change) == 0)
+            if (Database.DBOperations.UpdateData(Change) == 0)
             {
                 LogWritter.DebugMessage("Change Password Success!");
                 return true;
@@ -73,7 +73,7 @@ namespace WBPlatform.DesktopClient.Users
             UserNameQuery.WhereEqualTo("Username", xUserName);
             UserNameQuery.WhereEqualTo("Password", HashedPs);
             user = null;
-            switch (Database.Database.QuerySingleData(UserNameQuery, out UserObject _user))
+            switch (Database.DBOperations.QuerySingleData(UserNameQuery, out UserObject _user))
             {
                 case DatabaseOperationResult.INTERNAL_ERROR:
                     LogWritter.ErrorMessage("Internal DataBase Error");

@@ -90,9 +90,9 @@ namespace WBPlatform.Database.DBServer
 
                     //将机器接受到的字节数组转换为人可以读懂的字符串     
                     string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
-                    Console.WriteLine(strSRecMsg);
-
+                    LogWritter.DebugMessage("REQUEST:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + strSRecMsg);
                     string returnStr = DatabaseCore.ProcessRequest(strSRecMsg);
+                    LogWritter.DebugMessage("REPLY:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + returnStr);
                     socketServer.Send(Encoding.UTF8.GetBytes(returnStr));
                     //socketServer.Send(Encoding.UTF8.GetBytes("客户端:" + socketServer.RemoteEndPoint + ",time:" + DateTime.Now + "::" + strSRecMsg));
                 }

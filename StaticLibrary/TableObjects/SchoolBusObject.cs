@@ -42,7 +42,7 @@ namespace WBPlatform.TableObject
             return new Dictionary<string, string>
             {
                 { "BusID", objectId },
-                { "CreatedAt", createdAt },
+                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "Name", BusName },
                 { "TeacherID", TeacherID },
                 { "ArriveHome", AHChecked.ToString().ToLower() },

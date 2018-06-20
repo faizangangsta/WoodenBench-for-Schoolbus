@@ -69,6 +69,7 @@
     <Compile Include="CryptoGraphy.cs" />
     <Compile Include="Database\DatabaseCore.cs" />
     <Compile Include="Database\DatabaseSocketsClient.cs" />
+    <Compile Include="Database\DBOperations.cs" />
     <Compile Include="TableObjects\_DataTableObject.cs" />
     <Compile Include="LogWritter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -76,7 +77,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Database\DataBase.cs" />
     <Compile Include="TableObjects\BusReportObject.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="Pinyin.cs" />

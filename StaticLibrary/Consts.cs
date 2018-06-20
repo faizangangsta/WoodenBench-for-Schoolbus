@@ -61,6 +61,7 @@ namespace WBPlatform.StaticClasses
     }
     public enum DatabaseOperationResult
     {
+        INJECTION_DETECTED = -3,
         NOT_CONNECTED = -2,
         INTERNAL_ERROR = -1,
         NO_RESULTS = 0,
