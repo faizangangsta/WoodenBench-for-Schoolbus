@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using WBPlatform.Database;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
-using static WBPlatform.StaticClasses.Crypto;
+using static WBPlatform.StaticClasses.Cryptography;
 
 namespace WBPlatform.TableObject
 {
-    public class UserObject : _DataTableObject
+    public class UserObject : DataTableObject
     {
         public override string table => WBConsts.TABLE_Gen_UserTable;
         public string UserName { get; set; }
@@ -33,7 +34,7 @@ namespace WBPlatform.TableObject
             UserGroup = new UserGroup(
                 isAdmin: input.GetBool("isAdmin"), 
                 isTeacher: input.GetBool("isClassTeacher"), 
-                isBusManager: input.GetBool("isBusManager"), 
+                isBusManager: input.GetBool("isBusTeacher"), 
                 isParent: input.GetBool("isParent"));
 
             

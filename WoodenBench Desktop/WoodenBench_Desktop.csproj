@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>WBPlatform.DesktopClient.StaticClasses.GlobalFunc</StartupObject>
+    <StartupObject>WBPlatform.DesktopClient.StaticClasses.GlobalFunctions</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MainICON.ico</ApplicationIcon>
@@ -99,7 +99,7 @@
     <Compile Include="StaticClasses\EventDriver.cs" />
     <Compile Include="StaticClasses\ExcelApplication.cs" />
     <Compile Include="StaticClasses\FileIO.cs" />
-    <Compile Include="StaticClasses\GlobalFunc.cs" />
+    <Compile Include="StaticClasses\GlobalFunctions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

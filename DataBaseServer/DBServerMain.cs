@@ -28,5 +28,35 @@ namespace WBPlatform.Database.DBServer
         {
             logsTextbox.Invoke(new Action(delegate { logsTextbox.Text += logchange.LogString; }));
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+        }
+
+        private void clientEnumTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Dictionary<string, string> clientConncetionQueryStrings = DatabaseSocketsServer.clientConncetionQueryStrings;
+                listView1.Items.Clear();
+                foreach (KeyValuePair<string, string> item in clientConncetionQueryStrings)
+                {
+                    listView1.Items.Add(new ListViewItem(item.Key, item.Value));
+                }
+                dbConnections.Text = "1";
+                currentClients.Text = listView1.Items.Count.ToString();
+            }
+            catch (Exception ex)
+            {
+                LogWritter.ErrorMessage(ex.Message);
+            }
+        }
     }
 }

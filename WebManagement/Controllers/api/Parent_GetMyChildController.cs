@@ -22,10 +22,10 @@ namespace WBPlatform.WebManagement.Controllers
 
             DBQuery StudentQuery = new DBQuery();
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereExistsInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
+            switch (DBOperations.QueryMultipleData(new DBQuery().WhereContainedInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
-                case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

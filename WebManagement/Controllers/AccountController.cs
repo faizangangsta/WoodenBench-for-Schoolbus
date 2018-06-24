@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -65,8 +65,8 @@ namespace WBPlatform.WebManagement.Controllers
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
                     UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = user.objectId };
-                    Database.DBOperations.CreateData(request, out string objectId);
-                    request.objectId = objectId;
+                    DBOperations.CreateData(request, out UserChangeRequest _req);
+                    request = _req;
                     MessagingSystem.onChangeRequest_Created(request, user);
                     return Redirect($"/{HomeController.ControllerName}/{nameof(HomeController.requestResult)}?req=changereq&status=ok&callback=/Account/");
                 }

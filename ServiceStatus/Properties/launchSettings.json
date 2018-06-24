@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iis": {
       "applicationUrl": "http://status.schoolbus.lhy0403.top",
-      "sslPort": 0
+      "sslPort": 44381
     },
     "iisExpress": {
       "applicationUrl": "http://status.schoolbus.lhy0403.top",

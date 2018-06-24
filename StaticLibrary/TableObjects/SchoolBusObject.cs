@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using WBPlatform.Database;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class SchoolBusObject : _DataTableObject
+    public class SchoolBusObject : DataTableObject
     {
         public string BusName { get; set; }
         public string TeacherID { get; set; }

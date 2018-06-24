@@ -13,8 +13,8 @@ namespace WBPlatform.WebManagement.Tools
         private static Dictionary<string, SessionInfo> __SessionCollection = new Dictionary<string, SessionInfo>();
 
         private static string _GeSessionString(UserObject LogonUser, string UA)
-            => Crypto.SHA512Encrypt(
-                Crypto.RandomString(10, true) +
+            => Cryptography.SHA512Encrypt(
+                Cryptography.RandomString(10, true) +
                 LogonUser.UserName +
                 new Random().NextDouble().ToString() +
                 LogonUser.UserGroup.ToString() +
@@ -75,13 +75,13 @@ namespace WBPlatform.WebManagement.Tools
             Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
+            switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
             {
-                case DatabaseOperationResult.INTERNAL_ERROR: return null;
-                case DatabaseOperationResult.NO_RESULTS:
+                case DatabaseResult.INTERNAL_ERROR: return null;
+                case DatabaseResult.NO_RESULTS:
                     LogonUser = WeiXinID;
                     return "0";
-                case DatabaseOperationResult.ONE_RESULT:
+                case DatabaseResult.ONE_RESULT:
                     LogonUser = User;
                     return Login_Core(UserAgent, LogonUser);
                 default: return null;

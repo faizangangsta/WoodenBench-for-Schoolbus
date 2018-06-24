@@ -67,10 +67,12 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="CryptoGraphy.cs" />
-    <Compile Include="Database\DatabaseCore.cs" />
     <Compile Include="Database\DatabaseSocketsClient.cs" />
+    <Compile Include="Database\DataTableObject.cs" />
+    <Compile Include="Database\DBIO.cs" />
+    <Compile Include="Database\DBInternalObjects.cs" />
     <Compile Include="Database\DBOperations.cs" />
-    <Compile Include="TableObjects\_DataTableObject.cs" />
+    <Compile Include="Database\DBQuery.cs" />
     <Compile Include="LogWritter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -86,7 +88,7 @@
     <Compile Include="TableObjects\StudentObject.cs" />
     <Compile Include="TableObjects\ClassObject.cs" />
     <Compile Include="TableObjects\UserChangeRequest.cs" />
-    <Compile Include="UserGroup.cs" />
+    <Compile Include="TableObjects\UserGroup.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
     <Compile Include="_DataCollection.cs" />
   </ItemGroup>

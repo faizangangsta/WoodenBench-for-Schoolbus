@@ -59,7 +59,16 @@ namespace WBPlatform.StaticClasses
         事故 = 1,
         其他 = 9,
     }
-    public enum DatabaseOperationResult
+
+    public enum DatabaseOperation
+    {
+        Create = 0,
+        QuerySingle = 1,
+        QueryMulti = 2,
+        Update = 3,
+        Delete = 4
+    }
+    public enum DatabaseResult
     {
         INJECTION_DETECTED = -3,
         NOT_CONNECTED = -2,

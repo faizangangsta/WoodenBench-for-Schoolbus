@@ -52,7 +52,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                     else message = null;
                 }
-                if (message != null) Database.DBOperations.CreateData(message, out string objectId);
+                if (message != null) { DBOperations.CreateData(message, out NotificationObject _notification); }
                 else Thread.Sleep(500);
                 Thread.Sleep(200);
             }

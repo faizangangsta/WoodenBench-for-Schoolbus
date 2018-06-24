@@ -1,13 +1,12 @@
-﻿//using cn.bmob.api;
-//using cn.bmob.io;
-//using cn.bmob.tools;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
+using WBPlatform.Database.DBIOCommand;
 
-using System;
-using WBPlatform.Database;
-
-namespace WBPlatform.TableObject
+namespace WBPlatform.Database
 {
-    public class _DataTableObject
+    public class DataTableObject
     {
         public virtual string table => GetType().Name;
         public string objectId { get; set; }
@@ -20,16 +19,15 @@ namespace WBPlatform.TableObject
             createdAt = input.GetDate("createdAt");
             updatedAt = input.GetDate("updatedAt");
         }
-        
+
         public virtual void write(DBOutput output, bool all)
         {
+            output.Put("objectId", objectId);
             if (all)
             {
-                output.Put("objectId", objectId);
                 output.Put("createdAt", createdAt);
                 output.Put("updatedAt", updatedAt);
             }
         }
     }
-    public class QueryResultObject : _DataTableObject { }
 }

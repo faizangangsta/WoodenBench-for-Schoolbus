@@ -14,7 +14,7 @@ using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -52,11 +52,11 @@ namespace WBPlatform.DesktopClient.Views
                 SchoolBusObject busObject = new SchoolBusObject();
                 DBQuery query = new DBQuery();
                 query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                DatabaseOperationResult resultX = Database.DBOperations.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                DatabaseResult resultX = Database.DBOperations.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
 
-                if (resultX == DatabaseOperationResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
-                else if (resultX == DatabaseOperationResult.ONE_RESULT) busObject = result[0];
-                else if (resultX == DatabaseOperationResult.MORE_RESULTS)
+                if (resultX == DatabaseResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
+                else if (resultX == DatabaseResult.ONE_RESULT) busObject = result[0];
+                else if (resultX == DatabaseResult.MORE_RESULTS)
                 {
                     MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
                     busObject = result[0];
@@ -91,8 +91,8 @@ namespace WBPlatform.DesktopClient.Views
             studentDataObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            DatabaseOperationResult resultX = DBOperations.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
-            if (resultX < 0)
+            DatabaseResult resultX = DBOperations.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            if (resultX >= 0)
             {
                 foreach (StudentObject item in result)
                 {
@@ -103,6 +103,7 @@ namespace WBPlatform.DesktopClient.Views
                 LeavingChecked.Text = CountTicks(5).ToString();
                 BackNumber.Text = CountTicks(6).ToString();
             }
+            StudentDataGrid.AutoResizeColumns();
         }
 
         private void CheckMyStudents_Load(object sender, EventArgs e)
@@ -131,7 +132,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.DBOperations.UpdateData(item) == 0)
+                if (Database.DBOperations.UpdateData(item) == DatabaseResult.ONE_RESULT)
                 {
                     ExDescription.Text = "成功更新项：" + item.StudentName;
                 }

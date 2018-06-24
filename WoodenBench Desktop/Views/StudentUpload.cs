@@ -18,7 +18,7 @@ using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -130,7 +130,7 @@ namespace WBPlatform.DesktopClient.Views
                     DoLog(statusLabel.Text);
                     Application.DoEvents();
 
-                    List<StudentObject> students = ((List<StudentObject>)studentDataBindSourc.List).TakeWhile(new Func<StudentObject, int, bool>((stu, num) => { return stu.StudentName == StuName; })).ToList();
+                    IList<StudentObject> students = ((IList<StudentObject>)studentDataBindSourc.List).TakeWhile(new Func<StudentObject, int, bool>((stu, num) => { return stu.StudentName == StuName; })).ToList();
                     //UNKNOWN CHANGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     if (string.IsNullOrEmpty((string)item.Cells[1].Value) && (string)item.Cells[1].Value == StuName)
                     {
@@ -171,8 +171,8 @@ namespace WBPlatform.DesktopClient.Views
             DBQuery ClassQuery = new DBQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            DatabaseOperationResult resultCode = Database.DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
-            if (resultCode == DatabaseOperationResult.NO_RESULTS)
+            DatabaseResult resultCode = Database.DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            if (resultCode == DatabaseResult.NO_RESULTS)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
                 return;
@@ -369,7 +369,7 @@ namespace WBPlatform.DesktopClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    if (Database.DBOperations.CreateData(StudentObj, out string objectId) == 0)
+                    if (Database.DBOperations.CreateData(StudentObj, out StudentObject _stu) == DatabaseResult.ONE_RESULT)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();

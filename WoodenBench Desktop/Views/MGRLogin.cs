@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WBPlatform.StaticClasses;
 using WBPlatform.DesktopClient.Views;
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -41,7 +41,7 @@ namespace WBPlatform.DesktopClient.Views
 
         private void LoginMgrBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentUser.Password == Crypto.SHA256Encrypt(PasswordTxt.Text) && CurrentUser.UserName == UsrNameTxt.Text)
+            if (CurrentUser.Password == Cryptography.SHA256Encrypt(PasswordTxt.Text) && CurrentUser.UserName == UsrNameTxt.Text)
             {
                 if (CurrentUser.RealName == RealNameTxt.Text)
                 {

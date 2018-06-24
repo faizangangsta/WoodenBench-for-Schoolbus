@@ -13,7 +13,7 @@ using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -53,7 +53,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
-            if (Database.DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
+            if (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
             {
                 foreach (SchoolBusObject item in list)
                 {
@@ -100,7 +100,7 @@ namespace WBPlatform.DesktopClient.Views
                 switch (MessageBox.Show("是否在服务器上删除此项？", "删除项目", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes:
-                        if (Database.DBOperations.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
+                        if (DBOperations.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
                         {
                             busDataGrid.Rows.Remove(row);
                             msgLabel.Text = "成功在服务器上删除项目：" + Name;
@@ -171,12 +171,12 @@ namespace WBPlatform.DesktopClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                return Database.DBOperations.CreateData(busObject, out string objectId) == 0;
+                return DBOperations.CreateData(busObject, out SchoolBusObject _bus) ==  DatabaseResult.ONE_RESULT;
             }
             else
             {
                 busObject.objectId = row.Cells[0].Value.ToString();
-                return Database.DBOperations.UpdateData(busObject) == 0;
+                return DBOperations.UpdateData(busObject) == 0;
             }
         }
 
@@ -189,7 +189,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             DBQuery query = new DBQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            if (Database.DBOperations.QueryMultipleData(query, out List<UserObject> list) >= 0)
+            if (DBOperations.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 foreach (UserObject item in list)
                 {

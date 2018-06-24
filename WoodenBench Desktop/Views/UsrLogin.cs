@@ -11,7 +11,7 @@ using WBPlatform.DesktopClient.DelegateClasses;
 using WBPlatform.DesktopClient.StaticClasses;
 using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -19,7 +19,7 @@ namespace WBPlatform.DesktopClient.Views
     {
         private void button1_Click(object sender, EventArgs e)
         {
-            ApplicationExit();
+            Close();
         }
         private void UserNameTxt_TextChanged(object sender, EventArgs e)
         {

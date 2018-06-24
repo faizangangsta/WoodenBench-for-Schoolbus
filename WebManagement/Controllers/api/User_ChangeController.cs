@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Controllers
             string[] SessionVerify = STAMP.Split("_v3_");
             if (SessionVerify.Length != 2) return WebAPIResponseCollections.RequestIllegal;
             if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
-                SessionVerify[0] == Crypto.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
+                SessionVerify[0] == Cryptography.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
             {
                 UserObject user = new UserObject();
                 //user.objectId = SessionUser.objectId;
@@ -60,14 +60,14 @@ namespace WBPlatform.WebManagement.Controllers
                 }
 
 
-                if (Database.DBOperations.UpdateData(user) == 0)
+                if (DBOperations.UpdateData(user) == 0)
                 {
                     DBQuery query = new DBQuery();
                     query.WhereEqualTo("objectId", SessionUser.objectId);
-                    switch (Database.DBOperations.QueryMultipleData(query, out List<UserObject> UserList))
+                    switch (DBOperations.QueryMultipleData(query, out List<UserObject> UserList))
                     {
-                        case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
                             string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);

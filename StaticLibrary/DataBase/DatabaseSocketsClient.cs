@@ -4,8 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using WBPlatform.StaticClasses;
 
-namespace WBPlatform.Database
+namespace WBPlatform.Database.Connection
 {
     public static class DatabaseSocketsClient
     {
@@ -17,7 +18,7 @@ namespace WBPlatform.Database
         private static bool Received { get; set; } = false;
         private static bool Read { get; set; } = false;
         private static bool Connected { get; set; } = false;
-        public static void Initialise(IPAddress ServerIP)
+        public static bool Initialise(IPAddress ServerIP)
         {
             socketclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint point = new IPEndPoint(ServerIP, 8098);
@@ -29,15 +30,20 @@ namespace WBPlatform.Database
                     Connected = true;
                     break;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("连接失败\r\n");
+                    LogWritter.ErrorMessage("Database connection to server: " + ServerIP + " failed. " + ex.Message);
                     Thread.Sleep(1000);
+                }
+                if (i == 5)
+                {
+                    return false;
                 }
             }
 
             threadclient = new Thread(Recv) { IsBackground = true };
             threadclient.Start();
+            return true;
         }
 
         // 接收服务端发来信息的方法    

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WBPlatform.StaticClasses
 {
-    public static class Crypto
+    public static class Cryptography
     {
         public static string SHA256Encrypt(string strIN)
         {

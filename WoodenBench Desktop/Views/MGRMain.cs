@@ -16,7 +16,7 @@ using WBPlatform.TableObject;
 using WBPlatform.DesktopClient.Users;
 using WBPlatform.DesktopClient.Views;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {

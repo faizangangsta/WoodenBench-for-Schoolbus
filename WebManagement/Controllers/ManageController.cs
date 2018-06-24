@@ -46,9 +46,9 @@ namespace WBPlatform.WebManagement.Controllers
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
-                                switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
+                                switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
                                 {
-                                    case DatabaseOperationResult.INTERNAL_ERROR:
+                                    case DatabaseResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["count"] = requests.Count;
@@ -59,11 +59,11 @@ namespace WBPlatform.WebManagement.Controllers
                             else
                             {
                                 // MY SINGLE Viewer
-                                switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
-                                    case DatabaseOperationResult.INTERNAL_ERROR:
-                                    case DatabaseOperationResult.NO_RESULTS:
-                                    case DatabaseOperationResult.MORE_RESULTS:
+                                    case DatabaseResult.INTERNAL_ERROR:
+                                    case DatabaseResult.NO_RESULTS:
+                                    case DatabaseResult.MORE_RESULTS:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);
@@ -79,9 +79,9 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             if (string.IsNullOrEmpty(reqId))
                             {
-                                switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
+                                switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
                                 {
-                                    case DatabaseOperationResult.INTERNAL_ERROR:
+                                    case DatabaseResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         {
@@ -92,11 +92,11 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             else
                             {
-                                switch (Database.DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
-                                    case DatabaseOperationResult.INTERNAL_ERROR:
-                                    case DatabaseOperationResult.NO_RESULTS:
-                                    case DatabaseOperationResult.MORE_RESULTS:
+                                    case DatabaseResult.INTERNAL_ERROR:
+                                    case DatabaseResult.NO_RESULTS:
+                                    case DatabaseResult.MORE_RESULTS:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);

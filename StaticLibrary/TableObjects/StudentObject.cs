@@ -3,11 +3,12 @@
 using Newtonsoft.Json;
 
 using WBPlatform.Database;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class StudentObject : _DataTableObject
+    public class StudentObject : DataTableObject
     {
 
         public string StudentName { get; set; }

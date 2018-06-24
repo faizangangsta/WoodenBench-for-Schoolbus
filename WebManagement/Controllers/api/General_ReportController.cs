@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ReportType = (BusReportTypeE)Convert.ToInt32(ReportType),
                     OtherData = Content
                 };
-                if (Database.DBOperations.CreateData(busReport, out string objectId) == 0)
+                if (DBOperations.CreateData(busReport, out BusReport _bus) == 0)
                 {
                     dict.Add("CreatedAt", DateTime.Now.ToString());
                     dict.Add("ErrCode", "0");

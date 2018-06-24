@@ -21,16 +21,16 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.objectId == UserID && SessionUser.UserGroup.IsBusManager)//&& SessionUser.UserGroup.BusID == BusID
                 {
-                    switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
+                    switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
-                        case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
-                            switch (Database.DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
+                            switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
-                                case DatabaseOperationResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                                case DatabaseOperationResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                                case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)

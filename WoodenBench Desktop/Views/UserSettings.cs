@@ -13,7 +13,7 @@ using WBPlatform.StaticClasses;
 using WBPlatform.DesktopClient.StaticClasses;
 using WBPlatform.DesktopClient.Users;
 
-using static WBPlatform.DesktopClient.StaticClasses.GlobalFunc;
+using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
@@ -75,7 +75,7 @@ namespace WBPlatform.DesktopClient.Views
 
         private void DochangePassword_Click(object sender, EventArgs e)
         {
-            if (prePassword.Text == "" || Crypto.SHA256Encrypt(prePassword.Text) == CurrentUser.Password)
+            if (prePassword.Text == "" || Cryptography.SHA256Encrypt(prePassword.Text) == CurrentUser.Password)
             {
                 if (NewPassword1.Text == NewPassword2.Text)
                 {

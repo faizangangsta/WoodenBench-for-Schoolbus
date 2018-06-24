@@ -1,9 +1,10 @@
 ﻿using WBPlatform.Database;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class BusReport : _DataTableObject
+    public class BusReport : DataTableObject
     {
         //以下对应云端字段名称
         public string TeacherID { get; set; }

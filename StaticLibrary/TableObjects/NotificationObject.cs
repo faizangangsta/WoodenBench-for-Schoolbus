@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 using WBPlatform.Database;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.TableObject
 {
-    public class NotificationObject : _DataTableObject
+    public class NotificationObject : DataTableObject
     {
         //以下对应云端字段名称
         public string Title { get; set; }

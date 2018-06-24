@@ -13,8 +13,8 @@ namespace WBPlatform.Database.DBServer
     {
         static Socket socketwatch = null;
         //定义一个集合，存储客户端信息
-        static Dictionary<string, Socket> clientConnectionItems = new Dictionary<string, Socket> { };
-
+        static Dictionary<string, Socket> clientConnectionItems { get; set; } = new Dictionary<string, Socket>();
+        public static Dictionary<string, string> clientConncetionQueryStrings { get; set; } = new Dictionary<string, string>();
         public static void InitialiseSockets()
         {
             socketwatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -90,8 +90,20 @@ namespace WBPlatform.Database.DBServer
 
                     //将机器接受到的字节数组转换为人可以读懂的字符串     
                     string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
+                    if (clientConncetionQueryStrings.ContainsKey(socketServer.RemoteEndPoint.ToString()))
+                    {
+                        clientConncetionQueryStrings[socketServer.RemoteEndPoint.ToString()] = strSRecMsg;
+                    }
+                    else
+                    {
+                        clientConncetionQueryStrings.Add(socketServer.RemoteEndPoint.ToString(), strSRecMsg);
+                    }
                     LogWritter.DebugMessage("REQUEST:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + strSRecMsg);
+
+
                     string returnStr = DatabaseCore.ProcessRequest(strSRecMsg);
+
+
                     LogWritter.DebugMessage("REPLY:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + returnStr);
                     socketServer.Send(Encoding.UTF8.GetBytes(returnStr));
                     //socketServer.Send(Encoding.UTF8.GetBytes("客户端:" + socketServer.RemoteEndPoint + ",time:" + DateTime.Now + "::" + strSRecMsg));

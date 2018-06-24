@@ -72,7 +72,7 @@ namespace WBPlatform.WebManagement.Tools
             string cpid = "";
             try
             {
-                sReplyEchoStr = Crypto.WeChat_Cryptography.AES_decrypt(sEchoStr, M_sEncodingAESKey, ref cpid); //m_sCorpID);
+                sReplyEchoStr = Cryptography.WeChat_Cryptography.AES_decrypt(sEchoStr, M_sEncodingAESKey, ref cpid); //m_sCorpID);
             }
             catch (Exception)
             {
@@ -122,7 +122,7 @@ namespace WBPlatform.WebManagement.Tools
             string cpid = "";
             try
             {
-                sMsg = Crypto.WeChat_Cryptography.AES_decrypt(sEncryptMsg, M_sEncodingAESKey, ref cpid);
+                sMsg = Cryptography.WeChat_Cryptography.AES_decrypt(sEncryptMsg, M_sEncodingAESKey, ref cpid);
             }
             catch (FormatException)
             {
@@ -155,7 +155,7 @@ namespace WBPlatform.WebManagement.Tools
             string raw = "";
             try
             {
-                raw = Crypto.WeChat_Cryptography.AES_encrypt(sReplyMsg, M_sEncodingAESKey, M_sCorpID);
+                raw = Cryptography.WeChat_Cryptography.AES_encrypt(sReplyMsg, M_sEncodingAESKey, M_sCorpID);
             }
             catch (Exception)
             {

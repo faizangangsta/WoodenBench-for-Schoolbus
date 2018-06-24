@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
 using WBPlatform.Database;
-using WBPlatform.StaticClasses;
-using WBPlatform.TableObject;
 using WBPlatform.DesktopClient.Users;
 using WBPlatform.DesktopClient.Views;
-using System.Net;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
 namespace WBPlatform.DesktopClient.StaticClasses
 {
-    public static partial class GlobalFunc
+    public static partial class GlobalFunctions
     {
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            Database.DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+            DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+            
+            ///////////////////////////////////////////////////////////////////////////
             Application.EnableVisualStyles();
             FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");
@@ -30,8 +29,9 @@ namespace WBPlatform.DesktopClient.StaticClasses
             FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;
             Application.Run(UsrLoginWindow.Default);
         }
+
         public static UserObject CurrentUser { get; set; } = new UserObject();
-        //public static BmobWindows _BmobWin { get; set; }
+
         public static void ApplicationExit()
         {
             LogWritter.DebugMessage("Application will now EXIT, User has been logged off, now Closing Logs and terminal all windows.");

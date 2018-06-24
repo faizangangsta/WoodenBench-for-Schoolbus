@@ -41,6 +41,7 @@
             this.dbConnections = new System.Windows.Forms.Label();
             this.logsTextbox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.clientEnumTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "DBServer";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // listView1
             // 
@@ -148,6 +150,12 @@
             this.panel1.Size = new System.Drawing.Size(998, 316);
             this.panel1.TabIndex = 3;
             // 
+            // clientEnumTimer
+            // 
+            this.clientEnumTimer.Enabled = true;
+            this.clientEnumTimer.Interval = 2000;
+            this.clientEnumTimer.Tick += new System.EventHandler(this.clientEnumTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -164,6 +172,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "Database Server Management";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -184,6 +193,7 @@
         private System.Windows.Forms.Label dbConnections;
         private System.Windows.Forms.TextBox logsTextbox;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Timer clientEnumTimer;
     }
 }
 
