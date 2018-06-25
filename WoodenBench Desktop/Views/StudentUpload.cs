@@ -171,8 +171,8 @@ namespace WBPlatform.DesktopClient.Views
             DBQuery ClassQuery = new DBQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            DatabaseResult resultCode = Database.DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
-            if (resultCode == DatabaseResult.NO_RESULTS)
+            DatabaseResult resultCode = DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            if (resultCode <= 0)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
                 return;
@@ -197,7 +197,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 DBQuery TeacherDataQuery = new DBQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                if (Database.DBOperations.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
+                if (DBOperations.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
                     MessageBox.Show("这不应该，这个班级有老师管理，但是查不到老师的任何信息。", "班主任溜了？");
                     ClsTName.Text = "";
@@ -215,7 +215,7 @@ namespace WBPlatform.DesktopClient.Views
             //    return;
             DBQuery StudentsQuery = new DBQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
-            if (Database.DBOperations.QueryMultipleData(StudentsQuery, out List<StudentObject> results) == 0)
+            if (DBOperations.QueryMultipleData(StudentsQuery, out List<StudentObject> results) <= 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
             else
             {
@@ -244,7 +244,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
-            if (Database.DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
+            if (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
             {
                 MessageBox.Show("出现了一些错误");
             }

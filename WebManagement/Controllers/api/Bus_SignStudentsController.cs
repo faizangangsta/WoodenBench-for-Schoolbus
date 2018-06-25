@@ -41,7 +41,7 @@ namespace WBPlatform.WebManagement.Controllers
             switch (DBOperations.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
                 case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
@@ -51,7 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                         switch (DBOperations.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
                             case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                             default:
                                 if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseCollections.RequestIllegal;
                                 StudentObject stu = StuList[0];

@@ -40,7 +40,7 @@ namespace WBPlatform.WebManagement.Controllers
                                     break;
                                 default: return WebAPIResponseCollections.RequestIllegal;
                             }
-                            if (DBOperations.UpdateData(request) == DatabaseResult.INTERNAL_ERROR) return WebAPIResponseCollections.DatabaseError;
+                            if (DBOperations.UpdateData(request) != (DatabaseResult)1) return WebAPIResponseCollections.DataBaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
                                 switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
@@ -58,14 +58,11 @@ namespace WBPlatform.WebManagement.Controllers
                                         }
                                         MessagingSystem.onChangeRequest_Solved(request, SessionUser);
                                         break;
-                                    default: return WebAPIResponseCollections.DatabaseError;
+                                    default: return WebAPIResponseCollections.DataBaseError;
                                 }
                             }
                             return WebAPIResponseCollections.SpecialisedInfo("提交成功");
-                        case DatabaseResult.NO_RESULTS:
-                        case DatabaseResult.MORE_RESULTS:
-                        case DatabaseResult.INTERNAL_ERROR:
-                        default: return WebAPIResponseCollections.DatabaseError;
+                        default: return WebAPIResponseCollections.DataBaseError;
                     }
                 }
                 else return WebAPIResponseCollections.UserGroupError;

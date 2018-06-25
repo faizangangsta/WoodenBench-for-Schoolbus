@@ -17,6 +17,7 @@ namespace WBPlatform.Database
         private static readonly object LOCKER = new object();
         //private static string QueryToken = "";
         public static bool isInitiallised = false;
+        public static string MessageId { get { return Cryptography.RandomString(5, false); } }
         public static void InitialiseClient(IPAddress server)
         {
 #if DEBUG
@@ -32,7 +33,7 @@ namespace WBPlatform.Database
             }
             else
             {
-                DatabaseSocketsClient.SendDatabaseOperations("", out string token);
+                DatabaseSocketsClient.SendDatabaseOperations("openConnection", MessageId, out string token);
                 LogWritter.DebugMessage("Database Connected! Identity: " + token);
             }
         }
@@ -88,7 +89,7 @@ namespace WBPlatform.Database
             item.write(output, false);
             return _DBRequestInternal(item.table, DatabaseOperation.Update, query, output, out DBInput[] inputs, out DatabaseOperationMessage message);
         }
-        
+
         public static DatabaseResult CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
         {
             DBOutput output = new DBOutput();
@@ -144,7 +145,8 @@ namespace WBPlatform.Database
                 DBInternalReply reply;
                 //lock (LOCKER)
                 {
-                    if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, out string rcvdData))
+                    string _MessageId = MessageId;
+                    if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, _MessageId, out string rcvdData))
                     {
                         inputs = null;
                         message = null;

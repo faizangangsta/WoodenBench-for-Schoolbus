@@ -79,15 +79,13 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                             if (string.IsNullOrEmpty(reqId))
                             {
-                                switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", null), out List<UserChangeRequest> requests))
+                                switch (DBOperations.QueryMultipleData(new DBQuery(), out List<UserChangeRequest> requests))
                                 {
                                     case DatabaseResult.INTERNAL_ERROR:
                                         return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
-                                        {
-                                            ViewData["list"] = requests.ToArray();
-                                            return base.View();
-                                        }
+                                        ViewData["list"] = requests.ToArray();
+                                        return base.View();
                                 }
                             }
                             else

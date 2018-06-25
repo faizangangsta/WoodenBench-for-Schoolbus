@@ -71,31 +71,31 @@
       <publishTime>06/15/2018 00:32:55</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.deps.json">
-      <publishTime>06/20/2018 23:50:19</publishTime>
+      <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll">
-      <publishTime>06/20/2018 23:47:31</publishTime>
+      <publishTime>06/25/2018 00:39:16</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.pdb">
-      <publishTime>06/20/2018 23:47:31</publishTime>
+      <publishTime>06/25/2018 00:39:16</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.runtimeconfig.json">
-      <publishTime>06/20/2018 23:50:19</publishTime>
+      <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.dll">
-      <publishTime>06/20/2018 23:47:32</publishTime>
+      <publishTime>06/25/2018 00:39:17</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.pdb">
-      <publishTime>06/20/2018 23:47:32</publishTime>
+      <publishTime>06/25/2018 00:39:17</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>06/20/2018 23:50:19</publishTime>
+      <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>06/20/2018 23:47:18</publishTime>
+      <publishTime>06/25/2018 00:37:48</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>06/20/2018 23:47:18</publishTime>
+      <publishTime>06/25/2018 00:37:48</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
       <publishTime>06/17/2018 23:27:58</publishTime>

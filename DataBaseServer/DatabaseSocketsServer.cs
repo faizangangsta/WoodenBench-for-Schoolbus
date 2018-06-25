@@ -14,7 +14,7 @@ namespace WBPlatform.Database.DBServer
         static Socket socketwatch = null;
         //定义一个集合，存储客户端信息
         static Dictionary<string, Socket> clientConnectionItems { get; set; } = new Dictionary<string, Socket>();
-        public static Dictionary<string, string> clientConncetionQueryStrings { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, string> clientQueryStrings { get; set; } = new Dictionary<string, string>();
         public static void InitialiseSockets()
         {
             socketwatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -23,16 +23,15 @@ namespace WBPlatform.Database.DBServer
             socketwatch.Listen(20);
 
             //负责监听客户端的线程:创建一个监听线程  
-            Thread threadwatch = new Thread(watchconnecting) { IsBackground = true };
+            Thread threadwatch = new Thread(WatchConnecting) { IsBackground = true };
             threadwatch.Start();
         }
 
         //监听客户端发来的请求  
-        static void watchconnecting()
+        private static void WatchConnecting()
         {
             Socket connection = null;
 
-            //持续不断监听客户端发来的请求
             while (true)
             {
                 try
@@ -42,22 +41,17 @@ namespace WBPlatform.Database.DBServer
                 catch (Exception ex)
                 {
                     LogWritter.ErrorMessage(ex.Message);
-                    break;
+                    continue;
                 }
 
                 //获取客户端的IP和端口号  
                 IPAddress clientIP = (connection.RemoteEndPoint as IPEndPoint).Address;
                 int clientPort = (connection.RemoteEndPoint as IPEndPoint).Port;
 
-                //让客户显示"连接成功的"的信息  
-                string sendmsg = clientIP + ":" + clientPort.ToString();
-                byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendmsg);
-                connection.Send(arrSendMsg);
-
                 //客户端网络结点号  
                 string remoteEndPoint = connection.RemoteEndPoint.ToString();
                 //显示与客户端连接情况
-                Console.WriteLine("成功与" + remoteEndPoint + "客户端建立连接!");
+                LogWritter.DebugMessage("成功与" + remoteEndPoint + "客户端建立连接!");
                 //添加客户端信息  
                 clientConnectionItems.Add(remoteEndPoint, connection);
 
@@ -78,7 +72,7 @@ namespace WBPlatform.Database.DBServer
 
         private static void Recv(object socketclientpara)
         {
-            Socket socketServer = socketclientpara as Socket;
+            Socket socket = socketclientpara as Socket;
             byte[] arrServerRecMsg = new byte[1024 * 1024];
 
             while (true)
@@ -86,38 +80,41 @@ namespace WBPlatform.Database.DBServer
                 try
                 {
                     arrServerRecMsg = new byte[1024 * 1024];
-                    int length = socketServer.Receive(arrServerRecMsg);
+                    int length = socket.Receive(arrServerRecMsg);
 
                     //将机器接受到的字节数组转换为人可以读懂的字符串     
-                    string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
-                    if (clientConncetionQueryStrings.ContainsKey(socketServer.RemoteEndPoint.ToString()))
+                    string requestString = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
+                    string _MessageId = requestString.Substring(0, 5);
+                    requestString = requestString.Substring(5);
+                    if (clientQueryStrings.ContainsKey(socket.RemoteEndPoint.ToString()))
                     {
-                        clientConncetionQueryStrings[socketServer.RemoteEndPoint.ToString()] = strSRecMsg;
+                        clientQueryStrings[socket.RemoteEndPoint.ToString()] = requestString;
                     }
                     else
                     {
-                        clientConncetionQueryStrings.Add(socketServer.RemoteEndPoint.ToString(), strSRecMsg);
+                        clientQueryStrings.Add(socket.RemoteEndPoint.ToString(), requestString);
                     }
-                    LogWritter.DebugMessage("REQUEST:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + strSRecMsg);
+                    LogWritter.DebugMessage("Q: " + socket.RemoteEndPoint.ToString() + " :: " + requestString);
 
-
-                    string returnStr = DatabaseCore.ProcessRequest(strSRecMsg);
-
-
-                    LogWritter.DebugMessage("REPLY:\t" + socketServer.RemoteEndPoint.ToString() + " :: " + returnStr);
-                    socketServer.Send(Encoding.UTF8.GetBytes(returnStr));
-                    //socketServer.Send(Encoding.UTF8.GetBytes("客户端:" + socketServer.RemoteEndPoint + ",time:" + DateTime.Now + "::" + strSRecMsg));
+                    if (requestString == "openConnection")
+                    {
+                        byte[] arrSendMsg = Encoding.UTF8.GetBytes(_MessageId + socket.RemoteEndPoint.ToString());
+                        socket.Send(arrSendMsg);
+                    }
+                    else
+                    {
+                        string returnStr = DatabaseCore.ProcessRequest(requestString);
+                        socket.Send(Encoding.UTF8.GetBytes(_MessageId + returnStr));
+                        LogWritter.DebugMessage("P: " + socket.RemoteEndPoint.ToString() + " :: " + returnStr);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    clientConnectionItems.Remove(socketServer.RemoteEndPoint.ToString());
-
-                    Console.WriteLine("Client Count:" + clientConnectionItems.Count);
-
-                    //提示套接字监听异常  
-                    Console.WriteLine("客户端" + socketServer.RemoteEndPoint + "已经中断连接" + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
-                    //关闭之前accept出来的和客户端进行通信的套接字 
-                    socketServer.Close();
+                    clientConnectionItems.Remove(socket.RemoteEndPoint.ToString());
+                    clientQueryStrings.Remove(socket.RemoteEndPoint.ToString());
+                    LogWritter.DebugMessage("Client Count:" + clientConnectionItems.Count);
+                    LogWritter.ErrorMessage("客户端" + socket.RemoteEndPoint + "已经中断连接" + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
+                    socket.Close();
                     break;
                 }
             }

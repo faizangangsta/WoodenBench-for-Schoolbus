@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
             switch (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
                 case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     {
                         object Equals2Obj = Content;
@@ -37,7 +37,7 @@ namespace WBPlatform.WebManagement.Controllers
                         switch (DBOperations.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
                             case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

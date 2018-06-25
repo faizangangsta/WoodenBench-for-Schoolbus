@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -15,9 +16,9 @@ namespace WBPlatform.Database.Connection
         private static Socket socketclient = null;
 
         private static string Message { get; set; } = "";
-        private static bool Received { get; set; } = false;
-        private static bool Read { get; set; } = false;
-        private static bool Connected { get; set; } = false;
+        public static bool Connected { get; private set; } = false;
+
+        private static Dictionary<string, string> _messages { get; set; } = new Dictionary<string, string>();
         public static bool Initialise(IPAddress ServerIP)
         {
             socketclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -58,14 +59,7 @@ namespace WBPlatform.Database.Connection
                     //定义一个1M的内存缓冲区，用于临时性存储接收到的消息  
                     int length = socketclient.Receive(arrRecvmsg);
                     string strRevMsg = Encoding.UTF8.GetString(arrRecvmsg, 0, length);
-                    Message = strRevMsg;
-                    Received = true;
-                    while (!Read)
-                    {
-                        Thread.Sleep(100);
-                    }
-                    Read = false;
-                    Received = false;
+                    _messages.Add(strRevMsg.Substring(0, 5), strRevMsg.Substring(5));
                 }
                 catch (Exception ex)
                 {
@@ -78,22 +72,24 @@ namespace WBPlatform.Database.Connection
 
 
         //发送字符信息到服务端的方法  
-        public static bool SendDatabaseOperations(string sendMsg, out string rcvdMessage)
+        public static bool SendDatabaseOperations(string sendMsg, string MessageId, out string rcvdMessage)
         {
             rcvdMessage = "";
             if (Connected)
             {
-                byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+                byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(MessageId + sendMsg);
                 socketclient.Send(arrClientSendMsg);
-                while (!Received)
+
+                while (true)
                 {
-                    //WAIT FOR RCVD....
+                    if (_messages.ContainsKey(MessageId))
+                    {
+                        rcvdMessage = _messages[MessageId];
+                        _messages.Remove(MessageId);
+                        return true;
+                    }
                     Thread.Sleep(50);
                 }
-                rcvdMessage = Message;
-                Received = false;
-                Read = true;
-                return true;
             }
             else return false;
         }

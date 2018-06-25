@@ -36,12 +36,16 @@ namespace WBPlatform.Database.DBServer
 
         public static string ProcessRequest(string requestString)
         {
-            DBInternalRequest request = DBInternalRequest.FromJSONString(requestString);
             DBOutput output = null;
             DBQuery dbQuery = null;
             DBInternalReply reply = new DBInternalReply();
             try
             {
+                DBInternalRequest request = DBInternalRequest.FromJSONString(requestString);
+                if (request == null)
+                {
+                    throw new NullReferenceException("JSON Parsing Error, check request...");
+                }
                 reply.Result.DBOperation = request.operation;
                 DatabaseOperation operation = request.operation = reply.Result.DBOperation;
                 if (operation == DatabaseOperation.QueryMulti || operation == DatabaseOperation.QuerySingle || operation == DatabaseOperation.Update || operation == DatabaseOperation.Delete)

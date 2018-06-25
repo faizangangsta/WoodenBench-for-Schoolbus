@@ -14,7 +14,7 @@ namespace WBPlatform.StaticClasses
         public static Dictionary<string, string> SessionError { get; } = new Dictionary<string, string>
         { { "ErrCode", "1" }, { "ErrMessage", "Session Invalid" } };
 
-        public static Dictionary<string, string> DatabaseError { get; } = new Dictionary<string, string>
+        public static Dictionary<string, string> DataBaseError { get; } = new Dictionary<string, string>
         { { "ErrCode", "995" }, { "ErrMessage", "Database Error" } };
         public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string>
         { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };

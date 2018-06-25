@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("WeChatSENTThreadStatus", WeChatMessageSystem.Status()[1]);
                 status.Add("WeChatRCVDListCount", WeChatMessageSystem.Status()[2]);
                 status.Add("WeChatSENTListCount", WeChatMessageSystem.Status()[3]);
-                status.Add("Database", DBOperations.isInitiallised);
+                status.Add("Database", Database.Connection.DatabaseSocketsClient.Connected);
                 status.Add("CoreMessageSystemThread", MessagingSystem.GetStatus);
                 status.Add("CoreMessageSystemCount", MessagingSystem.GetCount);
                 status.Add("MessageBackupThread", MessageBackup.GetStatus);

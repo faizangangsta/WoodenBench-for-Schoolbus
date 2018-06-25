@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(UserID))
                 {
-                    return WebAPIResponseCollections.RequestIllegal;
+                    return WebAPIResponseCollections.RequestIllegal; 
                 }
                 else
                 {
@@ -29,7 +29,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                         case DatabaseResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
-                        case DatabaseResult.MORE_RESULTS: return WebAPIResponseCollections.InternalError;
+                        case DatabaseResult.MORE_RESULTS: return WebAPIResponseCollections.DataBaseError;
                         default: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"{user.RealName}({user.objectId})" } };
                     }
                 }

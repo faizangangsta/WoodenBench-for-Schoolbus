@@ -24,13 +24,13 @@ namespace WBPlatform.WebManagement.Controllers
                     switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
                         case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                        case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                         default:
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
                                 case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)

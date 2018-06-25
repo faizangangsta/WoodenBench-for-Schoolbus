@@ -26,7 +26,7 @@ namespace WBPlatform.WebManagement.Controllers
             switch (DBOperations.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
             {
                 case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DatabaseError;
+                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

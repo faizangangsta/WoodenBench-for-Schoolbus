@@ -44,7 +44,7 @@ namespace WBPlatform.Database.DBServer
         {
             try
             {
-                Dictionary<string, string> clientConncetionQueryStrings = DatabaseSocketsServer.clientConncetionQueryStrings;
+                Dictionary<string, string> clientConncetionQueryStrings = DatabaseSocketsServer.clientQueryStrings;
                 listView1.Items.Clear();
                 foreach (KeyValuePair<string, string> item in clientConncetionQueryStrings)
                 {
