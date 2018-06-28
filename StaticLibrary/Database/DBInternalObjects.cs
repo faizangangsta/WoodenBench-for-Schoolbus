@@ -40,7 +40,7 @@ namespace WBPlatform.Database.Internal
     }
     public class DatabaseOperationMessage
     {
-        public DatabaseResult DBResultCode { get; set; }
+        public DataBaseResult DBResultCode { get; set; }
         public DatabaseOperation DBOperation { get; set; }
         public string Message { get; set; }
         public Exception Exception { get; set; }

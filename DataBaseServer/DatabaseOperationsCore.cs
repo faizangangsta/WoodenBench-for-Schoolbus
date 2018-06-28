@@ -64,7 +64,7 @@ namespace WBPlatform.Database.DBServer
                         string sqlCommand_Create = $"INSERT INTO {request.TableName} ({string.Join(",", output.GetData().Keys)}, createdAt, updatedAt) VALUES ('{string.Join("','", (from val in output.GetData().Values select (EncodeString(val))).ToArray())}', '{DateTime.Now}', '{DateTime.Now}')";
                         SqlCommand command_Create = new SqlCommand(sqlCommand_Create, sqlReadOnlyConnection);
                         int rowModified_Create = command_Create.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DatabaseResult)rowModified_Create;
+                        reply.Result.DBResultCode = (DataBaseResult)rowModified_Create;
                         reply.Result.Message = "操作成功完成(" + rowModified_Create + ")";
 
                         reply.objectString = JsonConvert.SerializeObject(SQLQueryCommand($"SELECT TOP(1) * FROM {request.TableName} WHERE objectId = '{output.GetData()["objectId"]}' "));
@@ -96,7 +96,7 @@ namespace WBPlatform.Database.DBServer
 
                         List<Dictionary<string, object>> results = SQLQueryCommand(sqlCommand_Query);
                         reply.objectString = JsonConvert.SerializeObject(results);
-                        reply.Result.DBResultCode = results.Count >= 2 ? DatabaseResult.MORE_RESULTS : (DatabaseResult)results.Count;
+                        reply.Result.DBResultCode = results.Count >= 2 ? DataBaseResult.MORE_RESULTS : (DataBaseResult)results.Count;
                         reply.Result.Message = "操作成功完成(" + results.Count + ")";
                         break;
                     case DatabaseOperation.Update:
@@ -104,7 +104,7 @@ namespace WBPlatform.Database.DBServer
 
                         SqlCommand command_Update = new SqlCommand(sqlCommand_Update, sqlReadOnlyConnection);
                         int rowModified_Update = command_Update.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DatabaseResult)rowModified_Update;
+                        reply.Result.DBResultCode = (DataBaseResult)rowModified_Update;
                         reply.Result.Message = "操作成功完成(" + rowModified_Update + ")";
 
                         reply.objectString = JsonConvert.SerializeObject(SQLQueryCommand($"SELECT TOP(1) * FROM {request.TableName} WHERE objectId = '{output.GetData()["objectId"]}' "));
@@ -113,7 +113,7 @@ namespace WBPlatform.Database.DBServer
                         string sqlCommand_Del = $"DELETE FROM {request.TableName} WHERE objectId = '{dbQuery.EqualTo["objectId"]}'";
                         SqlCommand command = new SqlCommand(sqlCommand_Del, sqlReadOnlyConnection);
                         int rowModified = command.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DatabaseResult)rowModified;
+                        reply.Result.DBResultCode = (DataBaseResult)rowModified;
                         reply.Result.Message = "操作成功完成(" + rowModified + ")";
                         break;
                     default:
@@ -123,7 +123,7 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
-                reply.Result.DBResultCode = DatabaseResult.INTERNAL_ERROR;
+                reply.Result.DBResultCode = DataBaseResult.INTERNAL_ERROR;
                 reply.Result.Message = ex.Message;
                 reply.Result.Exception = ex;
             }

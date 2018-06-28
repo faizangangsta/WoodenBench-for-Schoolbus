@@ -23,8 +23,8 @@ namespace WBPlatform.WebManagement.Controllers
             query.WhereEqualTo("objectId", BusID);
             switch (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
-                case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     {
                         object Equals2Obj = Content;
@@ -36,8 +36,8 @@ namespace WBPlatform.WebManagement.Controllers
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (DBOperations.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
-                            case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                            case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

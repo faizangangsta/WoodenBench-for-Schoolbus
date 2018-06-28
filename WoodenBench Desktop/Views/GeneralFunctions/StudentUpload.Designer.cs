@@ -425,7 +425,7 @@
             this.LoadExistStudents.Size = new System.Drawing.Size(214, 34);
             this.LoadExistStudents.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.LoadExistStudents.TabIndex = 13;
-            this.LoadExistStudents.Text = "加载班级数据";
+            this.LoadExistStudents.Text = "重新加载班级数据";
             this.LoadExistStudents.Click += new System.EventHandler(this.LoadExistStudents_Click);
             // 
             // groupBox2

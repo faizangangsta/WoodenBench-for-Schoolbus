@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
-                        case DatabaseResult.ONE_RESULT:
+                        case DataBaseResult.ONE_RESULT:
                             request.SolverID = SessionUser.objectId;
                             switch (mode)
                             {
@@ -40,12 +40,12 @@ namespace WBPlatform.WebManagement.Controllers
                                     break;
                                 default: return WebAPIResponseCollections.RequestIllegal;
                             }
-                            if (DBOperations.UpdateData(request) != (DatabaseResult)1) return WebAPIResponseCollections.DataBaseError;
+                            if (DBOperations.UpdateData(request) != (DataBaseResult)1) return WebAPIResponseCollections.DataBaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
                                 switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
-                                    case DatabaseResult.ONE_RESULT:
+                                    case DataBaseResult.ONE_RESULT:
                                         switch (request.RequestTypes)
                                         {
                                             case UserChangeRequestTypes.真实姓名:

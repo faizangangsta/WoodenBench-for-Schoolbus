@@ -19,27 +19,27 @@ using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
-    public partial class Notifications : MetroForm
+    public partial class NotificationsForm : MetroForm
     {
         private List<NotificationObject> NotificationLists { get; set; } = new List<NotificationObject>();
-        public Notifications()
+        public NotificationsForm()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static Notifications defaultInstance { get; set; }
+        private static NotificationsForm defaultInstance { get; set; }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e)
         {
             defaultInstance = null;
         }
-        public static Notifications Default
+        public static NotificationsForm Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new Notifications();
+                    defaultInstance = new NotificationsForm();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;

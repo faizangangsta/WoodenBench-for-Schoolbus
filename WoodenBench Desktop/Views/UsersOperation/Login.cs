@@ -3,19 +3,18 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
-using Newtonsoft.Json.Linq;
 
-using WBPlatform.StaticClasses;
-using WBPlatform.TableObject;
 using WBPlatform.DesktopClient.DelegateClasses;
 using WBPlatform.DesktopClient.StaticClasses;
 using WBPlatform.DesktopClient.Users;
+using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
 using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
-    public partial class UsrLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class LoginWindow : DevComponents.DotNetBar.Metro.MetroForm
     {
         private void button1_Click(object sender, EventArgs e)
         {
@@ -30,20 +29,20 @@ namespace WBPlatform.DesktopClient.Views
         {
             LoginResult.Text = "";
         }
-        public UsrLoginWindow() : base()
+        public LoginWindow() : base()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static UsrLoginWindow defaultInstance { get; set; }
-        public static UsrLoginWindow Default
+        private static LoginWindow defaultInstance { get; set; }
+        public static LoginWindow Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new UsrLoginWindow();
+                    defaultInstance = new LoginWindow();
                     defaultInstance.FormClosed += new FormClosedEventHandler((obj, obj2) => { defaultInstance = null; });
                 }
                 return defaultInstance;

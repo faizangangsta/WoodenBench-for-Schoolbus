@@ -92,7 +92,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 try
                 {
-                    Image p = FileIO.BytesToImage(FileIO.ReadFileBytes(e.LocalFilePath));
+                    Image p = Image.FromFile(e.LocalFilePath);
                     if (pictureBox1.InvokeRequired) Invoke(new Action(delegate { pictureBox1.BackgroundImage = p; }));
                 }
                 catch (Exception Ex)
@@ -122,7 +122,7 @@ namespace WBPlatform.DesktopClient.Views
             if (MessageBox.Show("确定要注销吗？", "注销", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 UserActivity.LogOut();
-                UsrLoginWindow.Default.Show();
+                LoginWindow.Default.Show();
                 Hide();
             }
         }
@@ -152,24 +152,24 @@ namespace WBPlatform.DesktopClient.Views
 
         private void MgrLoginTile_Click(object sender, EventArgs e)
         {
-            MGRLoginWindow.Default.ShowDialog(this);
+            AdminLoginForm.Default.ShowDialog(this);
         }
 
         private void MyStudentData_Click(object sender, EventArgs e)
         {
-            CheckMyStudents.Default.Show();
+            BusCheckForm.Default.Show();
             Hide();
         }
 
         private void myAccount_Click(object sender, EventArgs e)
         {
-            UserSettings.Default.ShowDialog();
+            new ChangePasswordForm().ShowDialog(this);
         }
 
         private void NotificationCenter_Click(object sender, EventArgs e)
         {
-            Notifications.Default.Show();
+            NotificationsForm.Default.Show();
             Hide();
         }
-    }
+    } 
 }

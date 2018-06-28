@@ -27,6 +27,7 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
+                LogWritter.ErrorMessage(ex.Message);
                 while (true)
                 {
                     Thread.Sleep(1000);

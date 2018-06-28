@@ -7,53 +7,38 @@ using System.Text;
 using System.Windows.Forms;
 
 using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Metro;
 
-using WBPlatform.StaticClasses;
-using WBPlatform.DesktopClient.StaticClasses;
 using WBPlatform.DesktopClient.Users;
+using WBPlatform.StaticClasses;
 
 using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
-    public partial class UserSettings : MetroForm
+    public partial class ChangePasswordForm : DevComponents.DotNetBar.Metro.MetroForm
     {
-        public UserSettings()
+        public ChangePasswordForm()
         {
             InitializeComponent();
-            if (defaultInstance == null) defaultInstance = this;
         }
-        #region For us easier to call
-        private static UserSettings defaultInstance { get; set; }
-        static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
-        public static UserSettings Default
-        {
-            get
-            {
-                if (defaultInstance == null)
-                {
-                    defaultInstance = new UserSettings();
-                    defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
-                }
-                return defaultInstance;
-            }
-        }
-        #endregion
 
-        private void UserSettings_Load(object sender, EventArgs e)
+        private void ChangePassword_Load(object sender, EventArgs e)
         {
             userIDLabel.Text = CurrentUser.objectId;
             UserLogonNamelabel.Text = CurrentUser.UserName;
             SexLabel.Text = CurrentUser.Sex.ToLower() == "m" ? "男" : "女";
             realnameLabel.Text = CurrentUser.RealName;
             PhoneNumLAbel.Text = CurrentUser.PhoneNumber;
-            AdminLabel.Text = CurrentUser.UserGroup.IsAdmin ? "是" : "否";
         }
 
-        private void realnameLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ClearPassword_Click(object sender, EventArgs e)
         {
-
+            prePassword.Clear();
+            prePassword.ClearUndo();
+            NewPassword1.Clear();
+            NewPassword1.ClearUndo();
+            NewPassword2.Clear();
+            NewPassword2.ClearUndo();
         }
 
         private void prePassword_TextChanged(object sender, EventArgs e)
@@ -83,8 +68,8 @@ namespace WBPlatform.DesktopClient.Views
                     {
                         if (UserActivity.ChangePassWord(CurrentUser, prePassword.Text, NewPassword1.Text))
                         {
-                            MessageBox.Show($"你在成功修改密码，现在将要重新登陆");
-                            UserActivity.LogOut();
+                            MessageBox.Show($"成功修改密码！");
+                            //UserActivity.LogOut();
                         }
                         else
                         {

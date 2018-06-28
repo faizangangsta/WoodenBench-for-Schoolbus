@@ -66,8 +66,8 @@ namespace WBPlatform.WebManagement.Controllers
                     query.WhereEqualTo("objectId", SessionUser.objectId);
                     switch (DBOperations.QueryMultipleData(query, out List<UserObject> UserList))
                     {
-                        case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                        case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
                             string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);

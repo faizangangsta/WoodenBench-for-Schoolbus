@@ -1,6 +1,6 @@
 ﻿namespace WBPlatform.DesktopClient.Views
 {
-    partial class MGRLoginWindow
+    partial class AdminLoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MGRLoginWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminLoginForm));
             this.RealNameTxt = new System.Windows.Forms.TextBox();
             this.PasswordTxt = new System.Windows.Forms.TextBox();
             this.UsrNameTxt = new System.Windows.Forms.TextBox();

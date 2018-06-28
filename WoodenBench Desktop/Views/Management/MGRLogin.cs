@@ -12,22 +12,22 @@ using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
-    public partial class MGRLoginWindow : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class AdminLoginForm : DevComponents.DotNetBar.Metro.MetroForm
     {
-        private static MGRLoginWindow defaultInstance;
-        public MGRLoginWindow() : base()
+        private static AdminLoginForm defaultInstance;
+        public AdminLoginForm() : base()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e) { defaultInstance = null; }
-        public static MGRLoginWindow Default
+        public static AdminLoginForm Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new MGRLoginWindow();
+                    defaultInstance = new AdminLoginForm();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;

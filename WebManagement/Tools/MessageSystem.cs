@@ -87,7 +87,7 @@ namespace WBPlatform.WebManagement.Tools
                     {
                         switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
                         {
-                            case DatabaseResult.ONE_RESULT:
+                            case DataBaseResult.ONE_RESULT:
                                 string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "审核未通过";
                                 WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.dataObject).RequestTypes.ToString() + " 信息的工单已经审核完毕！\r\n" +
@@ -95,9 +95,9 @@ namespace WBPlatform.WebManagement.Tools
                                         "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)(message.dataObject)).objectId, requestSender.UserName);
                                 WeChatMessageSystem.AddToSendList(_WMessage);
                                 break;
-                            case DatabaseResult.INTERNAL_ERROR:
-                            case DatabaseResult.NO_RESULTS:
-                            case DatabaseResult.MORE_RESULTS:
+                            case DataBaseResult.INTERNAL_ERROR:
+                            case DataBaseResult.NO_RESULTS:
+                            case DataBaseResult.MORE_RESULTS:
                             default:
                                 LogWritter.ErrorMessage("Failed to get user who requested to change something.... userId=" + message.objectId);
                                 break;

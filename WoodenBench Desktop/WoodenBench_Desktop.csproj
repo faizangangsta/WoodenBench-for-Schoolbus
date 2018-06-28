@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="StaticClasses\EventDriver.cs" />
-    <Compile Include="StaticClasses\ExcelApplication.cs" />
+    <Compile Include="Models\ExcelApplication.cs" />
     <Compile Include="StaticClasses\FileIO.cs" />
     <Compile Include="StaticClasses\GlobalFunctions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -105,36 +105,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Users\Mysterious.cs" />
-    <Compile Include="Users\UserActivity.cs" />
-    <Compile Include="Views\Notificaions.cs">
+    <Compile Include="StaticClasses\Mysterious.cs" />
+    <Compile Include="StaticClasses\UserActivity.cs" />
+    <Compile Include="Views\UsersOperation\ChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Notificaions.Designer.cs">
+    <Compile Include="Views\UsersOperation\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersOperation\Notificaions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UsersOperation\Notificaions.Designer.cs">
       <DependentUpon>Notificaions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserSettings.cs">
+    <Compile Include="Views\UsersOperation\UserSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\UserSettings.Designer.cs">
+    <Compile Include="Views\UsersOperation\UserSettings.Designer.cs">
       <DependentUpon>UserSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\BusesManager.cs">
+    <Compile Include="Views\GeneralFunctions\BusesManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\BusesManager.Designer.cs">
+    <Compile Include="Views\GeneralFunctions\BusesManager.Designer.cs">
       <DependentUpon>BusesManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\CheckMyStudents.cs">
+    <Compile Include="Views\GeneralFunctions\BusCheck.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\CheckMyStudents.Designer.cs">
-      <DependentUpon>CheckMyStudents.cs</DependentUpon>
+    <Compile Include="Views\GeneralFunctions\BusCheck.Designer.cs">
+      <DependentUpon>BusCheck.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentUpload.cs">
+    <Compile Include="Views\GeneralFunctions\StudentUpload.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\StudentUpload.Designer.cs">
+    <Compile Include="Views\GeneralFunctions\StudentUpload.Designer.cs">
       <DependentUpon>StudentUpload.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainForm.cs">
@@ -143,57 +149,63 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MGRMain.cs">
+    <Compile Include="Views\Management\MGRMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MGRMain.Designer.cs">
+    <Compile Include="Views\Management\MGRMain.Designer.cs">
       <DependentUpon>MGRMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MGRLogin.cs">
+    <Compile Include="Views\Management\MGRLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MGRLogin.Designer.cs">
+    <Compile Include="Views\Management\MGRLogin.Designer.cs">
       <DependentUpon>MGRLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\UsrLogin.cs">
+    <Compile Include="Views\UsersOperation\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\UsrLogin.Designer.cs">
-      <DependentUpon>UsrLogin.cs</DependentUpon>
+    <Compile Include="Views\UsersOperation\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Notificaions.resx">
+    <EmbeddedResource Include="Views\UsersOperation\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UsersOperation\Notificaions.resx">
       <DependentUpon>Notificaions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UserSettings.resx">
+    <EmbeddedResource Include="Views\UsersOperation\UserSettings.resx">
       <DependentUpon>UserSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\BusesManager.resx">
+    <EmbeddedResource Include="Views\GeneralFunctions\BusesManager.resx">
       <DependentUpon>BusesManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\CheckMyStudents.resx">
-      <DependentUpon>CheckMyStudents.cs</DependentUpon>
+    <EmbeddedResource Include="Views\GeneralFunctions\BusCheck.resx">
+      <DependentUpon>BusCheck.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\StudentUpload.resx">
+    <EmbeddedResource Include="Views\GeneralFunctions\StudentUpload.resx">
       <DependentUpon>StudentUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MGRMain.resx">
+    <EmbeddedResource Include="Views\Management\MGRMain.resx">
       <DependentUpon>MGRMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MGRLogin.resx">
+    <EmbeddedResource Include="Views\Management\MGRLogin.resx">
       <DependentUpon>MGRLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\UsrLogin.resx">
-      <DependentUpon>UsrLogin.cs</DependentUpon>
+    <EmbeddedResource Include="Views\UsersOperation\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\WBServicePlatform.TableObject.AllUserObject.datasource" />

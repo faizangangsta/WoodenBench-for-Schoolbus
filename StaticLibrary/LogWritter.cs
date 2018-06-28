@@ -37,7 +37,7 @@ namespace WBPlatform.StaticClasses
         {
             string LogMsg = "";
             if (level == LogType.LongChain) LogMsg = "=========================================================\r\n";
-            else LogMsg += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:SS")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))} - {Message}";
+            else LogMsg += $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))} - {Message}";
             Debug.Write(LogMsg);
             Console.WriteLine(LogMsg);
             char[] p = Encoding.UTF8.GetChars(Encoding.UTF8.GetBytes(LogMsg));

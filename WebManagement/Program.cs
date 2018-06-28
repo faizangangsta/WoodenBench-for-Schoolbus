@@ -24,7 +24,11 @@ namespace WBPlatform.WebManagement
             LogWritter.InitLog();
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
             WeChat.ReNewWCCodes();
+#if DEBUG
+            DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+#else
             DBOperations.InitialiseClient(IPAddress.Loopback);
+#endif
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
             WeChatMessageSystem.StartProcessThreads();

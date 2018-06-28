@@ -27,9 +27,9 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", UserID), out UserObject user))
                     {
-                        case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DatabaseResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
-                        case DatabaseResult.MORE_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                        case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DataBaseResult.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
+                        case DataBaseResult.MORE_RESULTS: return WebAPIResponseCollections.DataBaseError;
                         default: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"{user.RealName}({user.objectId})" } };
                     }
                 }

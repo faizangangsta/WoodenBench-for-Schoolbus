@@ -20,16 +20,11 @@ namespace WBPlatform.Database
         public static string MessageId { get { return Cryptography.RandomString(5, false); } }
         public static void InitialiseClient(IPAddress server)
         {
-#if DEBUG
-            IPAddress _dbServer = IPAddress.Loopback;
-            bool conn = DatabaseSocketsClient.Initialise(IPAddress.Loopback);
-#else
             IPAddress _dbServer = server;
             bool conn = DatabaseSocketsClient.Initialise(server);
-#endif
             if (!conn)
             {
-                throw new DataBaseException("数据库连接失败. " + _dbServer.ToString(), DatabaseResult.NOT_CONNECTED);
+                throw new DataBaseException("数据库连接失败. " + _dbServer.ToString(), DataBaseResult.NOT_CONNECTED);
             }
             else
             {
@@ -37,11 +32,11 @@ namespace WBPlatform.Database
                 LogWritter.DebugMessage("Database Connected! Identity: " + token);
             }
         }
-        public static DatabaseResult QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
+        public static DataBaseResult QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
         {
             query.Limit(1);
-            DatabaseResult databaseOperationResult = _DBRequestInternal(new T().table, DatabaseOperation.QuerySingle, query, null, out DBInput[] input, out DatabaseOperationMessage result);
-            if (databaseOperationResult == DatabaseResult.ONE_RESULT)
+            DataBaseResult databaseOperationResult = _DBRequestInternal(new T().table, DatabaseOperation.QuerySingle, query, null, out DBInput[] input, out DatabaseOperationMessage result);
+            if (databaseOperationResult == DataBaseResult.ONE_RESULT)
             {
                 T t = new T();
                 t.readFields(input[0]);
@@ -56,47 +51,51 @@ namespace WBPlatform.Database
         }
 
 
-        public static DatabaseResult QueryMultipleData<T>(DBQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : DataTableObject, new()
+        public static DataBaseResult QueryMultipleData<T>(DBQuery query, out List<T> Result, int queryLimit = 100, int skip = 0) where T : DataTableObject, new()
         {
             query.Limit(queryLimit);
             query.Skip(skip);
-            DatabaseResult databaseOperationResult = _DBRequestInternal(new T().table, DatabaseOperation.QueryMulti, query, null, out DBInput[] inputs, out DatabaseOperationMessage @object);
+            DataBaseResult databaseOperationResult = _DBRequestInternal(new T().table, DatabaseOperation.QueryMulti, query, null, out DBInput[] inputs, out DatabaseOperationMessage @object);
             if (databaseOperationResult >= 0)
             {
-                List<T> _results = new List<T>((int)databaseOperationResult);
+                Result = new List<T>();
                 foreach (DBInput item in inputs)
                 {
                     T t = new T();
                     t.readFields(item);
-                    _results.Add(t);
+                    Result.Add(t);
                 }
-                Result = _results;
             }
             else Result = null;
             return databaseOperationResult;
         }
-        public static DatabaseResult DeleteData(string Table, string ObjectID)
+        public static DataBaseResult DeleteData(string Table, string ObjectID)
         {
-            DatabaseResult result = _DBRequestInternal(Table, DatabaseOperation.Delete, new DBQuery().WhereEqualTo("objectId", ObjectID), null, out DBInput[] inputs, out DatabaseOperationMessage resultObject);
+            DataBaseResult result = _DBRequestInternal(Table, DatabaseOperation.Delete, new DBQuery().WhereEqualTo("objectId", ObjectID), null, out DBInput[] inputs, out DatabaseOperationMessage resultObject);
             return result;
         }
 
-        public static DatabaseResult UpdateData<T>(T item) where T : DataTableObject, new()
+        public static DataBaseResult UpdateData<T>(T item) where T : DataTableObject, new() => UpdateData(item, null);
+
+        public static DataBaseResult UpdateData<T>(T item, DBQuery query) where T : DataTableObject, new()
         {
-            DBQuery query = new DBQuery();
-            query.WhereEqualTo("objectId", item.objectId);
+            if (query == null)
+            {
+                query = new DBQuery();
+                query.WhereEqualTo("objectId", item.objectId);
+            }
             DBOutput output = new DBOutput();
             item.write(output, false);
             return _DBRequestInternal(item.table, DatabaseOperation.Update, query, output, out DBInput[] inputs, out DatabaseOperationMessage message);
         }
 
-        public static DatabaseResult CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
+        public static DataBaseResult CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
         {
             DBOutput output = new DBOutput();
             data.objectId = Cryptography.RandomString(10, false);
             data.write(output, false);
-            DatabaseResult rst = _DBRequestInternal(data.table, DatabaseOperation.Create, null, output, out DBInput[] inputs, out DatabaseOperationMessage message);
-            if (rst == DatabaseResult.INTERNAL_ERROR)
+            DataBaseResult rst = _DBRequestInternal(data.table, DatabaseOperation.Create, null, output, out DBInput[] inputs, out DatabaseOperationMessage message);
+            if (rst == DataBaseResult.INTERNAL_ERROR)
             {
                 dataOut = null;
                 LogWritter.ErrorMessage(message.ToString());
@@ -108,7 +107,7 @@ namespace WBPlatform.Database
             return rst;
         }
 
-        private static DatabaseResult _DBRequestInternal(string Table, DatabaseOperation operation, DBQuery query, DBOutput output, out DBInput[] inputs, out DatabaseOperationMessage message)
+        private static DataBaseResult _DBRequestInternal(string Table, DatabaseOperation operation, DBQuery query, DBOutput output, out DBInput[] inputs, out DatabaseOperationMessage message)
         {
             try
             {
@@ -141,27 +140,24 @@ namespace WBPlatform.Database
                         break;
                 }
                 string internalQueryString = internalQuery.ToString();
-                //...................ATOM.OPERATION.....................
+
                 DBInternalReply reply;
-                //lock (LOCKER)
+                string _MessageId = MessageId;
+                if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, _MessageId, out string rcvdData))
                 {
-                    string _MessageId = MessageId;
-                    if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, _MessageId, out string rcvdData))
-                    {
-                        inputs = null;
-                        message = null;
-                        throw new InvalidOperationException("Database is not connected currently...");
-                    }
-                    reply = DBInternalReply.FromJSONString(rcvdData);
+                    inputs = null;
+                    message = null;
+                    throw new InvalidOperationException("Database is not connected currently...");
                 }
+                reply = DBInternalReply.FromJSONString(rcvdData);
                 if (reply == null) throw new ArgumentNullException("DBInternalReply", "Database Result null");
                 message = reply.Result;
                 switch (message.DBResultCode)
                 {
-                    case DatabaseResult.INJECTION_DETECTED:
-                        throw new DataBaseException("INJECTION DETECTED.", DatabaseResult.INJECTION_DETECTED, message.Exception);
-                    case DatabaseResult.INTERNAL_ERROR:
-                        throw new DataBaseException("Database Server Internal Error", DatabaseResult.INTERNAL_ERROR, message.Exception);
+                    case DataBaseResult.INJECTION_DETECTED:
+                        throw new DataBaseException("INJECTION DETECTED.", DataBaseResult.INJECTION_DETECTED, message.Exception);
+                    case DataBaseResult.INTERNAL_ERROR:
+                        throw new DataBaseException("Database Server Internal Error", DataBaseResult.INTERNAL_ERROR, message.Exception);
                 }
                 switch (operation)
                 {
@@ -170,7 +166,6 @@ namespace WBPlatform.Database
                     case DatabaseOperation.Create:
                     case DatabaseOperation.Update:
                         List<Dictionary<string, object>> objectsResults = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(reply.objectString);
-                        //if (objectsResults.Count != (int)reply.Result.DBResultCode) throw new IndexOutOfRangeException("Database Result doesn't match with parsed object.");
                         if ((int)operation != 2 && (int)operation != 4)
                         {
                             if (objectsResults.Count > 1)
@@ -192,9 +187,10 @@ namespace WBPlatform.Database
             {
                 inputs = null;
                 message = new DatabaseOperationMessage();
-                message.DBResultCode = DatabaseResult.INTERNAL_ERROR;
-                message.Exception = new DataBaseException("进行数据库操作时出现一个或多个错误", DatabaseResult.INTERNAL_ERROR, ex);
-                return DatabaseResult.INTERNAL_ERROR;
+                message.DBResultCode = DataBaseResult.INTERNAL_ERROR;
+                message.Exception = new DataBaseException("进行数据库操作时出现一个或多个错误", DataBaseResult.INTERNAL_ERROR, ex);
+                LogWritter.ErrorMessage(message.ToString());
+                return DataBaseResult.INTERNAL_ERROR;
             }
         }
     }

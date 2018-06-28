@@ -99,12 +99,12 @@ namespace WBPlatform.WebManagement.Controllers
             return View();
         }
 
-        private IActionResult CheckFlag(DatabaseResult flag, bool isSingleRequest, UserObject user, string info)
+        private IActionResult CheckFlag(DataBaseResult flag, bool isSingleRequest, UserObject user, string info)
         {
             switch (flag)
             {
-                case DatabaseResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
-                case DatabaseResult.MORE_RESULTS:
+                case DataBaseResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case DataBaseResult.MORE_RESULTS:
                     if (isSingleRequest) _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName);
                     return null;
                 default: return null;
@@ -130,7 +130,7 @@ namespace WBPlatform.WebManagement.Controllers
                 // User Group Check
                 if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
-                    DatabaseResult flag;
+                    DataBaseResult flag;
                     IActionResult result = null;
 
                     ViewStudentInfo info = new ViewStudentInfo();
@@ -150,7 +150,7 @@ namespace WBPlatform.WebManagement.Controllers
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DatabaseResult.NO_RESULTS)
+                            if (flag == DataBaseResult.NO_RESULTS)
                             {
                                 info.ClassFound = false;
                                 info._class = null;
@@ -165,7 +165,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 if (result != null) return result;
                                 else
                                 {
-                                    if (flag == DatabaseResult.NO_RESULTS)
+                                    if (flag == DataBaseResult.NO_RESULTS)
                                     {
                                         info.ClassTeacherFound = false;
                                         info._CTeacher = null;
@@ -180,12 +180,12 @@ namespace WBPlatform.WebManagement.Controllers
                         }
 
                         //Get Parents
-                        flag = DBOperations.QueryMultipleData(new DBQuery().WhereContainedInArray("ChildList", Student.objectId), out List<UserObject> Parents);
+                        flag = DBOperations.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("ChildList", Student.objectId), out List<UserObject> Parents);
                         result = CheckFlag(flag, false, user, "GetParentsBy_UID");
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DatabaseResult.NO_RESULTS)
+                            if (flag == DataBaseResult.NO_RESULTS)
                             {
                                 info.ParentsCount = 0;
                                 info._Parents = null;
@@ -204,7 +204,7 @@ namespace WBPlatform.WebManagement.Controllers
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DatabaseResult.NO_RESULTS)
+                            if (flag == DataBaseResult.NO_RESULTS)
                             {
                                 info.BusFound = false;
                                 info._schoolbus = null;
@@ -219,7 +219,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 if (result != null) return result;
                                 else
                                 {
-                                    if (flag == DatabaseResult.NO_RESULTS)
+                                    if (flag == DataBaseResult.NO_RESULTS)
                                     {
                                         info.BusTeacherFound = false;
                                         info._BTeacher = null;

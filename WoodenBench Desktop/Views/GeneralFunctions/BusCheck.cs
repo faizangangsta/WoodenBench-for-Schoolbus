@@ -18,26 +18,26 @@ using static WBPlatform.DesktopClient.StaticClasses.GlobalFunctions;
 
 namespace WBPlatform.DesktopClient.Views
 {
-    public partial class CheckMyStudents : MetroForm
+    public partial class BusCheckForm : MetroForm
     {
-        public CheckMyStudents()
+        public BusCheckForm()
         {
             InitializeComponent();
             if (defaultInstance == null) defaultInstance = this;
         }
         #region For us easier to call
-        private static CheckMyStudents defaultInstance { get; set; }
+        private static BusCheckForm defaultInstance { get; set; }
         static void DefaultInstance_FormClosed(object sender, FormClosedEventArgs e)
         {
             defaultInstance = null;
         }
-        public static CheckMyStudents Default
+        public static BusCheckForm Default
         {
             get
             {
                 if (defaultInstance == null)
                 {
-                    defaultInstance = new CheckMyStudents();
+                    defaultInstance = new BusCheckForm();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
                 }
                 return defaultInstance;
@@ -50,18 +50,21 @@ namespace WBPlatform.DesktopClient.Views
             if (CurrentUser.UserGroup.IsBusManager)
             {
                 SchoolBusObject busObject = new SchoolBusObject();
-                DBQuery query = new DBQuery();
-                query.WhereEqualTo("TeacherObjectID", CurrentUser.objectId);
-                DatabaseResult resultX = Database.DBOperations.QueryMultipleData<SchoolBusObject>(query, out List<SchoolBusObject> result);
+                DataBaseResult resultX = DBOperations.QueryMultipleData<SchoolBusObject>(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.objectId), out List<SchoolBusObject> result);
 
-                if (resultX == DatabaseResult.NO_RESULTS) MessageBox.Show("找不到任何你管理的校车");
-                else if (resultX == DatabaseResult.ONE_RESULT) busObject = result[0];
-                else if (resultX == DatabaseResult.MORE_RESULTS)
+                switch (resultX)
                 {
-                    MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
-                    busObject = result[0];
+                    case DataBaseResult.NO_RESULTS:
+                        MessageBox.Show("没有找到你管理的校车");
+                        return;
+                    case DataBaseResult.ONE_RESULT:
+                        break;
+                    case DataBaseResult.MORE_RESULTS:
+                        MessageBox.Show("找到了多个和你绑定的校车(这不可能……)，目前只会显示其中第一项");
+                        break;
+                    default: { MessageBox.Show("出现内部错误：" + resultX.ToString()); return; }
                 }
-
+                busObject = result[0];
                 myID.Text = busObject.objectId;
                 myDirection.Text = busObject.BusName;
                 LeavingChecked.Text = busObject.LSChecked.ToString();
@@ -91,7 +94,7 @@ namespace WBPlatform.DesktopClient.Views
             studentDataObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            DatabaseResult resultX = DBOperations.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            DataBaseResult resultX = DBOperations.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
             if (resultX >= 0)
             {
                 foreach (StudentObject item in result)
@@ -132,7 +135,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.DBOperations.UpdateData(item) == DatabaseResult.ONE_RESULT)
+                if (Database.DBOperations.UpdateData(item) == DataBaseResult.ONE_RESULT)
                 {
                     ExDescription.Text = "成功更新项：" + item.StudentName;
                 }

@@ -106,6 +106,7 @@ namespace WBPlatform.DesktopClient.Views
             if (!_Excel.OpenExcelFile(ExcelFilePath, true, false))
             {
                 MessageBox.Show("打开Excel文件失败！请查看Log文件！");
+                statusPanel.Visible = false;
                 return;
             }
 
@@ -116,6 +117,7 @@ namespace WBPlatform.DesktopClient.Views
             if (LastLine == -1)
             {
                 MessageBox.Show("读取Excel文件出现问题：无法获取文件长度");
+                statusPanel.Visible = false;
                 return;
             }
             string StuName, StuDirection;
@@ -130,7 +132,7 @@ namespace WBPlatform.DesktopClient.Views
                     DoLog(statusLabel.Text);
                     Application.DoEvents();
 
-                    IList<StudentObject> students = ((IList<StudentObject>)studentDataBindSourc.List).TakeWhile(new Func<StudentObject, int, bool>((stu, num) => { return stu.StudentName == StuName; })).ToList();
+                    //IList<StudentObject> students = ((IList<StudentObject>)studentDataBindSourc.List).TakeWhile(new Func<StudentObject, int, bool>((stu, num) => { return stu.StudentName == StuName; })).ToList();
                     //UNKNOWN CHANGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     if (string.IsNullOrEmpty((string)item.Cells[1].Value) && (string)item.Cells[1].Value == StuName)
                     {
@@ -167,11 +169,12 @@ namespace WBPlatform.DesktopClient.Views
 
         private void LoadExistStudents_Click(object sender, EventArgs e)
         {
+            StudentData.Enabled = false;
             studentDataBindSourc.Clear();
             DBQuery ClassQuery = new DBQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            DatabaseResult resultCode = DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            DataBaseResult resultCode = DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
             if (resultCode <= 0)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
@@ -237,9 +240,9 @@ namespace WBPlatform.DesktopClient.Views
             }
             DoLog($"成功加载了 {results.Count} 条数据");
             StudentData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            StudentData.Enabled = true;
         }
-
-
+        
         private void ExcelOperationWindow_Shown(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();
@@ -369,7 +372,7 @@ namespace WBPlatform.DesktopClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    if (Database.DBOperations.CreateData(StudentObj, out StudentObject _stu) == DatabaseResult.ONE_RESULT)
+                    if (Database.DBOperations.CreateData(StudentObj, out StudentObject _stu) == DataBaseResult.ONE_RESULT)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();
@@ -480,8 +483,8 @@ namespace WBPlatform.DesktopClient.Views
             {
                 StudentData.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
                 Point p = PointToClient(MousePosition);
-                p.X = p.X + 70;
-                p.Y = p.Y + 20;
+                p.X = p.X - radialMenu1.Width / 2;
+                p.Y = p.Y - radialMenu1.Height / 2;
                 radialMenu1.Location = p;
                 radialMenu1.IsOpen = true;
                 radialMenu1.Visible = true;

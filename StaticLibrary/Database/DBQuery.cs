@@ -16,12 +16,12 @@ namespace WBPlatform.Database
             EqualTo.Add(column, value);
             return this;
         }
-        public DBQuery WhereContainsValue(string column, string value)
+        public DBQuery WhereRecordContainsValue(string column, string value)
         {
             Contains.Add(column, value);
             return this;
         }
-        public DBQuery WhereContainedInArray<T>(string column, params T[] values)
+        public DBQuery WhereRecordContainedInArray<T>(string column, params T[] values)
         {
             ContainedInArray.Add(column, new List<string>());
             foreach (T item in values)

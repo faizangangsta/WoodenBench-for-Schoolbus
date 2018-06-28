@@ -1,6 +1,6 @@
 namespace WBPlatform.DesktopClient.Views
 {
-    partial class UserSettings
+    partial class UserSettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace WBPlatform.DesktopClient.Views
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserSettings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserSettingsForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PhoneNumLAbel = new System.Windows.Forms.LinkLabel();
             this.realnameLabel = new System.Windows.Forms.LinkLabel();

@@ -40,8 +40,8 @@ namespace WBPlatform.WebManagement.Controllers
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
             switch (DBOperations.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
-                case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
@@ -50,8 +50,8 @@ namespace WBPlatform.WebManagement.Controllers
                         _stuQuery.WhereEqualTo("BusID", BusID);
                         switch (DBOperations.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
-                            case DatabaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DatabaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                            case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                             default:
                                 if (!bool.TryParse(SValue, out bool Value)) return WebAPIResponseCollections.RequestIllegal;
                                 StudentObject stu = StuList[0];
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return WebAPIResponseCollections.RequestIllegal;
-                                if (DBOperations.UpdateData(stu) == DatabaseResult.ONE_RESULT)
+                                if (DBOperations.UpdateData(stu) == DataBaseResult.ONE_RESULT)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
                                     dict.Add("ErrCode", "0");

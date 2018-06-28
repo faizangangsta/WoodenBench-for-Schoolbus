@@ -68,7 +68,7 @@ namespace WBPlatform.StaticClasses
         Update = 3,
         Delete = 4
     }
-    public enum DatabaseResult
+    public enum DataBaseResult
     {
         INJECTION_DETECTED = -3,
         NOT_CONNECTED = -2,

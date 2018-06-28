@@ -77,11 +77,11 @@ namespace WBPlatform.WebManagement.Tools
             string WeiXinID = JSON["UserId"];
             switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
             {
-                case DatabaseResult.INTERNAL_ERROR: return null;
-                case DatabaseResult.NO_RESULTS:
+                case DataBaseResult.INTERNAL_ERROR: return null;
+                case DataBaseResult.NO_RESULTS:
                     LogonUser = WeiXinID;
                     return "0";
-                case DatabaseResult.ONE_RESULT:
+                case DataBaseResult.ONE_RESULT:
                     LogonUser = User;
                     return Login_Core(UserAgent, LogonUser);
                 default: return null;

@@ -1,6 +1,6 @@
 namespace WBPlatform.DesktopClient.Views
 {
-    partial class CheckMyStudents
+    partial class BusCheckForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace WBPlatform.DesktopClient.Views
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckMyStudents));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusCheckForm));
             this.teacherBasicData = new System.Windows.Forms.GroupBox();
             this.myDirection = new System.Windows.Forms.Label();
             this.LeaveNumber = new System.Windows.Forms.Label();

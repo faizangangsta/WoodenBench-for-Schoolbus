@@ -21,13 +21,12 @@ namespace WBPlatform.DesktopClient.StaticClasses
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
             DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
             
-            ///////////////////////////////////////////////////////////////////////////
             Application.EnableVisualStyles();
             FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
             LogWritter.DebugMessage("Basic Events Registration Completed.");
 
             FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;
-            Application.Run(UsrLoginWindow.Default);
+            Application.Run(LoginWindow.Default);
         }
 
         public static UserObject CurrentUser { get; set; } = new UserObject();
