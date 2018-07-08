@@ -18,33 +18,23 @@
     <br>
     <button onclick="SubMitRpt();" class="center-all btn btn-success btn-sm">&nbsp;&nbsp;提交问题&nbsp;&nbsp;</button>
 </div>
-<script id="rm_">
-    function rm() {
-        $("#otherOptions").remove();
-        $("#rm_").remove();
-    }
-</script>
 <script>
     Bmob.initialize("b770100ff0051b0c313c1a0e975711e6", "281fb4c79c3a3391ae6764fa56d1468d");
-    function SubMitRpt()
-    {
+    function SubMitRpt() {
         var MainVar = new (Bmob.Object.extend("UserQuestions"))();
         MainVar.set("UserConfig", "OBSOLATED");
         MainVar.set("Title", $("#title").val());
         MainVar.set("Content", $("#content").val());
         MainVar.set("AdminRead", false);
         MainVar.save(null, {
-            success: function (obj)
-            {
+            success: function (obj) {
                 alert("提交成功，谢啦~~ \r\n现在你可以回到主页");
                 location.href = "/";
             },
-            error: function (error)
-            {
+            error: function (error) {
                 alert("提交出问题了……要不过会再试试？？");
             }
         });
     }
-    setTimeout(rm, 500);
-   
+    removeOtherOperations();
 </script>

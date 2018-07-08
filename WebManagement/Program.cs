@@ -22,19 +22,22 @@ namespace WBPlatform.WebManagement
             StatusMonitor.StartMonitorThread();
             StartUpTime = DateTime.Now;
             LogWritter.InitLog();
+            LogWritter.DebugMessage("WoodenBench WebServer Starting....");
+            LogWritter.DebugMessage($"\t Startup Time {StartUpTime.ToString()}.");
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
+            LogWritter.DebugMessage($"\t Version {Version}");
+            LogWritter.DebugMessage("Started Renew WeChat Operation Codes.....");
             WeChat.ReNewWCCodes();
-#if DEBUG
-            DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
-#else
-            DBOperations.InitialiseClient(IPAddress.Loopback);
-#endif
+            DatabaseOperation.InitialiseClient(IPAddress.Loopback);
+            LogWritter.DebugMessage("Initialising WeChat Data Packet Encryptor.....");
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
+            LogWritter.DebugMessage("Initialising Core Messaging Systems.....");
             WeChatMessageSystem.StartProcessThreads();
             MessageBackup.StartBackupThread();
             MessagingSystem.StartProcessThread();
 
+            LogWritter.DebugMessage("Building WebHost....");
             var webHost = BuildWebHost(args);
             //WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
             //    "小板凳服务器启动成功",

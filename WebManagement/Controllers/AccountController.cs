@@ -28,9 +28,9 @@ namespace WBPlatform.WebManagement.Controllers
         {
             AIUnknownUser();
             ViewData["where"] = ControllerName;
-            if (token != null && JumpTokens.OnAccessed(token, out JumpTokens.TokenInfo? info) && user == info?.WeChatUserName && (info?.User_Agent == "JumpToken_FreeLogin" || info?.User_Agent == Request.Headers["User-Agent"]))
+            if (token != null && JumpTokens.OnAccessed(token, out JumpTokenInfo info) && user == info?.UserID && (info?.User_Agent == "JumpToken_FreeLogin" || info?.User_Agent == Request.Headers["User-Agent"]))
             {
-                ViewData["UserName"] = info?.WeChatUserName;
+                ViewData["UserName"] = info?.UserID;
                 ViewData["mode"] = _action;
                 if (_action == "AddPassword")
                 {
@@ -48,7 +48,7 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "请求所带的参数无效", user + ":" + info?.WeChatUserName);
+                    return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "请求所带的参数无效", user + info?.UserID);
                 }
             }
             return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token 超时或不存在，请重试", LoginUsr: user, ResponseCode: ErrorRespCode.RequestIllegal);
@@ -65,9 +65,13 @@ namespace WBPlatform.WebManagement.Controllers
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
                     UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = user.objectId };
-                    DBOperations.CreateData(request, out UserChangeRequest _req);
+                    DatabaseOperation.CreateData(request, out UserChangeRequest _req);
                     request = _req;
-                    MessagingSystem.onChangeRequest_Created(request, user);
+
+                    GlobalMessage messageAdmin = new GlobalMessage() { type = GlobalMessageTypes.UCR_Created_TO_ADMIN, dataObject = request, user = user, objectId = request.objectId };
+                    GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Created_TO_User, dataObject = request, user = user, objectId = request.objectId };
+                    MessagingSystem.AddMessageProcesses(messageAdmin, message_User);
+
                     return Redirect($"/{HomeController.ControllerName}/{nameof(HomeController.requestResult)}?req=changereq&status=ok&callback=/Account/");
                 }
                 else

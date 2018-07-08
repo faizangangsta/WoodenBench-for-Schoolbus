@@ -96,8 +96,8 @@ namespace WBPlatform.WebManagement.Controllers
                 else if (Session == "0")
                 {
                     string token = JumpTokens.CreateToken();
-                    JumpTokens.TryAdd(token, new JumpTokens.TokenInfo() { User_Agent = Request.Headers["User-Agent"], WeChatUserName = (string)user });
-                    return Redirect($"/Home/Register?token={token}&user=&action=register");
+                    JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.WeChatLogin, Request.Headers["User-Agent"], (string)user));
+                    return Redirect($"/Account/Register?token={token}&user={(string)user}&_action=register");
                 }
                 else
                 {

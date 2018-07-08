@@ -53,10 +53,17 @@ namespace WBPlatform.StaticClasses
 
         INTERNAL_ERROR
     }
+
+    public enum JumpTokenUsage
+    {
+        WeChatLogin,
+        UserRegister, 
+        AddPassword,
+        FreeLogin_View 
+    }
     public enum ErrorType
     {
-        ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR,
-        MultipleRecordsFound_inSingleRequest
+        ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR
     }
     public enum ErrorRespCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalError = 500, NotSet = 200 }
     public static class WeChat
@@ -96,10 +103,10 @@ namespace WBPlatform.StaticClasses
         private static bool InitialiseWeChatCodes()
         {
             Dictionary<string, string> JSON;
-            JSON = HTTPOperations.HTTPGet(GetAccessToken_Url);
+            JSON = Ultilities.HTTPGet(GetAccessToken_Url);
             AccessToken = JSON["access_token"];
             AvailableTime_Token = DateTime.Now.AddSeconds(int.Parse(JSON["expires_in"]));
-            JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + AccessToken);
+            JSON = Ultilities.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + AccessToken);
             AccessTicket = JSON["ticket"];
             AvailableTime_Ticket = DateTime.Now.AddSeconds(int.Parse(JSON["expires_in"]));
             return true;

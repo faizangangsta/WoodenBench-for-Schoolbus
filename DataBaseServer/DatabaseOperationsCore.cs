@@ -24,7 +24,7 @@ namespace WBPlatform.Database.DBServer
             SqlConnectionStringBuilder readOnlyConnectionString = new SqlConnectionStringBuilder();
             LogWritter.DebugMessage("Start Initiallising Database Connections.....");
             readOnlyConnectionString.Authentication = SqlAuthenticationMethod.SqlPassword;
-            readOnlyConnectionString.DataSource = "127.0.0.1,1433";
+            readOnlyConnectionString.DataSource = "118.190.144.179,1433";
             readOnlyConnectionString.UserID = "schoolbus_Database";
             readOnlyConnectionString.Password = "EV#WT%GTegqeraagw%#q3%GW%E$E";
             readOnlyConnectionString.TrustServerCertificate = true;
@@ -47,43 +47,50 @@ namespace WBPlatform.Database.DBServer
                     throw new NullReferenceException("JSON Parsing Error, check request...");
                 }
                 reply.Result.DBOperation = request.operation;
-                DatabaseOperation operation = request.operation = reply.Result.DBOperation;
-                if (operation == DatabaseOperation.QueryMulti || operation == DatabaseOperation.QuerySingle || operation == DatabaseOperation.Update || operation == DatabaseOperation.Delete)
+                DBOperation operation = request.operation = reply.Result.DBOperation;
+                if (operation == DBOperation.QueryMulti || operation == DBOperation.QuerySingle || operation == DBOperation.Update || operation == DBOperation.Delete)
                 {
                     if (request.Query == null) throw new ArgumentNullException("When using Query Single/Multi/Change/Delete. Arg: query cannot be null");
                     else dbQuery = request.Query;
                 }
-                if (operation == DatabaseOperation.Create || operation == DatabaseOperation.Update)
+                if (operation == DBOperation.Create || operation == DBOperation.Update)
                 {
                     if (string.IsNullOrEmpty(request.objectString)) throw new ArgumentNullException("When using Query Create and Change. Arg: output cannot be null");
                     else output = new DBOutput(request.objectString);
                 }
                 switch (operation)
                 {
-                    case DatabaseOperation.Create:
+                    case DBOperation.Create:
                         string sqlCommand_Create = $"INSERT INTO {request.TableName} ({string.Join(",", output.GetData().Keys)}, createdAt, updatedAt) VALUES ('{string.Join("','", (from val in output.GetData().Values select (EncodeString(val))).ToArray())}', '{DateTime.Now}', '{DateTime.Now}')";
                         SqlCommand command_Create = new SqlCommand(sqlCommand_Create, sqlReadOnlyConnection);
                         int rowModified_Create = command_Create.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DataBaseResult)rowModified_Create;
+                        reply.Result.DBResultCode = (DBQueryStatus)rowModified_Create;
                         reply.Result.Message = "操作成功完成(" + rowModified_Create + ")";
 
                         reply.objectString = JsonConvert.SerializeObject(SQLQueryCommand($"SELECT TOP(1) * FROM {request.TableName} WHERE objectId = '{output.GetData()["objectId"]}' "));
                         break;
 
-                    case DatabaseOperation.QuerySingle:
-                    case DatabaseOperation.QueryMulti:
-                        string sqlCommand_Query = "SELECT TOP(" + dbQuery._Limit + ") * FROM " + request.TableName + ((dbQuery.EqualTo.Count > 0 || dbQuery.ContainedInArray.Count > 0) ? " WHERE " : "");
+                    case DBOperation.QuerySingle:
+                    case DBOperation.QueryMulti:
+                        string sqlCommand_Query = "SELECT TOP(" + dbQuery._Limit + ") * FROM " + request.TableName + ((dbQuery.EqualTo.Count > 0 || dbQuery.Contains.Count > 0 || dbQuery.ContainedInArray.Count > 0) ? " WHERE " : "");
 
                         if (dbQuery.EqualTo.Count > 0)
                         {
                             string[] queriesStringCollection = (from q in dbQuery.EqualTo select $"{q.Key} = '{EncodeString(q.Value.ToString())}'").ToArray();
-                            sqlCommand_Query += string.Join(" AND ", queriesStringCollection);
+                            sqlCommand_Query += "(" + string.Join(" AND ", queriesStringCollection) + ")";
                             sqlCommand_Query += (dbQuery.ContainedInArray.Count > 0 || dbQuery.Contains.Count > 0) ? " AND " : string.Empty;
                         }
 
                         if (dbQuery.ContainedInArray.Count > 0)
                         {
-                            //string[] queriesStringCollection = from q in dbQuery.ContainedInArray select $"WHERE {q.Key} LIKE ''";
+                            List<string> containsSQLList = new List<string>();
+                            foreach (var item in dbQuery.ContainedInArray)
+                            {
+                                containsSQLList.Add($"( {item.Key} IN ('{string.Join("', '", item.Value)}'))");
+                            }
+                            string finalQueryString = string.Join(" OR ", containsSQLList.ToArray());
+
+                            sqlCommand_Query += "(" + finalQueryString + ")";
                             sqlCommand_Query += (dbQuery.Contains.Count > 0) ? " AND " : string.Empty;
                         }
 
@@ -96,24 +103,24 @@ namespace WBPlatform.Database.DBServer
 
                         List<Dictionary<string, object>> results = SQLQueryCommand(sqlCommand_Query);
                         reply.objectString = JsonConvert.SerializeObject(results);
-                        reply.Result.DBResultCode = results.Count >= 2 ? DataBaseResult.MORE_RESULTS : (DataBaseResult)results.Count;
+                        reply.Result.DBResultCode = results.Count >= 2 ? DBQueryStatus.MORE_RESULTS : (DBQueryStatus)results.Count;
                         reply.Result.Message = "操作成功完成(" + results.Count + ")";
                         break;
-                    case DatabaseOperation.Update:
+                    case DBOperation.Update:
                         string sqlCommand_Update = $"UPDATE {request.TableName} SET {string.Join(",", (from q in output.GetData() select ($"{q.Key} = '{EncodeString(q.Value)}' ")).ToArray())}, updatedAt = '{DateTime.Now}' WHERE objectId = '{dbQuery.EqualTo["objectId"]}'";
 
                         SqlCommand command_Update = new SqlCommand(sqlCommand_Update, sqlReadOnlyConnection);
                         int rowModified_Update = command_Update.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DataBaseResult)rowModified_Update;
+                        reply.Result.DBResultCode = (DBQueryStatus)rowModified_Update;
                         reply.Result.Message = "操作成功完成(" + rowModified_Update + ")";
 
                         reply.objectString = JsonConvert.SerializeObject(SQLQueryCommand($"SELECT TOP(1) * FROM {request.TableName} WHERE objectId = '{output.GetData()["objectId"]}' "));
                         break;
-                    case DatabaseOperation.Delete:
+                    case DBOperation.Delete:
                         string sqlCommand_Del = $"DELETE FROM {request.TableName} WHERE objectId = '{dbQuery.EqualTo["objectId"]}'";
                         SqlCommand command = new SqlCommand(sqlCommand_Del, sqlReadOnlyConnection);
                         int rowModified = command.ExecuteNonQuery();
-                        reply.Result.DBResultCode = (DataBaseResult)rowModified;
+                        reply.Result.DBResultCode = (DBQueryStatus)rowModified;
                         reply.Result.Message = "操作成功完成(" + rowModified + ")";
                         break;
                     default:
@@ -123,7 +130,7 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
-                reply.Result.DBResultCode = DataBaseResult.INTERNAL_ERROR;
+                reply.Result.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
                 reply.Result.Message = ex.Message;
                 reply.Result.Exception = ex;
             }

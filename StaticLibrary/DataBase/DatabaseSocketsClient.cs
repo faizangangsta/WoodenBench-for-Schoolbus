@@ -13,7 +13,8 @@ namespace WBPlatform.Database.Connection
     {
         //创建 1个客户端套接字 和1个负责监听服务端请求的线程  
         private static Thread threadclient = null;
-        private static Socket socketclient = null;
+        private static TcpClient socketclient = null;
+        private static NetworkStream ns;
 
         private static string Message { get; set; } = "";
         public static bool Connected { get; private set; } = false;
@@ -21,7 +22,7 @@ namespace WBPlatform.Database.Connection
         private static Dictionary<string, string> _messages { get; set; } = new Dictionary<string, string>();
         public static bool Initialise(IPAddress ServerIP)
         {
-            socketclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socketclient = new TcpClient();
             IPEndPoint point = new IPEndPoint(ServerIP, 8098);
             for (int i = 0; i < 5; i++)
             {
@@ -29,6 +30,7 @@ namespace WBPlatform.Database.Connection
                 {
                     socketclient.Connect(point);
                     Connected = true;
+                    ns = socketclient.GetStream();
                     break;
                 }
                 catch (Exception ex)
@@ -57,13 +59,14 @@ namespace WBPlatform.Database.Connection
                 {
                     arrRecvmsg = new byte[1024 * 1024];
                     //定义一个1M的内存缓冲区，用于临时性存储接收到的消息  
-                    int length = socketclient.Receive(arrRecvmsg);
+                    int length = ns.Read(arrRecvmsg, 0, arrRecvmsg.Length);
                     string strRevMsg = Encoding.UTF8.GetString(arrRecvmsg, 0, length);
                     _messages.Add(strRevMsg.Substring(0, 5), strRevMsg.Substring(5));
+                    arrRecvmsg = null;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("远程服务器已经中断连接" + ex.Message + "\r\n\n");
+                    Console.WriteLine("远程服务器已经中断连接" + ex.Message + "\r\n\r\n");
                     Connected = false;
                     break;
                 }
@@ -71,15 +74,15 @@ namespace WBPlatform.Database.Connection
         }
 
 
-        //发送字符信息到服务端的方法  
+        //发送字符信息到服务端的方法
         public static bool SendDatabaseOperations(string sendMsg, string MessageId, out string rcvdMessage)
         {
             rcvdMessage = "";
             if (Connected)
             {
                 byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(MessageId + sendMsg);
-                socketclient.Send(arrClientSendMsg);
-
+                ns.Write(arrClientSendMsg, 0, arrClientSendMsg.Length);
+                
                 while (true)
                 {
                     if (_messages.ContainsKey(MessageId))

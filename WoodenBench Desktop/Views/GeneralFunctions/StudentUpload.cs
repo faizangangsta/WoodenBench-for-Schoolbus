@@ -174,7 +174,7 @@ namespace WBPlatform.DesktopClient.Views
             DBQuery ClassQuery = new DBQuery();
 
             ClassQuery.WhereEqualTo("objectId", CurrentUser.ClassList[0]);
-            DataBaseResult resultCode = DBOperations.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
+            DBQueryStatus resultCode = DatabaseOperation.QueryMultipleData<ClassObject>(ClassQuery, out List<ClassObject> result);
             if (resultCode <= 0)
             {
                 MessageBox.Show("没找到你想要的班级，这，，不应该吧。", "很失望？");
@@ -200,7 +200,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 DBQuery TeacherDataQuery = new DBQuery();
                 TeacherDataQuery.WhereEqualTo("objectId", CurrentClass.TeacherID);
-                if (DBOperations.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
+                if (DatabaseOperation.QueryMultipleData(TeacherDataQuery, out List<UserObject> teacherresult) <= 0)
                 {
                     MessageBox.Show("这不应该，这个班级有老师管理，但是查不到老师的任何信息。", "班主任溜了？");
                     ClsTName.Text = "";
@@ -218,7 +218,7 @@ namespace WBPlatform.DesktopClient.Views
             //    return;
             DBQuery StudentsQuery = new DBQuery();
             StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
-            if (DBOperations.QueryMultipleData(StudentsQuery, out List<StudentObject> results) <= 0)
+            if (DatabaseOperation.QueryMultipleData(StudentsQuery, out List<StudentObject> results) <= 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
             else
             {
@@ -247,7 +247,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
-            if (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
+            if (DatabaseOperation.QueryMultipleData(query, out List<SchoolBusObject> list) <= 0)
             {
                 MessageBox.Show("出现了一些错误");
             }
@@ -372,7 +372,7 @@ namespace WBPlatform.DesktopClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    if (Database.DBOperations.CreateData(StudentObj, out StudentObject _stu) == DataBaseResult.ONE_RESULT)
+                    if (Database.DatabaseOperation.CreateData(StudentObj, out StudentObject _stu) == DBQueryStatus.ONE_RESULT)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();
@@ -390,7 +390,7 @@ namespace WBPlatform.DesktopClient.Views
                 else
                 {
                     StudentObj.objectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
-                    if (Database.DBOperations.UpdateData(StudentObj) == 0)
+                    if (Database.DatabaseOperation.UpdateData(StudentObj) == 0)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;
@@ -445,7 +445,7 @@ namespace WBPlatform.DesktopClient.Views
                     case "彻底删除":
                         if (MessageBox.Show("确定要在服务器上删除这条数据吗？该操作不可撤销！", "警告", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (Database.DBOperations.DeleteData(WBConsts.TABLE_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value) == 0) ;
+                            if (Database.DatabaseOperation.DeleteData(WBConsts.TABLE_Mgr_StuData, (string)StudentData.SelectedCells[0].OwningRow.Cells[0].Value) == 0) ;
                             StudentData.Rows.Remove(StudentData.SelectedCells[0].OwningRow);
                             DoLog("成功在服务器上删除:" + Name);
                         }

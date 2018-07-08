@@ -1,65 +1,66 @@
 ﻿@model WBPlatform.TableObject.UserObject
-@{
-    bool isRegister = ViewData["mode"].ToString().ToLower() == "register";
-    if (isRegister)
-    {
-        ViewData["Title"] = "用户注册";
+<div class="container">
+    @{
+        bool isRegister = ViewData["mode"].ToString().ToLower() == "register";
+        if (isRegister)
+        {
+            ViewData["Title"] = "用户注册";
+            <h3>用户注册</h3>
+            <h5>请填写真实信息，注册成功后即可使用</h5>
+        }
+        else
+        {
+            ViewData["Title"] = "添加密码";
+            <h3>添加密码</h3>
+            <h5>添加密码后，即可使用 Windows 客户端</h5>
+        }
     }
-    else
-    {
-        ViewData["Title"] = "添加密码";
-    }
-}
+    <hr />
+    <form action="/api/users/Register" method="post">
+        <input for="mode" class="form-control hidden" value="@ViewData["mode"].ToString()" />
+        <input asp-for="UserName" class="disabled hidden" readonly value="@ViewData["UserName"].ToString()" />  
 
-<h2>Register</h2>
-
-<h4>UserObject</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form action="/api/users/Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input class="form-control hidden" value="@ViewData["mode"].ToString()" />
-            <label asp-for="UserName" class="control-label hidden">@ViewData["UserName"].ToString()</label>
-            <input asp-for="UserName" class="form-control" />
-            <input asp-for="objectId" class="form-control" value="" />
-
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            @if (isRegister)
-            {
+        @if (isRegister)
+        {
+            <div class="container" id="registerBlocks">
                 <div class="form-group">
-                    <label asp-for="RealName" class="control-label"></label>
-                    <input asp-for="RealName" class="form-control" />
+                    <label class="control-label">姓名</label>
+                    <input asp-for="RealName" class="form-control TxBox" />
                     <span asp-validation-for="RealName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Sex" class="control-label"></label>
-                    <input asp-for="Sex" class="form-control" />
-                    <span asp-validation-for="Sex" class="text-danger"></span>
+                    <label class="control-label">性别(M=♂&nbsp;&nbsp;F=♀)</label>
+                    <select asp-for="Sex" class="form-control">
+                        <option>M</option>
+                        <option>F</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="HeadImagePath" class="control-label"></label>
-                    <input asp-for="HeadImagePath" class="form-control" />
-                    <span asp-validation-for="HeadImagePath" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
+                    <label class="control-label">手机号码</label>
+                    <input asp-for="PhoneNumber" class="form-control TxBox" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
+            </div>
+        }
+        else
+        {
+            <div class="container" id="addPasswordBlocks">
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default btn-success" />
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-            }
-        </form>
-    </div>
+            </div>
+        }
+        <div class="form-group center-margin">
+            <input type="reset" style="width:40%" value="清空" class="btn btn-sm btn-danger" />
+            <input type="submit" style="width:40%" value="提交" class="btn btn-sm btn-success" />
+        </div>
+    </form>
 </div>
 <script>
     var reg = /^1[34578][0-9]{9}$/;
+    removeOtherOperations();
     function verifyMsg() {
         $("#phoneVeryf").text(reg.test($("#phone").val()) ? "" : "请输入正确的手机号码!");
     }

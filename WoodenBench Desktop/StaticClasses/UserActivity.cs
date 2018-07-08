@@ -35,10 +35,10 @@ namespace WBPlatform.DesktopClient.Users
             else
             {
                 NowUser.Password = Cryptography.SHA256Encrypt(NewPasswrd);
-                if (DBOperations.UpdateData(NowUser, new DBQuery()
+                if (DatabaseOperation.UpdateData(NowUser, new DBQuery()
                     .WhereEqualTo("objectId", CurrentUser.objectId)
                     .WhereEqualTo("Password", Cryptography.SHA256Encrypt(OriPasswrd))
-                    .WhereEqualTo("Username", CurrentUser.UserName)) == DataBaseResult.ONE_RESULT)
+                    .WhereEqualTo("Username", CurrentUser.UserName)) == DBQueryStatus.ONE_RESULT)
                 {
                     LogWritter.DebugMessage("Change Password Success!");
                     return true;
@@ -65,18 +65,18 @@ namespace WBPlatform.DesktopClient.Users
             DBQuery UserNameQuery = new DBQuery();
             UserNameQuery.WhereEqualTo("Username", xUserName);
             UserNameQuery.WhereEqualTo("Password", HashedPs);
-            switch (DBOperations.QuerySingleData(UserNameQuery, out user))
+            switch (DatabaseOperation.QuerySingleData(UserNameQuery, out user))
             {
-                case DataBaseResult.INTERNAL_ERROR:
+                case DBQueryStatus.INTERNAL_ERROR:
                     LogWritter.ErrorMessage("Internal DataBase Error");
                     break;
-                case DataBaseResult.NO_RESULTS:
+                case DBQueryStatus.NO_RESULTS:
                     LogWritter.ErrorMessage("No User Found");
                     break;
-                case DataBaseResult.ONE_RESULT:
+                case DBQueryStatus.ONE_RESULT:
                     LogWritter.ErrorMessage("User Found");
                     return true;
-                case DataBaseResult.MORE_RESULTS:
+                case DBQueryStatus.MORE_RESULTS:
                     LogWritter.ErrorMessage("WTF Exception....");
                     break;
                 default:

@@ -24,19 +24,21 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery BusQuery = new DBQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (DBOperations.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
+            switch (DatabaseOperation.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
             {
-                case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 default:
                     {
+                        if (BusList.Count == 0)
+                        {
+                            BusList.Add(new SchoolBusObject() { objectId = "0000000000", BusName = "未找到校车", TeacherID = user.objectId });
+                        }
                         DBQuery StudentQuery = new DBQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        switch (DBOperations.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
+                        switch (DatabaseOperation.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
                         {
-                            case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                            case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                             default:
                                 dict.Add("count", StudentList.Count.ToString());
                                 for (int i = 0; i < StudentList.Count; i++)

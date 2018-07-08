@@ -21,10 +21,10 @@ namespace WBPlatform.WebManagement.Controllers
 
             DBQuery query = new DBQuery();
             query.WhereEqualTo("objectId", BusID);
-            switch (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> BusList))
+            switch (DatabaseOperation.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
-                case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                 default:
                     {
                         object Equals2Obj = Content;
@@ -34,10 +34,10 @@ namespace WBPlatform.WebManagement.Controllers
                         DBQuery query2 = new DBQuery();
                         query2.WhereEqualTo("BusID", BusList[0].objectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
-                        switch (DBOperations.QueryMultipleData(query2, out List<StudentObject> StudentList))
+                        switch (DatabaseOperation.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
-                            case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                            case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                            case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

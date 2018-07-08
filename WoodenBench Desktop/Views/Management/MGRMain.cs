@@ -69,7 +69,7 @@ namespace WBPlatform.DesktopClient.Views
                 query.WhereEqualTo(ColNameTx.Text, ContentTxBox.Text != "" ? ContentTxBox.Text : null);
             }
             //query.Skip(CurrNum);
-            if (Database.DBOperations.QueryMultipleData<UserObject>(query, out List<UserObject> result) < 0)
+            if (Database.DatabaseOperation.QueryMultipleData<UserObject>(query, out List<UserObject> result) < 0)
             {
                 MessageBox.Show("Failed getting data");
                 return;

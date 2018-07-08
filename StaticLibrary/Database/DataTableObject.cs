@@ -6,12 +6,13 @@ using WBPlatform.Database.DBIOCommand;
 
 namespace WBPlatform.Database
 {
-    public class DataTableObject
+    public class DataTableObject 
     {
         public virtual string table => GetType().Name;
         public string objectId { get; set; }
         public DateTime createdAt { get; internal set; }
         public DateTime updatedAt { get; internal set; }
+        
 
         public virtual void readFields(DBInput input)
         {

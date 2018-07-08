@@ -60,7 +60,7 @@ namespace WBPlatform.StaticClasses
         其他 = 9,
     }
 
-    public enum DatabaseOperation
+    public enum DBOperation
     {
         Create = 0,
         QuerySingle = 1,
@@ -68,7 +68,7 @@ namespace WBPlatform.StaticClasses
         Update = 3,
         Delete = 4
     }
-    public enum DataBaseResult
+    public enum DBQueryStatus
     {
         INJECTION_DETECTED = -3,
         NOT_CONNECTED = -2,
@@ -78,14 +78,13 @@ namespace WBPlatform.StaticClasses
         MORE_RESULTS
     }
     /// <summary>
-    /// Message Types ===>   0b + MessageType + (int)isForUser
+    /// Message Types -->   0b + MessageType + (int)isSentToUser
     /// </summary>
     public enum GlobalMessageTypes
     {
         UCR_Created_TO_ADMIN = 0b00000010, UCR_Created_TO_User = 0b00000011,
-
-        //THIS HAS NO USE....
-        UCR_Procced_TO_ADMIN = 0b00000100, UCR_Procced_TO_User = 0b00000101
+        UCR_Procced_TO_ADMIN = 0b00000100, UCR_Procced_TO_User = 0b00000101,
+        User__Pending_Verify = 0b00001000, User__Finish_Verify = 0b00001001
     }
     public enum UserChangeRequestProcessStatus
     {

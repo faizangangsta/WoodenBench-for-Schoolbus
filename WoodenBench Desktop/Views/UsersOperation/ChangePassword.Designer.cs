@@ -29,7 +29,6 @@ namespace WBPlatform.DesktopClient.Views
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ClearPassword = new DevComponents.DotNetBar.ButtonX();
             this.DochangePassword = new DevComponents.DotNetBar.ButtonX();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@ namespace WBPlatform.DesktopClient.Views
             this.SexLabel = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.ClearPassword = new DevComponents.DotNetBar.ButtonX();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -73,20 +73,6 @@ namespace WBPlatform.DesktopClient.Views
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "更改密码";
-            // 
-            // ClearPassword
-            // 
-            this.ClearPassword.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.ClearPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearPassword.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.ClearPassword.Location = new System.Drawing.Point(9, 125);
-            this.ClearPassword.Name = "ClearPassword";
-            this.ClearPassword.Size = new System.Drawing.Size(199, 26);
-            this.ClearPassword.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ClearPassword.TabIndex = 6;
-            this.ClearPassword.Text = "清空(&R)";
-            this.ClearPassword.Click += new System.EventHandler(this.ClearPassword_Click);
             // 
             // DochangePassword
             // 
@@ -278,6 +264,20 @@ namespace WBPlatform.DesktopClient.Views
             this.label5.TabIndex = 0;
             this.label5.Text = "用户ID：";
             // 
+            // ClearPassword
+            // 
+            this.ClearPassword.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.ClearPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClearPassword.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.ClearPassword.Location = new System.Drawing.Point(9, 125);
+            this.ClearPassword.Name = "ClearPassword";
+            this.ClearPassword.Size = new System.Drawing.Size(199, 26);
+            this.ClearPassword.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ClearPassword.TabIndex = 6;
+            this.ClearPassword.Text = "清空(&R)";
+            this.ClearPassword.Click += new System.EventHandler(this.ClearPassword_Click);
+            // 
             // ChangePasswordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +287,7 @@ namespace WBPlatform.DesktopClient.Views
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.Black;
             this.MaximumSize = new System.Drawing.Size(640, 255);
             this.MinimumSize = new System.Drawing.Size(640, 255);
             this.Name = "ChangePasswordForm";
@@ -303,7 +304,6 @@ namespace WBPlatform.DesktopClient.Views
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private DevComponents.DotNetBar.ButtonX ClearPassword;
         private DevComponents.DotNetBar.ButtonX DochangePassword;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
@@ -322,5 +322,6 @@ namespace WBPlatform.DesktopClient.Views
         private System.Windows.Forms.LinkLabel SexLabel;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label5;
+        private DevComponents.DotNetBar.ButtonX ClearPassword;
     }
 }

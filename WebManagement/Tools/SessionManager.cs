@@ -72,16 +72,16 @@ namespace WBPlatform.WebManagement.Tools
         {
             WeChat.ReNewWCCodes();
             LogonUser = null;
-            Dictionary<string, string> JSON = HTTPOperations.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
+            Dictionary<string, string> JSON = Ultilities.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
             if (!JSON.ContainsKey("UserId")) return null;
             string WeiXinID = JSON["UserId"];
-            switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
+            switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
             {
-                case DataBaseResult.INTERNAL_ERROR: return null;
-                case DataBaseResult.NO_RESULTS:
+                case DBQueryStatus.INTERNAL_ERROR: return null;
+                case DBQueryStatus.NO_RESULTS:
                     LogonUser = WeiXinID;
                     return "0";
-                case DataBaseResult.ONE_RESULT:
+                case DBQueryStatus.ONE_RESULT:
                     LogonUser = User;
                     return Login_Core(UserAgent, LogonUser);
                 default: return null;

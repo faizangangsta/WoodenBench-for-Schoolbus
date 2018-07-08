@@ -1,0 +1,66 @@
+﻿@using WBPlatform.TableObject;
+@model UserObject
+
+@{
+    ViewData["Title"] = "工单查询";
+    bool isListView = (Model == null);
+    UserObject[] users = isListView ? (UserObject[])ViewData["list"] : null;
+}
+<div class="container">
+    <div class="">
+        @if (isListView)
+        {
+            <h3>用户查询</h3>
+        }
+        else
+        {
+            <h3>用户查看和编辑</h3>
+            <h5>用户ID: @Model.objectId</h5>
+        }
+        <hr />
+        <div>
+            @if (isListView)
+            {
+                <div class="row">
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c1</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c2</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c3</div>
+                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c4</div>
+                </div>
+                <br />
+                @foreach (var item in users)
+                {
+                    <div class="row">
+                        <!--Each user row..,,,,,-->
+                    </div>
+                }
+            }
+            else
+            {
+                <div id="singleView" class="container">
+                    <!--Single User Edit or View-->
+                </div>
+            }
+        </div>
+        <hr />
+        <!--BOTTOM THINGS....-->
+        <div class="container">
+            @if (isListView)
+            {
+                //Manage_List
+                <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Manage/'">返回管理页面</button>
+                <br />
+            }
+            else
+            {
+                <div id="options" class="center-margin center-all hidden">
+                    <button class="btn btn-success btn-sm" style="width: 49%" onclick="accepted();">同意更改</button>
+                    <button class="btn btn-danger btn-sm" style="width: 49%" onclick="cancel()">取消</button>
+                    <br />
+                </div>
+                <button class="btn btn-info btn-sm" style="width:100%" onclick="location.href = '/Manage/UserManage???????????????/'">返回列表</button>
+                <br />
+            }
+        </div>
+    </div>
+</div>

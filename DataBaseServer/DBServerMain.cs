@@ -26,7 +26,11 @@ namespace WBPlatform.Database.DBServer
 
         private void LogWritter_onLog(LogWritter.OnLogChangedEventArgs logchange)
         {
-            logsTextbox.Invoke(new Action(delegate { logsTextbox.Text += logchange.LogString; }));
+            logsTextbox.Invoke(new Action(delegate
+            {
+                logsTextbox.Text += logchange.LogString;
+                logsTextbox.ScrollToCaret();
+            }));
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,18 +48,23 @@ namespace WBPlatform.Database.DBServer
         {
             try
             {
-                Dictionary<string, string> clientConncetionQueryStrings = DatabaseSocketsServer.clientQueryStrings;
+                Dictionary<string, string> clientConncetionQueryStrings;
+                lock (DatabaseSocketsServer.clientQueryStrings)
+                {
+                    clientConncetionQueryStrings = DatabaseSocketsServer.clientQueryStrings;
+                }
+
                 listView1.Items.Clear();
                 foreach (KeyValuePair<string, string> item in clientConncetionQueryStrings)
                 {
-                    listView1.Items.Add(new ListViewItem(item.Key, item.Value));
+                    listView1.Items.Add(new ListViewItem(new string[] { item.Key, item.Value }));
                 }
                 dbConnections.Text = "1";
                 currentClients.Text = listView1.Items.Count.ToString();
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage(ex.Message);
+                LogWritter.ErrorMessage("TIMER ERROR: " + ex.Message);
             }
         }
     }

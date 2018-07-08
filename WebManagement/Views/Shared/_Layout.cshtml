@@ -53,8 +53,18 @@
         </div>
     </nav>
 
+    <script id="rm_">
+        function rm() {
+            $("#otherOptions").remove();
+            $("#rm_").remove();
+        }
+        function removeOtherOperations() {
+            setTimeout(rm, 500);
+        }
+    </script>
     @RenderSection("Scripts", required: false)
     @RenderBody()
+
     <div id="otherOptions" class="container">
         <br />
         <br />

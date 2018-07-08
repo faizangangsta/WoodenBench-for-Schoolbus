@@ -19,13 +19,11 @@ namespace WBPlatform.WebManagement.Controllers
         {
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
             if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseCollections.UserGroupError;
-
-            DBQuery StudentQuery = new DBQuery();
+            
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (DBOperations.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
+            switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
-                case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

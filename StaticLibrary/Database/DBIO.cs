@@ -16,18 +16,18 @@ namespace WBPlatform.Database.DBIOCommand
     [Serializable]
     public class DataBaseException : Exception
     {
-        public DataBaseResult ErrorType { get; private set; }
+        public DBQueryStatus ErrorType { get; private set; }
         public DBInternalRequest DBRequest { get; set; }
         public DBInternalReply DBReply { get; set; }
-        public DataBaseException(string message, DataBaseResult errorType) : base(message)
+        public DataBaseException(string message, DBQueryStatus errorType) : base(message)
         {
             ErrorType = errorType;
         }
-        public DataBaseException(string message, DataBaseResult errorType, Exception inner) : base(message, inner)
+        public DataBaseException(string message, DBQueryStatus errorType, Exception inner) : base(message, inner)
         {
             ErrorType = errorType;
         }
-        public DataBaseException(string message, DataBaseResult errorType, DBInternalRequest dBRequest = null, DBInternalReply dBReply = null, Exception inner = null) : base(message, inner)
+        public DataBaseException(string message, DBQueryStatus errorType, DBInternalRequest dBRequest = null, DBInternalReply dBReply = null, Exception inner = null) : base(message, inner)
         {
             ErrorType = errorType;
             DBRequest = dBRequest;
@@ -44,7 +44,7 @@ namespace WBPlatform.Database.DBIOCommand
         public List<string> GetList(string Key)
         {
             string _listString = GetString(Key);
-            return _listString.Split(',').ToList();
+            return string.IsNullOrWhiteSpace(_listString) ? new List<string>() : _listString.Split(',').ToList();
         }
         public bool GetBool(string Key) => GetT<bool>(Key);
         public int GetInt(string Key) => GetT<Int32>(Key);

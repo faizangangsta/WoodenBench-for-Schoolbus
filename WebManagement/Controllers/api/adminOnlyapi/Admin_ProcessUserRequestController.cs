@@ -22,9 +22,9 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.UserGroup.IsAdmin)
                 {
-                    switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
+                    switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
-                        case DataBaseResult.ONE_RESULT:
+                        case DBQueryStatus.ONE_RESULT:
                             request.SolverID = SessionUser.objectId;
                             switch (mode)
                             {
@@ -34,18 +34,18 @@ namespace WBPlatform.WebManagement.Controllers
                                     break;
                                 case "1":
                                     //Refused
-                                    UserChangeRequestRefusedReasons reason = (UserChangeRequestRefusedReasons)Enum.Parse(typeof(UserChangeRequestRefusedReasons), detail);
+                                    UserChangeRequestRefusedReasons reason = Enum.Parse<UserChangeRequestRefusedReasons>(detail);
                                     request.Status = UserChangeRequestProcessStatus.Refused;
                                     request.ProcessResultReason = reason;
                                     break;
                                 default: return WebAPIResponseCollections.RequestIllegal;
                             }
-                            if (DBOperations.UpdateData(request) != (DataBaseResult)1) return WebAPIResponseCollections.DataBaseError;
+                            if (DatabaseOperation.UpdateData(request) != (DBQueryStatus)1) return WebAPIResponseCollections.DataBaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
-                                switch (DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
+                                switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
-                                    case DataBaseResult.ONE_RESULT:
+                                    case DBQueryStatus.ONE_RESULT:
                                         switch (request.RequestTypes)
                                         {
                                             case UserChangeRequestTypes.真实姓名:
@@ -56,7 +56,8 @@ namespace WBPlatform.WebManagement.Controllers
                                                 break;
                                             default: return WebAPIResponseCollections.SpecialisedInfo("提交成功，部分内容需要手动修改");
                                         }
-                                        MessagingSystem.onChangeRequest_Solved(request, SessionUser);
+                                        GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Procced_TO_User, dataObject = request, user = user, objectId = request.UserID };
+                                        MessagingSystem.AddMessageProcesses(message_User);
                                         break;
                                     default: return WebAPIResponseCollections.DataBaseError;
                                 }

@@ -19,12 +19,12 @@ namespace WBPlatform.WebManagement.Controllers
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 AIKnownUser(user);
-                if (user.UserGroup.IsClassTeacher)
+                if (user.UserGroup.IsClassTeacher && user.ClassList.Count > 0)
                 {
-                    switch (DBOperations.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
+                    switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
                     {
-                        case DataBaseResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", user.UserName, ErrorRespCode.InternalError);
-                        case DataBaseResult.NO_RESULTS: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", user.UserName);
+                        case DBQueryStatus.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", user.UserName, ErrorRespCode.InternalError);
+                        case DBQueryStatus.NO_RESULTS: return _OnInternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", user.UserName);
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].objectId;
@@ -36,7 +36,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                AIKnownUser(user);
+                AIUnknownUser();
                 return _LoginFailed("/ClassManager/Index/");
             }
 

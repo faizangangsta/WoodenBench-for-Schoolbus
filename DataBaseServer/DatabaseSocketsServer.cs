@@ -54,8 +54,7 @@ namespace WBPlatform.Database.DBServer
                 LogWritter.DebugMessage("成功与" + remoteEndPoint + "客户端建立连接!");
                 //添加客户端信息  
                 clientConnectionItems.Add(remoteEndPoint, connection);
-
-                //IPEndPoint netpoint = new IPEndPoint(clientIP,clientPort); 
+                
                 IPEndPoint netpoint = connection.RemoteEndPoint as IPEndPoint;
 
                 //创建一个通信线程      
@@ -73,19 +72,21 @@ namespace WBPlatform.Database.DBServer
         private static void Recv(object socketclientpara)
         {
             Socket socket = socketclientpara as Socket;
-            byte[] arrServerRecMsg = new byte[1024 * 1024];
+            byte[] arrServerRecMsg;
 
             while (true)
             {
+                string _MessageId = "";
                 try
                 {
                     arrServerRecMsg = new byte[1024 * 1024];
                     int length = socket.Receive(arrServerRecMsg);
-
-                    //将机器接受到的字节数组转换为人可以读懂的字符串     
                     string requestString = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
-                    string _MessageId = requestString.Substring(0, 5);
+                    arrServerRecMsg = null;
+
+                    _MessageId = requestString.Substring(0, 5);
                     requestString = requestString.Substring(5);
+
                     if (clientQueryStrings.ContainsKey(socket.RemoteEndPoint.ToString()))
                     {
                         clientQueryStrings[socket.RemoteEndPoint.ToString()] = requestString;
@@ -94,30 +95,52 @@ namespace WBPlatform.Database.DBServer
                     {
                         clientQueryStrings.Add(socket.RemoteEndPoint.ToString(), requestString);
                     }
-                    LogWritter.DebugMessage("Q: " + socket.RemoteEndPoint.ToString() + " :: " + requestString);
 
                     if (requestString == "openConnection")
                     {
+                        LogWritter.DebugMessage("C: Recieve an OpenConnection Request, from " + socket.RemoteEndPoint.ToString());
                         byte[] arrSendMsg = Encoding.UTF8.GetBytes(_MessageId + socket.RemoteEndPoint.ToString());
                         socket.Send(arrSendMsg);
+                        LogWritter.DebugMessage("C: Replied an OpenConnection Request, to " + socket.RemoteEndPoint.ToString());
+                    }
+                    else if (requestString == "HeartBeat")
+                    {
+                        LogWritter.DebugMessage("B: Recieve a HearBeat, from " + socket.RemoteEndPoint.ToString());
+                        DateTime senttime = DateTime.Parse(requestString.Substring(9));
+                        DateTime replyTime = DateTime.Now;
+                        byte[] arrSendMsg = Encoding.UTF8.GetBytes(_MessageId + replyTime.ToString());
+                        socket.Send(arrSendMsg);
+                        LogWritter.DebugMessage("C: Replied a HearBeat, to " + socket.RemoteEndPoint.ToString());
                     }
                     else
                     {
+                        LogWritter.DebugMessage("Q: " + socket.RemoteEndPoint.ToString() + " :: " + requestString);
+                        //Main Entry........
                         string returnStr = DatabaseCore.ProcessRequest(requestString);
                         socket.Send(Encoding.UTF8.GetBytes(_MessageId + returnStr));
                         LogWritter.DebugMessage("P: " + socket.RemoteEndPoint.ToString() + " :: " + returnStr);
                     }
                 }
-                catch (Exception ex)
+                catch (SocketException ex)
                 {
+                    LogWritter.DebugMessage("Client Count:" + clientConnectionItems.Count);
+                    LogWritter.ErrorMessage("Client " + socket.RemoteEndPoint + " Cuts down the connection. " + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
+                  
                     clientConnectionItems.Remove(socket.RemoteEndPoint.ToString());
                     clientQueryStrings.Remove(socket.RemoteEndPoint.ToString());
-                    LogWritter.DebugMessage("Client Count:" + clientConnectionItems.Count);
-                    LogWritter.ErrorMessage("客户端" + socket.RemoteEndPoint + "已经中断连接" + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
+                    socket.Disconnect(true);
                     socket.Close();
+                    socket.Dispose();
+                    socket = null;
                     break;
                 }
+                catch (Exception ex)
+                {
+                    LogWritter.DebugMessage("Exception Occured! " + ex.Message);
+                    socket.Send(Encoding.UTF8.GetBytes(_MessageId + "Exception " + ex.Message));
+                }
             }
+            LogWritter.ErrorMessage("A Socket Recieve Thread Stoped! " + socket.RemoteEndPoint.ToString());
         }
     }
 }

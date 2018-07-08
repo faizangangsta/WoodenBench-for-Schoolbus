@@ -60,14 +60,14 @@ namespace WBPlatform.WebManagement.Controllers
                 }
 
 
-                if (DBOperations.UpdateData(user) == 0)
+                if (DatabaseOperation.UpdateData(user) == 0)
                 {
                     DBQuery query = new DBQuery();
                     query.WhereEqualTo("objectId", SessionUser.objectId);
-                    switch (DBOperations.QueryMultipleData(query, out List<UserObject> UserList))
+                    switch (DatabaseOperation.QueryMultipleData(query, out List<UserObject> UserList))
                     {
-                        case DataBaseResult.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DataBaseResult.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                        case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
                             string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);

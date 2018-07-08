@@ -53,7 +53,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             schoolBusObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
-            if (DBOperations.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
+            if (DatabaseOperation.QueryMultipleData(query, out List<SchoolBusObject> list) >= 0)
             {
                 foreach (SchoolBusObject item in list)
                 {
@@ -100,7 +100,7 @@ namespace WBPlatform.DesktopClient.Views
                 switch (MessageBox.Show("是否在服务器上删除此项？", "删除项目", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes:
-                        if (DBOperations.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
+                        if (DatabaseOperation.DeleteData(WBConsts.TABLE_Mgr_BusData, row.Cells[0].Value.ToString()) == 0)
                         {
                             busDataGrid.Rows.Remove(row);
                             msgLabel.Text = "成功在服务器上删除项目：" + Name;
@@ -171,12 +171,12 @@ namespace WBPlatform.DesktopClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                return DBOperations.CreateData(busObject, out SchoolBusObject _bus) ==  DataBaseResult.ONE_RESULT;
+                return DatabaseOperation.CreateData(busObject, out SchoolBusObject _bus) ==  DBQueryStatus.ONE_RESULT;
             }
             else
             {
                 busObject.objectId = row.Cells[0].Value.ToString();
-                return DBOperations.UpdateData(busObject) == 0;
+                return DatabaseOperation.UpdateData(busObject) == 0;
             }
         }
 
@@ -189,7 +189,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             DBQuery query = new DBQuery();
             query.WhereEqualTo("isBusTeacher", true);
-            if (DBOperations.QueryMultipleData(query, out List<UserObject> list) >= 0)
+            if (DatabaseOperation.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 foreach (UserObject item in list)
                 {

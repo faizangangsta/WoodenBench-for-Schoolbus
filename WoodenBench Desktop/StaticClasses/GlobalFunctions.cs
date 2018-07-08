@@ -19,7 +19,7 @@ namespace WBPlatform.DesktopClient.StaticClasses
         {
             LogWritter.InitLog();
             LogWritter.DebugMessage("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            DBOperations.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+            DatabaseOperation.InitialiseClient(IPAddress.Parse("118.190.144.179"));
             
             Application.EnableVisualStyles();
             FileIO.onFileIOCompleted += MainForm.Default.DnFinished;

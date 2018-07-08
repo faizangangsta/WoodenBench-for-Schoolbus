@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery query = new DBQuery();
             query.WhereEqualTo(ColName, Equals2Obj);
             
-            if (DBOperations.QueryMultipleData(query, out List<UserObject> list) >= 0)
+            if (DatabaseOperation.QueryMultipleData(query, out List<UserObject> list) >= 0)
             {
                 dict.Add("ErrCode", "0");
                 dict.Add("ErrMessage", "null");

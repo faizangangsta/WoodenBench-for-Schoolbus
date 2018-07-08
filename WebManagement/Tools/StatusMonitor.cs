@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.IO.Pipes;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using WBPlatform.Database;
+using WBPlatform.Database.Connection;
 using WBPlatform.StaticClasses;
-using Newtonsoft.Json;
 
 namespace WBPlatform.WebManagement.Tools
 {
@@ -19,7 +15,7 @@ namespace WBPlatform.WebManagement.Tools
     {
         private static Thread _MonitorThread = new Thread(new ThreadStart(ThreadWork));
         private static Dictionary<string, object> status = new Dictionary<string, object>();
-        private static NamedPipeServerStream pipe = new NamedPipeServerStream("83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.Out) { };
+        private static NamedPipeServerStream pipe = new NamedPipeServerStream("83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.Out);
 
         public static void StartMonitorThread() => _MonitorThread.Start();
         private static void ThreadWork()
@@ -35,7 +31,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("WeChatSENTThreadStatus", WeChatMessageSystem.Status()[1]);
                 status.Add("WeChatRCVDListCount", WeChatMessageSystem.Status()[2]);
                 status.Add("WeChatSENTListCount", WeChatMessageSystem.Status()[3]);
-                status.Add("Database", Database.Connection.DatabaseSocketsClient.Connected);
+                status.Add("Database", DatabaseSocketsClient.Connected);
                 status.Add("CoreMessageSystemThread", MessagingSystem.GetStatus);
                 status.Add("CoreMessageSystemCount", MessagingSystem.GetCount);
                 status.Add("MessageBackupThread", MessageBackup.GetStatus);
@@ -43,7 +39,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("StartupTime", Program.StartUpTime.ToString());
                 status.Add("ServerVer", Program.Version);
                 status.Add("CoreLibVer", WBConsts.CurrentCoreVersion);
-                status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion);
+                status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion); 
                 string data = JsonConvert.SerializeObject(status);
 
                 byte[] ipByte = Encoding.UTF8.GetBytes(data);

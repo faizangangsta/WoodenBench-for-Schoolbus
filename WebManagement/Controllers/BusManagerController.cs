@@ -17,9 +17,16 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                AIKnownUser(user);
-                ViewData["cUser"] = user.ToString();
-                return View();
+                if (user.UserGroup.IsBusManager)
+                {
+                    AIKnownUser(user);
+                    ViewData["cUser"] = user.ToString();
+                    return View();
+                }
+                else
+                {
+                    return _OnInternalError(ServerSideAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", user.RealName, ErrorRespCode.NotSet);
+                }
             }
             else
             {
@@ -54,7 +61,11 @@ namespace WBPlatform.WebManagement.Controllers
                 ViewData["cUser"] = user.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
-                    DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    if (busObject == null)
+                    {
+                        busObject = new SchoolBusObject() { objectId = "0000000000", BusName = "未找到校车", TeacherID = user.objectId };
+                    }
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["mode"] = signmode;
                     return View();
@@ -85,7 +96,7 @@ namespace WBPlatform.WebManagement.Controllers
                     /// 
                     ///
 
-                    DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
+                    DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;
                 }
@@ -99,13 +110,13 @@ namespace WBPlatform.WebManagement.Controllers
             return View();
         }
 
-        private IActionResult CheckFlag(DataBaseResult flag, bool isSingleRequest, UserObject user, string info)
+        private IActionResult CheckFlag(DBQueryStatus flag, bool isSingleRequest, UserObject user, string info)
         {
             switch (flag)
             {
-                case DataBaseResult.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
-                case DataBaseResult.MORE_RESULTS:
-                    if (isSingleRequest) _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.MultipleRecordsFound_inSingleRequest, info + ":" + flag, user.UserName);
+                case DBQueryStatus.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case DBQueryStatus.MORE_RESULTS:
+                    if (isSingleRequest) _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
                     return null;
                 default: return null;
             }
@@ -130,13 +141,13 @@ namespace WBPlatform.WebManagement.Controllers
                 // User Group Check
                 if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
                 {
-                    DataBaseResult flag;
+                    DBQueryStatus flag;
                     IActionResult result = null;
 
                     ViewStudentInfo info = new ViewStudentInfo();
 
                     //Search student with spec ClassID and StudentID and BusID
-                    flag = DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
+                    flag = DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
                     result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
                     if (result != null) return result;
                     if (Student != null)
@@ -145,12 +156,12 @@ namespace WBPlatform.WebManagement.Controllers
                         info._student = Student;
 
                         //Get Class information with ClassID
-                        flag = DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
+                        flag = DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
                         result = CheckFlag(flag, true, user, "GetClassBy_CID");
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DataBaseResult.NO_RESULTS)
+                            if (flag == DBQueryStatus.NO_RESULTS)
                             {
                                 info.ClassFound = false;
                                 info._class = null;
@@ -160,12 +171,12 @@ namespace WBPlatform.WebManagement.Controllers
                                 info.ClassFound = true;
                                 info._class = Class;
                                 //Get Class Teacher Information
-                                flag = DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
+                                flag = DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
                                 result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
                                 if (result != null) return result;
                                 else
                                 {
-                                    if (flag == DataBaseResult.NO_RESULTS)
+                                    if (flag == DBQueryStatus.NO_RESULTS)
                                     {
                                         info.ClassTeacherFound = false;
                                         info._CTeacher = null;
@@ -180,12 +191,12 @@ namespace WBPlatform.WebManagement.Controllers
                         }
 
                         //Get Parents
-                        flag = DBOperations.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("ChildList", Student.objectId), out List<UserObject> Parents);
+                        flag = DatabaseOperation.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("ChildList", Student.objectId), out List<UserObject> Parents);
                         result = CheckFlag(flag, false, user, "GetParentsBy_UID");
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DataBaseResult.NO_RESULTS)
+                            if (flag == DBQueryStatus.NO_RESULTS)
                             {
                                 info.ParentsCount = 0;
                                 info._Parents = null;
@@ -199,12 +210,12 @@ namespace WBPlatform.WebManagement.Controllers
 
 
                         // Get SchoolBus
-                        flag = DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
+                        flag = DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
                         result = CheckFlag(flag, true, user, "GetBusBy_BID");
                         if (result != null) return result;
                         else
                         {
-                            if (flag == DataBaseResult.NO_RESULTS)
+                            if (flag == DBQueryStatus.NO_RESULTS)
                             {
                                 info.BusFound = false;
                                 info._schoolbus = null;
@@ -214,12 +225,12 @@ namespace WBPlatform.WebManagement.Controllers
                                 info.BusFound = true;
                                 info._schoolbus = Bus;
                                 // Get SchoolBus Teacher.
-                                flag = DBOperations.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
+                                flag = DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
                                 result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
                                 if (result != null) return result;
                                 else
                                 {
-                                    if (flag == DataBaseResult.NO_RESULTS)
+                                    if (flag == DBQueryStatus.NO_RESULTS)
                                     {
                                         info.BusTeacherFound = false;
                                         info._BTeacher = null;
