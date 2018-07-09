@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 using WBPlatform.Database;
@@ -15,10 +18,18 @@ namespace WBPlatform.WebManagement.Tools
         private static List<GlobalMessage> MessageList { get; set; } = new List<GlobalMessage>();
         private static Thread ProcThread = new Thread(new ThreadStart(_ProcThread));
 
-        public static void StartProcessThread() => ProcThread.Start();
+        public static void StartProcessThread()
+        {
+            ProcThread.Start();
+            LW.D("\tCoreMessaging System Started!");
+        }
 
 
-        public static void AddMessageProcesses(params GlobalMessage[] message) { lock (MessageList) MessageList.AddRange(message); }
+        public static void AddMessageProcesses(params GlobalMessage[] message)
+        {
+            //LW.D("New Message is to add into list: " + JsonConvert.SerializeObject(message));
+            lock (MessageList) MessageList.AddRange(message);
+        }
         private static void _ProcThread()
         {
             GlobalMessage message;
@@ -33,13 +44,13 @@ namespace WBPlatform.WebManagement.Tools
                     }
                     else message = null;
                 }
-                if (message != null) _ProcessMessage(message);
+                if (message != null && !_ProcessMessage(message)) MessageList.Add(message);
                 else Thread.Sleep(500);
                 Thread.Sleep(100);
             }
         }
 
-        private static void _ProcessMessage(GlobalMessage message)
+        private static bool _ProcessMessage(GlobalMessage message)
         {
             switch (message.type)
             {
@@ -47,8 +58,8 @@ namespace WBPlatform.WebManagement.Tools
                     {
                         if ((int)GetAdminUsers(out List<UserObject> adminUsers_UCR_Request) < 1)
                         {
-                            LogWritter.ErrorMessage("No Administrator found!! thus no UserRequest can be solved!");
-                            // DO ERROR LOG HERE....
+                            LW.E("No Administrator found!! thus no UserRequest can be solved!");
+                            return false;
                         }
                         else
                         {
@@ -59,8 +70,8 @@ namespace WBPlatform.WebManagement.Tools
                                 "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=manage&reqId=" + message.objectId,
                                 (from usr in adminUsers_UCR_Request select usr.UserName).ToArray());
                             WeChatMessageSystem.AddToSendList(UCR_Created_TO_ADMIN_Msg);
+                            return true;
                         }
-                        break;
                     }
                 case GlobalMessageTypes.UCR_Created_TO_User:
                     {
@@ -69,7 +80,7 @@ namespace WBPlatform.WebManagement.Tools
                                         "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
                                         "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.objectId, message.user.UserName);
                         WeChatMessageSystem.AddToSendList(UCR_Created_TO_User_Msg);
-                        break;
+                        return true;
                     }
                 case GlobalMessageTypes.UCR_Procced_TO_User:
                     {
@@ -82,38 +93,39 @@ namespace WBPlatform.WebManagement.Tools
                                         "工单编号：" + ((UserChangeRequest)message.dataObject).objectId + "\r\n" +
                                         "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)(message.dataObject)).objectId, requestSender.UserName);
                                 WeChatMessageSystem.AddToSendList(_WMessage);
-                                break;
+                                return true;
                             case DBQueryStatus.INTERNAL_ERROR:
                             case DBQueryStatus.NO_RESULTS:
                             case DBQueryStatus.MORE_RESULTS:
                             default:
-                                LogWritter.ErrorMessage("Failed to get user who requested to change something.... userId=" + message.objectId);
-                                break;
+                                LW.E("Failed to get user who requested to change something.... userId=" + message.objectId);
+                                return false;
                         }
                     }
-                    break;
                 case GlobalMessageTypes.UCR_Procced_TO_ADMIN:
                     //No Process due to.... No use..
-                    break;
+                    throw new NotSupportedException("鬼知道你干嘛要调这个函数");
                 case GlobalMessageTypes.User__Pending_Verify:
                     if ((int)GetAdminUsers(out List<UserObject> adminUsers_createUser) < 1)
                     {
-                        LogWritter.ErrorMessage("No Administrator found!! thus no UserRequest can be solved!");
+                        LW.E("No Administrator found!! thus no Register Request can be solved!");
+                        return false;
                     }
                     else
                     {
                         WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.textcard, "新用户注册审核通知",
                             $"有一位新用户在{message.user.createdAt.ToString()}申请了注册用户，请审核！" +
                             $"\r\n提供的姓名：{message.user.RealName}" +
-                            $"\r\n手机号码：{message.user.PhoneNumber}", "http://schoolbus.lhy0403.top/Manage/UserManage?from=userCreate&mode=edit&uid=" + message.user.objectId,
+                            $"\r\n手机号码：{message.user.PhoneNumber}",
+                            "http://schoolbus.lhy0403.top/Manage/UserManage?from=userCreate&mode=edit&uid=" + message.user.objectId
+                            + "&msg=" + Convert.ToBase64String(Encoding.UTF8.GetBytes(message.dataObject.ToString())),
                             (from usr in adminUsers_createUser select usr.UserName).ToArray());
                         WeChatMessageSystem.AddToSendList(_message);
+                        return true;
                     }
-                    break;
                 case GlobalMessageTypes.User__Finish_Verify:
-                    break;
-                default:
-                    break;
+                    return false;
+                default: throw new NotSupportedException("不支持就是不支持……");
             }
         }
 

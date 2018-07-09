@@ -420,7 +420,7 @@ namespace WBPlatform.DesktopClient.Views
                 {
                     ErrMsg = ErrMsg + item;
                 }
-                LogWritter.ErrorMessage("Error when updating these students data: " + ErrMsg);
+                LW.E("Error when updating these students data: " + ErrMsg);
                 MessageBox.Show("有部分内容上传失败，它们是：" + ErrMsg + "请尝试重新上传");
             }
             this.SureAndUploadBtn.Text = "确认并上传(&S)";

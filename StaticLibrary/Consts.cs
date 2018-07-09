@@ -60,7 +60,7 @@ namespace WBPlatform.StaticClasses
         其他 = 9,
     }
 
-    public enum DBOperation
+    public enum DBVerbs
     {
         Create = 0,
         QuerySingle = 1,

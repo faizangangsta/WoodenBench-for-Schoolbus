@@ -51,6 +51,10 @@ namespace WBPlatform.StaticClasses
         General_ViewStudent,
         General_ViewChangeRequests,
 
+        Manage_Index,
+        Manage_UserManage,
+        Manage_VerifyChangeRequest,
+
         INTERNAL_ERROR
     }
 
@@ -102,18 +106,25 @@ namespace WBPlatform.StaticClasses
 
         private static bool InitialiseWeChatCodes()
         {
+            LW.D("Query New WeChat Keys....");
             Dictionary<string, string> JSON;
-            JSON = Ultilities.HTTPGet(GetAccessToken_Url);
+            LW.D("\tGetting Access Token....");
+            JSON = PublicTools.HTTPGet(GetAccessToken_Url);
             AccessToken = JSON["access_token"];
             AvailableTime_Token = DateTime.Now.AddSeconds(int.Parse(JSON["expires_in"]));
-            JSON = Ultilities.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + AccessToken);
+            LW.D("\tGetting Ticket....");
+            JSON = PublicTools.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + AccessToken);
             AccessTicket = JSON["ticket"];
             AvailableTime_Ticket = DateTime.Now.AddSeconds(int.Parse(JSON["expires_in"]));
+            LW.D("WeChat Keys Initialised Successfully!");
             return true;
         }
         public static bool ReNewWCCodes()
         {
+            LW.D("Started Renew WeChat Operation Codes.....");
+            LW.D("\tChecking Access Tickets...");
             if (AvailableTime_Ticket.Subtract(DateTime.Now).TotalMilliseconds <= 0) { InitialiseWeChatCodes(); return false; }
+            LW.D("\tChecking Tokens...");
             if (AvailableTime_Token.Subtract(DateTime.Now).TotalMilliseconds <= 0) { InitialiseWeChatCodes(); return false; }
             return true;
         }

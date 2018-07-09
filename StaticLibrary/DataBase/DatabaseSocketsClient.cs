@@ -31,11 +31,12 @@ namespace WBPlatform.Database.Connection
                     socketclient.Connect(point);
                     Connected = true;
                     ns = socketclient.GetStream();
+                    LW.D("\tDatabase Connection Estabilished!");
                     break;
                 }
                 catch (Exception ex)
                 {
-                    LogWritter.ErrorMessage("Database connection to server: " + ServerIP + " failed. " + ex.Message);
+                    LW.E("\t\tDatabase connection to server: " + ServerIP + " failed. " + ex.Message);
                     Thread.Sleep(1000);
                 }
                 if (i == 5)

@@ -29,7 +29,7 @@ namespace WBPlatform.DesktopClient.Users
         {
             if (Cryptography.SHA256Encrypt(OriPasswrd) != CurrentUser.Password)
             {
-                LogWritter.ErrorMessage("ChangePassword Request Failed, Reason: Original Password Incorrect....");
+                LW.E("ChangePassword Request Failed, Reason: Original Password Incorrect....");
                 return false;
             }
             else
@@ -40,12 +40,12 @@ namespace WBPlatform.DesktopClient.Users
                     .WhereEqualTo("Password", Cryptography.SHA256Encrypt(OriPasswrd))
                     .WhereEqualTo("Username", CurrentUser.UserName)) == DBQueryStatus.ONE_RESULT)
                 {
-                    LogWritter.DebugMessage("Change Password Success!");
+                    LW.D("Change Password Success!");
                     return true;
                 }
                 else
                 {
-                    LogWritter.DebugMessage("Change Password Failed!");
+                    LW.D("Change Password Failed!");
                     return false;
                 }
             }
@@ -68,16 +68,16 @@ namespace WBPlatform.DesktopClient.Users
             switch (DatabaseOperation.QuerySingleData(UserNameQuery, out user))
             {
                 case DBQueryStatus.INTERNAL_ERROR:
-                    LogWritter.ErrorMessage("Internal DataBase Error");
+                    LW.E("Internal DataBase Error");
                     break;
                 case DBQueryStatus.NO_RESULTS:
-                    LogWritter.ErrorMessage("No User Found");
+                    LW.E("No User Found");
                     break;
                 case DBQueryStatus.ONE_RESULT:
-                    LogWritter.ErrorMessage("User Found");
+                    LW.E("User Found");
                     return true;
                 case DBQueryStatus.MORE_RESULTS:
-                    LogWritter.ErrorMessage("WTF Exception....");
+                    LW.E("WTF Exception....");
                     break;
                 default:
                     break;

@@ -64,8 +64,11 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["ErrorMessage"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
-            string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", "--");
-            LogWritter.ErrorMessage(logString);
+            if (Response.StatusCode != 200)
+            {
+                string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", "--");
+                LW.E(logString);
+            }
             return View("Error");
         }
 

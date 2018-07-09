@@ -62,7 +62,7 @@ namespace WBPlatform.DesktopClient.Views
             Application.DoEvents();
             if (UserActivity.Login(UserNameTxt.Text, PswdTxt.Text, out UserObject user))
             {
-                LogWritter.DebugMessage($"Login succeed using username {UserNameTxt.Text}");
+                LW.D($"Login succeed using username {UserNameTxt.Text}");
                 if (user.UserGroup.IsAdmin || user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher)
                 {
                     DoLoginBtn.Enabled = true;
@@ -85,7 +85,7 @@ namespace WBPlatform.DesktopClient.Views
             }
             else
             {
-                LogWritter.ErrorMessage($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
+                LW.E($"Login failed using username {UserNameTxt.Text} and password {PswdTxt.Text}.");
                 LoginResult.Text = "用户名或密码不正确";
                 LoginResult.Visible = true;
                 DoLoginBtn.Enabled = true;

@@ -19,33 +19,28 @@ namespace WBPlatform.WebManagement
         public static DateTime StartUpTime { get; private set; }
         public static void Main(string[] args)
         {
-            StatusMonitor.StartMonitorThread();
+            LW.InitLog();
             StartUpTime = DateTime.Now;
-            LogWritter.InitLog();
-            LogWritter.DebugMessage("WoodenBench WebServer Starting....");
-            LogWritter.DebugMessage($"\t Startup Time {StartUpTime.ToString()}.");
+            LW.D("WoodenBench WebServer Starting....");
+            LW.D($"\t Startup Time {StartUpTime.ToString()}.");
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
-            LogWritter.DebugMessage($"\t Version {Version}");
-            LogWritter.DebugMessage("Started Renew WeChat Operation Codes.....");
+            LW.D($"\t Version {Version}");
+            StatusMonitor.StartMonitorThread();
+            LW.D("Monitor Thread: Active");
             WeChat.ReNewWCCodes();
             DatabaseOperation.InitialiseClient(IPAddress.Loopback);
-            LogWritter.DebugMessage("Initialising WeChat Data Packet Encryptor.....");
+            LW.D("Initialising WeChat Data Packet Encryptor.....");
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 
-            LogWritter.DebugMessage("Initialising Core Messaging Systems.....");
+            LW.D("Initialising Core Messaging Systems.....");
             WeChatMessageSystem.StartProcessThreads();
             MessageBackup.StartBackupThread();
             MessagingSystem.StartProcessThread();
 
-            LogWritter.DebugMessage("Building WebHost....");
+            LW.D("Building WebHost....");
             var webHost = BuildWebHost(args);
-            //WeChatMessageProc.SendMessageString(WeChat.SentMessageType.textcard, "@all",
-            //    "小板凳服务器启动成功",
-            //    "这是当前版本信息: <br />" +
-            //    "启动の时间: " + StartUpTime.ToString() + "<br /><br />" +
-            //    "服务端版本: " + Version + "<br />" +
-            //    "核心库版本: " + WBConsts.CurrentCoreVersion + "<br />" +
-            //    "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion, "https://schoolbus.lhy0403.top");
+            LW.D("Starting WebHost....");
+            LW.C();
             webHost.Run();
         }
 

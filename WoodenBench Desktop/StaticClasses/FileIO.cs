@@ -75,7 +75,7 @@ namespace WBPlatform.DesktopClient.StaticClasses
         public static Image BytesToImage(byte[] buffer)
         {
             MemoryStream ms = new MemoryStream(buffer);
-            Image image = System.Drawing.Image.FromStream(ms);
+            Image image = Image.FromStream(ms);
             return image;
         }
 

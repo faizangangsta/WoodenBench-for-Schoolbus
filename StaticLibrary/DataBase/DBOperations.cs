@@ -20,7 +20,7 @@ namespace WBPlatform.Database
         public static string MessageId { get { return Cryptography.RandomString(5, false); } }
         public static void InitialiseClient(IPAddress server)
         {
-            LogWritter.DebugMessage("Started Initialise Database Server Connection....");
+            LW.D("Started Initialise Database Server Connection....");
             bool conn = DatabaseSocketsClient.Initialise(server);
             if (!conn)
             {
@@ -29,13 +29,13 @@ namespace WBPlatform.Database
             else
             {
                 DatabaseSocketsClient.SendDatabaseOperations("openConnection", MessageId, out string token);
-                LogWritter.DebugMessage("Database Connected! Identity: " + token);
+                LW.D("\tDatabase Connected! Identity: " + token);
             }
         }
         public static DBQueryStatus QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
         {
             query.Limit(1);
-            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBOperation.QuerySingle, query, null, out DBInput[] input, out DataBaseStatus result);
+            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBVerbs.QuerySingle, query, null, out DBInput[] input, out DataBaseStatus result);
             if (databaseOperationResult == DBQueryStatus.ONE_RESULT)
             {
                 T t = new T();
@@ -55,7 +55,7 @@ namespace WBPlatform.Database
         {
             query.Limit(queryLimit);
             query.Skip(skip);
-            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBOperation.QueryMulti, query, null, out DBInput[] inputs, out DataBaseStatus @object);
+            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBVerbs.QueryMulti, query, null, out DBInput[] inputs, out DataBaseStatus @object);
             if (databaseOperationResult >= 0)
             {
                 Result = new List<T>();
@@ -71,7 +71,7 @@ namespace WBPlatform.Database
         }
         public static DBQueryStatus DeleteData(string Table, string ObjectID)
         {
-            DBQueryStatus result = _DBRequestInternal(Table, DBOperation.Delete, new DBQuery().WhereEqualTo("objectId", ObjectID), null, out DBInput[] inputs, out DataBaseStatus resultObject);
+            DBQueryStatus result = _DBRequestInternal(Table, DBVerbs.Delete, new DBQuery().WhereEqualTo("objectId", ObjectID), null, out DBInput[] inputs, out DataBaseStatus resultObject);
             return result;
         }
 
@@ -86,7 +86,7 @@ namespace WBPlatform.Database
             }
             DBOutput output = new DBOutput();
             item.write(output, false);
-            return _DBRequestInternal(item.table, DBOperation.Update, query, output, out DBInput[] inputs, out DataBaseStatus message);
+            return _DBRequestInternal(item.table, DBVerbs.Update, query, output, out DBInput[] inputs, out DataBaseStatus message);
         }
 
         public static DBQueryStatus CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
@@ -94,11 +94,11 @@ namespace WBPlatform.Database
             DBOutput output = new DBOutput();
             data.objectId = Cryptography.RandomString(10, false);
             data.write(output, false);
-            DBQueryStatus rst = _DBRequestInternal(data.table, DBOperation.Create, null, output, out DBInput[] inputs, out DataBaseStatus message);
+            DBQueryStatus rst = _DBRequestInternal(data.table, DBVerbs.Create, null, output, out DBInput[] inputs, out DataBaseStatus message);
             if (rst == DBQueryStatus.INTERNAL_ERROR)
             {
                 dataOut = null;
-                LogWritter.ErrorMessage(message.ToString());
+                LW.E(message.ToString());
                 return rst;
             }
             T t = new T();
@@ -107,15 +107,15 @@ namespace WBPlatform.Database
             return rst;
         }
 
-        private static DBQueryStatus _DBRequestInternal(string Table, DBOperation operation, DBQuery query, DBOutput output, out DBInput[] inputs, out DataBaseStatus dbStatus)
+        private static DBQueryStatus _DBRequestInternal(string Table, DBVerbs operation, DBQuery query, DBOutput output, out DBInput[] inputs, out DataBaseStatus dbStatus)
         {
             try
             {
-                if ((operation == DBOperation.QueryMulti || operation == DBOperation.QuerySingle || operation == DBOperation.Update || operation == DBOperation.Delete) && query == null)
+                if ((operation == DBVerbs.QueryMulti || operation == DBVerbs.QuerySingle || operation == DBVerbs.Update || operation == DBVerbs.Delete) && query == null)
                 {
                     throw new ArgumentNullException("When using Query Single/Multi and Change, Delete. Arg: query cannot be null");
                 }
-                if ((operation == DBOperation.Create || operation == DBOperation.Update) && output == null)
+                if ((operation == DBVerbs.Create || operation == DBVerbs.Update) && output == null)
                 {
                     throw new ArgumentNullException("When using Query Create and Change. Arg: output cannot be null");
                 }
@@ -124,18 +124,18 @@ namespace WBPlatform.Database
                 internalQuery.TableName = Table;
                 switch (operation)
                 {
-                    case DBOperation.Create:
+                    case DBVerbs.Create:
                         internalQuery.objectString = output.ToString();
                         break;
-                    case DBOperation.QuerySingle:
-                    case DBOperation.QueryMulti:
+                    case DBVerbs.QuerySingle:
+                    case DBVerbs.QueryMulti:
                         internalQuery.Query = query;
                         break;
-                    case DBOperation.Update:
+                    case DBVerbs.Update:
                         internalQuery.objectString = output.ToString();
                         internalQuery.Query = query;
                         break;
-                    case DBOperation.Delete:
+                    case DBVerbs.Delete:
                         internalQuery.Query = query;
                         break;
                 }
@@ -160,19 +160,19 @@ namespace WBPlatform.Database
                 }
                 switch (operation)
                 {
-                    case DBOperation.QueryMulti:
+                    case DBVerbs.QueryMulti:
                         List<Dictionary<string, object>> multiQueryResults = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(reply.objectString);
                         inputs = (from item in multiQueryResults select new DBInput(item)).ToArray();
                         break;
-                    case DBOperation.QuerySingle:
-                    case DBOperation.Create:
-                    case DBOperation.Update:
+                    case DBVerbs.QuerySingle:
+                    case DBVerbs.Create:
+                    case DBVerbs.Update:
                         List<Dictionary<string, object>> singleResult = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(reply.objectString);
                         if (singleResult.Count > 1)
                         {
                             throw new IndexOutOfRangeException("QuerySingle, Create, Change require only one Return result...");
                         }
-                        if (operation == DBOperation.QuerySingle)
+                        if (operation == DBVerbs.QuerySingle)
                         {
                             //Allow No results....
                             inputs = singleResult.Count == 0 ? new DBInput[0] : new DBInput[] { new DBInput(singleResult[0]) };
@@ -186,7 +186,7 @@ namespace WBPlatform.Database
                                 : new DBInput[] { new DBInput(singleResult[0]) };
                         }
                         break;
-                    case DBOperation.Delete:
+                    case DBVerbs.Delete:
                         inputs = null;
                         break;
                     default: throw new NotSupportedException("Database Operation " + operation + " is not Supported!");
@@ -200,7 +200,7 @@ namespace WBPlatform.Database
                 dbStatus = new DataBaseStatus();
                 dbStatus.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
                 dbStatus.Exception = new DataBaseException("进行数据库操作时出现一个或多个错误", DBQueryStatus.INTERNAL_ERROR, ex);
-                LogWritter.ErrorMessage(dbStatus.ToString());
+                LW.E(dbStatus.ToString());
                 return DBQueryStatus.INTERNAL_ERROR;
             }
         }

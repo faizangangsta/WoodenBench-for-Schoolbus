@@ -14,7 +14,7 @@ namespace WBPlatform.Database.DBServer
         [STAThread]
         static void Main()
         {
-            LogWritter.InitLog();
+            LW.InitLog();
             DatabaseCore.InitialiseDBConnection();
             DatabaseSocketsServer.InitialiseSockets();
 
@@ -27,7 +27,7 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage(ex.Message);
+                LW.E(ex.Message);
                 while (true)
                 {
                     Thread.Sleep(1000);

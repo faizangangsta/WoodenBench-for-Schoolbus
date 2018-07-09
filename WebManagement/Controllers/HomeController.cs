@@ -30,7 +30,7 @@ namespace WBPlatform.WebManagement.Controllers
                 else
                 {
                     Response.Cookies.Delete("Session");
-                    return _OnInternalError(ServerSideAction.Home_Index, ErrorType.UserGroupError, "用户组无效，请联系管理员", user.UserName, ErrorRespCode.PermisstionDenied);
+                    return _OnInternalError(ServerSideAction.Home_Index, ErrorType.UserGroupError, "用户未经过验证，UserID = " + user.objectId, user.UserName, ErrorRespCode.NotSet);
                 }
             }
             else

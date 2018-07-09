@@ -57,7 +57,7 @@ namespace WBPlatform.WebManagement.Tools
                     break;
             }
             Message = Message + "}";
-            return Ultilities.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChat.AccessToken, Message);
+            return PublicTools.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChat.AccessToken, Message);
         }
     }
 }

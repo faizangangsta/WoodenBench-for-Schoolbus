@@ -3,14 +3,15 @@
 
 @{
     ViewData["Title"] = "工单查询";
-    bool isListView = (Model == null);
-    UserObject[] users = isListView ? (UserObject[])ViewData["list"] : null;
+    bool isQuery = (Model == null);
+    UserObject[] users = isQuery ? (UserObject[])ViewData["list"] : null;
 }
 <div class="container">
-    <div class="">
-        @if (isListView)
+    <div class="container">
+        @if (isQuery)
         {
             <h3>用户查询</h3>
+            <h5>查询和更改用户信息</h5>
         }
         else
         {
@@ -19,21 +20,47 @@
         }
         <hr />
         <div>
-            @if (isListView)
+            @if (isQuery)
             {
-                <div class="row">
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c1</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c2</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c3</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">c4</div>
-                </div>
-                <br />
-                @foreach (var item in users)
-                {
-                    <div class="row">
-                        <!--Each user row..,,,,,-->
+                <div id="queryOptions" class="container">
+                    <label>筛选条件</label>
+                    <br />
+                    <div class="row text-center">
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">项</div>
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">判断符</div>
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">值</div>
                     </div>
-                }
+                    <div class="row">
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">
+                            <input type="text" class="TxBox" id="column" style="width: 100%" />
+                        </div>
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">
+                            <select id="operand" class="TxBox" style="width: 100%">
+                                <option>==</option>
+                                <option>contains</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">
+                            <input type="text" class="TxBox" id="value" style="width: 100%" />
+                        </div>
+                    </div>
+                    <br />
+                    <button class="btn btn-success btn-sm" onclick="doQuery();" style="width:100%">筛选🔍</button>
+                </div>
+                <div id="listViewContainer" class="container ">
+                    <hr />
+                    <label>查询结果</label>
+                    <div class="row">
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">姓名</div>
+                        <div class="col-sm-2 col-lg-2 col-xs-2 col-md-2">性别</div>
+                        <div class="col-sm-4 col-lg-4 col-xs-4 col-md-4">UID</div>
+                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">查看</div>
+                    </div>
+                    <br />
+                    <div id="listView">
+
+                    </div>
+                </div>
             }
             else
             {
@@ -45,11 +72,47 @@
         <hr />
         <!--BOTTOM THINGS....-->
         <div class="container">
-            @if (isListView)
+            @if (isQuery)
             {
                 //Manage_List
                 <button class="btn btn-info btn-sm" style="width: 100%" onclick="location.href = '/Manage/'">返回管理页面</button>
                 <br />
+                <script>
+                    function QueryAllUsers(column, operand, value, GetCallback) {
+                        "use strict";
+                        console.log(column);
+                        console.log(operand);
+                        console.log(value);
+                        $.ajax({
+                            url: location.protocol + "//" + location.host + "/api/admin/QueryUsers?" +
+                                "columnName=" + encodeURIComponent(column) +
+                                "&operand=" + encodeURIComponent(operand) +
+                                "&value=" + encodeURIComponent(value),
+                            type: 'GET',
+                            success: function (data) { GetCallback(data); },
+                            error: function (err) { GetCallback(false); }
+                        });
+                    }
+                    function GetUserCallBack(data) {
+                        console.log(data);
+                        $("#listView").empty();
+                        $("#listViewContainer").removeClass("hidden");
+                        for (var i = 0; i < data.count; i++) {
+                            var TMP = JSON.parse(eval("data.num_" + i));
+                            var fff =
+                                "<div id='" + TMP.userID + "' class=\"row\">" +
+                                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + TMP.RealName + "</div>" +
+                                "<div class=\"col-sm-2 col-lg-2 col-xs-2 col-md-2\">" + TMP.Sex + "</div>" +
+                                "<div class=\"col-sm-4 col-lg-4 col-xs-4 col-md-4\">" + TMP.userID + "</div>" +
+                                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\"><a href='/Manage/UserManage?mode=edit&uid=" + TMP.userID + "'>查看🔍</a></div>";
+                            $("#listView").append(fff);
+                        }
+                    }
+                    function doQuery() {
+                        console.log("doQuery....");
+                        QueryAllUsers($("#column").val(), $("#operand").val(), $("#value").val(), GetUserCallBack);
+                    }
+                </script>
             }
             else
             {
@@ -58,8 +121,14 @@
                     <button class="btn btn-danger btn-sm" style="width: 49%" onclick="cancel()">取消</button>
                     <br />
                 </div>
-                <button class="btn btn-info btn-sm" style="width:100%" onclick="location.href = '/Manage/UserManage???????????????/'">返回列表</button>
+                <button class="btn btn-info btn-sm" style="width:100%" onclick="location.href = '/Manage/UserManage?mode=query'">返回列表</button>
                 <br />
+                <script>
+                    function accepted() {
+
+                    }
+                    function cancel() { location.href = location.href; }
+                </script>
             }
         </div>
     </div>

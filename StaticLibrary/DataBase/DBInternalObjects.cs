@@ -7,7 +7,7 @@ namespace WBPlatform.Database.Internal
     //............................................................INTERNAL CONTACTION............................................................\\
     public class DBInternalRequest
     {
-        public DBOperation operation { get; set; }
+        public DBVerbs operation { get; set; }
         public string TableName { get; set; }
         public DBQuery Query { get; set; }
         public string objectString { get; set; }
@@ -41,7 +41,7 @@ namespace WBPlatform.Database.Internal
     public class DataBaseStatus
     {
         public DBQueryStatus DBResultCode { get; set; }
-        public DBOperation DBOperation { get; set; }
+        public DBVerbs DBOperation { get; set; }
         public string Message { get; set; }
         public Exception Exception { get; set; }
         public override string ToString() => JsonConvert.SerializeObject(this);

@@ -72,10 +72,18 @@
             <label>管理员选项: </label> <br />
             <button id="enterManageZone" class="btn btn-danger btn-sm" onclick="location.href = '/Manage/'">进入管理后台</button>
         }
+        <hr />
+        <label>高级选项: </label> <br />
+        <button class="btn btn-danger btn-sm center-block"  style="width: 60%" onclick="removeLoginData();">完全退出用户</button>
+
     </div>
 </div>
 <script>
     {
+        function removeLoginData() {
+            delCookie("Session");
+            location.href = location.href;
+        }
         var CurrentUser = JSON.parse(decodeURI("@Uri.EscapeUriString((string)ViewData["cUser"])"));
 
         $("#UserID").text("你好，" + CurrentUser.RealName);

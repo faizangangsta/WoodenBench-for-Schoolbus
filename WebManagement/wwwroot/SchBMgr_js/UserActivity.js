@@ -128,8 +128,8 @@ function GetClassStudents(ClassID, UserID, GetCallback) {
         success: function (data) { GetCallback(data); },
         error: function (err) { GetCallback(false); }
     });
-
 }
+
 function GetMyChild(UserID, GetCallback) {
     "use strict";
     $.ajax({
@@ -138,5 +138,4 @@ function GetMyChild(UserID, GetCallback) {
         success: function (data) { GetCallback(data); },
         error: function (err) { GetCallback(false); }
     });
-
 }

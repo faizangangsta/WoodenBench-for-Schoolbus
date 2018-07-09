@@ -21,11 +21,11 @@ namespace WBPlatform.StaticClasses
             {
                 ExcelApp = new Excel.Application();
                 IsExcelOpened = true;
-                LogWritter.ErrorMessage("Excel Opened!");
+                LW.E("Excel Opened!");
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage("Excel Opening Error: " + ex.Message);
+                LW.E("Excel Opening Error: " + ex.Message);
             }
         }
 
@@ -35,12 +35,12 @@ namespace WBPlatform.StaticClasses
             {
                 ExcelApp.Quit();
                 IsExcelOpened = false;
-                LogWritter.ErrorMessage("Excel Quited!");
+                LW.E("Excel Quited!");
                 return true;
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage("Excel Quiting Error: " + ex.Message);
+                LW.E("Excel Quiting Error: " + ex.Message);
                 return false;
             }
             GC.Collect();
@@ -52,12 +52,12 @@ namespace WBPlatform.StaticClasses
             try
             {
                 xWorkbook = ExcelApp.Workbooks._Open(FilePath, ReadOnly: ReadOnly, Editable: Editable);
-                LogWritter.ErrorMessage($"Excel Open File Seccess: FilePath: {FilePath}, ReadOnly: {ReadOnly.ToString()}");
+                LW.E($"Excel Open File Seccess: FilePath: {FilePath}, ReadOnly: {ReadOnly.ToString()}");
                 return true;
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage("Excel Open File Error: " + ex.Message);
+                LW.E("Excel Open File Error: " + ex.Message);
                 return false;
             }
         }

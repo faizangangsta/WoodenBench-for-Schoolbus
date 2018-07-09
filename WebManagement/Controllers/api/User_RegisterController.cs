@@ -32,9 +32,15 @@ namespace WBPlatform.WebManagement.Controllers
                     Sex = dict["Sex"],
                     PhoneNumber = dict["PhoneNumber"]
                 };
-                DatabaseOperation.CreateData(user, out user);
-                MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify });
-                Response.Redirect("/Home");
+                if (DatabaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
+                {
+                    MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify, dataObject = dict["table"] });
+                    Response.Redirect("/Home");
+                }
+                else
+                {
+                    Response.Redirect("/Error");
+                }
             }
             return "";
         }

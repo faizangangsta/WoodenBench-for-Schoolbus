@@ -1,17 +1,33 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 
-using Newtonsoft.Json;
-
-namespace WBPlatform.WebManagement.Tools
+namespace WBPlatform.StaticClasses
 {
-    public static class Ultilities
+    public static class PublicTools
     {
+        public static object EncodeString(object item)
+        {
+            if (item is string)
+            {
+                return HttpUtility.UrlEncode(item as string);
+            }
+            else return item;
+        }
+        public static object DecodeObject(object item)
+        {
+            if (item is string)
+            {
+                return HttpUtility.UrlDecode(item as string);
+            }
+            else return item;
+        }
+
         public static Dictionary<string, string> HTTPGet(string URL)
         {
             HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;

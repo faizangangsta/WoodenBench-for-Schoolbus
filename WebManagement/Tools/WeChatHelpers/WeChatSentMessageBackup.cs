@@ -14,7 +14,11 @@ namespace WBPlatform.WebManagement.Tools
         public static bool GetStatus { get => NotificationBackupThread.IsAlive; }
         private static Thread NotificationBackupThread = new Thread(new ThreadStart(_Process));
         private static List<NotificationObject> list { get; set; } = new List<NotificationObject>();
-        public static void StartBackupThread() => NotificationBackupThread.Start();
+        public static void StartBackupThread()
+        {
+            NotificationBackupThread.Start();
+            LW.D("\tNotificationBackupThread Started!");
+        }
 
         public static void AddToSendList(string users, string Title, string Content)
         {

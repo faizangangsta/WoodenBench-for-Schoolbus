@@ -21,10 +21,10 @@ namespace WBPlatform.Database.DBServer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LogWritter.onLog += LogWritter_onLog;
+            LW.onLog += LogWritter_onLog;
         }
 
-        private void LogWritter_onLog(LogWritter.OnLogChangedEventArgs logchange)
+        private void LogWritter_onLog(LW.OnLogChangedEventArgs logchange)
         {
             logsTextbox.Invoke(new Action(delegate
             {
@@ -64,7 +64,7 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
-                LogWritter.ErrorMessage("TIMER ERROR: " + ex.Message);
+                LW.E("TIMER ERROR: " + ex.Message);
             }
         }
     }

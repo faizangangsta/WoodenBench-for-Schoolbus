@@ -146,7 +146,7 @@ namespace WBPlatform.DesktopClient.Views
 
         private void helpTile_Click(object sender, EventArgs e)
         {
-            LogWritter.DebugMessage("Clicked the Help Button, now navigating to the help page");
+            LW.D("Clicked the Help Button, now navigating to the help page");
             Process.Start("https://www.lhy0403.top/wb-help/");
         }
 

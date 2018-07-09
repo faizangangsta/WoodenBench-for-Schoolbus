@@ -117,12 +117,15 @@ namespace WBPlatform.TableObject
                 { "HeadImagePath", HeadImagePath },
                 { "PhoneNumber", PhoneNumber },
                 { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },
+                { "Sex", Sex },
                 //UserGroup
                 { "IsBusTeacher", UserGroup.IsBusManager.ToString().ToLower() },
                 { "IsParent" ,UserGroup.IsParent.ToString().ToLower()},
                 { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
-                //{ "BusID", UserGroup.BusID },
-                { "ClassIDs", GetClassIdString(';') }
+                { "IsAdmin" , UserGroup.IsAdmin.ToString().ToLower() },
+
+                { "ClassIDs", GetChildIdString(';') },
+                { "ChildIDs", GetClassIdString(';') }
             };
         }
     }

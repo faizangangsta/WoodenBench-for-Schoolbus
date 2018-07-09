@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WBPlatform.StaticClasses
 {
-    public static class LogWritter
+    public static class LW
     {
         public class OnLogChangedEventArgs : EventArgs
         {
@@ -23,8 +23,9 @@ namespace WBPlatform.StaticClasses
         private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogType.LongChain); 
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
-        public static void DebugMessage(string Message) => WriteLog(LogType.Info, Message);
-        public static void ErrorMessage(string Message) => WriteLog(LogType.Err, Message);
+        public static void D(string Message) => WriteLog(LogType.Info, Message);
+        public static void E(string Message) => WriteLog(LogType.Err, Message);
+        public static void C() => WriteLog(LogType.LongChain);
         public static void InitLog()
         {
             LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.Ticks + ".log";
@@ -33,11 +34,14 @@ namespace WBPlatform.StaticClasses
             Fs.AutoFlush = true;
             WriteLog(LogType.Info, "Started Log...");
         }
-        public static void WriteLog(LogType level, string Message = "")
+        private static void WriteLog(LogType level, string Message = "")
         {
             string LogMsg = "";
-            if (level == LogType.LongChain) LogMsg = "=========================================================\r\n";
-            else LogMsg += $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}";
+            if (level == LogType.LongChain)
+                LogMsg = "================================================================\r\n";
+            else
+                LogMsg += $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}";
+
             Debug.Write(LogMsg);
             Console.WriteLine(LogMsg);
             char[] p = Encoding.UTF8.GetChars(Encoding.UTF8.GetBytes(LogMsg));
