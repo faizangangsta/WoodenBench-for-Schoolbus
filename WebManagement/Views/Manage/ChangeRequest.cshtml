@@ -158,7 +158,7 @@
 {
     <script>
         function getName_Callback(HTMLNode, data) {
-            if (data.ErrCode == "0") $("#" + HTMLNode).html(data.Value);
+            if (data.ErrCode == "0") $("#" + HTMLNode).html(data.ErrMessage);
         }
     </script>
     @if (isManage && !isListView)

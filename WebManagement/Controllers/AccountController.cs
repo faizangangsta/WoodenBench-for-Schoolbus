@@ -6,7 +6,7 @@ using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
 namespace WBPlatform.WebManagement.Controllers
 {
-    public class AccountController : _Controller
+    public class AccountController : ViewController
     {
         public const string ControllerName = "Account";
         public override IActionResult Index()
@@ -48,10 +48,10 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "请求所带的参数无效", user + info?.UserID);
+                    return _InternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, "请求所带的参数无效", user + info?.UserID);
                 }
             }
-            return _OnInternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token 超时或不存在，请重试", LoginUsr: user, ResponseCode: ErrorRespCode.RequestIllegal);
+            return _InternalError(ServerSideAction.Home_UserRegister, ErrorType.RequestInvalid, DetailedInfo: "Token 超时或不存在，请重试", LoginUsr: user, ResponseCode: ErrorRespCode.RequestIllegal);
         }
         public IActionResult RequestChange()
         {

@@ -12,7 +12,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/GetBuses")]
-    public class Bus_GetBusController : Controller
+    public class Bus_GetBusController : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string UserID, string Session)
@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                        case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                         default:
                             if (BusList.Count == 0)
                             {
@@ -32,7 +32,7 @@ namespace WBPlatform.WebManagement.Controllers
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].objectId), out List<StudentObject> StudentList))
                             {
-                                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                                case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                                 default:
                                     Dictionary<string, string> dict = BusList[0].ToDictionary();
                                     foreach (StudentObject item in StudentList)
@@ -51,9 +51,9 @@ namespace WBPlatform.WebManagement.Controllers
                             }
                     }
                 }
-                else return WebAPIResponseCollections.RequestIllegal;
+                else return RequestIllegal;
             }
-            else return WebAPIResponseCollections.SessionError;
+            else return SessionError;
         }
     }
 }

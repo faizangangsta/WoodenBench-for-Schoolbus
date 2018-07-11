@@ -11,19 +11,19 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:12</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:12</publishTime>
     </File>
     <File Include="Bmob-Windows.dll">
       <publishTime>04/02/2017 13:24:52</publishTime>
     </File>
     <File Include="bundleconfig.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="Connected Services/Application Insights/ConnectedService.json">
-      <publishTime>06/17/2018 23:27:57</publishTime>
+      <publishTime>06/26/2018 17:27:11</publishTime>
     </File>
     <File Include="Microsoft.AI.DependencyCollector.dll">
       <publishTime>05/21/2018 14:55:46</publishTime>
@@ -44,7 +44,7 @@
       <publishTime>05/21/2018 20:28:02</publishTime>
     </File>
     <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
-      <publishTime>11/14/2016 20:41:30</publishTime>
+      <publishTime>07/11/2018 21:09:26</publishTime>
     </File>
     <File Include="ServiceStatus.deps.json">
       <publishTime>06/15/2018 00:33:08</publishTime>
@@ -74,151 +74,151 @@
       <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll">
-      <publishTime>06/25/2018 00:39:16</publishTime>
+      <publishTime>07/11/2018 22:56:12</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.pdb">
-      <publishTime>06/25/2018 00:39:16</publishTime>
+      <publishTime>07/11/2018 22:56:12</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.runtimeconfig.json">
       <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.dll">
-      <publishTime>06/25/2018 00:39:17</publishTime>
+      <publishTime>07/11/2018 22:56:15</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.pdb">
-      <publishTime>06/25/2018 00:39:17</publishTime>
+      <publishTime>07/11/2018 22:56:15</publishTime>
     </File>
     <File Include="web.config">
       <publishTime>06/25/2018 00:39:22</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>06/25/2018 00:37:48</publishTime>
+      <publishTime>07/11/2018 22:00:56</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>06/25/2018 00:37:48</publishTime>
+      <publishTime>07/11/2018 22:00:56</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/css/site.min.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/images/banner1.svg">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/images/banner2.svg">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/images/banner3.svg">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/images/banner4.svg">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/js/site.min.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/.bower.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css.map">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/bootstrap/LICENSE">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/.bower.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/.bower.json">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
-      <publishTime>06/17/2018 23:27:58</publishTime>
+      <publishTime>06/26/2018 17:27:14</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/.bower.json">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:15</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.js">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:15</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:15</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:15</publishTime>
     </File>
     <File Include="wwwroot/lib/jquery/LICENSE.txt">
-      <publishTime>06/17/2018 23:27:59</publishTime>
+      <publishTime>06/26/2018 17:27:15</publishTime>
     </File>
   </ItemGroup>
 </Project>

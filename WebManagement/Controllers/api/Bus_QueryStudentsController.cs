@@ -12,19 +12,19 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/QueryStudents")]
-    public class QueryStudentsController : Controller
+    public class QueryStudentsController : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string BusID, string Column, string Content, string STAMP, string SALT)
         {
-            if (Cryptography.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return WebAPIResponseCollections.RequestIllegal;
+            if (Cryptography.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return RequestIllegal;
 
             DBQuery query = new DBQuery();
             query.WhereEqualTo("objectId", BusID);
             switch (DatabaseOperation.QueryMultipleData(query, out List<SchoolBusObject> BusList))
             {
-                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                case DBQueryStatus.INTERNAL_ERROR: return InternalError;
+                case DBQueryStatus.NO_RESULTS: return DataBaseError;
                 default:
                     {
                         object Equals2Obj = Content;
@@ -36,8 +36,8 @@ namespace WBPlatform.WebManagement.Controllers
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (DatabaseOperation.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {
-                            case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                            case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                            case DBQueryStatus.INTERNAL_ERROR: return InternalError;
+                            case DBQueryStatus.NO_RESULTS: return DataBaseError;
                             default:
 
                                 Dictionary<string, string> dict = new Dictionary<string, string> { { "count", StudentList.Count.ToString() } };

@@ -13,7 +13,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/admin/QueryUsers")]
-    public class Admin_QueryUsers : Controller
+    public class Admin_QueryUsers : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string columnName, string operand, string value)
@@ -36,7 +36,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         query.WhereRecordContainsValue(_column, _value);
                     }
-                    else return WebAPIResponseCollections.RequestIllegal;
+                    else return RequestIllegal;
 
                     if (DatabaseOperation.QueryMultipleData(query, out List<UserObject> users) >= 0)
                     {
@@ -47,11 +47,11 @@ namespace WBPlatform.WebManagement.Controllers
                         dict.Add("ErrMessage", "null");
                         return dict;
                     }
-                    else return WebAPIResponseCollections.DataBaseError;
+                    else return DataBaseError;
                 }
-                else return WebAPIResponseCollections.UserGroupError;
+                else return UserGroupError;
             }
-            else return WebAPIResponseCollections.SessionError;
+            else return SessionError;
         }
     }
 }

@@ -28,7 +28,7 @@
                     type: 'GET',
                     success: function (data2) {
                         if (data2.ErrCode == "0") {
-                            location.href = "/Home/Register?token=" + data2.ErrMessage + "&user=@Model.UserName&_action=" + (isCreate ? "AddPassword" : "changePassword");
+                            location.href = "/Account/Register?token=" + data2.ErrMessage + "&user=@Model.UserName&_action=" + (isCreate ? "AddPassword" : "changePassword");
                         } else {
                             alert("请求出错，请刷新页面后重试.");
                         }
@@ -74,7 +74,7 @@
         }
         <hr />
         <label>高级选项: </label> <br />
-        <button class="btn btn-danger btn-sm center-block"  style="width: 60%" onclick="removeLoginData();">完全退出用户</button>
+        <button class="btn btn-danger btn-sm center-block"  style="width: 60%" onclick="removeLoginData();">刷新用户数据</button>
 
     </div>
 </div>

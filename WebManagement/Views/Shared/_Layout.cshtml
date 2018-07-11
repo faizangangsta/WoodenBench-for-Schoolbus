@@ -53,13 +53,15 @@
         </div>
     </nav>
 
-    <script id="rm_">
+    <script>
         function rm() {
             $("#otherOptions").remove();
-            $("#rm_").remove();
         }
-        function removeOtherOperations() {
+        function removeOtherOperations(removeBtn) {
             setTimeout(rm, 500);
+            if (removeBtn) {
+                $("#navBar01_btn").remove();
+            }
         }
     </script>
     @RenderSection("Scripts", required: false)

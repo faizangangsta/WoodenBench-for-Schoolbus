@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 using WBPlatform.Database;
 using WBPlatform.StaticClasses;
@@ -12,7 +11,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/gen/GetName")]
-    public class Gen_GetName : Controller
+    public class Gen_GetName : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string UserID)
@@ -21,20 +20,20 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(UserID))
                 {
-                    return WebAPIResponseCollections.RequestIllegal; 
+                    return RequestIllegal; 
                 }
                 else
                 {
                     switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", UserID), out UserObject user))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DBQueryStatus.NO_RESULTS: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"未知用户({UserID})" } };
-                        case DBQueryStatus.MORE_RESULTS: return WebAPIResponseCollections.DataBaseError;
-                        default: return new Dictionary<string, string>() { { "ErrCode", "0" }, { "Value", $"{user.RealName}({user.objectId})" } };
+                        case DBQueryStatus.INTERNAL_ERROR:
+                        case DBQueryStatus.MORE_RESULTS: return InternalError;
+                        case DBQueryStatus.NO_RESULTS: return SpecialisedInfo($"未知用户({UserID})");
+                        default: return SpecialisedInfo($"{user.RealName}({user.objectId})");
                     }
                 }
             }
-            else return WebAPIResponseCollections.SessionError;
+            else return SessionError;
         }
     }
 }

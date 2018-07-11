@@ -9,7 +9,7 @@ using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
 namespace WBPlatform.WebManagement.Controllers
 {
-    public class ManageController : _Controller
+    public class ManageController : ViewController
     {
         public const string ControllerName = "Manage";
         public override IActionResult Index()
@@ -51,7 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         return View(_user);
                     }
-                    else return _OnInternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", user.RealName, ErrorRespCode.NotSet);
+                    else return _InternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", user.RealName, ErrorRespCode.NotSet);
                 }
                 else if (mode == "query")
                 {
@@ -85,7 +85,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["count"] = requests.Count;
                                         ViewData["list"] = requests.ToArray();
@@ -100,7 +100,7 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);
                                 }
@@ -118,7 +118,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 switch (DatabaseOperation.QueryMultipleData(new DBQuery(), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _OnInternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["list"] = requests.ToArray();
                                         return base.View();
@@ -131,18 +131,18 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _OnInternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);
                                 }
                             }
                         default:
-                            return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                            return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
                     }
                 }
                 else
                 {
-                    return _OnInternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                    return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
                 }
             }
             else

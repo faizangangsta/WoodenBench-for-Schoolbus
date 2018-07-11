@@ -2,45 +2,35 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
 using System;
 using System.Collections.Generic;
-
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement.Controllers
 {
-    public abstract class _Controller : Controller, IInternalController
+    public class WebAPIController : Controller
+    {
+        public static Dictionary<string, string> SpecialisedInfo(string Message) => new Dictionary<string, string> { { "ErrCode", "0" }, { "ErrMessage", Message } };
+        public static Dictionary<string, string> SessionError { get; } = new Dictionary<string, string> { { "ErrCode", "1" }, { "ErrMessage", "Session Invalid" } };
+        public static Dictionary<string, string> DataBaseError { get; } = new Dictionary<string, string> { { "ErrCode", "995" }, { "ErrMessage", "Database Error" } };
+        public static Dictionary<string, string> UserGroupError { get; } = new Dictionary<string, string> { { "ErrCode", "996" }, { "ErrMessage", "UserGroupError" } };
+        public static Dictionary<string, string> InternalError { get; } = new Dictionary<string, string> { { "ErrCode", "997" }, { "ErrMessage", "Internal Error" } };
+        public static Dictionary<string, string> SpecialisedError(string Message) => new Dictionary<string, string> { { "ErrCode", "998" }, { "ErrMessage", Message } };
+        public static Dictionary<string, string> RequestIllegal { get; } = new Dictionary<string, string> { { "ErrCode", "999" }, { "ErrMessage", "Request Illegal" } };
+    }
+
+    public abstract class ViewController : Controller
     {
         public abstract IActionResult Index();
-        // public HttpResponse procRespCookies(HttpResponse resp, string user, Dictionary<string, string> cookiePair)
-        // {
-        //     if (cookiePair == null || cookiePair.Count == 0)
-        //     {
-        //
-        //     }
-        //     else
-        //     {
-        //         foreach (KeyValuePair<string, string> item in cookiePair)
-        //         {
-        //             resp.Cookies.Append(item.Key, item.Value);
-        //         }
-        //     }
-        //     resp.Cookies.Append("identifiedUID", user);
-        //     return resp;
-        // }
-
         protected IActionResult _LoginFailed(string RedirectPage)
         {
             AIUnknownUser();
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
-            //Response.WriteAsync("正在登陆");
             return RedirectToAction("Index", HomeController.ControllerName);
-            //return RedirectToAction("LoginFailed", AccountController.ControllerName);
         }
 
         private static readonly string identifiedUID_CookieName = "identifiedUID";
@@ -50,7 +40,7 @@ namespace WBPlatform.WebManagement.Controllers
 
         public void AIUnknownUser() => Response.Cookies.Append(identifiedUID_CookieName, UnknownUID);
 
-        protected IActionResult _OnInternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult _InternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
             string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
             Exception ex = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
@@ -64,10 +54,11 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["RespCode"] = Response.StatusCode.ToString();
             ViewData["ErrorMessage"] = DetailedInfo;
             ViewData["RAWResp"] = Page;
+            WeChatSentMessage message = BuildWeChatPacket(LoginUsr, ViewData, Response);
+            LW.E(message.Content.Replace("\r\n", " -- "));
             if (Response.StatusCode != 200)
             {
-                string logString = BuildWeChatPacket(LoginUsr, ViewData, Response).Content.Replace("\r\n", "--");
-                LW.E(logString);
+                WeChatMessageSystem.AddToSendList(message);
             }
             return View("Error");
         }
@@ -83,12 +74,7 @@ namespace WBPlatform.WebManagement.Controllers
                 "\r\nUSR:" + LoginUsr +
                 "\r\nSTK:" + ViewData["ErrorAT"] +
                 "\r\nNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
-            WeChatMessageSystem.AddToSendList(_Message);
             return _Message;
         }
-    }
-    public interface IInternalController
-    {
-        IActionResult Index();
     }
 }

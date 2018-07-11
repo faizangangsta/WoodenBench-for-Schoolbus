@@ -13,7 +13,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/admin/ProcessUserRequest")]
-    public class Admin_ProcessUserRequest : Controller
+    public class Admin_ProcessUserRequest : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string reqId, string mode, string detail)
@@ -38,9 +38,9 @@ namespace WBPlatform.WebManagement.Controllers
                                     request.Status = UserChangeRequestProcessStatus.Refused;
                                     request.ProcessResultReason = reason;
                                     break;
-                                default: return WebAPIResponseCollections.RequestIllegal;
+                                default: return RequestIllegal;
                             }
-                            if (DatabaseOperation.UpdateData(request) != (DBQueryStatus)1) return WebAPIResponseCollections.DataBaseError;
+                            if (DatabaseOperation.UpdateData(request) != (DBQueryStatus)1) return DataBaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
                                 switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
@@ -54,21 +54,21 @@ namespace WBPlatform.WebManagement.Controllers
                                             case UserChangeRequestTypes.手机号码:
                                                 user.PhoneNumber = request.NewContent;
                                                 break;
-                                            default: return WebAPIResponseCollections.SpecialisedInfo("提交成功，部分内容需要手动修改");
+                                            default: return SpecialisedInfo("提交成功，部分内容需要手动修改");
                                         }
                                         GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Procced_TO_User, dataObject = request, user = user, objectId = request.UserID };
                                         MessagingSystem.AddMessageProcesses(message_User);
                                         break;
-                                    default: return WebAPIResponseCollections.DataBaseError;
+                                    default: return DataBaseError;
                                 }
                             }
-                            return WebAPIResponseCollections.SpecialisedInfo("提交成功");
-                        default: return WebAPIResponseCollections.DataBaseError;
+                            return SpecialisedInfo("提交成功");
+                        default: return DataBaseError;
                     }
                 }
-                else return WebAPIResponseCollections.UserGroupError;
+                else return UserGroupError;
             }
-            else return WebAPIResponseCollections.SessionError;
+            else return SessionError;
         }
     }
 }

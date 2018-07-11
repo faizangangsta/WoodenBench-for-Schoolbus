@@ -9,7 +9,7 @@ using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement.Controllers
 {
-    public class BusManagerController : _Controller
+    public class BusManagerController : ViewController
     {
         public const string ControllerName = "BusManager";
         public override IActionResult Index()
@@ -25,7 +25,7 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return _OnInternalError(ServerSideAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", user.RealName, ErrorRespCode.NotSet);
+                    return _InternalError(ServerSideAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", user.RealName, ErrorRespCode.NotSet);
                 }
             }
             else
@@ -70,7 +70,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _OnInternalError(ServerSideAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: user.UserName);
+                else return _InternalError(ServerSideAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: user.UserName);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;
                 }
-                else return _OnInternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.PermisstionDenied);
+                else return _InternalError(ServerSideAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.PermisstionDenied);
             }
             else
             {
@@ -114,9 +114,9 @@ namespace WBPlatform.WebManagement.Controllers
         {
             switch (flag)
             {
-                case DBQueryStatus.INTERNAL_ERROR: return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
                 case DBQueryStatus.MORE_RESULTS:
-                    if (isSingleRequest) _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                    if (isSingleRequest) _InternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
                     return null;
                 default: return null;
             }
@@ -134,7 +134,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(from))
                 {
-                    return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", user.UserName);
+                    return _InternalError(ServerSideAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", user.UserName);
                 }
                 AIKnownUser(user);
                 ViewData["where"] = from;
@@ -249,11 +249,11 @@ namespace WBPlatform.WebManagement.Controllers
                         {
                             return View(info);
                         }
-                        else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", user.UserName, ErrorRespCode.PermisstionDenied);
+                        else return _InternalError(ServerSideAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", user.UserName, ErrorRespCode.PermisstionDenied);
                     }
-                    else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", user.UserName, ErrorRespCode.RequestIllegal);
+                    else return _InternalError(ServerSideAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", user.UserName, ErrorRespCode.RequestIllegal);
                 }
-                else return _OnInternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.RequestIllegal);
+                else return _InternalError(ServerSideAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.RequestIllegal);
             }
 
             //Return to Home because this is privacy-related function

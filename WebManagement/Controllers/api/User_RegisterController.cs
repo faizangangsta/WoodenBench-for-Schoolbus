@@ -12,7 +12,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Register")]
-    public class User_RegisterController : Controller
+    public class User_RegisterController : WebAPIController
     {
         [HttpPost]
         public IEnumerable POST()
@@ -25,64 +25,89 @@ namespace WBPlatform.WebManagement.Controllers
             }
             if (!string.IsNullOrEmpty(dict["UserName"]))
             {
-                UserObject user = new UserObject()
+                if (dict.ContainsKey("Password"))
                 {
-                    UserName = dict["UserName"],
-                    RealName = dict["RealName"],
-                    Sex = dict["Sex"],
-                    PhoneNumber = dict["PhoneNumber"]
-                };
-                if (DatabaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
-                {
-                    MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify, dataObject = dict["table"] });
-                    Response.Redirect("/Home");
+                    if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject _cpUser))
+                    {
+                        string password = Cryptography.SHA256Encrypt(dict["Password"]);
+                        if (_cpUser.UserName == dict["UserName"])
+                        {
+                            _cpUser.Password = password;
+                            if (DatabaseOperation.UpdateData(_cpUser) == DBQueryStatus.ONE_RESULT)
+                            {
+                                Response.Redirect("/Home");
+                                Response.Cookies.Delete("Session");
+                                return "OK";
+                            }
+                            else return DataBaseError;
+                        }
+                        else return RequestIllegal;
+                    }
+                    else return SessionError;
                 }
                 else
                 {
-                    Response.Redirect("/Error");
+                    UserObject user = new UserObject()
+                    {
+                        UserName = dict["UserName"],
+                        RealName = dict["RealName"],
+                        Sex = dict["Sex"],
+                        PhoneNumber = dict["PhoneNumber"]
+                    };
+                    if (DatabaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
+                    {
+                        MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify, dataObject = dict["table"] });
+                        Response.Redirect("/Home");
+                        return "OK";
+                    }
+                    else
+                    {
+                        Response.Redirect("/Home/Error");
+                        return InternalError;
+                    }
                 }
             }
-            return "";
+            else return RequestIllegal;
         }
 
         [HttpGet]
         public IEnumerable GET(string userId, string mode)
         {
-            Response.Redirect("/Error");
+            //Response.Redirect("/Error");
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(mode)) return WebAPIResponseCollections.RequestIllegal;
-                if (userId != user.objectId) return WebAPIResponseCollections.RequestIllegal;
+                if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(mode)) return RequestIllegal;
+                if (userId != user.objectId) return RequestIllegal;
                 switch (mode)
                 {
                     case "true":
                         //Create Password
-                        if (!string.IsNullOrEmpty(user.Password))
+                        if (!string.IsNullOrWhiteSpace(user.Password))
                         {
-                            return WebAPIResponseCollections.RequestIllegal;
+                            return RequestIllegal;
                         }
                         else
                         {
                             string token = JumpTokens.CreateToken();
                             JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, Request.Headers["User-Agent"], user.UserName, 600));
-                            return WebAPIResponseCollections.SpecialisedInfo(token);
+                            return SpecialisedInfo(token);
                         }
                     case "false":
                         //Register User....
                         if (string.IsNullOrEmpty(user.Password))
                         {
-                            return WebAPIResponseCollections.RequestIllegal;
+                            return RequestIllegal;
                         }
                         else
                         {
                             string token = JumpTokens.CreateToken();
                             JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.UserRegister, Request.Headers["User-Agent"], user.UserName, 600));
-                            return WebAPIResponseCollections.SpecialisedInfo(token);
+                            return SpecialisedInfo(token);
                         }
-                    default: return WebAPIResponseCollections.RequestIllegal;
+                    default: return RequestIllegal;
                 }
             }
-            else return WebAPIResponseCollections.SessionError;
+            else return SessionError;
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 
 using WBPlatform.Database;
 using WBPlatform.StaticClasses;
@@ -12,18 +12,19 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/parent/getMyChild")]
-    public class GetMyChildController : Controller
+    public class GetMyChildController : WebAPIController
     {
         [HttpGet]
         public IEnumerable Get(string parentId)
         {
-            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return WebAPIResponseCollections.SessionError;
-            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return WebAPIResponseCollections.UserGroupError;
+            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return SessionError;
+            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return UserGroupError;
+            
             
             Dictionary<string, string> dict = new Dictionary<string, string>();
             switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereRecordContainedInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
-                case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
+                case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                 default:
                     dict.Add("count", StudentList.Count.ToString());
                     for (int i = 0; i < StudentList.Count; i++)

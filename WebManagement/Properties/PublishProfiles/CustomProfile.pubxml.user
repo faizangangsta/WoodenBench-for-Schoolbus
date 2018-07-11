@@ -53,7 +53,7 @@
       <publishTime>07/05/2018 19:51:51</publishTime>
     </File>
     <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:26</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
       <publishTime>07/05/2018 19:51:37</publishTime>
@@ -92,19 +92,19 @@
       <publishTime>11/14/2017 15:14:46</publishTime>
     </File>
     <File Include="System.Composition.AttributedModel.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:32</publishTime>
     </File>
     <File Include="System.Composition.Convention.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:32</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:32</publishTime>
     </File>
     <File Include="System.Composition.Runtime.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:32</publishTime>
     </File>
     <File Include="System.Composition.TypedParts.dll">
-      <publishTime>07/05/2018 19:51:36</publishTime>
+      <publishTime>07/11/2018 21:09:33</publishTime>
     </File>
     <File Include="System.Drawing.Common.dll">
       <publishTime>11/14/2017 15:14:46</publishTime>
@@ -113,16 +113,16 @@
       <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/09/2018 23:29:21</publishTime>
+      <publishTime>07/11/2018 23:03:03</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>07/09/2018 23:29:21</publishTime>
+      <publishTime>07/11/2018 23:03:03</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>07/09/2018 23:24:10</publishTime>
+      <publishTime>07/11/2018 23:02:04</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>07/09/2018 23:24:10</publishTime>
+      <publishTime>07/11/2018 23:02:04</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
       <publishTime>06/11/2018 14:34:26</publishTime>
@@ -131,19 +131,19 @@
       <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>07/09/2018 23:29:21</publishTime>
+      <publishTime>07/11/2018 23:03:03</publishTime>
     </File>
     <File Include="WebManagement.Views.dll">
-      <publishTime>07/09/2018 23:29:14</publishTime>
+      <publishTime>07/11/2018 23:02:05</publishTime>
     </File>
     <File Include="WebManagement.Views.pdb">
-      <publishTime>07/09/2018 23:29:14</publishTime>
+      <publishTime>07/11/2018 23:02:05</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>07/09/2018 23:23:56</publishTime>
+      <publishTime>07/11/2018 23:01:59</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>07/09/2018 23:23:56</publishTime>
+      <publishTime>07/11/2018 23:01:59</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>06/26/2018 17:27:25</publishTime>

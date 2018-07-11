@@ -14,7 +14,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Change")]
-    public class User_ChangeController : Controller
+    public class User_ChangeController : WebAPIController
     {
         [HttpGet]
         /// <summary>
@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Controllers
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
             string[] SessionVerify = STAMP.Split("_v3_");
-            if (SessionVerify.Length != 2) return WebAPIResponseCollections.RequestIllegal;
+            if (SessionVerify.Length != 2) return RequestIllegal;
             if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
                 SessionVerify[0] == Cryptography.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
             {
@@ -66,8 +66,8 @@ namespace WBPlatform.WebManagement.Controllers
                     query.WhereEqualTo("objectId", SessionUser.objectId);
                     switch (DatabaseOperation.QueryMultipleData(query, out List<UserObject> UserList))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return WebAPIResponseCollections.InternalError;
-                        case DBQueryStatus.NO_RESULTS: return WebAPIResponseCollections.DataBaseError;
+                        case DBQueryStatus.INTERNAL_ERROR: return InternalError;
+                        case DBQueryStatus.NO_RESULTS: return DataBaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
                             string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
@@ -78,9 +78,9 @@ namespace WBPlatform.WebManagement.Controllers
                             return dict;
                     }
                 }
-                else return WebAPIResponseCollections.InternalError;
+                else return InternalError;
             }
-            else return WebAPIResponseCollections.RequestIllegal;
+            else return RequestIllegal;
         }
     }
 }

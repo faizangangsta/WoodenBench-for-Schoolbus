@@ -17,7 +17,7 @@ namespace WBPlatform.TableObject
         public string Sex { get; set; }
 
         public UserGroup UserGroup;
-        
+
         public string HeadImagePath { get; set; }
         public string PhoneNumber { get; set; }
 
@@ -32,18 +32,23 @@ namespace WBPlatform.TableObject
             Sex = input.GetString("Sex");
 
             UserGroup = new UserGroup(
-                isAdmin: input.GetBool("isAdmin"), 
-                isTeacher: input.GetBool("isClassTeacher"), 
-                isBusManager: input.GetBool("isBusTeacher"), 
+                isAdmin: input.GetBool("isAdmin"),
+                isTeacher: input.GetBool("isClassTeacher"),
+                isBusManager: input.GetBool("isBusTeacher"),
                 isParent: input.GetBool("isParent"));
 
-            
+
             RealName = input.GetString("RealName");
             HeadImagePath = input.GetString("HeadImage");
             PhoneNumber = input.GetString("PhoneNumber");
 
             ClassList = input.GetList("ClassIDs");
             ChildList = input.GetList("ChildIDs");
+
+            if (string.IsNullOrWhiteSpace(HeadImagePath))
+            {
+                HeadImagePath = "default.png";
+            }
         }
 
         public override void write(DBOutput output, bool all)

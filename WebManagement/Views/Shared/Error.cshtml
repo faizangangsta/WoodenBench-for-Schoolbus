@@ -1,17 +1,6 @@
 ﻿@{
     ViewData["Title"] = "出错啦";
 }
-<script id="rm_">
-    function rm() {
-        $("#otherOptions").remove();
-        $("#rm_").remove();
-    }
-</script>
-<script id="removeme">
-    $("#Headernav").remove();
-    $("#removeme").remove();
-    setTimeout(rm, 500);
-</script>
 
 <div class="container">
     <div class="container">
@@ -22,9 +11,14 @@
         }
         else if (ViewData["RespCode"].ToString() == "200")
         {
-            <h3>系统通知</h3>
+            <h3>系统通知：</h3>
             <h4>在进行下一步操作之前</h4>
-            <h5>请联系管理员，并提供以下内容</h5>
+            <h4>请联系管理员，并提供以下内容</h4>
+        }
+        else
+        {
+            <h3>内部错误</h3>
+            <h4>应用程序出现异常，已停止响应</h4>
         }
         <hr />
         <div class="container">
@@ -42,19 +36,20 @@
             @if (ViewData["RespCode"].ToString() != "404")
             {
                 <div id="detail" class="hidden container">
-                    <strong>出现异常的位置</strong>
+                    <label>出现异常的位置</label>
                     <br />
                     <code>@ViewData["ErrorAT"]</code>
                     <br />
-                    <strong>请求时间</strong>
+                    <label>请求时间</label>
                     <br />
                     <code>@DateTime.Now.TimeOfDay.ToString()</code>
                     <br />
-                    <strong>其他参考信息</strong>
+                    <label>其他参考信息</label>
                     <br />
                     <code>@ViewData["DetailedInfo"]</code>
                 </div>
                 <script>
+                    removeOtherOperations(true);
                     function collapse() {
                         $("#detail").addClass("hidden");
                         $("#colBtn").addClass("hidden");
