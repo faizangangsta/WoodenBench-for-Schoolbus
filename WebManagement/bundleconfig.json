@@ -5,40 +5,35 @@
     "outputFileName": "wwwroot/css/WBWeb.min.css",
     // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
-      "wwwroot/css/WBWeb.css",
-      "wwwroot/css/style.css"
+      "wwwroot/dev/css/WBWeb.css",
+      "wwwroot/dev/css/bootstrap.css",
+      "wwwroot/dev/css/bootstrap-reboot.css"
     ]
   },
-
+  /////////////////////////////////////////////BOOTSTRAP  &&  JQUERY
   {
-    "outputFileName": "wwwroot/js/Services.min.js",
+    "outputFileName": "wwwroot/js/library.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js",
-      "wwwroot/SchBMgr_js/WeiXinModule.js",
-      "wwwroot/SchBMgr_js/UserActivity.js",
-      "wwwroot/SchBMgr_js/WCServicesProvider.js"
+      "wwwroot/dev/js/lib/bootstrap.js",
+      "wwwroot/dev/js/lib/jquery.js"
     ],
     // Optionally specify minification options
     "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    // Optionally generate .map file
-    "sourceMap": true
+      "enabled": true
+    }
   },
+  //JS FIlES...
   {
-    "outputFileName": "wwwroot/js/encryption.min.js",
+    "outputFileName": "wwwroot/js/service.min.js",
     "inputFiles": [
-      "wwwroot/js/Encryption/SHAHash.js",
-      "wwwroot/js/Encryption/MD5.js",
-      "wwwroot/js/Encryption/Base64.js"
+      "wwwroot/dev/js/Base64.js",
+      "wwwroot/dev/js/UserActivity.js",
+      "wwwroot/dev/js/WCServicesProvider.js"
     ],
     // Optionally specify minification options
     "minify": {
       "enabled": true,
       "renameLocals": true
-    },
-    // Optionally generate .map file
-    "sourceMap": true
+    }
   }
 ]

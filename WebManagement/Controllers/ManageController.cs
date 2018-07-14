@@ -34,8 +34,10 @@ namespace WBPlatform.WebManagement.Controllers
         }
         public IActionResult UserManage(string mode, string from, string uid, string msg)
         {
+            ViewData["where"] = ControllerName;
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
+                AIKnownUser(user);
                 if (!user.UserGroup.IsAdmin)
                 {
                     LW.E("Someone trying access illegal page!, Page: UserManage, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
@@ -64,6 +66,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
+                AIUnknownUser();
                 return _LoginFailed($"/Manage/UserManage?mode={mode}&from={from}&uid={uid}&msg={msg}");
             }
         }

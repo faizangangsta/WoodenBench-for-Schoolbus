@@ -29,6 +29,7 @@ namespace WBPlatform.Database.DBServer
             logsTextbox.Invoke(new Action(delegate
             {
                 logsTextbox.Text += logchange.LogString;
+                logsTextbox.SelectionStart = logsTextbox.Text.Length;
                 logsTextbox.ScrollToCaret();
             }));
         }

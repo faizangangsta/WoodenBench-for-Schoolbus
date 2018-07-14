@@ -113,10 +113,10 @@
       <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/11/2018 23:03:03</publishTime>
+      <publishTime>07/12/2018 22:39:06</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>07/11/2018 23:03:03</publishTime>
+      <publishTime>07/12/2018 22:39:06</publishTime>
     </File>
     <File Include="WebManagement.dll">
       <publishTime>07/11/2018 23:02:04</publishTime>
@@ -131,13 +131,13 @@
       <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>07/11/2018 23:03:03</publishTime>
+      <publishTime>07/12/2018 22:39:06</publishTime>
     </File>
     <File Include="WebManagement.Views.dll">
-      <publishTime>07/11/2018 23:02:05</publishTime>
+      <publishTime>07/12/2018 22:38:58</publishTime>
     </File>
     <File Include="WebManagement.Views.pdb">
-      <publishTime>07/11/2018 23:02:05</publishTime>
+      <publishTime>07/12/2018 22:38:58</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
       <publishTime>07/11/2018 23:01:59</publishTime>

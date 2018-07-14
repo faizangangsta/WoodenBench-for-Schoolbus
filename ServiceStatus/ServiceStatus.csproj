@@ -10,6 +10,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>WBPlatform.ServiceStatus</RootNamespace>
     <AssemblyName>WBPlatformServ_Status</AssemblyName>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>

@@ -25,6 +25,7 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
+                    AIUnknownUser();
                     return _InternalError(ServerSideAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", user.RealName, ErrorRespCode.NotSet);
                 }
             }

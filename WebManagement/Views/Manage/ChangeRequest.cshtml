@@ -32,25 +32,25 @@
             @if (isListView)
             {
                 <div class="row">
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">提交时间</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">类型</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">已审核</div>
-                    <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">查看</div>
+                    <div class="col">提交时间</div>
+                    <div class="col">类型</div>
+                    <div class="col">已审核</div>
+                    <div class="col">查看</div>
                 </div>
                 <br />
                 @foreach (var item in requests)
                 {
-                    <div class="row">
-                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                    <div class="row" style="font-size: small">
+                        <div class="col">
                             <p>@item.createdAt.ToString("yyyy-MM-dd HH:mm:ss").Replace("-", "")</p>
                         </div>
-                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                        <div class="col">
                             <p>@item.RequestTypes.ToString()</p>
                         </div>
-                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                        <div class="col">
                             <p>@(item.Status != UserChangeRequestProcessStatus.NotSolved ? "是✔" : "否❌")</p>
                         </div>
-                        <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">
+                        <div class="col">
                             <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.objectId">查看🔍</a>
                         </div>
                     </div>

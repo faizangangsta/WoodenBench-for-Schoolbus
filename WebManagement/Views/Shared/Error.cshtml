@@ -3,75 +3,79 @@
 }
 
 <div class="container">
+    @if (ViewData["RespCode"].ToString() == "404")
+    {
+        <h4>Oops..</h4>
+        <h5>你要找的东西不见了</h5>
+    }
+    else if (ViewData["RespCode"].ToString() == "200")
+    {
+        <h4>系统通知：</h4>
+        <h6>在进行下一步操作之前</h6>
+        <h6>请联系管理员，并提供以下内容</h6>
+    }
+    else
+    {
+        <h4>内部错误</h4>
+        <h5>应用程序出现异常，已停止响应</h5>
+    }
+    <hr />
     <div class="container">
+        <h6 class="text-danger">@ViewData["ErrorMessage"]</h6>
         @if (ViewData["RespCode"].ToString() == "404")
         {
-            <h3>Oops..</h3>
-            <h4>你要找的东西不见了</h4>
+            <strong> 请求URL:</strong>
+            <br />
+            <textarea class="TxBox" readonly inputmode="url" rows="5" style="overflow: scroll; scrollbar-base-color:black; width:100%">@ViewData["RAWResp"]</textarea>
         }
-        else if (ViewData["RespCode"].ToString() == "200")
+        <br />
+        <label>详细信息</label>
+        <button id="expBtn" class="btn btn-light btn-sm" onclick="expand();">展开</button>
+        <button id="colBtn" class="btn btn-light btn-sm" hidden onclick="collapse();">收起</button>
+        @if (ViewData["RespCode"].ToString() != "404")
         {
-            <h3>系统通知：</h3>
-            <h4>在进行下一步操作之前</h4>
-            <h4>请联系管理员，并提供以下内容</h4>
-        }
-        else
-        {
-            <h3>内部错误</h3>
-            <h4>应用程序出现异常，已停止响应</h4>
-        }
-        <hr />
-        <div class="container">
-            <h5 class="text-danger">@ViewData["ErrorMessage"]</h5>
-            @if (ViewData["RespCode"].ToString() == "404")
-            {
-                <strong> 请求URL:</strong>
+            <div id="detail" class="container" hidden>
+                <label>出现异常的位置</label>
                 <br />
-                <textarea class="TxBox" readonly inputmode="url" rows="5" style="overflow: scroll; scrollbar-base-color:black; width:100%">@ViewData["RAWResp"]</textarea>
-            }
-            <br />
-            <label>详细信息</label>
-            <button id="expBtn" class="btn btn-default btn-xs" onclick="expand();">展开</button>
-            <button id="colBtn" class="btn btn-default btn-xs hidden" onclick="collapse();">收起</button>
-            @if (ViewData["RespCode"].ToString() != "404")
-            {
-                <div id="detail" class="hidden container">
-                    <label>出现异常的位置</label>
-                    <br />
-                    <code>@ViewData["ErrorAT"]</code>
-                    <br />
-                    <label>请求时间</label>
-                    <br />
-                    <code>@DateTime.Now.TimeOfDay.ToString()</code>
-                    <br />
-                    <label>其他参考信息</label>
-                    <br />
-                    <code>@ViewData["DetailedInfo"]</code>
-                </div>
-                <script>
-                    removeOtherOperations(true);
-                    function collapse() {
-                        $("#detail").addClass("hidden");
-                        $("#colBtn").addClass("hidden");
-                        $("#expBtn").removeClass("hidden");
-                    }
-                    function expand() {
-                        $("#detail").removeClass("hidden");
-                        $("#expBtn").addClass("hidden");
-                        $("#colBtn").removeClass("hidden");
-                    }
-                </script>
-            }
-            <br />
-            <br />
-            <div class="row center-margin">
-                <button class="btn btn-sm btn-success" style="width: 45%" onclick="window.history.back();">返回上一页</button>
-                <button class="btn btn-sm btn-success" style="width: 45%" onclick="location.href = '/'">主页</button>
+                <code>@ViewData["ErrorAT"]</code>
+                <hr />
+                <label>请求时间</label>
+                <br />
+                <code>@DateTime.Now.TimeOfDay.ToString()</code>
+                <hr />
+                <label>其他参考信息</label>
+                <br />
+                <code>@ViewData["DetailedInfo"]</code>
             </div>
-            @if (ViewData["RespCode"].ToString() != "200")
-            {
-                <p style="font-size: 9px"><br />*为了提升服务质量，此次错误详细信息将会被提交至开发者</p>
-            }
+            <script>
+                removeOtherOperations(true);
+                function collapse() {
+                    $("#detail").attr("hidden", "");
+                    $("#colBtn").attr("hidden", "");
+                    $("#expBtn").removeAttr("hidden");
+                }
+                function expand() {
+                    $("#detail").removeAttr("hidden");
+                    $("#expBtn").attr("hidden", "");
+                    $("#colBtn").removeAttr("hidden");
+                }
+            </script>
+        }
+        <br />
+        <br />
+        <div class="container center-margin">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-sm btn-success" style="width: 100%" onclick="window.history.back();">返回上一页</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-sm btn-success" style="width: 100%" onclick="location.href = '/'">主页</button>
+                </div>
+            </div>
         </div>
+        @if (ViewData["RespCode"].ToString() != "200")
+        {
+            <p style="font-size: 9px"><br />*为了提升服务质量，此次错误详细信息将会被提交至开发者</p>
+        }
     </div>
 </div>

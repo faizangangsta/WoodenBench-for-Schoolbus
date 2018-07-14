@@ -2,12 +2,15 @@
     ViewData["Title"] = "我的账号";
 }
 @model WBPlatform.TableObject.UserObject;
+
 <div class="container">
-    <div class="container">
-        <div class="col-lg-1 col-sm-2 col-xs-4 col-lg-offset-0"><img id="UserHImg" src="#" width="64" height="64" alt="" /></div>
-        <div class="col-lg-offset-0 col-lg-3">
-            <h4 id="UserID">加载中...</h4>
-            <h5 id="BusDirection">查看我的用户信息</h5>
+    <div class="container row">
+        <div class="col col-auto">
+            <img id="UserHImg" src="#" width="64" height="64" alt="" />
+        </div>
+        <div class="col">
+            <h5 id="UserID">加载中...</h5>
+            <h6>查看我的用户信息</h6>
         </div>
     </div>
     <hr />
@@ -54,10 +57,10 @@
         <label id="techBtnlabel">其他选项：</label>
         <br />
         <button class="btn btn-warning btn-sm" onClick="location.href = '/Account/RequestChange'">申请修改用户数据</button>
-        <button class="btn btn-default btn-sm" onClick="location.href = '/Manage/ChangeRequest?arg=my'">我的工单</button>
+        <button class="btn btn-success btn-sm" onClick="location.href = '/Manage/ChangeRequest?arg=my'">我的工单</button>
         <button id="showTechinfoBtn" class="btn btn-info btn-sm" onclick="showTechinfo();">显示技术信息</button>
-        <button id="hideTechinfoBtn" class="btn btn-info btn-sm hidden" onclick="hideTechinfo();">隐藏技术信息</button>
-        <div id="innerTechInfo" class="hidden">
+        <button id="hideTechinfoBtn" class="btn btn-info btn-sm" hidden onclick="hideTechinfo();">隐藏技术信息</button>
+        <div id="innerTechInfo" hidden>
             <br />
             <label>技术信息: </label><br />
             <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
@@ -70,11 +73,13 @@
         {
             <br /> <br />
             <label>管理员选项: </label> <br />
-            <button id="enterManageZone" class="btn btn-danger btn-sm" onclick="location.href = '/Manage/'">进入管理后台</button>
+            <button id="enterManageZone" type="button" class="btn btn-danger btn-sm" onclick="location.href = '/Manage/'">进入管理后台</button>
         }
         <hr />
-        <label>高级选项: </label> <br />
-        <button class="btn btn-danger btn-sm center-block"  style="width: 60%" onclick="removeLoginData();">刷新用户数据</button>
+        <label>
+            高级选项:&nbsp;&nbsp;
+            <button class="btn btn-outline-danger btn-sm" onclick="removeLoginData();">刷新用户数据</button>
+        </label>
 
     </div>
 </div>
@@ -89,14 +94,14 @@
         $("#UserID").text("你好，" + CurrentUser.RealName);
         $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
         function showTechinfo() {
-            $("#innerTechInfo").removeClass("hidden");
-            $("#showTechinfoBtn").addClass("hidden");
-            $("#hideTechinfoBtn").removeClass("hidden");
+            $("#innerTechInfo").removeAttr("hidden");
+            $("#showTechinfoBtn").attr("hidden", "");
+            $("#hideTechinfoBtn").removeAttr("hidden");
         }
         function hideTechinfo() {
-            $("#innerTechInfo").addClass("hidden");
-            $("#showTechinfoBtn").removeClass("hidden");
-            $("#hideTechinfoBtn").addClass("hidden");
+            $("#innerTechInfo").attr("hidden", "");
+            $("#showTechinfoBtn").removeAttr("hidden");
+            $("#hideTechinfoBtn").attr("hidden", "");
         }
     }
 </script>

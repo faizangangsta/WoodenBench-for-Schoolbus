@@ -33,12 +33,12 @@ namespace WBPlatform.WebManagement.Controllers
             return RedirectToAction("Index", HomeController.ControllerName);
         }
 
-        private static readonly string identifiedUID_CookieName = "identifiedUID";
-        private static readonly string UnknownUID = "unknownUser";
+        public static readonly string UID_CookieName = "identifiedUID";
+        public static readonly string UnknownUID = "unknownUser";
 
-        public void AIKnownUser(UserObject user) => Response.Cookies.Append(identifiedUID_CookieName, user.GetIdentifiableCode());
+        public void AIKnownUser(UserObject user) => ViewData[UID_CookieName] = user.GetIdentifiableCode();
 
-        public void AIUnknownUser() => Response.Cookies.Append(identifiedUID_CookieName, UnknownUID);
+        public void AIUnknownUser() => ViewData[UID_CookieName] = UnknownUID;
 
         protected IActionResult _InternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
