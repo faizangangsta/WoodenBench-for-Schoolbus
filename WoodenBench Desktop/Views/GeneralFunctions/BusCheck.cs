@@ -50,7 +50,7 @@ namespace WBPlatform.DesktopClient.Views
             if (CurrentUser.UserGroup.IsBusManager)
             {
                 SchoolBusObject busObject = new SchoolBusObject();
-                DBQueryStatus resultX = DatabaseOperation.QueryMultipleData<SchoolBusObject>(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.objectId), out List<SchoolBusObject> result);
+                DBQueryStatus resultX = DataBaseOperation.QueryMultipleData<SchoolBusObject>(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.objectId), out List<SchoolBusObject> result);
 
                 switch (resultX)
                 {
@@ -94,7 +94,7 @@ namespace WBPlatform.DesktopClient.Views
             studentDataObjectBindingSource.Clear();
             DBQuery query = new DBQuery();
             query.WhereEqualTo("BusID", myID.Text);
-            DBQueryStatus resultX = DatabaseOperation.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
+            DBQueryStatus resultX = DataBaseOperation.QueryMultipleData<StudentObject>(query, out List<StudentObject> result);
             if (resultX >= 0)
             {
                 foreach (StudentObject item in result)
@@ -135,7 +135,7 @@ namespace WBPlatform.DesktopClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.DatabaseOperation.UpdateData(item) == DBQueryStatus.ONE_RESULT)
+                if (Database.DataBaseOperation.UpdateData(item) == DBQueryStatus.ONE_RESULT)
                 {
                     ExDescription.Text = "成功更新项：" + item.StudentName;
                 }

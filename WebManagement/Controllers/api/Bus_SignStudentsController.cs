@@ -38,7 +38,7 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery busFindQuery = new DBQuery();
             busFindQuery.WhereEqualTo("objectId", BusID);
             busFindQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (DatabaseOperation.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
+            switch (DataBaseOperation.QueryMultipleData(busFindQuery, out List<SchoolBusObject> BusList))
             {
                 case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                 case DBQueryStatus.NO_RESULTS: return DataBaseError;
@@ -48,7 +48,7 @@ namespace WBPlatform.WebManagement.Controllers
                         DBQuery _stuQuery = new DBQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);
                         _stuQuery.WhereEqualTo("BusID", BusID);
-                        switch (DatabaseOperation.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
+                        switch (DataBaseOperation.QueryMultipleData(_stuQuery, out List<StudentObject> StuList))
                         {
                             case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                             case DBQueryStatus.NO_RESULTS: return DataBaseError;
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return RequestIllegal;
-                                if (DatabaseOperation.UpdateData(stu) == DBQueryStatus.ONE_RESULT)
+                                if (DataBaseOperation.UpdateData(stu) == DBQueryStatus.ONE_RESULT)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
                                     dict.Add("ErrCode", "0");

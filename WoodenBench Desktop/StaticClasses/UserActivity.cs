@@ -35,7 +35,7 @@ namespace WBPlatform.DesktopClient.Users
             else
             {
                 NowUser.Password = Cryptography.SHA256Encrypt(NewPasswrd);
-                if (DatabaseOperation.UpdateData(NowUser, new DBQuery()
+                if (DataBaseOperation.UpdateData(NowUser, new DBQuery()
                     .WhereEqualTo("objectId", CurrentUser.objectId)
                     .WhereEqualTo("Password", Cryptography.SHA256Encrypt(OriPasswrd))
                     .WhereEqualTo("Username", CurrentUser.UserName)) == DBQueryStatus.ONE_RESULT)
@@ -65,7 +65,7 @@ namespace WBPlatform.DesktopClient.Users
             DBQuery UserNameQuery = new DBQuery();
             UserNameQuery.WhereEqualTo("Username", xUserName);
             UserNameQuery.WhereEqualTo("Password", HashedPs);
-            switch (DatabaseOperation.QuerySingleData(UserNameQuery, out user))
+            switch (DataBaseOperation.QuerySingleData(UserNameQuery, out user))
             {
                 case DBQueryStatus.INTERNAL_ERROR:
                     LW.E("Internal DataBase Error");

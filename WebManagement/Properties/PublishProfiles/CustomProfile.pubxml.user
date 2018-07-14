@@ -6,81 +6,84 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAArAQ2TaE6iUWcLKjyJIs4vQAAAAACAAAAAAAQZgAAAAEAACAAAAC+H//jvpUuEyzgnrRCMqJzZxenHogEDf2yXF1Hpo6ZlAAAAAAOgAAAAAIAACAAAAATJKVzT8Kv1vWiXbuABEUagbZ/DBTNpeh7CDOSsj7MWhAAAADzoSUH4kn12s+i9tt2TgZnQAAAACZbUjtfyixxip89RKPBqSHNYl52E28J2gO2HFYak3mtVX5Yqw2DgHnawmOLuSkqCSMZxjVTtNU0tF6pyHgfbmw=</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA4jGP+kxU5kiml1QipmVRPwAAAAACAAAAAAAQZgAAAAEAACAAAAAmL3Mm1BbnU2oAUKiS4uKlWifl0aPkiSJ+gOlbg5y1BgAAAAAOgAAAAAIAACAAAABSmmoc4AdV1LGELySSVL+XVA/6l8MELZccWwLCLldTzxAAAACAeMPy1h1KvJ1qhmv7Q3GsQAAAAJgdvMYguYCSnuSgxKOq/xEYeOWh0HfEsO5ByL0+E8i7us9HspkfiUn1odMoxxFBqYPyPTFasAQ0whmxrp+yzq4=</EncryptedPassword>
     <_PublishTargetUrl>ftp://118.190.144.179/</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>06/26/2018 17:27:25</publishTime>
+      <publishTime>07/14/2018 18:10:28</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>06/26/2018 17:27:25</publishTime>
+      <publishTime>07/14/2018 22:15:17</publishTime>
     </File>
     <File Include="Bmob-Windows.dll">
       <publishTime>04/02/2017 13:24:52</publishTime>
     </File>
     <File Include="bundleconfig.json">
-      <publishTime>06/26/2018 17:27:25</publishTime>
+      <publishTime>07/14/2018 18:57:58</publishTime>
     </File>
     <File Include="Connected Services/Application Insights/ConnectedService.json">
       <publishTime>06/26/2018 17:27:17</publishTime>
     </File>
     <File Include="dotnet-aspnet-codegenerator-design.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
+    </File>
+    <File Include="libman.json">
+      <publishTime>07/14/2018 17:20:39</publishTime>
     </File>
     <File Include="Microsoft.AI.DependencyCollector.dll">
-      <publishTime>05/21/2018 14:55:46</publishTime>
+      <publishTime>06/14/2018 10:07:44</publishTime>
     </File>
     <File Include="Microsoft.AI.PerfCounterCollector.dll">
-      <publishTime>05/21/2018 15:08:02</publishTime>
+      <publishTime>06/14/2018 10:21:02</publishTime>
     </File>
     <File Include="Microsoft.AI.ServerTelemetryChannel.dll">
-      <publishTime>05/21/2018 20:31:36</publishTime>
+      <publishTime>06/13/2018 18:24:44</publishTime>
     </File>
     <File Include="Microsoft.AI.WindowsServer.dll">
-      <publishTime>05/21/2018 15:06:18</publishTime>
+      <publishTime>06/14/2018 10:19:18</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.AspNetCore.dll">
-      <publishTime>05/23/2018 22:09:42</publishTime>
+      <publishTime>06/28/2018 17:56:38</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.dll">
-      <publishTime>05/21/2018 20:28:02</publishTime>
+      <publishTime>06/13/2018 18:22:16</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
-      <publishTime>07/05/2018 19:51:51</publishTime>
+      <publishTime>07/13/2018 21:48:42</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
-      <publishTime>07/05/2018 19:51:51</publishTime>
+      <publishTime>07/13/2018 21:48:42</publishTime>
     </File>
     <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
-      <publishTime>07/11/2018 21:09:26</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
-      <publishTime>07/05/2018 19:51:37</publishTime>
+      <publishTime>07/13/2018 21:48:29</publishTime>
     </File>
     <File Include="Newtonsoft.Json.dll">
       <publishTime>06/18/2017 13:57:10</publishTime>
     </File>
     <File Include="NuGet.Frameworks.dll">
-      <publishTime>07/05/2018 19:51:38</publishTime>
+      <publishTime>07/13/2018 21:48:31</publishTime>
     </File>
     <File Include="QRCoder.dll">
       <publishTime>04/22/2018 09:30:28</publishTime>
@@ -92,19 +95,19 @@
       <publishTime>11/14/2017 15:14:46</publishTime>
     </File>
     <File Include="System.Composition.AttributedModel.dll">
-      <publishTime>07/11/2018 21:09:32</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="System.Composition.Convention.dll">
-      <publishTime>07/11/2018 21:09:32</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
-      <publishTime>07/11/2018 21:09:32</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="System.Composition.Runtime.dll">
-      <publishTime>07/11/2018 21:09:32</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="System.Composition.TypedParts.dll">
-      <publishTime>07/11/2018 21:09:33</publishTime>
+      <publishTime>07/13/2018 21:48:28</publishTime>
     </File>
     <File Include="System.Drawing.Common.dll">
       <publishTime>11/14/2017 15:14:46</publishTime>
@@ -113,16 +116,19 @@
       <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/12/2018 22:39:06</publishTime>
+      <publishTime>07/14/2018 23:55:32</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>07/12/2018 22:39:06</publishTime>
+      <publishTime>07/14/2018 23:55:32</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>07/11/2018 23:02:04</publishTime>
+      <publishTime>07/14/2018 23:48:07</publishTime>
+    </File>
+    <File Include="WebManagement.dll.config">
+      <publishTime>07/14/2018 22:14:28</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>07/11/2018 23:02:04</publishTime>
+      <publishTime>07/14/2018 23:48:07</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
       <publishTime>06/11/2018 14:34:26</publishTime>
@@ -131,19 +137,19 @@
       <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>07/12/2018 22:39:06</publishTime>
+      <publishTime>07/14/2018 23:55:32</publishTime>
     </File>
     <File Include="WebManagement.Views.dll">
-      <publishTime>07/12/2018 22:38:58</publishTime>
+      <publishTime>07/14/2018 23:48:09</publishTime>
     </File>
     <File Include="WebManagement.Views.pdb">
-      <publishTime>07/12/2018 22:38:58</publishTime>
+      <publishTime>07/14/2018 23:48:09</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>07/11/2018 23:01:59</publishTime>
+      <publishTime>07/14/2018 23:48:04</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>07/11/2018 23:01:59</publishTime>
+      <publishTime>07/14/2018 23:48:04</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>06/26/2018 17:27:25</publishTime>
@@ -215,7 +221,532 @@
       <publishTime>06/26/2018 17:27:26</publishTime>
     </File>
     <File Include="wwwroot/css/WBWeb.min.css">
-      <publishTime>06/26/2018 17:27:26</publishTime>
+      <publishTime>07/14/2018 22:14:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-grid.css">
+      <publishTime>07/12/2018 09:22:44</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-grid.css.map">
+      <publishTime>07/12/2018 09:22:44</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-grid.min.css">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-grid.min.css.map">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-reboot.css">
+      <publishTime>07/12/2018 09:22:42</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-reboot.css.map">
+      <publishTime>07/12/2018 09:22:42</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-reboot.min.css">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap-reboot.min.css.map">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap.css">
+      <publishTime>07/12/2018 09:22:44</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap.css.map">
+      <publishTime>07/12/2018 09:22:44</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap.min.css">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/bootstrap.min.css.map">
+      <publishTime>07/12/2018 09:22:46</publishTime>
+    </File>
+    <File Include="wwwroot/dev/css/WBWeb.css">
+      <publishTime>07/14/2018 21:35:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Base64.js">
+      <publishTime>07/14/2018 17:41:25</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/aes.js">
+      <publishTime>07/14/2018 17:21:25</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/aes.min.js">
+      <publishTime>07/14/2018 17:21:25</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/aes.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/cipher-core.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/cipher-core.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/cipher-core.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/core.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/core.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/core.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/crypto-js.js">
+      <publishTime>07/14/2018 17:26:08</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/crypto-js.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/crypto-js.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-base64.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-base64.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-base64.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-hex.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-hex.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-hex.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-latin1.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-latin1.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-latin1.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf16.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf16.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf16.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf8.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf8.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/enc-utf8.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/evpkdf.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/evpkdf.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/evpkdf.min.js.map">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-hex.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-hex.min.js">
+      <publishTime>07/14/2018 17:21:26</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-hex.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-openssl.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-openssl.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/format-openssl.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-md5.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-md5.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-md5.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-ripemd160.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-ripemd160.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-ripemd160.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha1.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha1.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha1.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha224.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha224.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha224.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha256.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha256.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha256.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha3.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha3.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha3.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha384.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha384.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha384.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha512.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha512.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac-sha512.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/hmac.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/index.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/index.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/index.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/lib-typedarrays.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/lib-typedarrays.min.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/lib-typedarrays.min.js.map">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/md5.js">
+      <publishTime>07/14/2018 17:21:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/md5.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/md5.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-cfb.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-cfb.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-cfb.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr-gladman.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr-gladman.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr-gladman.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ctr.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ecb.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ecb.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ecb.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ofb.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ofb.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/mode-ofb.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-ansix923.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-ansix923.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-ansix923.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso10126.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso10126.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso10126.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso97971.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso97971.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-iso97971.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-nopadding.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-nopadding.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-nopadding.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-pkcs7.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-pkcs7.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-pkcs7.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-zeropadding.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-zeropadding.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pad-zeropadding.min.js.map">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pbkdf2.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pbkdf2.min.js">
+      <publishTime>07/14/2018 17:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/pbkdf2.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit-legacy.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit-legacy.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit-legacy.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rabbit.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rc4.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rc4.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/rc4.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/ripemd160.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/ripemd160.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/ripemd160.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha1.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha1.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha1.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha224.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha224.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha224.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha256.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha256.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha256.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha3.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha3.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha3.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha384.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha384.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha384.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha512.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha512.min.js">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/sha512.min.js.map">
+      <publishTime>07/14/2018 17:21:29</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/tripledes.js">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/tripledes.min.js">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/tripledes.min.js.map">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/x64-core.js">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/x64-core.min.js">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/Crypto-Js/x64-core.min.js.map">
+      <publishTime>07/14/2018 17:21:30</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bmob.js">
+      <publishTime>06/26/2018 17:27:27</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.bundle.js">
+      <publishTime>07/14/2018 15:23:14</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.bundle.js.map">
+      <publishTime>07/14/2018 15:23:14</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.bundle.min.js">
+      <publishTime>07/14/2018 15:23:14</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.bundle.min.js.map">
+      <publishTime>07/14/2018 15:23:14</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.js">
+      <publishTime>07/14/2018 15:23:14</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.js.map">
+      <publishTime>07/14/2018 15:23:15</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.min.js">
+      <publishTime>07/14/2018 15:23:15</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/bootstrap.min.js.map">
+      <publishTime>07/14/2018 15:23:15</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.js">
+      <publishTime>07/14/2018 15:21:21</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.min.js">
+      <publishTime>07/14/2018 15:21:21</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.min.map">
+      <publishTime>07/14/2018 15:21:21</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.slim.js">
+      <publishTime>07/14/2018 15:21:22</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.slim.min.js">
+      <publishTime>07/14/2018 15:21:22</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/lib/jquery.slim.min.map">
+      <publishTime>07/14/2018 15:21:22</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/UserActivity.js">
+      <publishTime>07/09/2018 22:44:40</publishTime>
+    </File>
+    <File Include="wwwroot/dev/js/WCServicesProvider.js">
+      <publishTime>07/14/2018 18:32:07</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
       <publishTime>06/26/2018 17:27:26</publishTime>
@@ -463,8 +994,14 @@
     <File Include="wwwroot/js/jquery.validate.unobtrusive.min.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
+    <File Include="wwwroot/js/library.min.js">
+      <publishTime>07/14/2018 22:14:28</publishTime>
+    </File>
     <File Include="wwwroot/js/npm.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
+    </File>
+    <File Include="wwwroot/js/service.min.js">
+      <publishTime>07/14/2018 22:14:28</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
       <publishTime>06/26/2018 17:27:27</publishTime>

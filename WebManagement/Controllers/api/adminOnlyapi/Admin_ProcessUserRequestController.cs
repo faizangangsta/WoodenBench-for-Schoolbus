@@ -22,7 +22,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (SessionUser.UserGroup.IsAdmin)
                 {
-                    switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
+                    switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
                         case DBQueryStatus.ONE_RESULT:
                             request.SolverID = SessionUser.objectId;
@@ -40,10 +40,10 @@ namespace WBPlatform.WebManagement.Controllers
                                     break;
                                 default: return RequestIllegal;
                             }
-                            if (DatabaseOperation.UpdateData(request) != (DBQueryStatus)1) return DataBaseError;
+                            if (DataBaseOperation.UpdateData(request) != (DBQueryStatus)1) return DataBaseError;
                             if (request.Status == UserChangeRequestProcessStatus.Accepted)
                             {
-                                switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
+                                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
                                     case DBQueryStatus.ONE_RESULT:
                                         switch (request.RequestTypes)

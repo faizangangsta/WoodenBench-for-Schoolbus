@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Controllers
                         if (_cpUser.UserName == dict["UserName"])
                         {
                             _cpUser.Password = password;
-                            if (DatabaseOperation.UpdateData(_cpUser) == DBQueryStatus.ONE_RESULT)
+                            if (DataBaseOperation.UpdateData(_cpUser) == DBQueryStatus.ONE_RESULT)
                             {
                                 Response.Redirect("/Home");
                                 Response.Cookies.Delete("Session");
@@ -54,7 +54,7 @@ namespace WBPlatform.WebManagement.Controllers
                         Sex = dict["Sex"],
                         PhoneNumber = dict["PhoneNumber"]
                     };
-                    if (DatabaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
+                    if (DataBaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
                     {
                         MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify, dataObject = dict["table"] });
                         Response.Redirect("/Home");

@@ -2,33 +2,29 @@
     ViewData["Title"] = "学生到家签到";
 }
 <div class="container">
-    <div class="container">
-        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0">
-            <img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" />
+    <div class="container row">
+        <div class="col col-auto">
+            <img id="UserHImg" src="#" width="64" height="64" alt="" />
         </div>
-        <div class="col-lg-offset-0 col-lg-3">
-            <h4 id="UserID">加载中...</h4>
-            <h5>确定学生到家了吗？</h5>
+        <div class="col">
+            <h5 id="UserID">加载中...</h5>
+            <h6>孩子到家了？</h6>
         </div>
     </div>
     <div class="container">
         <hr />
         <h4>在班车上的你的孩子(们)：</h4>
         <div class="container">
-            <div id="StudentIDs">
+            <div id="StudentIDs" style="font-size:small">
 
             </div>
         </div>
         <hr />
     </div>
-    <button id="closeme" class="hidden btn btn-success center-all" style="width:70%;" onclick="location.href = '/'">回到主页</button>
-    <div id="Signing">
+    <button id="closeme" hidden class="btn btn-success center-all" style="width:70%;" onclick="location.href = '/'">回到主页</button>
+    <div id="Signing" class="center-margin">
         <p>点击按钮，会标记以上学生为“已到家”状态</p>
         <button class="btn btn-success center-all" style="width:70%;" onclick="SignAllAsArrived();">确认到家</button>
-    </div>
-    <br />
-    <div id="bottoms" style="text-align: right">
-        <button class="btn btn-success btn-sm" onclick="location.href = '/Home/ReportBugs'">我感觉有Bug</button>
     </div>
 </div>
 
@@ -51,9 +47,10 @@
     }
     if (ChildCount == 0)
     {
-        $("#StudentIDs").append("<h3>唔。。</h3>");
-        $("#StudentIDs").append("<h3>看起来你所有的孩子都已经签到了呢</h3>");
-        $("#StudentIDs").append("<h5>emmmm或者就是这车上没有你的孩子</h5>");
+        $("#StudentIDs").append("<br />");
+        $("#StudentIDs").append("<h5>唔。。</h5>");
+        $("#StudentIDs").append("<h6>看起来你所有的孩子都已经签到了呢</h6>");
+        $("#StudentIDs").append("<h6>或者就是这车上没有你的孩子</h6>");
         $("#Signing").remove();
         $("#closeme").removeClass("hidden");
     }

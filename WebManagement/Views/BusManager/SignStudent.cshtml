@@ -2,15 +2,15 @@
     ViewData["Title"] = "学生签到";
     string SignMode = (string)ViewData["SignMode"];
     string ButtonArrays = "";
-    string LSString = "\"<div class=\\\"col-sm-3 col-lg-3 col-xs-3 col-md-3\\\"><button id=\\\"\" + TMP.StuID + \"_Leave\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Leaved ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'leave', '\" + !Leaved + \"')\\\">\" + (Leaved ? \"\u53D6\u6D88\" : \"\u79BB\u6821\") + \"</button></div>\"";
-    string CSString = "\"<div class=\\\"col-sm-3 col-lg-3 col-xs-3 col-md-3\\\"><button id=\\\"\" + TMP.StuID + \"_Come\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Came ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'come', '\" + !Came + \"')\\\">\" + (Came ? \"\u53D6\u6D88\" : \"\u8FD4\u6821\") + \"</button></div>\"";
+    string LSString = "\"<div class=\\\"col\\\"><button id=\\\"\" + TMP.StuID + \"_Leave\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Leaved ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'leave', '\" + !Leaved + \"')\\\">\" + (Leaved ? \"\u53D6\u6D88\" : \"\u79BB\u6821\") + \"</button></div>\"";
+    string CSString = "\"<div class=\\\"col\\\"><button id=\\\"\" + TMP.StuID + \"_Come\\\" style=\\\"width: 100%\\\" class=\\\"btn \" + (Came ? \"btn-success \" : \"btn-danger \") + \"btn-sm\\\" onClick=\\\"Sign('\" + TMP.StuID + \"', 'come', '\" + !Came + \"')\\\">\" + (Came ? \"\u53D6\u6D88\" : \"\u8FD4\u6821\") + \"</button></div>\"";
     if (SignMode == "LS")
     {
-        ButtonArrays = LSString.Replace("col-xs-3", "col-xs-5");
+        ButtonArrays = LSString;
     }
     else if (SignMode == "CS")
     {
-        ButtonArrays = CSString.Replace("col-xs-3", "col-xs-5");
+        ButtonArrays = CSString;
     }
     else if (SignMode == "CD")
     {
@@ -19,11 +19,13 @@
     ButtonArrays = Uri.EscapeDataString(ButtonArrays);
 }
 <div class="container">
-    <div class="container">
-        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
-        <div class="col-lg-offset-0 col-lg-3">
-            <h4 id="UserID">加载中...</h4>
-            <h5 id="BusDirection">我的校车: 加载中...</h5>
+    <div class="container row">
+        <div class="col col-auto">
+            <img id="UserHImg" src="#" width="64" height="64" alt="" />
+        </div>
+        <div class="col">
+            <h5 id="UserID">加载中...</h5>
+            <h6 id="BusDirection"></h6>
         </div>
     </div>
     <br />
@@ -41,7 +43,7 @@
         <p id="ExpNumber">校车总人数: 加载中...</p>
     </div>
     <hr>
-    <div id="Students"></div>
+    <div id="Students" class="container" style="font-size: small"></div>
 </div>
 
 <script>
@@ -108,7 +110,7 @@
                 {
                     var TMP = JSON.parse(eval("data.num_" + i));
                     var Content =
-                        "<div id='" + TMP.StuID + "' class=\"row container\"><div class=\"col-sm-7 col-lg-7 col-xs-6 col-md-7\"><h6 style='font-size:15px' class='text-underline' >" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=BusManager&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></h6></div>";
+                        "<div id='" + TMP.StuID + "' class=\"row\"><div class=\"col\"><p class='text-underline' >" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=BusManager&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></p></div>";
                     var Came = TMP.ComingChecked.toLowerCase() === "true", Leaved = TMP.LeavingChecked.toLowerCase() === "true";
                     Content = Content + eval(unescape(decodeURI("@ButtonArrays")));
                     Content = Content + "</div>";

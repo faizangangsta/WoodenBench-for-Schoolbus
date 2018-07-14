@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "我的班级";
+    ViewData["Title"] = "我的孩子";
 }
 <div class="container">
     <div class="container row">
@@ -11,18 +11,17 @@
             <h6>你的孩子们都在这里了</h6>
         </div>
     </div>
+    <hr />
     <div class="container">
-        <hr />
-
-        <h4>坐校车的孩子：</h4>
-        <h5 id="totalNum">总人数：正在加载</h5>
-        <h5 id="totalNum">（戳学生姓名可以查看详细信息）</h5>
-        <div id="StudentIDs">
+        <h6>坐校车总人数：<span id="totalNum">正在加载</span></h6>
+        <small>提示：点击姓名可以查看详细信息</small>
+        
+        <div id="StudentIDs" style="font-size:small">
             <div class="row">
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">孩子姓名</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">离校</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">到家</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">返校</div>
+                <div class="col">孩子姓名</div>
+                <div class="col">离校</div>
+                <div class="col">到家</div>
+                <div class="col">返校</div>
             </div>
             <hr />
         </div>
@@ -39,7 +38,7 @@
         $("#UserHImg").prop("src", "https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath);
 
     function GetStudentsCallback(data) {
-        $("#totalNum").text("总人数：" + data.count + "人");
+        $("#totalNum").text(data.count + "人");
         for (var i = 0; i < data.count; i++) {
             var TMP = JSON.parse(eval("data.num_" + i));
             var Came = TMP.ComingChecked.toLowerCase() === "true";
@@ -47,10 +46,10 @@
             var CHome = TMP.ParentLeavingChecked.toLowerCase() === "true";
             var fff =
                 "<div id='" + TMP.StuID + "' class=\"row\">" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3 text-underline\">" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=MyChild&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\"\">" + (Leaved ? "&nbsp;✔" : "&nbsp;❌") + "</div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (CHome ? "&nbsp;✔" : "&nbsp;❌") + "</div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (Came ? "&nbsp;✔" : "&nbsp;❌") + "</div>";
+                "<div class=\"col text-underline\">" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=MyChild&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></div>" +
+                "<div class=\"col\">" + (Leaved ? "&nbsp;✔" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col\">" + (CHome ? "&nbsp;✔" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col\">" + (Came ? "&nbsp;✔" : "&nbsp;❌") + "</div>";
             $("#StudentIDs").append(fff);
             $("#StudentIDs").append("<br />");
         }

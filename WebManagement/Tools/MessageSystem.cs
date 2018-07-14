@@ -84,7 +84,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                 case GlobalMessageTypes.UCR_Procced_TO_User:
                     {
-                        switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
+                        switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.objectId), out UserObject requestSender))
                         {
                             case DBQueryStatus.ONE_RESULT:
                                 string stat = (((UserChangeRequest)message.dataObject).Status) == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "未通过";
@@ -129,7 +129,7 @@ namespace WBPlatform.WebManagement.Tools
             }
         }
 
-        private static DBQueryStatus GetAdminUsers(out List<UserObject> adminUsers) => DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("isAdmin", true), out adminUsers);
+        private static DBQueryStatus GetAdminUsers(out List<UserObject> adminUsers) => DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("isAdmin", true), out adminUsers);
     }
     public class GlobalMessage
     {

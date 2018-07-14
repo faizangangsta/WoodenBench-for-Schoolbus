@@ -4,46 +4,44 @@
     ViewData["Title"] = "修改工单提交";
 }
 <div class="container">
-    <h3>修改数据</h3>
-    <h5>提交工单，审核过后即可修改成功</h5>
+    <h4>修改数据</h4>
+    <h6>提交工单，审核过后即可修改成功</h6>
     <hr />
-    <div class="row container">
-        <div class="col-md-4">
-            <form asp-action="RequestChange">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label>要更改的数据</label>
-                    <select id="selection" asp-for="RequestTypes" class="form-control">
-                        @{
-                            string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UserChangeRequestTypes));
-                            foreach (string item in p)
-                            {
-                                <option>@item</option>
-                            }
+    <div class="container">
+        <form asp-action="RequestChange">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label>要更改的数据</label>
+                <select id="selection" asp-for="RequestTypes" class="form-control">
+                    @{
+                        string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UserChangeRequestTypes));
+                        foreach (string item in p)
+                        {
+                            <option>@item</option>
                         }
-                    </select>
+                    }
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <label>简要说明更改原因</label>
+                <input type="text" asp-for="DetailTexts" class="form-control" />
+                <span asp-validation-for="DetailTexts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>输入新内容</label>
+                <input asp-for="NewContent" class="form-control" />
+                <span asp-validation-for="NewContent" class="text-danger"></span>
+            </div>
+            <div class="form-group center-all row">
+                <div class="col">
+                    <button asp-action="RequestChange" type="submit" id="toBeHidden" style="width: 100%" class="btn btn-sm btn-success" onclick="setTimeout(function () { $('#toBeHidden').remove(); }, 100)">提交申请</button>
                 </div>
-                <br />
-                <div class="form-group">
-                    <label>简要说明更改原因</label>
-                    <input type="text" asp-for="DetailTexts" class="form-control" />
-                    <span asp-validation-for="DetailTexts" class="text-danger"></span>
+                <div class="col">
+                    <button class="btn btn-sm btn-danger" style="width: 100%" asp-action="Index" onclick="$('#toBeHidden').remove();">放弃申请</button>
                 </div>
-                <div class="form-group">
-                    <label>输入新内容</label>
-                    <input asp-for="NewContent" class="form-control" />
-                    <span asp-validation-for="NewContent" class="text-danger"></span>
-                </div>
-                <div class="form-group center-all">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <button asp-action="RequestChange" type="submit" id="toBeHidden" style="width: 100%" class="btn btn-sm btn-success" onclick="setTimeout(function () { $('#toBeHidden').remove(); }, 100)">提交申请</button>
-                    </div>
-                    <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <button class="btn btn-sm btn-danger" style="width: 100%" asp-action="Index"onclick="$('#toBeHidden').remove();">放弃申请</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 

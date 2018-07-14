@@ -82,8 +82,11 @@ namespace WBPlatform.Database.Connection
             if (Connected)
             {
                 byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(MessageId + sendMsg);
-                ns.Write(arrClientSendMsg, 0, arrClientSendMsg.Length);
-                
+                lock (ns)
+                {
+                    ns.Write(arrClientSendMsg, 0, arrClientSendMsg.Length);
+                }
+
                 while (true)
                 {
                     if (_messages.ContainsKey(MessageId))

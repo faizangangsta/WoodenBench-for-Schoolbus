@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
             DBQuery BusQuery = new DBQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
-            switch (DatabaseOperation.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
+            switch (DataBaseOperation.QueryMultipleData(BusQuery, out List<SchoolBusObject> BusList))
             {
                 case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                 default:
@@ -36,7 +36,7 @@ namespace WBPlatform.WebManagement.Controllers
                         DBQuery StudentQuery = new DBQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        switch (DatabaseOperation.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
+                        switch (DataBaseOperation.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
                         {
                             case DBQueryStatus.INTERNAL_ERROR: return DataBaseError;
                             default:

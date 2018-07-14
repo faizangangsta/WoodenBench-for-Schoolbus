@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
                 AIKnownUser(user);
                 if (user.UserGroup.IsClassTeacher && user.ClassList.Count > 0)
                 {
-                    switch (DatabaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
+                    switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
                     {
                         case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerSideAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", user.UserName, ErrorRespCode.InternalError);
                         case DBQueryStatus.NO_RESULTS: return _InternalError(ServerSideAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", user.UserName);

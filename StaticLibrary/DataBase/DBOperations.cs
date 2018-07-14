@@ -12,7 +12,7 @@ using WBPlatform.StaticClasses;
 
 namespace WBPlatform.Database
 {
-    public static class DatabaseOperation
+    public static class DataBaseOperation
     {
         private static readonly object LOCKER = new object();
         //private static string QueryToken = "";

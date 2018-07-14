@@ -59,7 +59,7 @@ namespace WBPlatform.DesktopClient.Views
 
         private void loadMessage_Click(object sender, EventArgs e)
         {
-            if (Database.DatabaseOperation.QueryMultipleData(new DBQuery(), out List<NotificationObject> list) >= 0)
+            if (Database.DataBaseOperation.QueryMultipleData(new DBQuery(), out List<NotificationObject> list) >= 0)
             {
                 listView1.Items.Clear();
                 NotificationLists.Clear();

@@ -2,16 +2,18 @@
     ViewData["Title"] = "学生到家签到";
 }
 <div class="container">
-    <div class="container">
-        <div class="col-lg-1 col-sm-2 col-xs-5 col-lg-offset-0"><img id="UserHImg" src="/Backgrounds/404err.gif" width="64" height="64" alt="" /></div>
-        <div class="col-lg-offset-0 col-lg-3">
-            <h4 id="UserID">加载中...</h4>
-            <h5 id="BusDirection">我的校车: 加载中...</h5>
+    <div class="container row">
+        <div class="col col-auto">
+            <img id="UserHImg" src="#" width="64" height="64" alt="" />
+        </div>
+        <div class="col">
+            <h5 id="UserID">加载中...</h5>
+            <h6 id="BusDirection"></h6>
         </div>
     </div>
     <br>
     <div id="codeArea">
-        <div id="hints" class="hidden">
+        <div id="hints" hidden>
             <p>提醒：</p>
             <p>你可以打印出以下图片，并放到校车挡风玻璃或其他</p>
             <p>醒目位置，并提醒家长及时扫码确认学生到家。</p>
@@ -30,7 +32,7 @@
         <p id="AHChecked">到家确认人数: 加载中...</p>
     </div>
     <div class="text-center container">
-        <button id="GenCode" hidden class="btn btn-md btn-success hidden" onclick="GenCode()">生成签到二维码</button>
+        <button id="GenCode" hidden class="btn btn-md btn-success" onclick="GenCode()">生成签到二维码</button>
     </div>
 </div>
 <script>
@@ -66,7 +68,7 @@
             $("#ExpNumber").text("校车总人数: " + CurrentBus.Total);
             $("#AHChecked").text("到家确认人数: " + CurrentBus.AHChecked);
             $("#BusDirection").text("我的校车: " + CurrentBus.Name);
-            $("#GenCode").removeClass("hidden");
+            $("#GenCode").removeAttr("hidden");
             if (CurrentBus.Total == CurrentBus.AHChecked)
             {
                 alert("恭喜！所有学生都确认到家了");
@@ -84,7 +86,7 @@
         {
             $("#Code").prop("src", location.protocol + "//" + location.host + "/api/QRCode?Data=" + CurrentBus.BusID + ";" + CurrentUser.userID);
             $("#GenCode").remove();
-            $("#hints").removeClass("hidden");
+            $("#hints").removeAttr("hidden");
         }
     }
 </script>

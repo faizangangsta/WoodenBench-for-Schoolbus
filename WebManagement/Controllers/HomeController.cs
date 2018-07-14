@@ -55,6 +55,7 @@ namespace WBPlatform.WebManagement.Controllers
         /// <returns>Bug Report Form </returns> 
         public IActionResult ReportBugs()
         {
+            AIUnknownUser();
             ViewData["where"] = ControllerName;
             return View();
         }

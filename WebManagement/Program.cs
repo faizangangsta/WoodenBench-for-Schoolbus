@@ -28,7 +28,7 @@ namespace WBPlatform.WebManagement
             StatusMonitor.StartMonitorThread();
             LW.D("Monitor Thread: Active");
             WeChat.ReNewWCCodes();
-            DatabaseOperation.InitialiseClient(IPAddress.Loopback);
+            DataBaseOperation.InitialiseClient(IPAddress.Loopback);
             LW.D("Initialising WeChat Data Packet Encryptor.....");
             WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
 

@@ -13,15 +13,14 @@
     </div>
     <div class="container">
         <hr />
-        <span>我管理的班级：@ViewData["ClassName"].ToString()</span>
-        <h4>坐校车的孩子：</h4>
-        <h5 id="totalNum">总人数：正在加载</h5>
-        <div id="StudentIDs">
+        <p>我的班级：@ViewData["ClassName"].ToString()</p>
+        <p id="totalNum">坐校车学生人数：正在加载</p>
+        <div id="StudentIDs" style="font-size:small">
             <div class="row">
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">学生姓名</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">离校签到</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">到家签到</div>
-                <div class="col-sm-3 col-lg-3 col-xs-3 col-md-3">返校签到</div>
+                <div class="col">学生姓名</div>
+                <div class="col">离校签到</div>
+                <div class="col">到家签到</div>
+                <div class="col">返校签到</div>
             </div>
             <hr />
         </div>
@@ -37,7 +36,7 @@
 
     function GetStudentsCallback(data)
     {
-        $("#totalNum").text("总人数：" + data.count + "人");
+        $("#totalNum").text("坐校车学生人数：" + data.count + "人");
         for (var i = 0; i < data.count; i++)
         {
             var TMP = JSON.parse(eval("data.num_" + i));
@@ -46,10 +45,10 @@
             var CHome = TMP.ParentLeavingChecked.toLowerCase() === "true";
             var fff =
                 "<div id='" + TMP.StuID + "' class=\"row\">" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3 text-underline\">" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=ClassManager&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\"\">" + (Leaved ? "完成😊" : "&nbsp;❌") + "</div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (CHome ? "完成😊" : "&nbsp;❌") + "</div>" +
-                "<div class=\"col-sm-3 col-lg-3 col-xs-3 col-md-3\">" + (Came ? "完成😊" : "&nbsp;❌") + "</div>";
+                "<div class=\"col text-underline\">" + "<a href=\"/BusManager/ViewStudent?StudentID=" + TMP.StuID + "&ClassID=" + TMP.ClassID + "&from=ClassManager&BusID=" + TMP.BusID + "\">" + TMP.Name + "</a></div>" +
+                "<div class=\"col\"\">" + (Leaved ? "完成😊" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col\">" + (CHome ? "完成😊" : "&nbsp;❌") + "</div>" +
+                "<div class=\"col\">" + (Came ? "完成😊" : "&nbsp;❌") + "</div>";
             $("#StudentIDs").append(fff);
             $("#StudentIDs").append("<br />");
         }

@@ -22,24 +22,25 @@
 
     <!--This is Function Choosing Part-->
     <h5 class="container">请选择功能：</h5>
-    <div class="center-all">
-        <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-success center-all" style="width: 100%" onClick="SignStudents('LS');">离校签到</button>
+    <div class="container">
+        <div class="center-all row">
+            <div class="col">
+                <button class="btn btn-sm btn-success center-all" style="width: 100%" onClick="SignStudents('LS');">离校签到</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-sm btn-info center-all" style="width: 100%" onClick="location.href='/BusManager/ArriveHomeScan'">到家确认扫码</button>
+            </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-info btn-md center-all" style="width: 100%" onClick="location.href='/BusManager/ArriveHomeScan'">到家确认扫码</button>
-        </div>
+        <br />
+        <div class="center-all row">
+            <div class="col">
+                <button class="btn btn-sm btn-warning center-all" style="width: 100%" onClick="SignStudents('CS');">返校签到</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-sm btn-danger center-all" style="width: 100%" onClick="SignStudents('CD');">修改数据</button>
+            </div>
+        </div><br />
     </div>
-    <br />
-    <br />
-    <div class="center-all">
-        <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-warning center-all" style="width: 100%" onClick="SignStudents('CS');">返校签到</button>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-danger btn-md center-all" style="width: 100%" onClick="SignStudents('CD');">修改数据</button>
-        </div>
-    </div><br />
 
 </div>
 

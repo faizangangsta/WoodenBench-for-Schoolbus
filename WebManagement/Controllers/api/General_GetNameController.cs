@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    switch (DatabaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", UserID), out UserObject user))
+                    switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", UserID), out UserObject user))
                     {
                         case DBQueryStatus.INTERNAL_ERROR:
                         case DBQueryStatus.MORE_RESULTS: return InternalError;

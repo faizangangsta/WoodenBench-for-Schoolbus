@@ -24,7 +24,9 @@ namespace WBPlatform.StaticClasses
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
         public static void D(string Message) => WriteLog(LogType.Info, Message);
+        public static void D(object Message) => WriteLog(LogType.Info, Message.ToString());
         public static void E(string Message) => WriteLog(LogType.Err, Message);
+        public static void E(object Message) => WriteLog(LogType.Err, Message.ToString());
         public static void C() => WriteLog(LogType.LongChain);
         public static void InitLog()
         {
