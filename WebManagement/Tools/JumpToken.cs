@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Tools
         {
             lock (JumpToken)
             {
-                if ((JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds < 0)) return false;
+                if (JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds < 0) return false;
                 JumpToken.Add(Token, tokenInfo);
             }
             return true;

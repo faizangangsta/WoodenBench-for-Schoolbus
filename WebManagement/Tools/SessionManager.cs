@@ -12,7 +12,7 @@ namespace WBPlatform.WebManagement.Tools
         public static int GetCount { get => __SessionCollection.Count; }
         private static Dictionary<string, SessionInfo> __SessionCollection = new Dictionary<string, SessionInfo>();
 
-        private static string _GeSessionString(UserObject LogonUser, string UA)
+        private static string _GetSessionString(UserObject LogonUser, string UA)
             => Cryptography.SHA512Encrypt(
                 Cryptography.RandomString(10, true) +
                 LogonUser.UserName +
@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Tools
 
         public static string RenewSession(string SessionString, string UserAgent, UserObject sessionInfo)
         {
-            string _Str = _GeSessionString(sessionInfo, UserAgent);
+            string _Str = _GetSessionString(sessionInfo, UserAgent);
             lock (__SessionCollection)
             {
                 if (__SessionCollection.ContainsKey(SessionString))
@@ -73,7 +73,10 @@ namespace WBPlatform.WebManagement.Tools
             WeChat.ReNewWCCodes();
             LogonUser = null;
             Dictionary<string, string> JSON = PublicTools.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + Code);
-            if (!JSON.ContainsKey("UserId")) return null;
+            if (!JSON.ContainsKey("UserId"))
+            {
+                return null;
+            }
             string WeiXinID = JSON["UserId"];
             switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
             {
@@ -90,7 +93,7 @@ namespace WBPlatform.WebManagement.Tools
 
         private static string Login_Core(string UserAgent, object LogonUser)
         {
-            string SessionString = _GeSessionString((UserObject)LogonUser, UserAgent);
+            string SessionString = _GetSessionString((UserObject)LogonUser, UserAgent);
             lock (__SessionCollection)
             {
                 __SessionCollection.Add(SessionString, new SessionInfo()
@@ -101,10 +104,6 @@ namespace WBPlatform.WebManagement.Tools
                 });
                 return SessionString;
             }
-        }
-        internal static string JumpToken_Login()
-        {
-            return "";
         }
     }
 }

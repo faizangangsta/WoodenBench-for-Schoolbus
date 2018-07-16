@@ -22,12 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStatus", "ServiceSta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseServer", "DataBaseServer\DataBaseServer.csproj", "{99503638-50BB-4820-B65B-85E1481AEEF5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{037890E3-3AF5-449A-8E83-E559BE79CBFE}"
-	ProjectSection(SolutionItems) = preProject
-		.filenesting.json = .filenesting.json
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug_Tool", "Debug_Tool\Debug_Tool.csproj", "{FA742C25-EA81-4FBE-945F-CD5EEF4357D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug_Tool", "Debug_Tool\Debug_Tool.csproj", "{FA742C25-EA81-4FBE-945F-CD5EEF4357D1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{99503638-50BB-4820-B65B-85E1481AEEF5} = {99503638-50BB-4820-B65B-85E1481AEEF5}
 	EndProjectSection

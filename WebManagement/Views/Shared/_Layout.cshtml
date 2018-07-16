@@ -29,9 +29,11 @@
         <script src="~/dev/js/UserActivity.js" asp-append-version="true"></script>
         <script src="~/dev/js/WCServicesProvider.js" asp-append-version="true"></script>
     </environment>
+
     <environment exclude="Development">
         <link href="~/css/WBWeb.min.css" rel="stylesheet" asp-append-version="true" />
         <script src="~/js/library.min.js" asp-append-version="true"></script>
+        <script src="~/js/crpto-js.min.js" asp-append-version="true"></script>
         <script src="~/js/service.min.js" asp-append-version="true"></script>
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)

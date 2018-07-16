@@ -87,16 +87,8 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 AIKnownUser(user);
                 ViewData["cUser"] = user.ToString();
-                if (user.UserGroup.IsBusManager)//&& (!string.IsNullOrEmpty(user.UserGroup.BusID) || (user.UserGroup.BusID != "0")))
+                if (user.UserGroup.IsBusManager)
                 {
-                    /// TEST
-                    /// 
-                    /// 
-                    /// 
-                    /// 
-                    /// 
-                    ///
-
                     DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.objectId), out SchoolBusObject busObject);
                     ViewData["cBus"] = busObject.objectId;
                     ViewData["cTeacher"] = user.objectId;

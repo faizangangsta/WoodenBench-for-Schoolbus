@@ -147,10 +147,13 @@ namespace WBPlatform.Database
                 {
                     inputs = null;
                     dbStatus = null;
+                    
                     throw new InvalidOperationException("Database is not connected currently...");
                 }
                 reply = DBInternalReply.FromJSONString(rcvdData);
                 if (reply == null) throw new ArgumentNullException("DBInternalReply", "Database Result null");
+
+                // THERE ARE SOME SPECIAL REPLY CODE....
                 switch (reply.Result.DBResultCode)
                 {
                     case DBQueryStatus.INJECTION_DETECTED:
@@ -158,6 +161,7 @@ namespace WBPlatform.Database
                     case DBQueryStatus.INTERNAL_ERROR:
                         throw new DataBaseException("Database Server Internal Error", DBQueryStatus.INTERNAL_ERROR, reply.Result.Exception);
                 }
+
                 switch (operation)
                 {
                     case DBVerbs.QueryMulti:
@@ -175,7 +179,10 @@ namespace WBPlatform.Database
                         if (operation == DBVerbs.QuerySingle)
                         {
                             //Allow No results....
-                            inputs = singleResult.Count == 0 ? new DBInput[0] : new DBInput[] { new DBInput(singleResult[0]) };
+                            inputs = 
+                                singleResult.Count == 0 
+                                ? new DBInput[0] 
+                                : new DBInput[] { new DBInput(singleResult[0]) };
                         }
                         else
                         {

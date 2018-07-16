@@ -3,7 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,10 +14,12 @@ using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement
 {
-    public class Program
+    public static class Program
     {
         public static string Version { get; private set; }
         public static DateTime StartUpTime { get; private set; }
+        public static Task WebServerTask { get; private set; }
+        public static CancellationTokenSource ServerStopToken { get; private set; } = new CancellationTokenSource();
         public static void Main(string[] args)
         {
             LW.InitLog();
@@ -41,7 +44,9 @@ namespace WBPlatform.WebManagement
             var webHost = BuildWebHost(args);
             LW.D("Starting WebHost....");
             LW.C();
-            webHost.Run();
+            WebServerTask = webHost.RunAsync(ServerStopToken.Token);
+            WebServerTask.Wait();
+            LW.E("WebServer Stoped! Cancellation Token = " + ServerStopToken.IsCancellationRequested);
         }
 
         public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)

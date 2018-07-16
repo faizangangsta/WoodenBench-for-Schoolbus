@@ -28,6 +28,7 @@ namespace WBPlatform.WebManagement
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
+            app.UseCors();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

@@ -44,103 +44,104 @@ namespace WBPlatform.Database.DBServer
                     continue;
                 }
 
-                //获取客户端的IP和端口号  
+                //获取客户端的IP和端口号
                 IPAddress clientIP = (connection.RemoteEndPoint as IPEndPoint).Address;
                 int clientPort = (connection.RemoteEndPoint as IPEndPoint).Port;
 
-                //客户端网络结点号  
+                //客户端网络结点号
                 string remoteEndPoint = connection.RemoteEndPoint.ToString();
                 //显示与客户端连接情况
-                LW.D("成功与" + remoteEndPoint + "客户端建立连接!");
+                LW.D("Socceed Connected to " + remoteEndPoint);
                 //添加客户端信息  
                 clientConnectionItems.Add(remoteEndPoint, connection);
-                
+
                 IPEndPoint netpoint = connection.RemoteEndPoint as IPEndPoint;
 
-                //创建一个通信线程      
+                //创建一个通信线程
                 ParameterizedThreadStart pts = new ParameterizedThreadStart(Recv);
                 Thread thread = new Thread(pts)
                 {
-                    //设置为后台线程，随着主线程退出而退出 
+                    //设置为后台线程，随着主线程退出而退出
                     IsBackground = true
                 };
-                //启动线程     
+                //启动线程
                 thread.Start(connection);
             }
         }
 
         private static void Recv(object socketclientpara)
         {
-            Socket socket = socketclientpara as Socket;
-            byte[] arrServerRecMsg;
+            Socket baseSocket = socketclientpara as Socket;
+            NetworkStream stream = new NetworkStream(baseSocket);
+            string remoteEP = baseSocket.RemoteEndPoint.ToString();
 
             while (true)
             {
                 string _MessageId = "";
                 try
                 {
-                    arrServerRecMsg = new byte[1024 * 1024];
-                    int length = socket.Receive(arrServerRecMsg);
-                    string requestString = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
-                    arrServerRecMsg = null;
+                    string requestString = PublicTools.DecodeMessage(stream);
 
                     _MessageId = requestString.Substring(0, 5);
                     requestString = requestString.Substring(5);
 
-                    if (clientQueryStrings.ContainsKey(socket.RemoteEndPoint.ToString()))
+                    if (clientQueryStrings.ContainsKey(remoteEP))
                     {
-                        clientQueryStrings[socket.RemoteEndPoint.ToString()] = requestString;
+                        clientQueryStrings[remoteEP] = requestString;
                     }
                     else
                     {
-                        clientQueryStrings.Add(socket.RemoteEndPoint.ToString(), requestString);
+                        clientQueryStrings.Add(remoteEP, requestString);
                     }
 
                     if (requestString == "openConnection")
                     {
-                        LW.D("C: Recieve an OpenConnection Request, from " + socket.RemoteEndPoint.ToString());
-                        byte[] arrSendMsg = Encoding.UTF8.GetBytes(_MessageId + socket.RemoteEndPoint.ToString());
-                        socket.Send(arrSendMsg);
-                        LW.D("C: Replied an OpenConnection Request, to " + socket.RemoteEndPoint.ToString());
+                        LW.D("C: Recieve an OpenConnection Request, from " + remoteEP);
+                        byte[] arrSendMsg = PublicTools.EncodeMessage(_MessageId, remoteEP);
+                        stream.Write(arrSendMsg, 0, arrSendMsg.Length);
+                        LW.D("C: Replied an OpenConnection Request, to " + remoteEP);
                     }
                     else if (requestString == "HeartBeat")
                     {
-                        LW.D("B: Recieve a HearBeat, from " + socket.RemoteEndPoint.ToString());
+                        LW.D("B: Recieve a HearBeat, from " + remoteEP);
                         DateTime senttime = DateTime.Parse(requestString.Substring(9));
                         DateTime replyTime = DateTime.Now;
-                        byte[] arrSendMsg = Encoding.UTF8.GetBytes(_MessageId + replyTime.ToString());
-                        socket.Send(arrSendMsg);
-                        LW.D("C: Replied a HearBeat, to " + socket.RemoteEndPoint.ToString());
+                        byte[] arrSendMsg = PublicTools.EncodeMessage(_MessageId, replyTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                        stream.Write(arrSendMsg, 0, arrSendMsg.Length);
+                        LW.D("C: Replied a HearBeat, to " + remoteEP);
                     }
                     else
                     {
-                        LW.D("Q: " + socket.RemoteEndPoint.ToString() + " :: " + requestString);
+                        LW.D("Q: " + remoteEP + " :: " + requestString);
                         //Main Entry........
                         string returnStr = DatabaseCore.ProcessRequest(requestString);
-                        socket.Send(Encoding.UTF8.GetBytes(_MessageId + returnStr));
-                        LW.D("P: " + socket.RemoteEndPoint.ToString() + " :: " + returnStr);
+                        byte[] arrSendMsg = PublicTools.EncodeMessage(_MessageId, returnStr);
+                        stream.Write(arrSendMsg, 0, arrSendMsg.Length);
+                        LW.D("P: " + remoteEP + " :: " + returnStr);
                     }
                 }
                 catch (SocketException ex)
                 {
                     LW.D("Client Count:" + clientConnectionItems.Count);
-                    LW.E("Client " + socket.RemoteEndPoint + " drops the connection. " + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
-                  
-                    clientConnectionItems.Remove(socket.RemoteEndPoint.ToString());
-                    clientQueryStrings.Remove(socket.RemoteEndPoint.ToString());
-                    socket.Disconnect(true);
-                    socket.Close();
-                    socket.Dispose();
-                    socket = null;
+                    LW.E("Client " + remoteEP + " drops the connection. " + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
+
+                    clientConnectionItems.Remove(remoteEP);
+                    clientQueryStrings.Remove(remoteEP);
+                    baseSocket.Disconnect(true);
+                    baseSocket.Close();
+                    baseSocket.Dispose();
+                    baseSocket = null;
                     break;
                 }
                 catch (Exception ex)
                 {
                     LW.D("Exception Occured! " + ex.Message);
-                    socket.Send(Encoding.UTF8.GetBytes(_MessageId + "Exception " + ex.Message));
+                    byte[] arrSendMsg = PublicTools.EncodeMessage(_MessageId, "Exception " + ex.Message);
+                    stream.Write(arrSendMsg, 0, arrSendMsg.Length);
                 }
             }
             LW.E("A Socket Recieve Thread Stoped! ");
         }
+
     }
 }

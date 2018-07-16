@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -24,6 +25,7 @@ namespace WBPlatform.WebManagement.Controllers
 
     public abstract class ViewController : Controller
     {
+        private TelemetryClient telemetry = new TelemetryClient();
         public abstract IActionResult Index();
         protected IActionResult _LoginFailed(string RedirectPage)
         {
@@ -36,9 +38,17 @@ namespace WBPlatform.WebManagement.Controllers
         public static readonly string UID_CookieName = "identifiedUID";
         public static readonly string UnknownUID = "unknownUser";
 
-        public void AIKnownUser(UserObject user) => ViewData[UID_CookieName] = user.GetIdentifiableCode();
+        public void AIKnownUser(UserObject user)
+        {
+            telemetry.Context.User.AccountId = user.UserName;
+            telemetry.Context.User.Id = user.UserName;
+            ViewData[UID_CookieName] = user.GetIdentifiableCode();
+        }
 
-        public void AIUnknownUser() => ViewData[UID_CookieName] = UnknownUID;
+        public void AIUnknownUser()
+        {
+            ViewData[UID_CookieName] = UnknownUID;
+        }
 
         protected IActionResult _InternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {

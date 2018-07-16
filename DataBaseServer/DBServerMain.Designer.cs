@@ -41,6 +41,7 @@
             this.logsTextbox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.clientEnumTimer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             this.listView1.Location = new System.Drawing.Point(12, 17);
             this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(819, 344);
+            this.listView1.Size = new System.Drawing.Size(812, 236);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -80,7 +81,7 @@
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(834, 17);
+            this.label1.Location = new System.Drawing.Point(827, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 28);
             this.label1.TabIndex = 1;
@@ -91,7 +92,7 @@
             this.currentClients.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.currentClients.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.currentClients.Font = new System.Drawing.Font("微软雅黑", 15F);
-            this.currentClients.Location = new System.Drawing.Point(837, 45);
+            this.currentClients.Location = new System.Drawing.Point(830, 45);
             this.currentClients.Name = "currentClients";
             this.currentClients.Size = new System.Drawing.Size(173, 43);
             this.currentClients.TabIndex = 1;
@@ -101,7 +102,7 @@
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(834, 130);
+            this.label2.Location = new System.Drawing.Point(827, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(173, 28);
             this.label2.TabIndex = 1;
@@ -112,7 +113,7 @@
             this.dbConnections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dbConnections.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbConnections.Font = new System.Drawing.Font("微软雅黑", 15F);
-            this.dbConnections.Location = new System.Drawing.Point(837, 158);
+            this.dbConnections.Location = new System.Drawing.Point(830, 139);
             this.dbConnections.Name = "dbConnections";
             this.dbConnections.Size = new System.Drawing.Size(173, 43);
             this.dbConnections.TabIndex = 1;
@@ -128,7 +129,7 @@
             this.logsTextbox.Name = "logsTextbox";
             this.logsTextbox.ReadOnly = true;
             this.logsTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.logsTextbox.Size = new System.Drawing.Size(996, 314);
+            this.logsTextbox.Size = new System.Drawing.Size(989, 412);
             this.logsTextbox.TabIndex = 2;
             this.logsTextbox.WordWrap = false;
             // 
@@ -139,9 +140,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.logsTextbox);
-            this.panel1.Location = new System.Drawing.Point(12, 368);
+            this.panel1.Location = new System.Drawing.Point(12, 260);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(998, 316);
+            this.panel1.Size = new System.Drawing.Size(991, 414);
             this.panel1.TabIndex = 3;
             // 
             // clientEnumTimer
@@ -150,11 +151,23 @@
             this.clientEnumTimer.Interval = 2000;
             this.clientEnumTimer.Tick += new System.EventHandler(this.clientEnumTimer_Tick);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(830, 216);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(173, 37);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Shutdown";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 696);
+            this.ClientSize = new System.Drawing.Size(1015, 686);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dbConnections);
             this.Controls.Add(this.currentClients);
@@ -187,6 +200,7 @@
         private System.Windows.Forms.TextBox logsTextbox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer clientEnumTimer;
+        private System.Windows.Forms.Button button1;
     }
 }
 

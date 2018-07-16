@@ -68,5 +68,11 @@ namespace WBPlatform.Database.DBServer
                 LW.E("TIMER ERROR: " + ex.Message);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = false;
+            Environment.Exit(0);
+        }
     }
 }

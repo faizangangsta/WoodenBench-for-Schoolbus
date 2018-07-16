@@ -20,7 +20,7 @@
       <publishTime>04/02/2017 13:24:52</publishTime>
     </File>
     <File Include="bundleconfig.json">
-      <publishTime>07/14/2018 18:57:58</publishTime>
+      <publishTime>07/15/2018 21:51:28</publishTime>
     </File>
     <File Include="Connected Services/Application Insights/ConnectedService.json">
       <publishTime>06/26/2018 17:27:17</publishTime>
@@ -116,19 +116,19 @@
       <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/14/2018 23:55:32</publishTime>
+      <publishTime>07/15/2018 23:41:32</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>07/14/2018 23:55:32</publishTime>
+      <publishTime>07/15/2018 23:41:32</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>07/14/2018 23:48:07</publishTime>
+      <publishTime>07/15/2018 23:40:57</publishTime>
     </File>
     <File Include="WebManagement.dll.config">
-      <publishTime>07/14/2018 22:14:28</publishTime>
+      <publishTime>07/15/2018 23:40:55</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>07/14/2018 23:48:07</publishTime>
+      <publishTime>07/15/2018 23:40:57</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
       <publishTime>06/11/2018 14:34:26</publishTime>
@@ -137,19 +137,19 @@
       <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>07/14/2018 23:55:32</publishTime>
+      <publishTime>07/15/2018 23:41:32</publishTime>
     </File>
     <File Include="WebManagement.Views.dll">
-      <publishTime>07/14/2018 23:48:09</publishTime>
+      <publishTime>07/15/2018 23:40:59</publishTime>
     </File>
     <File Include="WebManagement.Views.pdb">
-      <publishTime>07/14/2018 23:48:09</publishTime>
+      <publishTime>07/15/2018 23:40:59</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>07/14/2018 23:48:04</publishTime>
+      <publishTime>07/15/2018 23:40:44</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>07/14/2018 23:48:04</publishTime>
+      <publishTime>07/15/2018 23:40:44</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>06/26/2018 17:27:25</publishTime>
@@ -221,7 +221,7 @@
       <publishTime>06/26/2018 17:27:26</publishTime>
     </File>
     <File Include="wwwroot/css/WBWeb.min.css">
-      <publishTime>07/14/2018 22:14:28</publishTime>
+      <publishTime>07/15/2018 23:40:55</publishTime>
     </File>
     <File Include="wwwroot/dev/css/bootstrap-grid.css">
       <publishTime>07/12/2018 09:22:44</publishTime>
@@ -814,6 +814,9 @@
     <File Include="wwwroot/js/bootstrap.min.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
+    <File Include="wwwroot/js/crpto-js.min.js">
+      <publishTime>07/15/2018 23:40:56</publishTime>
+    </File>
     <File Include="wwwroot/js/CryptoJS/aes.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
@@ -995,13 +998,13 @@
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
     <File Include="wwwroot/js/library.min.js">
-      <publishTime>07/14/2018 22:14:28</publishTime>
+      <publishTime>07/15/2018 23:40:56</publishTime>
     </File>
     <File Include="wwwroot/js/npm.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
     <File Include="wwwroot/js/service.min.js">
-      <publishTime>07/14/2018 22:14:28</publishTime>
+      <publishTime>07/15/2018 23:40:56</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
