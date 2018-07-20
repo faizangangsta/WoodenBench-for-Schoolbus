@@ -22,14 +22,10 @@ namespace WBPlatform.Database
         {
             LW.D("Started Initialise Database Server Connection....");
             bool conn = DatabaseSocketsClient.Initialise(server);
-            if (!conn)
+            while (!conn)
             {
-                throw new DataBaseException("数据库连接失败. " + server.ToString(), DBQueryStatus.NOT_CONNECTED);
-            }
-            else
-            {
-                DatabaseSocketsClient.SendDatabaseOperations("openConnection", MessageId, out string token);
-                LW.D("\tDatabase Connected! Identity: " + token);
+                LW.E("DBServer Initial Connection Failed!");
+                conn = DatabaseSocketsClient.Initialise(server);
             }
         }
         public static DBQueryStatus QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
@@ -147,19 +143,19 @@ namespace WBPlatform.Database
                 {
                     inputs = null;
                     dbStatus = null;
-                    
-                    throw new InvalidOperationException("Database is not connected currently...");
+
+                    throw new DataBaseException("Database is not connected currently...");
                 }
                 reply = DBInternalReply.FromJSONString(rcvdData);
-                if (reply == null) throw new ArgumentNullException("DBInternalReply", "Database Result null");
+                if (reply == null) throw new DataBaseException("DBInternalReply is null");
 
                 // THERE ARE SOME SPECIAL REPLY CODE....
                 switch (reply.Result.DBResultCode)
                 {
                     case DBQueryStatus.INJECTION_DETECTED:
-                        throw new DataBaseException("INJECTION DETECTED.", DBQueryStatus.INJECTION_DETECTED, reply.Result.Exception);
+                        throw new DataBaseException("INJECTION DETECTED.", reply.Result.Exception);
                     case DBQueryStatus.INTERNAL_ERROR:
-                        throw new DataBaseException("Database Server Internal Error", DBQueryStatus.INTERNAL_ERROR, reply.Result.Exception);
+                        throw new DataBaseException("Database Server Internal Error", reply.Result.Exception);
                 }
 
                 switch (operation)
@@ -174,14 +170,14 @@ namespace WBPlatform.Database
                         List<Dictionary<string, object>> singleResult = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(reply.objectString);
                         if (singleResult.Count > 1)
                         {
-                            throw new IndexOutOfRangeException("QuerySingle, Create, Change require only one Return result...");
+                            throw new DataBaseException("QuerySingle, Create, Change require only one Return result...");
                         }
                         if (operation == DBVerbs.QuerySingle)
                         {
                             //Allow No results....
-                            inputs = 
-                                singleResult.Count == 0 
-                                ? new DBInput[0] 
+                            inputs =
+                                singleResult.Count == 0
+                                ? new DBInput[0]
                                 : new DBInput[] { new DBInput(singleResult[0]) };
                         }
                         else
@@ -189,24 +185,24 @@ namespace WBPlatform.Database
                             //DisAllow Empty Results....
                             inputs =
                                 singleResult.Count == 0
-                                ? throw new IndexOutOfRangeException("Create Update functions expect one result...")
+                                ? throw new DataBaseException("Create Update functions expect one result...")
                                 : new DBInput[] { new DBInput(singleResult[0]) };
                         }
                         break;
                     case DBVerbs.Delete:
                         inputs = null;
                         break;
-                    default: throw new NotSupportedException("Database Operation " + operation + " is not Supported!");
+                    default: throw new DataBaseException("Database Operation " + operation + " is not Supported!");
                 }
                 dbStatus = reply.Result;
                 return reply.Result.DBResultCode;
             }
-            catch (Exception ex)
+            catch (DataBaseException ex)
             {
                 inputs = null;
                 dbStatus = new DataBaseStatus();
                 dbStatus.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
-                dbStatus.Exception = new DataBaseException("进行数据库操作时出现一个或多个错误", DBQueryStatus.INTERNAL_ERROR, ex);
+                dbStatus.Exception = ex;
                 LW.E(dbStatus.ToString());
                 return DBQueryStatus.INTERNAL_ERROR;
             }

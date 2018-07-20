@@ -28,11 +28,11 @@ namespace WBPlatform.Database.DBServer
             catch (Exception ex)
             {
                 LW.E(ex.Message);
-                while (true)
-                {
-                    Thread.Sleep(1000);
-                }
+                LW.E("MainForm disappeared caused by exception!");
+                Thread.Sleep(1000);
+                LW.E("DBServer is to be restarted to keep stability!");
             }
+            Application.Restart();
         }
     }
 }

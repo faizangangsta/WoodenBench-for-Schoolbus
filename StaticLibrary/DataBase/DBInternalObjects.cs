@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.Database.Internal
@@ -20,7 +21,15 @@ namespace WBPlatform.Database.Internal
             objectString = "";
         }
 
-        public static DBInternalRequest FromJSONString(string JSONString) => JsonConvert.DeserializeObject<DBInternalRequest>(JSONString);
+        public static bool FromJSONString(string JSONString, out DBInternalRequest request)
+        {
+            try
+            {
+                request = JsonConvert.DeserializeObject<DBInternalRequest>(JSONString);
+            }
+            finally { }
+            return request != null;
+        }
 
         public override string ToString() => JsonConvert.SerializeObject(this);
 
@@ -43,7 +52,7 @@ namespace WBPlatform.Database.Internal
         public DBQueryStatus DBResultCode { get; set; }
         public DBVerbs DBOperation { get; set; }
         public string Message { get; set; }
-        public Exception Exception { get; set; }
+        public DataBaseException Exception { get; set; }
         public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

@@ -30,7 +30,7 @@ namespace WBPlatform.StaticClasses
         public static void C() => WriteLog(LogType.LongChain);
         public static void InitLog()
         {
-            LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.Ticks + ".log";
+            LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.ToNormalString().Replace(':', '-') + ".log";
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
             Fs.AutoFlush = true;
@@ -40,19 +40,18 @@ namespace WBPlatform.StaticClasses
         {
             string LogMsg = "";
             if (level == LogType.LongChain)
-                LogMsg = "================================================================\r\n";
+                LogMsg = "========================================================================\r\n";
             else
-                LogMsg += $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}";
+                LogMsg += $"[{DateTime.Now.ToNormalString()}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}\r\n";
 
             Debug.Write(LogMsg);
             Console.WriteLine(LogMsg);
-            char[] p = Encoding.UTF8.GetChars(Encoding.UTF8.GetBytes(LogMsg));
+            char[] p = LogMsg.ToCharArray();
             lock (Fs)
             {
                 Fs.Write(p, 0, p.Length);
-                Fs.Write(new char[] { '\r', '\n' }, 0, 2);
             }
-            logEvent.LogString = LogMsg + "\r\n";
+            logEvent.LogString = LogMsg;
             logEvent.logType = level;
             onLog?.Invoke(logEvent);
         }

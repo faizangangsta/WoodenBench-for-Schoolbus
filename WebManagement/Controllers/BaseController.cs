@@ -53,7 +53,7 @@ namespace WBPlatform.WebManagement.Controllers
         protected IActionResult _InternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
             string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
-            Exception ex = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+            Exception ex = HttpContext.Features.Get<ExceptionHandlerFeature>()?.Error;
             Page = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Path;
             if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : (ex.Message + ":::" + ex.InnerException.Message);
 

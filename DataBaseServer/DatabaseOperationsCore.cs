@@ -34,14 +34,13 @@ namespace WBPlatform.Database.DBServer
             LW.D("DB Connection Opened!");
         }
 
-        public static string ProcessRequest(string requestString)
+        public static string ProcessRequest(DBInternalRequest request)
         {
             DBOutput output = null;
             DBQuery dbQuery = null;
             DBInternalReply reply = new DBInternalReply();
             try
             {
-                DBInternalRequest request = DBInternalRequest.FromJSONString(requestString);
                 if (request == null)
                 {
                     throw new NullReferenceException("JSON Parsing Error, check request...");
@@ -132,7 +131,7 @@ namespace WBPlatform.Database.DBServer
             {
                 reply.Result.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
                 reply.Result.Message = ex.Message;
-                reply.Result.Exception = ex;
+                reply.Result.Exception = new DataBaseException("DBServer Process Exception", ex);
             }
             return reply.ToString();
         }

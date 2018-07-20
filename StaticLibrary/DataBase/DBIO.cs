@@ -16,20 +16,12 @@ namespace WBPlatform.Database.DBIOCommand
     [Serializable]
     public class DataBaseException : Exception
     {
-        public DBQueryStatus ErrorType { get; private set; }
         public DBInternalRequest DBRequest { get; set; }
         public DBInternalReply DBReply { get; set; }
-        public DataBaseException(string message, DBQueryStatus errorType) : base(message)
+        public DataBaseException(string message) : base(message) { }
+        public DataBaseException(string message, Exception inner) : base(message, inner) { }
+        public DataBaseException(string message, DBInternalRequest dBRequest = null, DBInternalReply dBReply = null, Exception inner = null) : base(message, inner)
         {
-            ErrorType = errorType;
-        }
-        public DataBaseException(string message, DBQueryStatus errorType, Exception inner) : base(message, inner)
-        {
-            ErrorType = errorType;
-        }
-        public DataBaseException(string message, DBQueryStatus errorType, DBInternalRequest dBRequest = null, DBInternalReply dBReply = null, Exception inner = null) : base(message, inner)
-        {
-            ErrorType = errorType;
             DBRequest = dBRequest;
             DBReply = dBReply;
         }

@@ -1,101 +1,67 @@
-﻿namespace WBPlatform.StaticClasses
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace WBPlatform.StaticClasses
 {
-    public class _DataCollection<T>
+    public class AutoDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        public T Object1 { get; set; }
-        public _DataCollection(T t1)
+        private Dictionary<TKey, TValue> _dict = new Dictionary<TKey, TValue>();
+
+        public TValue this[TKey key]
         {
-            Object1 = t1;
+            get
+            {
+                if (((IDictionary<TKey, TValue>)_dict).ContainsKey(key))
+                {
+                    return ((IDictionary<TKey, TValue>)_dict)[key];
+                }
+                else
+                {
+                    return default(TValue);
+                }
+
+            }
+            set
+            {
+                if (ContainsKey(key))
+                {
+                    ((IDictionary<TKey, TValue>)_dict)[key] = value;
+                }
+                else
+                {
+                    Add(key, value);
+                }
+            }
         }
-    }
-    public class _DataCollection<T1, T2>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public _DataCollection(T1 t1, T2 t2)
+
+        public ICollection<TKey> Keys => ((IDictionary<TKey, TValue>)_dict).Keys;
+
+        public ICollection<TValue> Values => ((IDictionary<TKey, TValue>)_dict).Values;
+
+        public int Count => ((IDictionary<TKey, TValue>)_dict).Count;
+
+        public bool IsReadOnly => ((IDictionary<TKey, TValue>)_dict).IsReadOnly;
+
+        public void Add(TKey key, TValue value) => ((IDictionary<TKey, TValue>)_dict).Add(key, value);
+        public void Add(KeyValuePair<TKey, TValue> item) => ((IDictionary<TKey, TValue>)_dict).Add(item);
+        public void Clear() => ((IDictionary<TKey, TValue>)_dict).Clear();
+        public bool Contains(KeyValuePair<TKey, TValue> item) => ((IDictionary<TKey, TValue>)_dict).Contains(item);
+        public bool ContainsKey(TKey key) => ((IDictionary<TKey, TValue>)_dict).ContainsKey(key);
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => ((IDictionary<TKey, TValue>)_dict).CopyTo(array, arrayIndex);
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => ((IDictionary<TKey, TValue>)_dict).GetEnumerator();
+        public bool Remove(TKey key) => ((IDictionary<TKey, TValue>)_dict).Remove(key);
+        public bool Remove(KeyValuePair<TKey, TValue> item) => ((IDictionary<TKey, TValue>)_dict).Remove(item);
+        public bool TryGetValue(TKey key, out TValue value) => ((IDictionary<TKey, TValue>)_dict).TryGetValue(key, out value);
+        IEnumerator IEnumerable.GetEnumerator() => ((IDictionary<TKey, TValue>)_dict).GetEnumerator();
+
+        public static implicit operator AutoDictionary<TKey, TValue>(Dictionary<TKey, TValue> v)
         {
-            Object1 = t1;
-            Object2 = t2;
+            return new AutoDictionary<TKey, TValue>() { _dict = v };
         }
-    }
-    public class _DataCollection<T1, T2, T3>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public T3 Object3 { get; set; }
-        public _DataCollection(T1 t1, T2 t2, T3 t3)
+        public static implicit operator Dictionary<TKey,TValue>(AutoDictionary<TKey,TValue> v)
         {
-            Object1 = t1;
-            Object2 = t2;
-            Object3 = t3;
-        }
-    }
-    public class _DataCollection<T1, T2, T3, T4>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public T3 Object3 { get; set; }
-        public T4 Object4 { get; set; }
-        public _DataCollection(T1 t1, T2 t2, T3 t3, T4 t4)
-        {
-            Object1 = t1;
-            Object2 = t2;
-            Object3 = t3;
-            Object4 = t4;
-        }
-    }
-    public class _DataCollection<T1, T2, T3, T4, T5>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public T3 Object3 { get; set; }
-        public T4 Object4 { get; set; }
-        public T5 Object5 { get; set; }
-        public _DataCollection(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
-        {
-            Object1 = t1;
-            Object2 = t2;
-            Object3 = t3;
-            Object4 = t4;
-            Object5 = t5;
-        }
-    }
-    public class _DataCollection<T1, T2, T3, T4, T5, T6>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public T3 Object3 { get; set; }
-        public T4 Object4 { get; set; }
-        public T5 Object5 { get; set; }
-        public T6 Object6 { get; set; }
-        public _DataCollection(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-        {
-            Object1 = t1;
-            Object2 = t2;
-            Object3 = t3;
-            Object4 = t4;
-            Object5 = t5;
-            Object6 = t6;
-        }
-    }
-    public class _DataCollection<T1, T2, T3, T4, T5, T6, T7>
-    {
-        public T1 Object1 { get; set; }
-        public T2 Object2 { get; set; }
-        public T3 Object3 { get; set; }
-        public T4 Object4 { get; set; }
-        public T5 Object5 { get; set; }
-        public T6 Object6 { get; set; }
-        public T7 Object7 { get; set; }
-        public _DataCollection(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7)
-        {
-            Object1 = t1;
-            Object2 = t2;
-            Object3 = t3;
-            Object4 = t4;
-            Object5 = t5;
-            Object6 = t6;
-            Object7 = t7;
+            return new Dictionary<TKey, TValue>(v._dict);
         }
     }
 }

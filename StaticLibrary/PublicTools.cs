@@ -12,22 +12,8 @@ namespace WBPlatform.StaticClasses
 {
     public static class PublicTools
     {
-        public static object EncodeString(object item)
-        {
-            if (item is string)
-            {
-                return HttpUtility.UrlEncode(item as string);
-            }
-            else return item;
-        }
-        public static object DecodeObject(object item)
-        {
-            if (item is string)
-            {
-                return HttpUtility.UrlDecode(item as string);
-            }
-            else return item;
-        }
+        public static object EncodeString(object item) => item is string ? HttpUtility.UrlEncode(item as string) : item;
+        public static object DecodeObject(object item) => item is string ? HttpUtility.UrlDecode(item as string) : item;
 
         public static Dictionary<string, string> HTTPGet(string URL)
         {
@@ -63,8 +49,7 @@ namespace WBPlatform.StaticClasses
 
             LW.D("HTTP - POST-rply: " + ret);
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            Dictionary<string, object> m = JsonConvert.DeserializeObject<Dictionary<string, object>>(ret);
-            foreach (KeyValuePair<string, object> item in m)
+            foreach (KeyValuePair<string, object> item in JsonConvert.DeserializeObject<Dictionary<string, object>>(ret))
             {
                 dict.Add(item.Key, item.Value == null ? "" : item.Value.ToString());
             }
@@ -74,19 +59,13 @@ namespace WBPlatform.StaticClasses
         public static byte[] Int2Bytes(int n)
         {
             byte[] b = new byte[4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                b[i] = (byte)(n >> (24 - (i * 8)));
-
-            }
+            for (int i = 0; i < 4; i++) { b[i] = (byte)(n >> (24 - (i * 8))); }
             return b;
         }
 
 
         public static int BytesToInt(byte[] b)
         {
-
             int mask = 0xff;
             int temp = 0;
             int n = 0;
@@ -100,33 +79,62 @@ namespace WBPlatform.StaticClasses
         }
         public static string DecodeMessage(NetworkStream stream)
         {
+            byte[] fsBytes;
+            int ContentLenth;
             byte[] arrServerRecMsg = new byte[1];
-            int should_Be_1 = stream.Read(arrServerRecMsg, 0, 1);
+            stream.Read(arrServerRecMsg, 0, 1);
             int HeaderLenth = BytesToInt(arrServerRecMsg);
 
             arrServerRecMsg = new byte[HeaderLenth];
-            int HeaderLenth_ = stream.Read(arrServerRecMsg, 0, HeaderLenth);
-            int ContentLenth = BytesToInt(arrServerRecMsg);
+            stream.Read(arrServerRecMsg, 0, HeaderLenth);
+            ContentLenth = BytesToInt(arrServerRecMsg);
 
-            arrServerRecMsg = new byte[ContentLenth];
-            int ContentLenth_ = stream.Read(arrServerRecMsg, 0, ContentLenth);
-
-
-            string requestString = Encoding.UTF8.GetString(arrServerRecMsg, 0, ContentLenth_);
-
-            arrServerRecMsg = null;
-            return requestString;
+            int total = 0;
+            int dataleft = ContentLenth;
+            fsBytes = new byte[ContentLenth];
+            int recv;
+            while (total < ContentLenth)
+            {
+                recv = stream.Read(fsBytes, total, dataleft);
+                if (recv == 0) break;
+                total += recv;
+                dataleft -= recv;
+            }
+            return Encoding.UTF8.GetString(fsBytes, 0, ContentLenth);
         }
         public static byte[] EncodeMessage(string MessageId, string sendMsg)
         {
             List<byte> mergedPackage = new List<byte>();
             byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(MessageId + sendMsg);
-            byte[] Header = PublicTools.Int2Bytes(arrClientSendMsg.Length);
+            byte[] Header = Int2Bytes(arrClientSendMsg.Length);
             byte HeaderSize = Convert.ToByte(Header.Length);
             mergedPackage.Add(HeaderSize);
             mergedPackage.AddRange(Header);
             mergedPackage.AddRange(arrClientSendMsg);
             return mergedPackage.ToArray();
+        }
+
+        public static string ToNormalString(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+        public static void CloseAndDispose(this Socket _socket)
+        {
+            _socket?.Disconnect(true);
+            _socket?.Close();
+            _socket?.Dispose();
+            _socket = null;
+        }
+        public static void CloseAndDispose(this TcpClient client)
+        {
+            client?.Close();
+            client = null;
+        }
+        public static void CloseAndDispose(this NetworkStream stream)
+        {
+            stream?.Close();
+            stream?.Dispose();
+            stream = null;
         }
     }
 }

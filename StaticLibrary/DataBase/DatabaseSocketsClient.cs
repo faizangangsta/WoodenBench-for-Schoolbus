@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -12,60 +11,72 @@ namespace WBPlatform.Database.Connection
     public static class DatabaseSocketsClient
     {
         //创建 1个客户端套接字 和1个负责监听服务端请求的线程  
-        private static Thread threadclient = null;
+        private static Thread ReceiverThread = new Thread(Recv);
         private static Thread DataBaseConnectionMaintainer = new Thread(new ThreadStart(Maintain));
         private static TcpClient socketclient = new TcpClient();
         private static NetworkStream stream;
+        private static IPEndPoint remoteEndpoint;
 
-        private static string Message { get; set; } = "";
+        private static bool IsFirstTimeInit { get; set; } = true;
+
         public static bool Connected { get { return socketclient.Connected; } }
 
         private static Dictionary<string, string> _messages { get; set; } = new Dictionary<string, string>();
+        public static void StartThread()
+        {
+            ReceiverThread.Start();
+            DataBaseConnectionMaintainer.Start();
+        }
         public static bool Initialise(IPAddress ServerIP)
         {
             socketclient = new TcpClient();
-            IPEndPoint point = new IPEndPoint(ServerIP, 8098);
+            remoteEndpoint = new IPEndPoint(ServerIP, 8098);
             for (int i = 0; i < 5; i++)
             {
                 try
                 {
-                    socketclient.Connect(point);
+                    socketclient.Connect(remoteEndpoint);
                     stream = socketclient.GetStream();
                     LW.D("\tDatabase Connection Estabilished!");
-                    break;
+                    if (IsFirstTimeInit)
+                    {
+                        StartThread();
+                        IsFirstTimeInit = false;
+                    }
+                    SendDatabaseOperations("openConnection", "00000", out string token);
+                    LW.D("\tDatabase Connected! Identity: " + token);
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     LW.E("\t\tDatabase connection to server: " + ServerIP + " failed. " + ex.Message);
                     Thread.Sleep(1000);
                 }
-                if (i == 5)
-                {
-                    return false;
-                }
             }
-
-            threadclient = new Thread(Recv) { IsBackground = true };
-            threadclient.Start();
-            return true;
+            return false;
         }
 
         // 接收服务端发来信息的方法    
         static void Recv()
         {
-            byte[] arrRecvmsg = new byte[1024 * 1024];
             while (true)
             {
-                try
+                while (Connected)
                 {
-                    string requestString = PublicTools.DecodeMessage(stream);
-                    _messages.Add(requestString.Substring(0, 5), requestString.Substring(5));
-                    arrRecvmsg = null;
+                    try
+                    {
+                        string requestString = PublicTools.DecodeMessage(stream);
+                        _messages.Add(requestString.Substring(0, 5), requestString.Substring(5));
+                    }
+                    catch
+                    {
+                        Thread.Sleep(500);
+                    }
                 }
-                catch (Exception ex)
+                while (!Connected)
                 {
-                    Console.WriteLine("远程服务器已经中断连接" + ex.Message + "\r\n\r\n");
-                    break;
+                    LW.E("Message Recieve waiting for connection......");
+                    Thread.Sleep(500);
                 }
             }
         }
@@ -74,7 +85,31 @@ namespace WBPlatform.Database.Connection
         {
             while (true)
             {
-                Thread.Sleep(2000);
+                try
+                {
+                    string _mid = Cryptography.RandomString(5, false);
+                    byte[] packet = PublicTools.EncodeMessage(_mid, "HeartBeat");
+                    //stream.Write(packet, 0, packet.Length);
+                    while (true)
+                    {
+                        if (_messages.ContainsKey(_mid))
+                        {
+                            string _HB_Time = _messages[_mid];
+                            _messages.Remove(_mid);
+                            LW.D("Heart Beat Success! " + _HB_Time);
+                            break;
+                        }
+                        else Thread.Sleep(10);
+                    }
+                    Thread.Sleep(5000);
+                }
+                catch (Exception ex)
+                {
+                    LW.E("Heartbeat Error! " + ex.Message);
+                    socketclient.CloseAndDispose();
+                    stream.CloseAndDispose();
+                    Initialise(remoteEndpoint.Address);
+                }
             }
         }
 
@@ -82,22 +117,23 @@ namespace WBPlatform.Database.Connection
         public static bool SendDatabaseOperations(string sendMsg, string MessageId, out string rcvdMessage)
         {
             rcvdMessage = "";
-            if (Connected)
+            byte[] mergedPackage = PublicTools.EncodeMessage(MessageId, sendMsg);
+            while (!Connected)
             {
-                byte[] mergedPackage = PublicTools.EncodeMessage(MessageId, sendMsg);
-                stream.Write(mergedPackage, 0, mergedPackage.Length);
-                while (true)
-                {
-                    if (_messages.ContainsKey(MessageId))
-                    {
-                        rcvdMessage = _messages[MessageId];
-                        _messages.Remove(MessageId);
-                        return true;
-                    }
-                    Thread.Sleep(10);
-                }
+                LW.E("Message Sent Waiting for connection....");
+                Thread.Sleep(500);
             }
-            else return false;
+            stream.Write(mergedPackage, 0, mergedPackage.Length);
+            while (true)
+            {
+                if (_messages.ContainsKey(MessageId))
+                {
+                    rcvdMessage = _messages[MessageId];
+                    _messages.Remove(MessageId);
+                    return true;
+                }
+                Thread.Sleep(10);
+            }
         }
     }
 }
