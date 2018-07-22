@@ -32,7 +32,7 @@ namespace WBPlatform.WebManagement.Controllers
                         else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
                         else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
                         DBQuery query2 = new DBQuery();
-                        query2.WhereEqualTo("BusID", BusList[0].objectId);
+                        query2.WhereEqualTo("BusID", BusList[0].ObjectId);
                         query2.WhereEqualTo(Column, Equals2Obj);
                         switch (DataBaseOperation.QueryMultipleData(query2, out List<StudentObject> StudentList))
                         {

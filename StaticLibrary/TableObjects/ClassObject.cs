@@ -15,20 +15,20 @@ namespace WBPlatform.TableObject
         public string TeacherID { get; set; }
 
         public ClassObject() { }
-        public override string table => WBConsts.TABLE_Mgr_Classes;
+        public override string Table => WBConsts.TABLE_Mgr_Classes;
         
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             CDepartment = input.GetString("ClassDepartment");
             CGrade = input.GetString("ClassGrade");
             CNumber = input.GetString("ClassNumber");
             TeacherID = input.GetString("TeacherID");
         }
 
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("ClassDepartment", CDepartment);
             output.Put("ClassGrade", CGrade);
             output.Put("ClassNumber", CNumber);
@@ -39,13 +39,13 @@ namespace WBPlatform.TableObject
         {
             return new Dictionary<string, string>
             {
-                { "ClassID", objectId },
+                { "ClassID", ObjectId },
                 { "ClassDepartment", CDepartment },
                 { "ClassGrade", CGrade },
                 { "ClassNumber", CNumber },
                 { "TeacherID", TeacherID },
-                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
-                { "UpdatedAt", updatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "CreatedAt", CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "UpdatedAt", UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
             };
         }
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());

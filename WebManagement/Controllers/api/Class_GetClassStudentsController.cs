@@ -18,7 +18,7 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable Get(string ClassID, string TeacherID)
         {
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return SessionError;
-            if (!(user.ClassList.Contains(ClassID) && user.objectId == TeacherID)) return UserGroupError;
+            if (!(user.ClassList.Contains(ClassID) && user.ObjectId == TeacherID)) return UserGroupError;
 
             DBQuery StudentQuery = new DBQuery();
             StudentQuery.WhereEqualTo("ClassID", ClassID);

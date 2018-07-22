@@ -10,7 +10,7 @@ namespace WBPlatform.TableObject
 {
     public class UserObject : DataTableObject
     {
-        public override string table => WBConsts.TABLE_Gen_UserTable;
+        public override string Table => WBConsts.TABLE_Gen_UserTable;
         public string UserName { get; set; }
         public string Password { get; set; }
         public string RealName { get; set; }
@@ -24,9 +24,9 @@ namespace WBPlatform.TableObject
         public List<string> ChildList { get; set; } = new List<string>();
         public List<string> ClassList { get; set; } = new List<string>();
 
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             UserName = input.GetString("Username");
             Password = input.GetString("Password");
             Sex = input.GetString("Sex");
@@ -51,9 +51,9 @@ namespace WBPlatform.TableObject
             }
         }
 
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("Username", UserName);
             output.Put("Password", Password);
             output.Put("Sex", Sex);
@@ -73,7 +73,7 @@ namespace WBPlatform.TableObject
 
         public UserObject SetEveryThingNull()
         {
-            objectId = RandomString(10, true, CustomStr: RandomString(5, true));
+            ObjectId = RandomString(10, true, CustomStr: RandomString(5, true));
             UserName = RandomString(10, true, CustomStr: RandomString(5, true));
             Password = RandomString(10, true, CustomStr: RandomString(5, true));
             RealName = RandomString(10, true, CustomStr: RandomString(5, true));
@@ -83,7 +83,7 @@ namespace WBPlatform.TableObject
         }
         public string GetIdentifiableCode()
         {
-            return UserName + "-" + objectId;
+            return UserName + "-" + ObjectId;
         }
 
         public static UserObject RandomValue => new UserObject().SetEveryThingNull();
@@ -115,10 +115,10 @@ namespace WBPlatform.TableObject
         {
             return new Dictionary<string, string>
             {
-                { "userID", objectId },
+                { "userID", ObjectId },
                 { "RealName", RealName },
                 { "Username", UserName },
-                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "CreatedAt", CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "HeadImagePath", HeadImagePath },
                 { "PhoneNumber", PhoneNumber },
                 { "hasPassword", (!string.IsNullOrEmpty(Password)).ToString() },

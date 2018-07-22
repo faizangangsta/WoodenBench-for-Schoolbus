@@ -19,12 +19,12 @@ namespace WBPlatform.TableObject
 
         public NotificationObject() { }
 
-        public override string table => WBConsts.TABLE_Gen_Notification;
+        public override string Table => WBConsts.TABLE_Gen_Notification;
 
 
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             Title = input.GetString("Title");
             Content = input.GetString("Content");
             Sender = input.GetString("Sender");
@@ -33,10 +33,10 @@ namespace WBPlatform.TableObject
         }
 
         //写字段信息
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
             string recv = GetStringRecivers();
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("Title", Title);
             output.Put("Content", Content);
             output.Put("Type", (int)Type);
@@ -49,7 +49,8 @@ namespace WBPlatform.TableObject
             string recv = "";
             if (Receivers[0].StartsWith("@all")) recv = "@all;";
             else foreach (string item in Receivers) recv = recv + item + ";";
-            return (recv.EndsWith(";;") ? new string(recv.Take(recv.Length - 1).ToArray()) : recv);
+            return recv.EndsWith(";;") ? new string(recv.Take(recv.Length - 1).ToArray()) : recv;
         }
+        public override string ToString() => throw new System.NotImplementedException();
     }
 }

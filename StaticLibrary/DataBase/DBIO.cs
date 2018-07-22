@@ -42,7 +42,7 @@ namespace WBPlatform.Database.DBIOCommand
         public int GetInt(string Key) => GetT<Int32>(Key);
         public DateTime GetDate(string Key) => GetT<DateTime>(Key);
 
-        private T GetT<T>(string Key)
+        public T GetT<T>(string Key)
         {
             if (real.ContainsKey(Key)) return (T)Convert.ChangeType(real[Key], typeof(T));
             else throw new KeyNotFoundException("真的没有这个键..." + Key);
@@ -60,7 +60,7 @@ namespace WBPlatform.Database.DBIOCommand
         {
             if (data is Array || data is IList)
             {
-                data = string.Join(",", ((IEnumerable<string>)data));
+                data = string.Join(",", (IEnumerable<string>)data);
             }
             if (real.ContainsKey(column))
             {

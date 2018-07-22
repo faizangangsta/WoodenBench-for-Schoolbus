@@ -56,7 +56,7 @@ namespace WBPlatform.WebManagement.Controllers
                     };
                     if (DataBaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
                     {
-                        MessagingSystem.AddMessageProcesses(new GlobalMessage() { user = user, type = GlobalMessageTypes.User__Pending_Verify, dataObject = dict["table"] });
+                        MessagingSystem.AddMessageProcesses(new InternalMessage() { User = user, _Type = GlobalMessageTypes.User__Pending_Verify, DataObject = dict["table"] });
                         Response.Redirect("/Home");
                         return "OK";
                     }
@@ -77,7 +77,7 @@ namespace WBPlatform.WebManagement.Controllers
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(mode)) return RequestIllegal;
-                if (userId != user.objectId) return RequestIllegal;
+                if (userId != user.ObjectId) return RequestIllegal;
                 switch (mode)
                 {
                     case "true":

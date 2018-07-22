@@ -1,8 +1,8 @@
-﻿using System.IO;
-using System.Text;
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Text;
 
 using WBPlatform.StaticClasses;
 using WBPlatform.WebManagement.Tools;
@@ -11,7 +11,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/WeChatMessage")]
-    public class WeChatMessageController : Controller
+    public class WeChat_MessageController : Controller
     {
         /// <summary>
         /// USED TO SERIFY THE WECHAR MESSAGE <![CDATA[WECHAT_MESSAGE_VERIFY]]>
@@ -51,7 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Response.StatusCode = 500;
                 return;
             }
-            WeChatMessageSystem.onMsgRcvd(new WeChatRcvdMessage(XML_Message));
+            WeChatMessageSystem.AddMessageToList(new WeChatRcvdMessage(XML_Message, DateTime.Now));
             Response.StatusCode = 200;
             Response.WriteAsync("");
         }

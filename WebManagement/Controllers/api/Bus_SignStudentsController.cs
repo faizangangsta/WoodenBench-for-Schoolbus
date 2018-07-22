@@ -43,7 +43,7 @@ namespace WBPlatform.WebManagement.Controllers
                 case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                 case DBQueryStatus.NO_RESULTS: return DataBaseError;
                 default:
-                    if (BusList.Count == 1 && BusList[0].objectId == BusID && BusList[0].TeacherID == TeacherID)
+                    if (BusList.Count == 1 && BusList[0].ObjectId == BusID && BusList[0].TeacherID == TeacherID)
                     {
                         DBQuery _stuQuery = new DBQuery();
                         _stuQuery.WhereEqualTo("objectId", StudentID);

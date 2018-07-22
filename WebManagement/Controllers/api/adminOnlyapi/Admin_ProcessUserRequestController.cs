@@ -25,7 +25,7 @@ namespace WBPlatform.WebManagement.Controllers
                     switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
                         case DBQueryStatus.ONE_RESULT:
-                            request.SolverID = SessionUser.objectId;
+                            request.SolverID = SessionUser.ObjectId;
                             switch (mode)
                             {
                                 case "0":
@@ -56,7 +56,7 @@ namespace WBPlatform.WebManagement.Controllers
                                                 break;
                                             default: return SpecialisedInfo("提交成功，部分内容需要手动修改");
                                         }
-                                        GlobalMessage message_User = new GlobalMessage() { type = GlobalMessageTypes.UCR_Procced_TO_User, dataObject = request, user = user, objectId = request.UserID };
+                                        InternalMessage message_User = new InternalMessage() { _Type = GlobalMessageTypes.UCR_Procceed_TO_User, DataObject = request, User = user, ObjectId = request.UserID };
                                         MessagingSystem.AddMessageProcesses(message_User);
                                         break;
                                     default: return DataBaseError;

@@ -8,7 +8,7 @@ namespace WBPlatform.TableObject
 {
     public class UserChangeRequest : DataTableObject
     {
-        public override string table => WBConsts.TABLE_Gen_UserRequest;
+        public override string Table => WBConsts.TABLE_Gen_UserRequest;
         public string UserID { get; set; }
         public string SolverID { get; set; }
         public UserChangeRequestTypes RequestTypes { get; set; }
@@ -17,21 +17,21 @@ namespace WBPlatform.TableObject
         public UserChangeRequestRefusedReasons ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             UserID = input.GetString("UserID");
             SolverID = input.GetString("SolverID");
-            RequestTypes = (UserChangeRequestTypes)(input.GetInt("RequestType"));
+            RequestTypes = (UserChangeRequestTypes)input.GetInt("RequestType");
             DetailTexts = input.GetString("DetailTexts");
             NewContent = input.GetString("NewContent");
             ProcessResultReason = (UserChangeRequestRefusedReasons)input.GetInt("ResultReason");
             Status = (UserChangeRequestProcessStatus)input.GetInt("Status");
         }
 
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("UserID", UserID);
             output.Put("SolverID", SolverID);
             output.Put("RequestType", (int)RequestTypes);
@@ -46,11 +46,11 @@ namespace WBPlatform.TableObject
         {
             return new Dictionary<string, string>
             {
-                { "requestID", objectId },
+                { "requestID", ObjectId },
                 { "UserID", UserID },
                 { "SolverID", SolverID },
                 { "RequestType", RequestTypes.ToString() },
-                { "CreatedAt", createdAt.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "CreatedAt", CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "NewContent", NewContent },
                 { "IsSolved", (Status != UserChangeRequestProcessStatus.NotSolved).ToString() },
                 { "DetailTexts", DetailTexts }

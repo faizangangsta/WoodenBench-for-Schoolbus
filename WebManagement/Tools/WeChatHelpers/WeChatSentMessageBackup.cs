@@ -8,7 +8,7 @@ using WBPlatform.TableObject;
 
 namespace WBPlatform.WebManagement.Tools
 {
-    public class MessageBackup
+    public class WeChatMessageBackupService
     {
         public static int GetCount { get => list.Count; }
         public static bool GetStatus { get => NotificationBackupThread.IsAlive; }
@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Tools
 
             NotificationObject notification = new NotificationObject()
             {
-                Content = (Content ?? ""),
+                Content = Content ?? "",
                 Receivers = targetUsers,
                 Sender = "WebServer",
                 Title = Title ?? "",
@@ -58,7 +58,7 @@ namespace WBPlatform.WebManagement.Tools
                 }
                 if (message != null) { DataBaseOperation.CreateData(message, out NotificationObject _notification); }
                 else Thread.Sleep(500);
-                Thread.Sleep(200);
+                Thread.Sleep(100);
             }
         }
     }

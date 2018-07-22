@@ -5,13 +5,13 @@ using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.StaticClasses
 {
-    public enum ServerSideAction
+    public enum ServerAction
     {
         WeChatLogin_PreExecute,
         WeChatLogin_PostExecute,
 
         Home_Index,
-        Home_UserRegister,
+        MyAccount_UserRegister,
         Home_BugReport,
 
         BusManage_Index,

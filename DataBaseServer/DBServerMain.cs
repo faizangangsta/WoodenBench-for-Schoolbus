@@ -21,7 +21,7 @@ namespace WBPlatform.Database.DBServer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LW.onLog += LogWritter_onLog;
+            LW.OnLog += LogWritter_onLog;
         }
 
         private void LogWritter_onLog(LW.OnLogChangedEventArgs logchange)
@@ -50,9 +50,9 @@ namespace WBPlatform.Database.DBServer
             try
             {
                 Dictionary<string, string> clientConncetionQueryStrings;
-                lock (DatabaseSocketsServer.clientQueryStrings)
+                lock (DatabaseSocketsServer.QueryStrings)
                 {
-                    clientConncetionQueryStrings = DatabaseSocketsServer.clientQueryStrings;
+                    clientConncetionQueryStrings = DatabaseSocketsServer.QueryStrings;
                 }
 
                 listView1.Items.Clear();

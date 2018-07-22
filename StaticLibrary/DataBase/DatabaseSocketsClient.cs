@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.Database.Connection
@@ -17,6 +18,7 @@ namespace WBPlatform.Database.Connection
         private static NetworkStream stream;
         private static IPEndPoint remoteEndpoint;
 
+        private static TimeSpan WaitTimeout = new TimeSpan(0, 0, 20);
         private static bool IsFirstTimeInit { get; set; } = true;
 
         public static bool Connected { get { return socketclient.Connected; } }
@@ -43,7 +45,7 @@ namespace WBPlatform.Database.Connection
                         StartThread();
                         IsFirstTimeInit = false;
                     }
-                    SendDatabaseOperations("openConnection", "00000", out string token);
+                    SendData("openConnection", "00000", out string token);
                     LW.D("\tDatabase Connected! Identity: " + token);
                     return true;
                 }
@@ -68,10 +70,7 @@ namespace WBPlatform.Database.Connection
                         string requestString = PublicTools.DecodeMessage(stream);
                         _messages.Add(requestString.Substring(0, 5), requestString.Substring(5));
                     }
-                    catch
-                    {
-                        Thread.Sleep(500);
-                    }
+                    catch { Thread.Sleep(500); }
                 }
                 while (!Connected)
                 {
@@ -89,17 +88,13 @@ namespace WBPlatform.Database.Connection
                 {
                     string _mid = Cryptography.RandomString(5, false);
                     byte[] packet = PublicTools.EncodeMessage(_mid, "HeartBeat");
-                    //stream.Write(packet, 0, packet.Length);
-                    while (true)
+                    if (CoreSend(packet, _mid, out string reply))
                     {
-                        if (_messages.ContainsKey(_mid))
-                        {
-                            string _HB_Time = _messages[_mid];
-                            _messages.Remove(_mid);
-                            LW.D("Heart Beat Success! " + _HB_Time);
-                            break;
-                        }
-                        else Thread.Sleep(10);
+                        LW.D("HeartBeat Succeed! " + reply);
+                    }
+                    else
+                    {
+                        throw new Exception("CoreSend Error: Timeout");
                     }
                     Thread.Sleep(5000);
                 }
@@ -109,12 +104,13 @@ namespace WBPlatform.Database.Connection
                     socketclient.CloseAndDispose();
                     stream.CloseAndDispose();
                     Initialise(remoteEndpoint.Address);
+                    Thread.Sleep(10000);
                 }
             }
         }
 
         //发送字符信息到服务端的方法
-        public static bool SendDatabaseOperations(string sendMsg, string MessageId, out string rcvdMessage)
+        public static bool SendData(string sendMsg, string MessageId, out string rcvdMessage)
         {
             rcvdMessage = "";
             byte[] mergedPackage = PublicTools.EncodeMessage(MessageId, sendMsg);
@@ -123,7 +119,13 @@ namespace WBPlatform.Database.Connection
                 LW.E("Message Sent Waiting for connection....");
                 Thread.Sleep(500);
             }
-            stream.Write(mergedPackage, 0, mergedPackage.Length);
+            return CoreSend(mergedPackage, MessageId, out rcvdMessage);
+        }
+
+        private static bool CoreSend(byte[] packet, string MessageId, out string rcvdMessage)
+        {
+            stream.Write(packet, 0, packet.Length);
+            DateTime _timeoutTime = DateTime.Now.Add(WaitTimeout);
             while (true)
             {
                 if (_messages.ContainsKey(MessageId))
@@ -133,6 +135,11 @@ namespace WBPlatform.Database.Connection
                     return true;
                 }
                 Thread.Sleep(10);
+                if (_timeoutTime.Subtract(DateTime.Now).TotalMilliseconds <= 0)
+                {
+                    rcvdMessage = null;
+                    return false;
+                }
             }
         }
     }

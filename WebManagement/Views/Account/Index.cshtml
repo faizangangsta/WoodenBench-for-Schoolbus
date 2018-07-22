@@ -16,7 +16,7 @@
     <hr />
     <div class="container">
         <label>用户名：</label>@Model.UserName<br />
-        <label>用户ID：</label>@Model.objectId<br />
+        <label>用户ID：</label>@Model.ObjectId<br />
         <label>真实姓名：</label>@Model.RealName<br />
         <label>性别：</label>@(Model.Sex == "M" ? "男" : "女")<br />
         <label>手机号码：</label>@Model.PhoneNumber<br />
@@ -27,7 +27,7 @@
             <script>
             function jump(isCreate) {
                 $.ajax({
-                    url: location.protocol + "//" + location.host + "/api/users/Register?userId=@Model.objectId&mode=" + isCreate,
+                    url: location.protocol + "//" + location.host + "/api/users/Register?userId=@Model.ObjectId&mode=" + isCreate,
                     type: 'GET',
                     success: function (data2) {
                         if (data2.ErrCode == "0") {
@@ -66,8 +66,8 @@
             <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
             <label>ChildList：</label>@Model.GetChildIdString(';')<br />
             <label>ClassList：</label>@Model.GetClassIdString(';')<br />
-            <label>CreationTime：</label>@Model.createdAt<br />
-            <label>ModifiedTime：</label>@Model.updatedAt<br />
+            <label>CreationTime：</label>@Model.CreatedAt<br />
+            <label>ModifiedTime：</label>@Model.UpdatedAt<br />
         </div>
         @if (Model.UserGroup.IsAdmin)
         {

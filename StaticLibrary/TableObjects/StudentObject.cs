@@ -24,11 +24,11 @@ namespace WBPlatform.TableObject
         //public string ParentsID { get; set; }
         
 
-        public override string table => WBConsts.TABLE_Mgr_StuData;
+        public override string Table => WBConsts.TABLE_Mgr_StuData;
 
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             StudentName = input.GetString("StuName");
             BusID = input.GetString("BusID");
             Sex = input.GetString("Sex");
@@ -39,9 +39,9 @@ namespace WBPlatform.TableObject
             AHChecked = input.GetBool("CHChecked");
         }
 
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("StuName", StudentName);
             output.Put("BusID", BusID);
             output.Put("Sex", Sex);
@@ -55,7 +55,7 @@ namespace WBPlatform.TableObject
         {
             return new Dictionary<string, string>
             {
-                { "StuID", objectId },
+                { "StuID", ObjectId },
                 { "Name", StudentName },
                 { "Sex", Sex },
                 { "BusID", BusID },

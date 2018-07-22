@@ -38,7 +38,7 @@
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
-<body class="BodyStyle">
+<body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="Headernav">
         <div class="container-fluid">
             <a id="PgTitleBar" asp-controller="@((string)ViewData["where"])" asp-action="Index" class="navbar-brand">@((string)ViewData["where"] == "Home" ? "🏠主页" : "🏠回主页")</a>

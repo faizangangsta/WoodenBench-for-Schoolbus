@@ -149,7 +149,7 @@ namespace WBPlatform.DesktopClient.Views
                     Application.DoEvents();
                     StudentObject student = new StudentObject();
                     student.StudentName = StuName;
-                    student.ClassID = CurrentClass.objectId;
+                    student.ClassID = CurrentClass.ObjectId;
                     student.BusID = BusDataPair[StuDirection];
                     studentDataBindSourc.Add(student);
                 }
@@ -181,7 +181,7 @@ namespace WBPlatform.DesktopClient.Views
                 return;
             }
             CurrentClass = result[0];
-            ClsID.Text = CurrentClass.objectId;
+            ClsID.Text = CurrentClass.ObjectId;
             ClsDpt.Text = CurrentClass.CDepartment;
             ClsGrade.Text = CurrentClass.CGrade;
             ClsNum.Text = CurrentClass.CNumber;
@@ -217,7 +217,7 @@ namespace WBPlatform.DesktopClient.Views
             //if (MessageBox.Show("找到了班级，是否继续列出班里坐校车的学生？", "要继续吗", MessageBoxButtons.YesNo) == DialogResult.No)
             //    return;
             DBQuery StudentsQuery = new DBQuery();
-            StudentsQuery.WhereEqualTo("ClassID", CurrentClass.objectId);
+            StudentsQuery.WhereEqualTo("ClassID", CurrentClass.ObjectId);
             if (DataBaseOperation.QueryMultipleData(StudentsQuery, out List<StudentObject> results) <= 0)
                 MessageBox.Show("把数据库翻了个底朝天，还是没有这个班的学生", "学生去哪了？");
             else
@@ -256,7 +256,7 @@ namespace WBPlatform.DesktopClient.Views
                 foreach (SchoolBusObject item in list)
                 {
                     schoolBusObjectBindingSource.Add(item);
-                    BusDataPair.Add(item.BusName, item.objectId);
+                    BusDataPair.Add(item.BusName, item.ObjectId);
                 }
                 BusDirection.Items.AddRange(BusDataPair.Keys.ToArray());
                 BusDataGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -364,7 +364,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 StudentObj.StudentName = (string)StudentData.Rows[RowNum].Cells[1].Value;
                 StudentObj.BusID = (string)StudentData.Rows[RowNum].Cells[3].Value;
-                StudentObj.ClassID = CurrentClass.objectId;
+                StudentObj.ClassID = CurrentClass.ObjectId;
 
                 statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项。";
                 DoLog("学生姓名：" + StudentObj.StudentName);
@@ -389,7 +389,7 @@ namespace WBPlatform.DesktopClient.Views
                 //Record is in the Database, only update needed
                 else
                 {
-                    StudentObj.objectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
+                    StudentObj.ObjectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
                     if (Database.DataBaseOperation.UpdateData(StudentObj) == 0)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";

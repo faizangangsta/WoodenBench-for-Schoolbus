@@ -13,7 +13,7 @@ namespace WBPlatform.Database.DBServer
         static Socket socketwatch = null;
         //定义一个集合，存储客户端信息
         //static Dictionary<string, Socket> clientConnectionItems { get; set; } = new Dictionary<string, Socket>();
-        public static AutoDictionary<string, string> clientQueryStrings { get; set; } = new Dictionary<string, string>();
+        public static AutoDictionary<string, string> QueryStrings { get; set; } = new Dictionary<string, string>();
         public static void InitialiseSockets()
         {
             socketwatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -75,7 +75,7 @@ namespace WBPlatform.Database.DBServer
                     string _MessageId = requestString.Substring(0, 5);
                     requestString = requestString.Substring(5);
 
-                    clientQueryStrings[remoteEP] = requestString;
+                    QueryStrings[remoteEP] = requestString;
 
                     if (requestString == "openConnection")
                     {
@@ -112,7 +112,7 @@ namespace WBPlatform.Database.DBServer
                             //Invalid Connection......
                             LW.D("E: " + remoteEP + " :: JSON Parse Exception!");
                             baseSocket.CloseAndDispose();
-                            clientQueryStrings.Remove(remoteEP);
+                            QueryStrings.Remove(remoteEP);
                             break;
                         }
                     }
@@ -120,19 +120,19 @@ namespace WBPlatform.Database.DBServer
                     {
                         LW.E("Connection to " + remoteEP + " is not marked as 'Opened'");
                         baseSocket.CloseAndDispose();
-                        clientQueryStrings.Remove(remoteEP);
+                        QueryStrings.Remove(remoteEP);
                         break;
                     }
                 }
                 catch (Exception ex)
                 {
                     LW.E("Client " + remoteEP + " drops the connection. " + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
-                    clientQueryStrings.Remove(remoteEP);
+                    QueryStrings.Remove(remoteEP);
                     baseSocket.CloseAndDispose();
                     break;
                 }
             }
-            clientQueryStrings.Remove(remoteEP);
+            QueryStrings.Remove(remoteEP);
             LW.E("A Socket Recieve Thread Stoped! ");
         }
     }

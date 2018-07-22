@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Xml;
+
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.WebManagement.Tools
@@ -20,14 +17,16 @@ namespace WBPlatform.WebManagement.Tools
         public int AgentID { get; set; }
         public string TextContent { get; set; }
         public string MessageID { get; set; }
-        public string CreateTime { get; set; }
+        public ulong CreateTime { get; set; }
         public string PicUrl { get; set; }
         public string MediaId { get; set; }
         public string EventKey { get; set; }
+        public DateTime RecievedTime { get; }
 
         public WeChatRcvdMessage() { }
-        public WeChatRcvdMessage(string XMLMessage)
+        public WeChatRcvdMessage(string XMLMessage, DateTime time)
         {
+            RecievedTime = time;
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(XMLMessage);
             XmlNode root = doc.FirstChild;
@@ -35,7 +34,7 @@ namespace WBPlatform.WebManagement.Tools
 
             FromUser = root["FromUserName"].InnerText;
             ToUser = root["ToUserName"].InnerText;
-            CreateTime = root["CreateTime"].InnerText;
+            CreateTime = Convert.ToUInt64(root["CreateTime"].InnerText);
             AgentID = Convert.ToInt32(root["AgentID"].InnerText);
 
             switch (MessageType)

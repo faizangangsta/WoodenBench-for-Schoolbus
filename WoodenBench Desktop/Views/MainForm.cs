@@ -75,10 +75,10 @@ namespace WBPlatform.DesktopClient.Views
                 "<div align=\"right\"><font size=\"+4\">" +
                 CurrentUser.RealName +
                 "</font><br/>" +
-                CurrentUser.objectId +
+                CurrentUser.ObjectId +
                 "</div>";
             if (CurrentUser.HeadImagePath != "#")
-                FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory + "//Temp//" + GlobalFunctions.CurrentUser.objectId + "-HImg");
+                FileIO.DownloadFile("https://res.lhy0403.top/WBUserHeadImg/" + CurrentUser.HeadImagePath, Environment.CurrentDirectory + "//Temp//" + GlobalFunctions.CurrentUser.ObjectId + "-HImg");
 
             if (CurrentUser.UserGroup.IsAdmin) userRole.Text += "管理员;";
             if (CurrentUser.UserGroup.IsClassTeacher) userRole.Text += "班主任;";

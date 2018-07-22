@@ -36,7 +36,7 @@ namespace WBPlatform.DesktopClient.Users
             {
                 NowUser.Password = Cryptography.SHA256Encrypt(NewPasswrd);
                 if (DataBaseOperation.UpdateData(NowUser, new DBQuery()
-                    .WhereEqualTo("objectId", CurrentUser.objectId)
+                    .WhereEqualTo("objectId", CurrentUser.ObjectId)
                     .WhereEqualTo("Password", Cryptography.SHA256Encrypt(OriPasswrd))
                     .WhereEqualTo("Username", CurrentUser.UserName)) == DBQueryStatus.ONE_RESULT)
                 {

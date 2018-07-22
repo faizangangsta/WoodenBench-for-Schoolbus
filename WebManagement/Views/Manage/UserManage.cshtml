@@ -12,10 +12,17 @@
         <h3>用户查询</h3>
         <h5>查询和更改用户信息</h5>
     }
-    else
+    else if (ViewData["registerMsg"] == null)
     {
         <h3>用户查看和编辑</h3>
-        <h5>用户ID: @Model.objectId</h5>
+        <h5>用户ID: @Model.ObjectId</h5>
+    }
+    else
+    {
+        <h3>注册信息审核</h3>
+        <h5>用户ID: @Model.ObjectId</h5>
+        <br />
+        <h5>用户备注：</h5> <p class="text-danger">@ViewData["registerMsg"]</p>
     }
     <hr />
     <div>
@@ -66,7 +73,7 @@
             <div id="singleView" class="container">
                 <!--Single User Edit or View-->
                 <label>用户ID</label>
-                <input asp-for="objectId" class="TxBox" disabled readonly />
+                <input asp-for="ObjectId" class="TxBox" disabled readonly />
                 <br />
                 <label>用户名（微信号）</label>
                 <input asp-for="UserName" class="TxBox" disabled readonly />
@@ -96,12 +103,15 @@
                     <br />
                 </div>
                 <hr />
-                <label>班级ID</label>
-                <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetClassIdString(';')" />
-                <br />
-                <label>子女ID</label>
-                <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetChildIdString(';')" />
-                <br />
+                <label for="adv_Area">高级选项</label>
+                <div id="adv_Area" class="container">
+                    <label>班级ID</label>
+                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetClassIdString(';')" />
+                    <br />
+                    <label>子女ID</label>
+                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetChildIdString(';')" />
+                    <br />
+                </div>
             </div>
         }
     </div>
@@ -154,20 +164,33 @@
         {
             <script>
                 function touch(event) {
-                    var event = event || window.event; console.log(event);
-                    $(event.path[0]).removeAttr("disabled");
-                    $(event.path[0]).removeAttr("readonly");
+                    var event = event || window.event;
+                    //console.log(event);
+                    var name = event.path[0].name;
+                    var id = event.path[0].id
+                    if (name != undefined && id != undefined) {
+                        $(event.path[0]).removeAttr("disabled");
+                        $(event.path[0]).removeAttr("readonly");
+                        if (changeList.toString().indexOf(id) == -1) {
+                            changeList[changeList.length] = id;
+                        } else {
+                            console.log("changeList already Conatins " + id);
+                        }
+                    } else {
+                        console.log("Not clicked on an Valid Input area...");
+                    }
                 }
                 document.addEventListener('touchend', touch, false);
             </script>
             <div id="options" class="center-margin center-all">
-                <button class="btn btn-success btn-sm" style="width: 49%" onclick="accepted();">同意更改</button>
+                <button class="btn btn-success btn-sm" style="width: 49%" onclick="accepted();">提交</button>
                 <button class="btn btn-danger btn-sm" style="width: 49%" onclick="cancel()">取消</button>
             </div>
             <br />
             <button class="btn btn-info btn-sm" style="width:100%" onclick="location.href = '/Manage/UserManage?mode=query'">返回列表</button>
             <br />
             <script>
+                var changeList = [];
                 function accepted() {
 
                 }

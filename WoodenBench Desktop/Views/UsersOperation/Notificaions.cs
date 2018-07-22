@@ -66,7 +66,7 @@ namespace WBPlatform.DesktopClient.Views
                 foreach (NotificationObject item in list)
                 {
                     NotificationLists.Add(item);
-                    listView1.Items.Add(new ListViewItem(new string[] { item.Sender, item.createdAt.ToString("yyyy-MM-dd HH:mm:ss"), new string(item.Content.Take(20).ToArray()) + "...." }));
+                    listView1.Items.Add(new ListViewItem(new string[] { item.Sender, item.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"), new string(item.Content.Take(20).ToArray()) + "...." }));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace WBPlatform.DesktopClient.Views
             {
                 NotificationObject @object = NotificationLists[listView1.SelectedItems[0].Index];
                 msgTitle.Text = @object.Title;
-                msgTime.Text = @object.createdAt.ToString("yyyy-MM-dd HH:mm:ss");
+                msgTime.Text = @object.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
                 msgType.Text = @object.Type.ToString();
                 msgSendID.Text = @object.Sender;
                 msgRecvID.Text = @object.GetStringRecivers();

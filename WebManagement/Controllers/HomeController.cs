@@ -18,7 +18,7 @@ namespace WBPlatform.WebManagement.Controllers
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
                 AIKnownUser(user);
-                if ((user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin))
+                if (user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin)
                 {
                     if (Request.Cookies["LoginRedirect"] != null)
                     {
@@ -30,7 +30,7 @@ namespace WBPlatform.WebManagement.Controllers
                 else
                 {
                     Response.Cookies.Delete("Session");
-                    return _InternalError(ServerSideAction.Home_Index, ErrorType.UserGroupError, "用户未经过验证，UserID = " + user.objectId, user.UserName, ErrorRespCode.NotSet);
+                    return _InternalError(ServerAction.Home_Index, ErrorType.UserGroupError, "用户未经过验证，UserID = " + user.ObjectId, user.UserName, ErrorRespCode.NotSet);
                 }
             }
             else
@@ -80,7 +80,8 @@ namespace WBPlatform.WebManagement.Controllers
 
         public IActionResult Error()
         {
-            return _InternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, "未知原因异常：异常汇报程序未提供任何内容", LoginUsr: "SYSTEM");
+            AIUnknownUser();
+            return _InternalError(ServerAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, "未知原因异常：异常汇报程序未提供任何内容", LoginUsr: "SYSTEM");
         }
 
         public IActionResult WeChatLogin(string state, string code)
@@ -88,12 +89,12 @@ namespace WBPlatform.WebManagement.Controllers
             AIUnknownUser();
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
-                return _InternalError(ServerSideAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "微信请求状态异常，请重试请求", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
+                return _InternalError(ServerAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "微信请求状态异常，请重试请求", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
             else
             {
                 string Session = Sessions.LoginOrCreateUser_Core(code, Request.Headers["User-Agent"], out object user);
                 if (string.IsNullOrEmpty(Session))
-                    return _InternalError(ServerSideAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "未获取到 Session 信息，请重试", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
+                    return _InternalError(ServerAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "未获取到 Session 信息，请重试", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
                 else if (Session == "0")
                 {
                     string token = JumpTokens.CreateToken();

@@ -12,7 +12,7 @@ namespace WBPlatform.StaticClasses
 {
     public static class PublicTools
     {
-        public static object EncodeString(object item) => item is string ? HttpUtility.UrlEncode(item as string) : item;
+        public static object EncodeString(object item) => item is string ? HttpUtility.UrlPathEncode(item as string) : item;
         public static object DecodeObject(object item) => item is string ? HttpUtility.UrlDecode(item as string) : item;
 
         public static Dictionary<string, string> HTTPGet(string URL)

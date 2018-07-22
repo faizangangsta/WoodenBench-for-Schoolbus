@@ -18,9 +18,9 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable Get(string BusID, string TeacherID, string Session, string STAMP)
         {
             if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return SessionError;
-            if (!(user.objectId == TeacherID)) return UserGroupError;
+            if (!(user.ObjectId == TeacherID)) return UserGroupError;
             //user.UserGroup.BusID == BusID &&
-            if (Cryptography.SHA256Encrypt(BusID + ";;" + Session + user.objectId + ";;" + Session) != STAMP) return RequestIllegal;
+            if (Cryptography.SHA256Encrypt(BusID + ";;" + Session + user.ObjectId + ";;" + Session) != STAMP) return RequestIllegal;
             DBQuery BusQuery = new DBQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
@@ -31,10 +31,10 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         if (BusList.Count == 0)
                         {
-                            BusList.Add(new SchoolBusObject() { objectId = "0000000000", BusName = "未找到校车", TeacherID = user.objectId });
+                            BusList.Add(new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = user.ObjectId });
                         }
                         DBQuery StudentQuery = new DBQuery();
-                        StudentQuery.WhereEqualTo("BusID", BusList[0].objectId);
+                        StudentQuery.WhereEqualTo("BusID", BusList[0].ObjectId);
                         Dictionary<string, string> dict = new Dictionary<string, string>();
                         switch (DataBaseOperation.QueryMultipleData(StudentQuery, out List<StudentObject> StudentList))
                         {

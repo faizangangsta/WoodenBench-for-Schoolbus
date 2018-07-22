@@ -17,8 +17,8 @@
     }
     <hr />
     <form action="/api/users/Register" method="post">
-        <input for="mode" class="form-control hidden" value="@ViewData["mode"].ToString()" />
-        <input asp-for="UserName" class="disabled hidden" readonly value="@ViewData["UserName"].ToString()" />
+        <input for="mode" class="form-control" hidden value="@ViewData["mode"].ToString()" />
+        <input asp-for="UserName" class="disabled" hidden readonly value="@ViewData["UserName"].ToString()" />
 
         @if (isRegister)
         {
@@ -56,7 +56,7 @@
             @if (isRegister)
             {
                 <label>请注明班级，和其他有助于审核的信息</label>
-                <input type="text" class="TxBox" asp-for="table" />
+                <input type="text" class="TxBox" asp-for="Table" />
             }
         </div>
         <div class="form-group center-margin">

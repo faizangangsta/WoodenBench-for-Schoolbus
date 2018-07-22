@@ -21,25 +21,31 @@
     </div>
 
     <!--This is Function Choosing Part-->
-    <h5 class="container">请选择功能：</h5>
+    <p class="container">请选择功能：</p>
     <div class="container">
-        <div class="center-all row">
+        <div class="row">
             <div class="col">
-                <button class="btn btn-sm btn-success center-all" style="width: 100%" onClick="SignStudents('LS');">离校签到</button>
+                <button class="btn btn-sm btn-success full-width" onClick="SignStudents('LS');">离校签到</button>
             </div>
             <div class="col">
-                <button class="btn btn-sm btn-info center-all" style="width: 100%" onClick="location.href='/BusManager/ArriveHomeScan'">到家确认扫码</button>
+                <button class="btn btn-sm btn-info full-width" onClick="location.href='/BusManager/ArriveHomeScan'">到家确认扫码</button>
             </div>
         </div>
         <br />
-        <div class="center-all row">
+        <div class="row">
             <div class="col">
-                <button class="btn btn-sm btn-warning center-all" style="width: 100%" onClick="SignStudents('CS');">返校签到</button>
+                <button class="btn btn-sm btn-warning full-width" onClick="SignStudents('CS');">返校签到</button>
             </div>
             <div class="col">
-                <button class="btn btn-sm btn-danger center-all" style="width: 100%" onClick="SignStudents('CD');">修改数据</button>
+                <button class="btn btn-sm btn-danger full-width" onClick="SignStudents('CD');">修改数据</button>
             </div>
         </div><br />
+        <hr />
+        <div class="container">
+            <p>汇报情况</p>
+            <button class="btn btn-outline-danger full-width" onclick="location.href = '/BusManager/WeekIssue'">汇报突发情况</button>
+        </div>
+        <br />
     </div>
 
 </div>

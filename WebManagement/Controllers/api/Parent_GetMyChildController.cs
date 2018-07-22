@@ -18,7 +18,7 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable Get(string parentId)
         {
             if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return SessionError;
-            if (!(user.objectId == parentId && user.UserGroup.IsParent)) return UserGroupError;
+            if (!(user.ObjectId == parentId && user.UserGroup.IsParent)) return UserGroupError;
             
             
             Dictionary<string, string> dict = new Dictionary<string, string>();

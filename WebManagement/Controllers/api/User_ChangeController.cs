@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement.Controllers
             string[] SessionVerify = STAMP.Split("_v3_");
             if (SessionVerify.Length != 2) return RequestIllegal;
             if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
-                SessionVerify[0] == Cryptography.SHA256Encrypt(SessionUser.objectId + Content + SessionVerify[1]))
+                SessionVerify[0] == Cryptography.SHA256Encrypt(SessionUser.ObjectId + Content + SessionVerify[1]))
             {
                 UserObject user = new UserObject();
                 //user.objectId = SessionUser.objectId;
@@ -63,7 +63,7 @@ namespace WBPlatform.WebManagement.Controllers
                 if (DataBaseOperation.UpdateData(user) == 0)
                 {
                     DBQuery query = new DBQuery();
-                    query.WhereEqualTo("objectId", SessionUser.objectId);
+                    query.WhereEqualTo("objectId", SessionUser.ObjectId);
                     switch (DataBaseOperation.QueryMultipleData(query, out List<UserObject> UserList))
                     {
                         case DBQueryStatus.INTERNAL_ERROR: return InternalError;

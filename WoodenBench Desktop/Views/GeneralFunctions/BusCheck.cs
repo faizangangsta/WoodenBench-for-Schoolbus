@@ -50,7 +50,7 @@ namespace WBPlatform.DesktopClient.Views
             if (CurrentUser.UserGroup.IsBusManager)
             {
                 SchoolBusObject busObject = new SchoolBusObject();
-                DBQueryStatus resultX = DataBaseOperation.QueryMultipleData<SchoolBusObject>(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.objectId), out List<SchoolBusObject> result);
+                DBQueryStatus resultX = DataBaseOperation.QueryMultipleData<SchoolBusObject>(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.ObjectId), out List<SchoolBusObject> result);
 
                 switch (resultX)
                 {
@@ -65,7 +65,7 @@ namespace WBPlatform.DesktopClient.Views
                     default: { MessageBox.Show("出现内部错误：" + resultX.ToString()); return; }
                 }
                 busObject = result[0];
-                myID.Text = busObject.objectId;
+                myID.Text = busObject.ObjectId;
                 myDirection.Text = busObject.BusName;
                 LeavingChecked.Text = busObject.LSChecked.ToString();
                 ExpNumber.Text = "尚未加载";

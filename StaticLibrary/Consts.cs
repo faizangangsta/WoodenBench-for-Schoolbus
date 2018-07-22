@@ -40,7 +40,7 @@ namespace WBPlatform.StaticClasses
         Completed = 1,
         Failed = 0
     }
-    public enum LogType
+    public enum LogLevel
     {
         Err = 3,
         Info = 1,
@@ -57,6 +57,9 @@ namespace WBPlatform.StaticClasses
     {
         堵车 = 0,
         事故 = 1,
+        学生迟到 = 2,
+        到校 = 3,
+        到家 = 4,
         其他 = 9,
     }
 
@@ -68,6 +71,7 @@ namespace WBPlatform.StaticClasses
         Update = 3,
         Delete = 4
     }
+
     public enum DBQueryStatus
     {
         INJECTION_DETECTED = -3,
@@ -77,14 +81,13 @@ namespace WBPlatform.StaticClasses
         ONE_RESULT = 1,
         MORE_RESULTS
     }
-    /// <summary>
-    /// Message Types -->   0b + MessageType + (int)isSentToUser
-    /// </summary>
+
     public enum GlobalMessageTypes
     {
-        UCR_Created_TO_ADMIN = 0b00000010, UCR_Created_TO_User = 0b00000011,
-        UCR_Procced_TO_ADMIN = 0b00000100, UCR_Procced_TO_User = 0b00000101,
-        User__Pending_Verify = 0b00001000, User__Finish_Verify = 0b00001001
+        UCR_Created_TO_ADMIN = 0, UCR_Created__TO_User = 1,
+        UCR_Procced_TO_ADMIN = 2, UCR_Procceed_TO_User = 3,
+        User__Pending_Verify = 4, User__Finishd_Verify = 5,
+        Bus_Status_Report_TC = 6, Bus_Status_Report_TP = 7
     }
     public enum UserChangeRequestProcessStatus
     {

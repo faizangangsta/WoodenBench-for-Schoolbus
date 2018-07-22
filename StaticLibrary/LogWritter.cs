@@ -9,43 +9,59 @@ namespace WBPlatform.StaticClasses
     {
         public class OnLogChangedEventArgs : EventArgs
         {
-            public OnLogChangedEventArgs(string logString, LogType logType)
+            public OnLogChangedEventArgs(string logString, LogLevel logType)
             {
                 LogString = logString;
                 this.logType = logType;
             }
             public string LogString { get; set; }
-            public LogType logType { get; set; }
+            public LogLevel logType { get; set; }
         }
         public delegate void OnLogWrited(OnLogChangedEventArgs logchange);
-        public static event OnLogWrited onLog;
-
-        private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogType.LongChain); 
+        public static event OnLogWrited OnLog;
+        private static LogLevel _LogLevel { get; set; } = LogLevel.Err;
+        public static void SetLogLevel(LogLevel level) { _LogLevel = level; }
+        private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogLevel.LongChain);
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
-        public static void D(string Message) => WriteLog(LogType.Info, Message);
-        public static void D(object Message) => WriteLog(LogType.Info, Message.ToString());
-        public static void E(string Message) => WriteLog(LogType.Err, Message);
-        public static void E(object Message) => WriteLog(LogType.Err, Message.ToString());
-        public static void C() => WriteLog(LogType.LongChain);
-        public static void InitLog()
+        public static void D(string Message) => WriteLog(LogLevel.Info, Message);
+        public static void D(object Message) => WriteLog(LogLevel.Info, Message.ToString());
+        public static void E(string Message) => WriteLog(LogLevel.Err, Message);
+        public static void E(object Message) => WriteLog(LogLevel.Err, Message.ToString());
+        public static void C() => WriteLog(LogLevel.LongChain);
+        public static void InitLog(LogLevel level = LogLevel.Err)
         {
             LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.ToNormalString().Replace(':', '-') + ".log";
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
             Fs.AutoFlush = true;
-            WriteLog(LogType.Info, "Started Log...");
+            E("Log is Now Initialised!");
         }
-        private static void WriteLog(LogType level, string Message = "")
+        private static void WriteLog(LogLevel level, string Message = "")
         {
+            if (level < _LogLevel) return;
             string LogMsg = "";
-            if (level == LogType.LongChain)
+            if (level == LogLevel.LongChain)
                 LogMsg = "========================================================================\r\n";
             else
                 LogMsg += $"[{DateTime.Now.ToNormalString()}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}\r\n";
 
             Debug.Write(LogMsg);
-            Console.WriteLine(LogMsg);
+            ConsoleColor _color = Console.ForegroundColor;
+            switch (level)
+            {
+                case LogLevel.Err:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case LogLevel.Info:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case LogLevel.LongChain:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+            }
+            Console.Write(LogMsg);
+            Console.ForegroundColor = _color;
             char[] p = LogMsg.ToCharArray();
             lock (Fs)
             {
@@ -53,7 +69,7 @@ namespace WBPlatform.StaticClasses
             }
             logEvent.LogString = LogMsg;
             logEvent.logType = level;
-            onLog?.Invoke(logEvent);
+            OnLog?.Invoke(logEvent);
         }
     }
 }

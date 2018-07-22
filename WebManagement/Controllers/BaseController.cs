@@ -50,7 +50,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData[UID_CookieName] = UnknownUID;
         }
 
-        protected IActionResult _InternalError(ServerSideAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult _InternalError(ServerAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
         {
             string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
             Exception ex = HttpContext.Features.Get<ExceptionHandlerFeature>()?.Error;

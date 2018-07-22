@@ -31,11 +31,11 @@ namespace WBPlatform.Database
         public static DBQueryStatus QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
         {
             query.Limit(1);
-            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBVerbs.QuerySingle, query, null, out DBInput[] input, out DataBaseStatus result);
+            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().Table, DBVerbs.QuerySingle, query, null, out DBInput[] input, out DataBaseStatus result);
             if (databaseOperationResult == DBQueryStatus.ONE_RESULT)
             {
                 T t = new T();
-                t.readFields(input[0]);
+                t.ReadFields(input[0]);
                 Result = t;
                 return databaseOperationResult;
             }
@@ -51,14 +51,14 @@ namespace WBPlatform.Database
         {
             query.Limit(queryLimit);
             query.Skip(skip);
-            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().table, DBVerbs.QueryMulti, query, null, out DBInput[] inputs, out DataBaseStatus @object);
+            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().Table, DBVerbs.QueryMulti, query, null, out DBInput[] inputs, out DataBaseStatus @object);
             if (databaseOperationResult >= 0)
             {
                 Result = new List<T>();
                 foreach (DBInput item in inputs)
                 {
                     T t = new T();
-                    t.readFields(item);
+                    t.ReadFields(item);
                     Result.Add(t);
                 }
             }
@@ -78,19 +78,19 @@ namespace WBPlatform.Database
             if (query == null)
             {
                 query = new DBQuery();
-                query.WhereEqualTo("objectId", item.objectId);
+                query.WhereEqualTo("objectId", item.ObjectId);
             }
             DBOutput output = new DBOutput();
-            item.write(output, false);
-            return _DBRequestInternal(item.table, DBVerbs.Update, query, output, out DBInput[] inputs, out DataBaseStatus message);
+            item.WriteObject(output, false);
+            return _DBRequestInternal(item.Table, DBVerbs.Update, query, output, out DBInput[] inputs, out DataBaseStatus message);
         }
 
         public static DBQueryStatus CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
         {
             DBOutput output = new DBOutput();
-            data.objectId = Cryptography.RandomString(10, false);
-            data.write(output, false);
-            DBQueryStatus rst = _DBRequestInternal(data.table, DBVerbs.Create, null, output, out DBInput[] inputs, out DataBaseStatus message);
+            data.ObjectId = Cryptography.RandomString(10, false);
+            data.WriteObject(output, false);
+            DBQueryStatus rst = _DBRequestInternal(data.Table, DBVerbs.Create, null, output, out DBInput[] inputs, out DataBaseStatus message);
             if (rst == DBQueryStatus.INTERNAL_ERROR)
             {
                 dataOut = null;
@@ -98,7 +98,7 @@ namespace WBPlatform.Database
                 return rst;
             }
             T t = new T();
-            t.readFields(inputs[0]);
+            t.ReadFields(inputs[0]);
             dataOut = t;
             return rst;
         }
@@ -115,9 +115,7 @@ namespace WBPlatform.Database
                 {
                     throw new ArgumentNullException("When using Query Create and Change. Arg: output cannot be null");
                 }
-                DBInternalRequest internalQuery = new DBInternalRequest();
-                internalQuery.operation = operation;
-                internalQuery.TableName = Table;
+                DBInternalRequest internalQuery = new DBInternalRequest { operation = operation, TableName = Table };
                 switch (operation)
                 {
                     case DBVerbs.Create:
@@ -139,7 +137,7 @@ namespace WBPlatform.Database
 
                 DBInternalReply reply;
                 string _MessageId = MessageId;
-                if (!DatabaseSocketsClient.SendDatabaseOperations(internalQueryString, _MessageId, out string rcvdData))
+                if (!DatabaseSocketsClient.SendData(internalQueryString, _MessageId, out string rcvdData))
                 {
                     inputs = null;
                     dbStatus = null;
@@ -200,9 +198,7 @@ namespace WBPlatform.Database
             catch (DataBaseException ex)
             {
                 inputs = null;
-                dbStatus = new DataBaseStatus();
-                dbStatus.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
-                dbStatus.Exception = ex;
+                dbStatus = new DataBaseStatus { DBResultCode = DBQueryStatus.INTERNAL_ERROR, Exception = ex };
                 LW.E(dbStatus.ToString());
                 return DBQueryStatus.INTERNAL_ERROR;
             }

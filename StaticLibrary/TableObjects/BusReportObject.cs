@@ -15,11 +15,11 @@ namespace WBPlatform.TableObject
         //构造函数
         public BusReport() { }
 
-        public override string table => WBConsts.TABLE_Mgr_WeekIssue;
+        public override string Table => WBConsts.TABLE_Mgr_WeekIssue;
                 //读字段信息
-        public override void readFields(DBInput input)
+        public override void ReadFields(DBInput input)
         {
-            base.readFields(input);
+            base.ReadFields(input);
             TeacherID = input.GetString("ReportTeacherID");
             BusID = input.GetString("ReportBusID");
             ReportType = (BusReportTypeE)input.GetInt("ReportType");
@@ -27,13 +27,14 @@ namespace WBPlatform.TableObject
         }
 
         //写字段信息
-        public override void write(DBOutput output, bool all)
+        public override void WriteObject(DBOutput output, bool all)
         {
-            base.write(output, all);
+            base.WriteObject(output, all);
             output.Put("ReportTeacherID", TeacherID);
             output.Put("ReportBusID", BusID);
             output.Put("ReportType", (int)ReportType);
             output.Put("DetailedInformation", OtherData);
         }
+        public override string ToString() => throw new System.NotImplementedException();
     }
 }

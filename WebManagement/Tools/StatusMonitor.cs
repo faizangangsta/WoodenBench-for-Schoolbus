@@ -27,19 +27,20 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("SessionsCount", Sessions.GetCount);
                 status.Add("SessionThread", true);
                 status.Add("Tokens", JumpTokens.GetCount);
-                status.Add("WeChatRCVDThreadStatus", WeChatMessageSystem.Status()[0]);
-                status.Add("WeChatSENTThreadStatus", WeChatMessageSystem.Status()[1]);
-                status.Add("WeChatRCVDListCount", WeChatMessageSystem.Status()[2]);
-                status.Add("WeChatSENTListCount", WeChatMessageSystem.Status()[3]);
+                var WeChatStatus = WeChatMessageSystem.Status();
+                status.Add("WeChatRCVDThreadStatus", WeChatStatus.Item1);
+                status.Add("WeChatSENTThreadStatus", WeChatStatus.Item2);
+                status.Add("WeChatRCVDListCount", WeChatStatus.Item3);
+                status.Add("WeChatSENTListCount", WeChatStatus.Item4);
                 status.Add("Database", DatabaseSocketsClient.Connected);
                 status.Add("CoreMessageSystemThread", MessagingSystem.GetStatus);
                 status.Add("CoreMessageSystemCount", MessagingSystem.GetCount);
-                status.Add("MessageBackupThread", MessageBackup.GetStatus);
-                status.Add("MessageBackupCount", MessageBackup.GetCount);
+                status.Add("MessageBackupThread", WeChatMessageBackupService.GetStatus);
+                status.Add("MessageBackupCount", WeChatMessageBackupService.GetCount);
                 status.Add("StartupTime", Program.StartUpTime.ToString());
                 status.Add("ServerVer", Program.Version);
                 status.Add("CoreLibVer", WBConsts.CurrentCoreVersion);
-                status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion); 
+                status.Add("NetCoreCLRVer", Assembly.GetCallingAssembly().ImageRuntimeVersion);
                 string data = JsonConvert.SerializeObject(status);
 
                 byte[] ipByte = Encoding.UTF8.GetBytes(data);

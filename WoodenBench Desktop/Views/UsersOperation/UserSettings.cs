@@ -43,7 +43,7 @@ namespace WBPlatform.DesktopClient.Views
 
         private void UserSettings_Load(object sender, EventArgs e)
         {
-            userIDLabel.Text = CurrentUser.objectId;
+            userIDLabel.Text = CurrentUser.ObjectId;
             UserLogonNamelabel.Text = CurrentUser.UserName;
             SexLabel.Text = CurrentUser.Sex.ToLower() == "m" ? "ÄÐ" : "Å®";
             realnameLabel.Text = CurrentUser.RealName;

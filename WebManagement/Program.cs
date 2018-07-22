@@ -42,7 +42,7 @@ namespace WBPlatform.WebManagement
 
             LW.D("Initialising Core Messaging Systems.....");
             WeChatMessageSystem.StartProcessThreads();
-            MessageBackup.StartBackupThread();
+            WeChatMessageBackupService.StartBackupThread();
             MessagingSystem.StartProcessThread();
 
             LW.D("Building WebHost....");

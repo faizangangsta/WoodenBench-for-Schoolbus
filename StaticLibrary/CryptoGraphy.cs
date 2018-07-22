@@ -202,7 +202,7 @@ namespace WBPlatform.StaticClasses
                 byte[] xBuff = null;
 
                 #region 自己进行PKCS7补位，用系统自己带的不行
-                byte[] msg = new byte[Input.Length + 32 - Input.Length % 32];
+                byte[] msg = new byte[Input.Length + 32 - (Input.Length % 32)];
                 Array.Copy(Input, msg, Input.Length);
                 byte[] pad = KCS7Encoder(Input.Length);
                 Array.Copy(pad, 0, msg, Input.Length, pad.Length);
@@ -273,7 +273,7 @@ namespace WBPlatform.StaticClasses
                     using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
                     {
                         byte[] xXml = Convert.FromBase64String(Input);
-                        byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
+                        byte[] msg = new byte[xXml.Length + 32 - (xXml.Length % 32)];
                         Array.Copy(xXml, msg, xXml.Length);
                         cs.Write(xXml, 0, xXml.Length);
                     }

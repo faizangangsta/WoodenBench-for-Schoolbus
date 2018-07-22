@@ -23,7 +23,6 @@ namespace WBPlatform.Database.DBServer
         {
             SqlConnectionStringBuilder readOnlyConnectionString = new SqlConnectionStringBuilder();
             LW.D("Start Initiallising Database Connections.....");
-            readOnlyConnectionString.Authentication = SqlAuthenticationMethod.SqlPassword;
             readOnlyConnectionString.DataSource = "118.190.144.179,1433";
             readOnlyConnectionString.UserID = "schoolbus_Database";
             readOnlyConnectionString.Password = "EV#WT%GTegqeraagw%#q3%GW%E$E";
@@ -106,7 +105,10 @@ namespace WBPlatform.Database.DBServer
                         reply.Result.Message = "操作成功完成(" + results.Count + ")";
                         break;
                     case DBVerbs.Update:
-                        string sqlCommand_Update = $"UPDATE {request.TableName} SET {string.Join(",", (from q in output.GetData() select ($"{q.Key} = '{PublicTools.EncodeString(q.Value)}' ")).ToArray())}, updatedAt = '{DateTime.Now}' WHERE objectId = '{dbQuery.EqualTo["objectId"]}'";
+                        string sqlCommand_Update = 
+                            $"UPDATE {request.TableName} " +
+                            $"SET {string.Join(",", (from q in output.GetData() select $"{q.Key} = '{PublicTools.EncodeString(q.Value)}' ").ToArray())}, updatedAt = '{DateTime.Now}' " +
+                            $"WHERE objectId = '{dbQuery.EqualTo["objectId"]}'";
 
                         SqlCommand command_Update = new SqlCommand(sqlCommand_Update, sqlReadOnlyConnection);
                         int rowModified_Update = command_Update.ExecuteNonQuery();

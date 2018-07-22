@@ -29,7 +29,7 @@ namespace WBPlatform.WebManagement.Controllers
                         case DBQueryStatus.INTERNAL_ERROR:
                         case DBQueryStatus.MORE_RESULTS: return InternalError;
                         case DBQueryStatus.NO_RESULTS: return SpecialisedInfo($"未知用户({UserID})");
-                        default: return SpecialisedInfo($"{user.RealName}({user.objectId})");
+                        default: return SpecialisedInfo($"{user.RealName}({user.ObjectId})");
                     }
                 }
             }

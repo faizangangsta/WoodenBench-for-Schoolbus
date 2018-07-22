@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 
 using WBPlatform.StaticClasses;
@@ -28,8 +27,7 @@ namespace WBPlatform.WebManagement.Tools
                     else message = null;
                 }
                 if (message != null) SendMessagePacket(message);
-                else Thread.Sleep(500);
-                Thread.Sleep(100);
+                else Thread.Sleep(200);
             }
         }
         private static Dictionary<string, string> SendMessagePacket(WeChatSentMessage message)
@@ -42,9 +40,9 @@ namespace WBPlatform.WebManagement.Tools
             return SendMessageString(message.type, users, message.Title, message.Content, message.URL_OnClick);
         }
 
-        private static Dictionary<string, string> SendMessageString(WeChat.SentMessageType MessageType, string users, string Title, string Content, string URL)
+        private static Dictionary<string, string> SendMessageString(WeChat.SentMessageType MessageType, string users, string Title, string Content, string URL = null)
         {
-            MessageBackup.AddToSendList(users, Title, Content);
+            WeChatMessageBackupService.AddToSendList(users, Title, Content);
             WeChat.ReNewWCCodes();
             string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + WeChat.agentId + ",\"" + MessageType.ToString() + "\":";
             switch (MessageType)
@@ -57,6 +55,7 @@ namespace WBPlatform.WebManagement.Tools
                     break;
             }
             Message = Message + "}";
+            LW.D("WeChat Message Sent: " + Message);
             return PublicTools.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChat.AccessToken, Message);
         }
     }

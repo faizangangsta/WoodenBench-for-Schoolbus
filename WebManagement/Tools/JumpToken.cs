@@ -46,7 +46,7 @@ namespace WBPlatform.WebManagement.Tools
             bool IsSecceed = false;
             lock (JumpToken)
             {
-                if ((JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds > 0))
+                if (JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds > 0)
                 {
                     JumpToken.Remove(Token, out Info);
                     IsSecceed = true;

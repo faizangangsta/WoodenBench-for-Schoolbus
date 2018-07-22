@@ -16,7 +16,7 @@
         else if (isManage && !isListView)
         {
             <h3>工单审核</h3>
-            <h5>工单ID: @Model.objectId</h5>
+            <h5>工单ID: @Model.ObjectId</h5>
         }
         else if (!isManage && isListView)
         {
@@ -25,7 +25,7 @@
         else if (!isManage && !isListView)
         {
             <h3>我的工单 </h3>
-            <h5>工单ID: @Model.objectId</h5>
+            <h5>工单ID: @Model.ObjectId</h5>
         }
         <hr />
         <div>
@@ -42,7 +42,7 @@
                 {
                     <div class="row" style="font-size: small">
                         <div class="col">
-                            <p>@item.createdAt.ToString("yyyy-MM-dd HH:mm:ss").Replace("-", "")</p>
+                            <p>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss").Replace("-", "")</p>
                         </div>
                         <div class="col">
                             <p>@item.RequestTypes.ToString()</p>
@@ -51,7 +51,7 @@
                             <p>@(item.Status != UserChangeRequestProcessStatus.NotSolved ? "是✔" : "否❌")</p>
                         </div>
                         <div class="col">
-                            <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.objectId">查看🔍</a>
+                            <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.ObjectId">查看🔍</a>
                         </div>
                     </div>
                 }
@@ -60,7 +60,7 @@
             {
                 <div id="singleView" class="container">
                     <label>工单提交时间：</label>
-                    <div class="container">@Model.createdAt</div>
+                    <div class="container">@Model.CreatedAt</div>
                     <label>修改类型：</label>
                     <div class="container">@Model.RequestTypes.ToString()</div>
                     <label>新内容：</label>
@@ -173,8 +173,8 @@
                 $("#optionss").removeClass("hidden");
             }
 
-            function accepted() { ProcessRequest("@Model.objectId", 0, $("#selection").val(), callback); }
-            function refused() { ProcessRequest("@Model.objectId", 1, $("#selection").val(), callback);  }
+            function accepted() { ProcessRequest("@Model.ObjectId", 0, $("#selection").val(), callback); }
+            function refused() { ProcessRequest("@Model.ObjectId", 1, $("#selection").val(), callback);  }
             function callback(data) {
                 if (data == false) {
                     alert("出现了一些问题，请刷新页面重试。");

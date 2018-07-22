@@ -48,12 +48,13 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     ViewData["from"] = from;
                     string targetId = uid;
-                    string message = Encoding.UTF8.GetString(Convert.FromBase64String(msg ?? ""));
+                    string message = (string)PublicTools.DecodeObject(Encoding.UTF8.GetString(Convert.FromBase64String(msg ?? "")));
+                    ViewData["registerMsg"] = message;
                     if (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", uid), out UserObject _user) == DBQueryStatus.ONE_RESULT)
                     {
                         return View(_user);
                     }
-                    else return _InternalError(ServerSideAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", user.RealName, ErrorRespCode.NotSet);
+                    else return _InternalError(ServerAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", user.RealName, ErrorRespCode.NotSet);
                 }
                 else if (mode == "query")
                 {
@@ -85,10 +86,10 @@ namespace WBPlatform.WebManagement.Controllers
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
-                                switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.objectId), out List<UserChangeRequest> requests))
+                                switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.ObjectId), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["count"] = requests.Count;
                                         ViewData["list"] = requests.ToArray();
@@ -98,12 +99,12 @@ namespace WBPlatform.WebManagement.Controllers
                             else
                             {
                                 // MY SINGLE Viewer
-                                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.objectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.ObjectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);
                                 }
@@ -121,7 +122,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 switch (DataBaseOperation.QueryMultipleData(new DBQuery(), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _InternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         ViewData["list"] = requests.ToArray();
                                         return base.View();
@@ -134,18 +135,18 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _InternalError(ServerSideAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
                                     default:
                                         return base.View(requests);
                                 }
                             }
                         default:
-                            return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                            return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
                     }
                 }
                 else
                 {
-                    return _InternalError(ServerSideAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                    return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
                 }
             }
             else

@@ -21,17 +21,17 @@ namespace Debug_Tool
                 CDepartment = "DEPARTMENT",
                 CGrade = "1年级",
                 CNumber = "5班",
-                TeacherID = me.objectId
+                TeacherID = me.ObjectId
             };
             LW.D(DataBaseOperation.CreateData(co, out co));
-            me.ClassList.Add(co.objectId);
+            me.ClassList.Add(co.ObjectId);
             LW.D(co);
 
 
             SchoolBusObject bo = new SchoolBusObject()
             {
                 BusName = "NAME",
-                TeacherID = me.objectId
+                TeacherID = me.ObjectId
             };
             LW.D(DataBaseOperation.CreateData(bo, out bo));
 
@@ -41,8 +41,8 @@ namespace Debug_Tool
             {
                 StudentObject stu = new StudentObject()
                 {
-                    BusID = bo.objectId,
-                    ClassID = co.objectId,
+                    BusID = bo.ObjectId,
+                    ClassID = co.ObjectId,
                     Sex = "M",
                     StudentName = "NAME-" + cn.ToString("000"),
                     AHChecked = false,
@@ -54,7 +54,7 @@ namespace Debug_Tool
                 LW.D(stu);
                 if (cn < 21)
                 {
-                    me.ChildList.Add(stu.objectId);
+                    me.ChildList.Add(stu.ObjectId);
                 }
             }
 

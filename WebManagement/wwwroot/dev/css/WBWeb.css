@@ -27,21 +27,24 @@ div {
     margin: 15px;
 }
 
-.BodyStyle {
-    background-image: url(/Backgrounds/back3.jpg);
-    background-position: center;
-    background-attachment: fixed;
-}
-
 label {
     font-weight: bold;
     font-size: small;
 }
 
 body {
+    background-image: url(/Backgrounds/back3.jpg);
+    background-position: center;
+    background-attachment: fixed;
     margin-bottom: 50px;
 }
 
+.full-width {
+    width: 100%
+}
+.half-width{
+    width: 50%
+}
 .text-underline {
     text-decoration: underline
 }
@@ -87,12 +90,7 @@ body {
     padding: 2px;
 }
 
-.center-all {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+.center-all
 .center-margin {
     display: block;
     margin-left: auto;

@@ -21,7 +21,7 @@ namespace WBPlatform.WebManagement.Controllers
         {
             if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
             {
-                if (user.UserGroup.IsBusManager && user.objectId == Data.Split(";")[1])//user.UserGroup.BusID == Data.Split(";")[0] &&
+                if (user.UserGroup.IsBusManager && user.ObjectId == Data.Split(";")[1])//user.UserGroup.BusID == Data.Split(";")[0] &&
                 {
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     Data = Request.Scheme + "://" + Request.Host + "/MyChild/ParentCheck?ID=" + Data;
