@@ -92,7 +92,7 @@
     <Compile Include="TableObjects\UserChangeRequest.cs" />
     <Compile Include="TableObjects\UserGroup.cs" />
     <Compile Include="TableObjects\UserObject.cs" />
-    <Compile Include="_DataCollection.cs" />
+    <Compile Include="AutoDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

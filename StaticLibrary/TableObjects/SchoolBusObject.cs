@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+
+using System.Collections.Generic;
+
 using WBPlatform.Database;
 using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
@@ -15,8 +16,6 @@ namespace WBPlatform.TableObject
         public bool AHChecked { get; set; }
         public bool CSChecked { get; set; }
         public bool LSChecked { get; set; }
-        public PointF CurrentPoint { get; set; }
-        public decimal Precision { get; set; }
 
         public SchoolBusObject() { }
         public override string Table => WBConsts.TABLE_Mgr_BusData;
@@ -29,8 +28,6 @@ namespace WBPlatform.TableObject
             LSChecked = input.GetBool("LSChecked");
             CSChecked = input.GetBool("CSChecked");
             AHChecked = input.GetBool("AHChecked");
-            CurrentPoint = new PointF(input.GetT<float>("longitude"), input.GetT<float>("latitude"));
-            Precision = input.GetT<decimal>("precision");
         }
 
         public override void WriteObject(DBOutput output, bool all)
@@ -42,9 +39,6 @@ namespace WBPlatform.TableObject
             output.Put("LSChecked", LSChecked);
             output.Put("AHChecked", AHChecked);
 
-            output.Put("longitude", CurrentPoint.X);
-            output.Put("latitude", CurrentPoint.Y);
-            output.Put("precision", Precision);
         }
 
         public Dictionary<string, string> ToDictionary()
@@ -57,10 +51,7 @@ namespace WBPlatform.TableObject
                 { "TeacherID", TeacherID },
                 { "ArriveHome", AHChecked.ToString().ToLower() },
                 { "ComingSchool", CSChecked.ToString().ToLower() },
-                { "LeavingSchool", LSChecked.ToString().ToLower() },
-                { "LocationX", CurrentPoint.X.ToString()},
-                { "LocationY", CurrentPoint.Y.ToString()},
-                { "Precision", Precision.ToString() }
+                { "LeavingSchool", LSChecked.ToString().ToLower() }
             };
         }
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());

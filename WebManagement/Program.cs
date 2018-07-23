@@ -48,7 +48,9 @@ namespace WBPlatform.WebManagement
             LW.D("Building WebHost....");
             var webHost = BuildWebHost(args);
             LW.D("Starting WebHost....");
-            LW.C();
+
+            //WeChatMessageSystem.AddMessageToList(new WeChatRcvdMessage("<xml><ToUserName><![CDATA[wx68bec13e85ca6465]]></ToUserName><FromUserName><![CDATA[liuhaoyu]]></FromUserName><CreateTime>1521830752</CreateTime><MsgType><![CDATA[event]]></MsgType><AgentID>41</AgentID><Event><![CDATA[LOCATION]]></Event><Latitude>38.5811</Latitude><Longitude>116.857</Longitude><Precision>15</Precision></xml>", DateTime.Now));
+
             WebServerTask = webHost.RunAsync(ServerStopToken.Token);
             WebServerTask.Wait();
             LW.E("WebServer Stoped! Cancellation Token = " + ServerStopToken.IsCancellationRequested);

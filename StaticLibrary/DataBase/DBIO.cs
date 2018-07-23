@@ -55,30 +55,30 @@ namespace WBPlatform.Database.DBIOCommand
     }
     public class DBOutput
     {
-        private Dictionary<string, object> real = new Dictionary<string, object>();
-        public void Put(string column, object data)
+        public void Put(string column, object _data)
         {
-            if (data is Array || data is IList)
+            if (_data == null) { LW.E("DBOutput: Put " + column + " as null, drop it..."); return; }
+            if (_data is Array || _data is IList)
             {
-                data = string.Join(",", (IEnumerable<string>)data);
+                _data = string.Join(",", (IEnumerable<string>)_data);
             }
-            if (real.ContainsKey(column))
+            if (Data.ContainsKey(column))
             {
-                real.Remove(column);
-                real.Add(column, data);
+                Data.Remove(column);
+                Data.Add(column, _data);
             }
             else
             {
-                real.Add(column, data);
+                Data.Add(column, _data);
             }
         }
-        public Dictionary<string, object> GetData() => real;
+        public object this[string column] => Data[column];
+        public Dictionary<string, object> Data { get; } = new Dictionary<string, object>();
 
         public DBOutput() { }
-        public DBOutput(Dictionary<string, object> _real) { real = _real; }
-        public DBOutput(string JSONString) { real = JsonConvert.DeserializeObject<Dictionary<string, object>>(JSONString); }
+        public DBOutput(Dictionary<string, object> _real) { Data = _real; }
 
-        public override string ToString() => JsonConvert.SerializeObject(real);
+        public override string ToString() => JsonConvert.SerializeObject(Data);
     }
 
 }

@@ -21,14 +21,13 @@ namespace WBPlatform.StaticClasses
         public static event OnLogWrited OnLog;
         private static LogLevel _LogLevel { get; set; } = LogLevel.Err;
         public static void SetLogLevel(LogLevel level) { _LogLevel = level; }
-        private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogLevel.LongChain);
+        private static OnLogChangedEventArgs logEvent = new OnLogChangedEventArgs("", LogLevel.Dbg);
         private static StreamWriter Fs { get; set; }
         private static string LogFilePath { get; set; }
         public static void D(string Message) => WriteLog(LogLevel.Info, Message);
         public static void D(object Message) => WriteLog(LogLevel.Info, Message.ToString());
         public static void E(string Message) => WriteLog(LogLevel.Err, Message);
         public static void E(object Message) => WriteLog(LogLevel.Err, Message.ToString());
-        public static void C() => WriteLog(LogLevel.LongChain);
         public static void InitLog(LogLevel level = LogLevel.Err)
         {
             LogFilePath = Environment.CurrentDirectory + "\\Logs\\" + DateTime.Now.ToNormalString().Replace(':', '-') + ".log";
@@ -37,14 +36,10 @@ namespace WBPlatform.StaticClasses
             Fs.AutoFlush = true;
             E("Log is Now Initialised!");
         }
-        private static void WriteLog(LogLevel level, string Message = "")
+        private static void WriteLog(LogLevel level, string Message)
         {
             if (level < _LogLevel) return;
-            string LogMsg = "";
-            if (level == LogLevel.LongChain)
-                LogMsg = "========================================================================\r\n";
-            else
-                LogMsg += $"[{DateTime.Now.ToNormalString()}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}\r\n";
+            string LogMsg = $"[{DateTime.Now.ToNormalString()}+{DateTime.Now.Millisecond.ToString("000")} - {(level.ToString().Length == 4 ? level.ToString() : (level.ToString() + " "))}] {Message}\r\n";
 
             Debug.Write(LogMsg);
             ConsoleColor _color = Console.ForegroundColor;
@@ -56,7 +51,7 @@ namespace WBPlatform.StaticClasses
                 case LogLevel.Info:
                     Console.ForegroundColor = ConsoleColor.Blue;
                     break;
-                case LogLevel.LongChain:
+                case LogLevel.Dbg:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
             }

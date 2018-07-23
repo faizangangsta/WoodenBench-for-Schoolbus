@@ -179,7 +179,7 @@ namespace WBPlatform.StaticClasses
                     }
                     xBuff = ms.ToArray();
                 }
-                String Output = Convert.ToBase64String(xBuff);
+                string Output = Convert.ToBase64String(xBuff);
                 return Output;
             }
 

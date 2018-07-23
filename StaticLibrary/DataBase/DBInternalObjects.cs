@@ -8,26 +8,22 @@ namespace WBPlatform.Database.Internal
     //............................................................INTERNAL CONTACTION............................................................\\
     public class DBInternalRequest
     {
-        public DBVerbs operation { get; set; }
+        public DBVerbs Operation { get; set; }
         public string TableName { get; set; }
         public DBQuery Query { get; set; }
-        public string objectString { get; set; }
+        public string ObjectString { get; set; }
 
         public DBInternalRequest()
         {
-            operation = 0;
+            Operation = 0;
             TableName = "";
             Query = new DBQuery();
-            objectString = "";
+            ObjectString = "";
         }
 
         public static bool FromJSONString(string JSONString, out DBInternalRequest request)
         {
-            try
-            {
-                request = JsonConvert.DeserializeObject<DBInternalRequest>(JSONString);
-            }
-            finally { }
+            request = JsonConvert.DeserializeObject<DBInternalRequest>(JSONString);
             return request != null;
         }
 
@@ -36,23 +32,18 @@ namespace WBPlatform.Database.Internal
     }
     public class DBInternalReply
     {
-        public DataBaseStatus Result { get; set; }
-        public string objectString { get; set; }
+        public string ObjectString { get; set; }
         public DBInternalReply()
         {
-            Result = new DataBaseStatus();
-            objectString = "";
+            ObjectString = "";
         }
         public static DBInternalReply FromJSONString(string JSONString) => JsonConvert.DeserializeObject<DBInternalReply>(JSONString);
 
         public override string ToString() => JsonConvert.SerializeObject(this);
-    }
-    public class DataBaseStatus
-    {
+
         public DBQueryStatus DBResultCode { get; set; }
         public DBVerbs DBOperation { get; set; }
         public string Message { get; set; }
         public DataBaseException Exception { get; set; }
-        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

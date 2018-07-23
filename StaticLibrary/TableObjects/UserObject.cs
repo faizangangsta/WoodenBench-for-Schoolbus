@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+
+using System.Collections.Generic;
+using System.Drawing;
+
 using WBPlatform.Database;
 using WBPlatform.Database.DBIOCommand;
 using WBPlatform.StaticClasses;
@@ -23,6 +26,9 @@ namespace WBPlatform.TableObject
 
         public List<string> ChildList { get; set; } = new List<string>();
         public List<string> ClassList { get; set; } = new List<string>();
+
+        public PointF CurrentPoint { get; set; }
+        public decimal Precision { get; set; }
 
         public override void ReadFields(DBInput input)
         {
@@ -49,6 +55,8 @@ namespace WBPlatform.TableObject
             {
                 HeadImagePath = "default.png";
             }
+            CurrentPoint = new PointF(input.GetT<float>("longitude"), input.GetT<float>("latitude"));
+            Precision = input.GetT<decimal>("precision");
         }
 
         public override void WriteObject(DBOutput output, bool all)
@@ -69,9 +77,13 @@ namespace WBPlatform.TableObject
 
             output.Put("ClassIDs", ClassList);
             output.Put("ChildIDs", ChildList);
+
+            output.Put("longitude", CurrentPoint.X);
+            output.Put("latitude", CurrentPoint.Y);
+            output.Put("precision", Precision);
         }
 
-        public UserObject SetEveryThingNull()
+        public UserObject GetNull()
         {
             ObjectId = RandomString(10, true, CustomStr: RandomString(5, true));
             UserName = RandomString(10, true, CustomStr: RandomString(5, true));
@@ -86,7 +98,7 @@ namespace WBPlatform.TableObject
             return UserName + "-" + ObjectId;
         }
 
-        public static UserObject RandomValue => new UserObject().SetEveryThingNull();
+        public static UserObject RandomValue => new UserObject().GetNull();
 
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
 
@@ -130,7 +142,10 @@ namespace WBPlatform.TableObject
                 { "IsAdmin" , UserGroup.IsAdmin.ToString().ToLower() },
 
                 { "ClassIDs", GetChildIdString(';') },
-                { "ChildIDs", GetClassIdString(';') }
+                { "ChildIDs", GetClassIdString(';') },
+                { "LocationX", CurrentPoint.X.ToString()},
+                { "LocationY", CurrentPoint.Y.ToString()},
+                { "Precision", Precision.ToString() }
             };
         }
     }

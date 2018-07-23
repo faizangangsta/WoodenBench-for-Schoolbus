@@ -12,6 +12,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using WBPlatform.StaticClasses;
 
 namespace WBPlatform.ServiceStatus
 {
@@ -19,28 +20,28 @@ namespace WBPlatform.ServiceStatus
     {
         public static void Main(string[] args)
         {
+            LW.SetLogLevel(StaticClasses.LogLevel.Dbg);
+            LW.InitLog();
             new Thread(new ThreadStart(GetStateString)).Start();
             BuildWebHost(args).Run();
         }
         public static void GetStateString()
         {
-            //UdpClient client = new UdpClient(new IPEndPoint(IPAddress.Any, 58720));
-            //IPEndPoint RemoteUDPSender = new IPEndPoint(IPAddress.Any, 0);
-            //while (true)
-            //{
-            //    byte[] RcvdByte = client.Receive(ref RemoteUDPSender);
-            //    HomeController.ServerStatus = Encoding.UTF8.GetString(RcvdByte);
-            //}
             NamedPipeClientStream client = new NamedPipeClientStream("localhost", "83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.In);
-            client.Connect();
-            while (client.IsConnected)
+            while (true)
             {
-                var data = new byte[65535];
-                var count = client.Read(data, 0, data.Length);
-                if (count > 0)
+                client.Connect();
+                while (client.IsConnected)
                 {
-                    HomeController.ServerStatus = Encoding.UTF8.GetString(data, 0, count);
+                    var data = new byte[65535];
+                    var count = client.Read(data, 0, data.Length);
+                    if (count > 0)
+                    {
+                        HomeController.ServerStatus = Encoding.UTF8.GetString(data, 0, count);
+                    }
                 }
+                LW.E("GetStateString: DisConnected from the WBWebServer....");
+                Thread.Sleep(1000);
             }
         }
 

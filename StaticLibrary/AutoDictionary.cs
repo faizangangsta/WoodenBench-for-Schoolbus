@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,20 +6,24 @@ namespace WBPlatform.StaticClasses
 {
     public class AutoDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private Dictionary<TKey, TValue> _dict = new Dictionary<TKey, TValue>();
+        private Dictionary<TKey, TValue> _dict;
+
+        public AutoDictionary() : base()
+        {
+            _dict = new Dictionary<TKey, TValue>();
+        }
+        public AutoDictionary(IDictionary<TKey, TValue> v) : base()
+        {
+            _dict = (Dictionary<TKey,TValue>)v;
+        }
 
         public TValue this[TKey key]
         {
             get
             {
-                if (((IDictionary<TKey, TValue>)_dict).ContainsKey(key))
-                {
-                    return ((IDictionary<TKey, TValue>)_dict)[key];
-                }
-                else
-                {
-                    return default(TValue);
-                }
+                return ((IDictionary<TKey, TValue>)_dict).ContainsKey(key)
+                    ? ((IDictionary<TKey, TValue>)_dict)[key]
+                    : default(TValue);
 
             }
             set
@@ -59,7 +63,8 @@ namespace WBPlatform.StaticClasses
         {
             return new AutoDictionary<TKey, TValue>() { _dict = v };
         }
-        public static implicit operator Dictionary<TKey,TValue>(AutoDictionary<TKey,TValue> v)
+
+        public static implicit operator Dictionary<TKey, TValue>(AutoDictionary<TKey, TValue> v)
         {
             return new Dictionary<TKey, TValue>(v._dict);
         }

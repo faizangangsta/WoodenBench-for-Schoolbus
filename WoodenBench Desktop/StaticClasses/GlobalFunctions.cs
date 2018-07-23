@@ -41,7 +41,6 @@ namespace WBPlatform.DesktopClient.StaticClasses
         {
             if (e.isSucceed) LW.D($"Headimage download completed, at: {e.LocalFilePath}");
             else LW.E(e.ErrDescription);
-            LW.C();
         }
     }
 }

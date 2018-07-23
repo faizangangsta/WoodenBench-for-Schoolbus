@@ -40,12 +40,12 @@ namespace WBPlatform.StaticClasses
             newStream.Write(byteArray, 0, byteArray.Length);
             newStream.Flush();
             newStream.Close();
+            newStream.Dispose();
             HttpWebResponse response = (HttpWebResponse)webReq.GetResponse();
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
             string ret = sr.ReadToEnd();
             sr.Close();
             response.Close();
-            newStream.Close();
 
             LW.D("HTTP - POST-rply: " + ret);
             Dictionary<string, string> dict = new Dictionary<string, string>();

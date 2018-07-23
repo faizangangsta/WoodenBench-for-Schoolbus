@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-
-
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
+using WBPlatform.TableObject;
 
 namespace WBPlatform.WebManagement.Tools
 {
@@ -86,18 +87,18 @@ namespace WBPlatform.WebManagement.Tools
                             var Precision = Message.Precision;
                             var time = Message.RecievedTime;
                             var toUser = Message.FromUser;
-                            LW.D($"Recieved Location: {Latitude}:{Longitude}%{Precision}@{time} form {toUser}");
-                            InternalMessage _message_ToClassT = new InternalMessage
+                            LW.D($"WeChatMessageResp: Recieved Location: {Latitude}:{Longitude}%{Precision}@{time} form {toUser}");
+                            if (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("Username", toUser), out UserObject _user) == DBQueryStatus.ONE_RESULT)
                             {
-                                DataObject = (Latitude, Longitude, Precision, time, toUser),
-                                _Type = GlobalMessageTypes.Bus_Status_Report_TC
-                            };
-                            InternalMessage _message_ToParent = new InternalMessage
-                            {
-                                DataObject = (Latitude, Longitude, Precision, time, toUser),
-                                _Type = GlobalMessageTypes.Bus_Status_Report_TP
-                            };
-                            MessagingSystem.AddMessageProcesses(_message_ToClassT, _message_ToParent);
+                                _user.CurrentPoint = Message.Location;
+                                _user.Precision = Precision;
+                                if (DataBaseOperation.UpdateData(_user) != DBQueryStatus.ONE_RESULT)
+                                    LW.E("WeChatMessageResp: Cannot save User with new Position...");
+                                else LW.D("WeChatMessageResp: Succeed Save User with New Position...");
+                            }
+                            else LW.E("WeChatMessageResp: Cannot find user in Database....");
+
+
                             return null;
                     }
                     return null;

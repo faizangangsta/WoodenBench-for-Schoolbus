@@ -12,13 +12,14 @@ namespace Debug_Tool
         static void Main(string[] args)
         {
             LW.InitLog();
+            LW.SetLogLevel(LogLevel.Dbg);
             DataBaseOperation.InitialiseClient(IPAddress.Parse("118.190.144.179"));
 
             LW.D(DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("realname", "刘浩宇"), out UserObject me));
             LW.D(me);
             ClassObject co = new ClassObject()
             {
-                CDepartment = "DEPARTMENT",
+                CDepartment = "学部",
                 CGrade = "1年级",
                 CNumber = "5班",
                 TeacherID = me.ObjectId
@@ -30,7 +31,7 @@ namespace Debug_Tool
 
             SchoolBusObject bo = new SchoolBusObject()
             {
-                BusName = "NAME",
+                BusName = "校车方向1",
                 TeacherID = me.ObjectId
             };
             LW.D(DataBaseOperation.CreateData(bo, out bo));
@@ -44,7 +45,7 @@ namespace Debug_Tool
                     BusID = bo.ObjectId,
                     ClassID = co.ObjectId,
                     Sex = "M",
-                    StudentName = "NAME-" + cn.ToString("000"),
+                    StudentName = "学生-" + cn.ToString("000"),
                     AHChecked = false,
                     CSChecked = false,
                     LSChecked = false
@@ -58,7 +59,7 @@ namespace Debug_Tool
                 }
             }
 
-
+            me.HeadImagePath = "liuhaoyu.gif";
             LW.D(DataBaseOperation.UpdateData(me));
             LW.D(me);
         }

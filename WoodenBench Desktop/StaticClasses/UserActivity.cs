@@ -53,7 +53,7 @@ namespace WBPlatform.DesktopClient.Users
 
         public static bool LogOut()
         {
-            CurrentUser.SetEveryThingNull();
+            CurrentUser.GetNull();
             GC.Collect();
             return true;
         }

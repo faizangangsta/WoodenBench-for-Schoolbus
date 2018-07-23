@@ -44,7 +44,7 @@ namespace WBPlatform.StaticClasses
     {
         Err = 3,
         Info = 1,
-        LongChain = 0
+        Dbg = 0
     }
     public enum NotificationType
     {

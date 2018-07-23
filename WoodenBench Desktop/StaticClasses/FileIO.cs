@@ -45,7 +45,7 @@ namespace WBPlatform.DesktopClient.StaticClasses
             }
             catch (Exception ex)
             {
-                fs.Close();
+                fs = null;
                 IOCompleted(false, LocalFilePath, RemoteURL);
             }
         }
