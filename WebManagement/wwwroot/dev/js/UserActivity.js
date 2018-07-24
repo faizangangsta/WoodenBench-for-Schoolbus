@@ -79,7 +79,7 @@ function QueryStudents(BusID, Column, Content, CallBackFunction) {
 function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction) {
     "use strict";
     $.ajax({
-        url: location.protocol + "//" + location.host + "/api/gen/NewReport?" +
+        url: location.protocol + "//" + location.host + "/api/bus/NewIssueReport?" +
             "BusID=" + BusID +
             "&TeacherID=" + TeacherID +
             "&ReportType=" + Type +

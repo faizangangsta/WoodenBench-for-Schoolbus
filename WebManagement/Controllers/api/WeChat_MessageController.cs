@@ -51,7 +51,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Response.StatusCode = 500;
                 return;
             }
-            WeChatMessageSystem.AddMessageToList(new WeChatRcvdMessage(XML_Message, DateTime.Now));
+            WeChatMessageSystem.AddToRecvList(new WeChatRcvdMessage(XML_Message, DateTime.Now));
             Response.StatusCode = 200;
             Response.WriteAsync("");
         }

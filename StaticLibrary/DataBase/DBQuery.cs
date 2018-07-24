@@ -21,7 +21,7 @@ namespace WBPlatform.Database
             Contains.Add(column, value);
             return this;
         }
-        public DBQuery WhereRecordContainedInArray<T>(string column, params T[] values)
+        public DBQuery WhereValueContainedInArray<T>(string column, params T[] values)
         {
             ContainedInArray.Add(column, new List<string>());
             foreach (T item in values)

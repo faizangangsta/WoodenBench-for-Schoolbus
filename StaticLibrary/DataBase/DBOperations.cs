@@ -30,20 +30,23 @@ namespace WBPlatform.Database
         }
         public static DBQueryStatus QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
         {
-            query.Limit(1);
-            DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().Table, DBVerbs.QuerySingle, query, null, out DBInput[] input);
-            if (databaseOperationResult == DBQueryStatus.ONE_RESULT)
-            {
-                T t = new T();
-                t.ReadFields(input[0]);
-                Result = t;
-                return databaseOperationResult;
-            }
-            else
-            {
-                Result = null;
-                return databaseOperationResult;
-            }
+            //query.Limit(1);
+            //DBQueryStatus databaseOperationResult = _DBRequestInternal(new T().Table, DBVerbs.QuerySingle, query, null, out DBInput[] input);
+            //if (databaseOperationResult == DBQueryStatus.ONE_RESULT)
+            //{
+            //    T t = new T();
+            //    t.ReadFields(input[0]);
+            //    Result = t;
+            //    return databaseOperationResult;
+            //}
+            //else
+            //{
+            //    Result = null;
+            //    return databaseOperationResult;
+            //}
+            var _Status = QueryMultipleData(query, out List<T> results, 1);
+            Result = results[0];
+            return _Status;
         }
 
 
@@ -85,6 +88,7 @@ namespace WBPlatform.Database
             item.WriteObject(output, false);
             return _DBRequestInternal(item.Table, DBVerbs.Update, query, output, out DBInput[] inputs);
         }
+        public static DBQueryStatus CreateData<T>(ref T data) where T : DataTableObject, new() => CreateData(data, out data);
 
         public static DBQueryStatus CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
         {

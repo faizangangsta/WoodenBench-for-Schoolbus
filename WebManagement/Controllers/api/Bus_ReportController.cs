@@ -12,8 +12,8 @@ using WBPlatform.WebManagement.Tools;
 namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
-    [Route("api/gen/NewReport")]
-    public class NewReportController : WebAPIController
+    [Route("api/bus/NewIssueReport")]
+    public class Bus_ReportController : WebAPIController
     {
         [HttpGet]
         public IEnumerable GET(string BusID, string TeacherID, string ReportType, string Content)
@@ -37,27 +37,27 @@ namespace WBPlatform.WebManagement.Controllers
                     ReportType = (BusReportTypeE)Convert.ToInt32(ReportType),
                     OtherData = Content
                 };
-                if (DataBaseOperation.CreateData(busReport, out BusReport _bus) == DBQueryStatus.ONE_RESULT)
+                if (DataBaseOperation.CreateData(ref busReport) == DBQueryStatus.ONE_RESULT)
                 {
                     InternalMessage message_TC = new InternalMessage()
                     {
-                        DataObject = _bus,
+                        DataObject = busReport,
                         ObjectId = BusID,
                         User = user,
                         _Type = GlobalMessageTypes.Bus_Status_Report_TC
                     };
                     InternalMessage message_TP = new InternalMessage()
                     {
-                        DataObject = _bus,
+                        DataObject = busReport,
                         ObjectId = BusID,
                         User = user,
                         _Type = GlobalMessageTypes.Bus_Status_Report_TP
                     };
                     //Need to Process these messsages.....
                     MessagingSystem.AddMessageProcesses(message_TC, message_TP);
-                    dict.Add("CreatedAt", _bus.CreatedAt.ToNormalString());
+                    dict.Add("CreatedAt", busReport.CreatedAt.ToNormalString());
                     dict.Add("ErrCode", "0");
-                    dict.Add("ReportID", _bus.ObjectId);
+                    dict.Add("ReportID", busReport.ObjectId);
                     dict.Add("ErrMessage", "null");
                 }
                 else

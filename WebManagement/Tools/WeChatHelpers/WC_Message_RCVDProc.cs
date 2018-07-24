@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Tools
             LW.D("\tWeChatRcvdThread Started!");
         }
 
-        public static void AddMessageToList(WeChatRcvdMessage _Message)
+        public static void AddToRecvList(WeChatRcvdMessage _Message)
         {
             lock (RcvdMessageList) RcvdMessageList.Add(_Message);
         }
@@ -97,8 +97,7 @@ namespace WBPlatform.WebManagement.Tools
                                 else LW.D("WeChatMessageResp: Succeed Save User with New Position...");
                             }
                             else LW.E("WeChatMessageResp: Cannot find user in Database....");
-
-
+                            
                             return null;
                     }
                     return null;

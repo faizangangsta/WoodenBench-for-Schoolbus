@@ -127,11 +127,76 @@ namespace WBPlatform.WebManagement.Tools
                         return true;
                     }
                 case GlobalMessageTypes.User__Finishd_Verify:
+                    //Not to develop recently....
                     return false;
                 case GlobalMessageTypes.Bus_Status_Report_TC:
-                    return false;
                 case GlobalMessageTypes.Bus_Status_Report_TP:
-                    return false;
+                    var _report = message.DataObject as BusReport;
+                    var busId = message.ObjectId;
+                    var _busTeacher = message.User;
+
+                    if ((int)DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", busId), out List<StudentObject> students) < 1)
+                    {
+                        LW.E("MessageSystem->BusStatusReport: Failed to query Students List in specific bus ID: " + busId);
+                        return false;
+                    }
+                    if (message._Type == GlobalMessageTypes.Bus_Status_Report_TC)
+                    {
+                        //To Class Teacher
+                        string[] ClassList = (from _stu in students select _stu.ClassID).Distinct().ToArray();
+                        if ((int)DataBaseOperation.QueryMultipleData(new DBQuery().WhereValueContainedInArray("objectId", ClassList), out List<ClassObject> classes) < 1)
+                        {
+                            LW.E("MessageSystem->BusStatusReport: Failed to query Classes from ClassList..." + string.Join(';', ClassList));
+                            return false;
+                        }
+                        foreach (ClassObject _class in classes)
+                        {
+                            if (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", _class.TeacherID), out UserObject _ClassTeacher) != DBQueryStatus.ONE_RESULT)
+                            {
+                                LW.E("MessageSystem->BusStatusReport: Failed to get ClassTeacher of ClassID: " + _class.ObjectId);
+                            }
+                            string[] _StudentInClass = (from _stu in students where _stu.ClassID == _class.ObjectId select _stu.StudentName).ToArray();
+                            WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
+                                $"{_ClassTeacher.RealName}: \r\n" +
+                                $"你的班级 {_class.CDepartment}{_class.CGrade}{_class.CNumber} \r\n" +
+                                $"有 {_StudentInClass.Length} 名学生受到校车 {_report.ReportType} 影响: \r\n" +
+                                $"原因：{_report.OtherData}\r\n" +
+                                $"学生列表: {string.Join(",", _StudentInClass)}", null, _ClassTeacher.UserName);
+                            WeChatMessageSystem.AddToSendList(_message);
+                        }
+                        return true;
+                    }
+                    else if (message._Type == GlobalMessageTypes.Bus_Status_Report_TP)
+                    {
+                        //To Parents....
+                        List<UserObject> AllParents = new List<UserObject>();
+                        foreach (StudentObject studentObject in students)
+                        {
+                            if ((int)DataBaseOperation.QueryMultipleData(new DBQuery().WhereRecordContainsValue("ChildIDs", studentObject.ObjectId), out List<UserObject> _Parents) < 1)
+                            {
+                                LW.E("MessageSystem->BusStatusReport: Failed to get Child's parent.. ChildID: " + studentObject.ObjectId);
+                                continue;
+                            }
+                            AllParents.AddRange(_Parents);
+                        }
+                        AllParents = AllParents.Distinct(DataTableComparer<UserObject>.Default).ToList();
+                        foreach (UserObject _parent in AllParents)
+                        {
+                            string[] _ChildrenList = (from _stu in students where _parent.ChildList.Contains(_stu.ObjectId) select _stu.StudentName).Distinct().ToArray();
+                            WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
+                                $"{_parent.RealName}: \r\n" +
+                                $"你的 {_ChildrenList.Length} 个孩子受到校车 {_report.ReportType} 影响\r\n" +
+                                $"原因:{_report.OtherData}\r\n" +
+                                $"受影响的孩子: {string.Join(",", _ChildrenList)}", null, _parent.UserName);
+                            WeChatMessageSystem.AddToSendList(_message);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        LW.E("MessageSystem->BusStatusReport: This Error may never hit...");
+                        return false;
+                    }
                 default: throw new NotSupportedException("不支持就是不支持……");
             }
         }

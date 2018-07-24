@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -48,10 +49,10 @@ namespace WBPlatform.WebManagement.Tools
             switch (MessageType)
             {
                 case WeChat.SentMessageType.text:
-                    Message = Message + "{\"content\":\"" + Content + "\"}";
+                    Message = Message + $"{{\"content\":\"{Content}\r\n\r\n MST: {DateTime.Now.ToNormalString()}\"}}";
                     break;
                 case WeChat.SentMessageType.textcard:
-                    Message = Message + "{\"title\":\"" + Title + "\",\"description\":\"" + Content + "\",\"url\":\"" + URL + "\"}";
+                    Message = Message + $"{{\"title\":\"{Title}\",\"description\":\"{Content}\",\"url\":\"{URL}\"}}";
                     break;
             }
             Message = Message + "}";
