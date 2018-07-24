@@ -171,7 +171,7 @@ namespace WBPlatform.DesktopClient.Views
 
             if (row.Cells[0].Value == null || row.Cells[0].Value.ToString() == "")
             {
-                return DataBaseOperation.CreateData(busObject, out SchoolBusObject _bus) ==  DBQueryStatus.ONE_RESULT;
+                return DataBaseOperation.CreateData(ref busObject) ==  DBQueryStatus.ONE_RESULT;
             }
             else
             {

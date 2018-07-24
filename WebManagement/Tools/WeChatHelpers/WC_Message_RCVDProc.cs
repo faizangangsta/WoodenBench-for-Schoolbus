@@ -56,7 +56,7 @@ namespace WBPlatform.WebManagement.Tools
                             {
                                 case "ADD_PASSWORD":
                                     string token = JumpTokens.CreateToken();
-                                    if (JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.FreeLogin_View, "JumpToken_FreeLogin", Message.FromUser)))
+                                    if (JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
                                     {
                                         var p = SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                             "要是想使用Windows 客户端登陆的话\r\n" +
@@ -67,7 +67,7 @@ namespace WBPlatform.WebManagement.Tools
                                     else
                                     {
                                         return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
-                                            "我们在处理你的账户时出现了问题，你可能暂时无法添加密码\r\n请与管理员联系，并提供以下内容\r\nCreateToken_Error");
+                                            "我们在处理你的账户时出现了问题，你可能暂时无法添加密码\r\n请与管理员联系，并提供以下内容:\r\nCreateToken_Error");
                                     }
                                 case "WEB_SERV_VER":
                                     return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,

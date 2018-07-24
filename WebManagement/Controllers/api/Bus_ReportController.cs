@@ -53,7 +53,7 @@ namespace WBPlatform.WebManagement.Controllers
                         User = user,
                         _Type = GlobalMessageTypes.Bus_Status_Report_TP
                     };
-                    //Need to Process these messsages.....
+
                     MessagingSystem.AddMessageProcesses(message_TC, message_TP);
                     dict.Add("CreatedAt", busReport.CreatedAt.ToNormalString());
                     dict.Add("ErrCode", "0");

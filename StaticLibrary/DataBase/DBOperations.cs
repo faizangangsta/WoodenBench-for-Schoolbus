@@ -75,22 +75,20 @@ namespace WBPlatform.Database
         }
 
         public static DBQueryStatus UpdateData<T>(T item) where T : DataTableObject, new() => UpdateData(item, null);
-
         public static DBQueryStatus UpdateData<T>(T item, DBQuery query) where T : DataTableObject, new()
         {
             if (query == null)
             {
-                query = new DBQuery();
-                query.WhereEqualTo("objectId", item.ObjectId);
+                query = new DBQuery().WhereEqualTo("objectId", item.ObjectId);
             }
             query.Limit(1);
             DBOutput output = new DBOutput();
             item.WriteObject(output, false);
             return _DBRequestInternal(item.Table, DBVerbs.Update, query, output, out DBInput[] inputs);
         }
-        public static DBQueryStatus CreateData<T>(ref T data) where T : DataTableObject, new() => CreateData(data, out data);
 
-        public static DBQueryStatus CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
+        public static DBQueryStatus CreateData<T>(ref T data) where T : DataTableObject, new() => CreateData(data, out data);
+        private static DBQueryStatus CreateData<T>(T data, out T dataOut) where T : DataTableObject, new()
         {
             DBOutput output = new DBOutput();
             data.ObjectId = Cryptography.RandomString(10, false);

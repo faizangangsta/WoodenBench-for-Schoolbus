@@ -54,7 +54,7 @@ namespace WBPlatform.WebManagement.Controllers
                         Sex = dict["Sex"],
                         PhoneNumber = dict["PhoneNumber"]
                     };
-                    if (DataBaseOperation.CreateData(user, out user) == DBQueryStatus.ONE_RESULT)
+                    if (DataBaseOperation.CreateData(ref user) == DBQueryStatus.ONE_RESULT)
                     {
                         MessagingSystem.AddMessageProcesses(new InternalMessage() { User = user, _Type = GlobalMessageTypes.User__Pending_Verify, DataObject = dict["table"] });
                         Response.Redirect("/Home");

@@ -372,7 +372,7 @@ namespace WBPlatform.DesktopClient.Views
                 //If Record is NOT in the Server Database, SHOWN AS NO  "OBJECT ID" GIVEN
                 if (string.IsNullOrEmpty((string)StudentData.Rows[RowNum].Cells[0].Value))
                 {
-                    if (Database.DataBaseOperation.CreateData(StudentObj, out StudentObject _stu) == DBQueryStatus.ONE_RESULT)
+                    if (Database.DataBaseOperation.CreateData(ref StudentObj) == DBQueryStatus.ONE_RESULT)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         Application.DoEvents();

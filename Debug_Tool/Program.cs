@@ -24,7 +24,7 @@ namespace Debug_Tool
                 CNumber = "5班",
                 TeacherID = me.ObjectId
             };
-            LW.D(DataBaseOperation.CreateData(co, out co));
+            LW.D(DataBaseOperation.CreateData(ref co));
             me.ClassList.Add(co.ObjectId);
             LW.D(co);
 
@@ -34,7 +34,7 @@ namespace Debug_Tool
                 BusName = "校车方向1",
                 TeacherID = me.ObjectId
             };
-            LW.D(DataBaseOperation.CreateData(bo, out bo));
+            LW.D(DataBaseOperation.CreateData(ref bo));
 
             LW.D(bo);
 
@@ -50,7 +50,7 @@ namespace Debug_Tool
                     CSChecked = false,
                     LSChecked = false
                 };
-                LW.D(DataBaseOperation.CreateData(stu, out stu));
+                LW.D(DataBaseOperation.CreateData(ref stu));
 
                 LW.D(stu);
                 if (cn < 21)

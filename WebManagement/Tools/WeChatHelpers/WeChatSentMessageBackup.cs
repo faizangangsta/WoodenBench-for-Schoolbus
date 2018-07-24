@@ -56,9 +56,8 @@ namespace WBPlatform.WebManagement.Tools
                     }
                     else message = null;
                 }
-                if (message != null) { DataBaseOperation.CreateData(message, out NotificationObject _notification); }
-                else Thread.Sleep(500);
-                Thread.Sleep(100);
+                if (message != null) DataBaseOperation.CreateData(ref message);
+                else Thread.Sleep(1000);
             }
         }
     }

@@ -63,8 +63,7 @@ namespace WBPlatform.WebManagement.Controllers
                     string reason = form[nameof(UserChangeRequest.DetailTexts)][0];
                     string newVal = form[nameof(UserChangeRequest.NewContent)][0];
                     UserChangeRequest request = new UserChangeRequest() { DetailTexts = reason, SolverID = "", NewContent = newVal, Status = UserChangeRequestProcessStatus.NotSolved, RequestTypes = types, UserID = user.ObjectId };
-                    DataBaseOperation.CreateData(request, out UserChangeRequest _req);
-                    request = _req;
+                    DataBaseOperation.CreateData(ref request);
 
                     InternalMessage messageAdmin = new InternalMessage() { _Type = GlobalMessageTypes.UCR_Created_TO_ADMIN, DataObject = request, User = user, ObjectId = request.ObjectId };
                     InternalMessage message_User = new InternalMessage() { _Type = GlobalMessageTypes.UCR_Created__TO_User, DataObject = request, User = user, ObjectId = request.ObjectId };
