@@ -29,13 +29,12 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable Get(string UserID, string Column, string Content, string STAMP)
         {
             object Equals2Obj = Content;
-            if (Int32.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
+            if (int.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
             else if (((string)Equals2Obj).ToLower() == "true") Equals2Obj = true;
             else if (((string)Equals2Obj).ToLower() == "false") Equals2Obj = false;
             string[] SessionVerify = STAMP.Split("_v3_");
             if (SessionVerify.Length != 2) return RequestIllegal;
-            if (Sessions.OnSessionReceived(SessionVerify[1], Request.Headers["User-Agent"], out UserObject SessionUser) &&
-                SessionVerify[0] == Cryptography.SHA256Encrypt(SessionUser.ObjectId + Content + SessionVerify[1]))
+            if (ValidateSession() && SessionVerify[0] == Cryptography.SHA256Encrypt(CurrentUser.ObjectId + Content + SessionVerify[1]))
             {
                 UserObject user = new UserObject();
                 //user.objectId = SessionUser.objectId;
@@ -60,18 +59,18 @@ namespace WBPlatform.WebManagement.Controllers
                 }
 
 
-                if (DataBaseOperation.UpdateData(user) == 0)
+                if (DataBaseOperation.UpdateData(ref user) == 0)
                 {
                     DBQuery query = new DBQuery();
-                    query.WhereEqualTo("objectId", SessionUser.ObjectId);
+                    query.WhereEqualTo("objectId", CurrentUser.ObjectId);
                     switch (DataBaseOperation.QueryMultipleData(query, out List<UserObject> UserList))
                     {
                         case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                         case DBQueryStatus.NO_RESULTS: return DataBaseError;
                         default:
                             Dictionary<string, string> dict = UserList[0].ToDictionary();
-                            string NewSession = Sessions.RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
-                            Response.Cookies.Append("Session", NewSession, new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
+                            //string NewSession = RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
+                            Response.Cookies.Append("Session", "----NewSession------", new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
                             dict.Add("ErrCode", "0");
                             dict.Add("ErrMessage", "null");
                             dict.Add("updated_At", DateTime.Now.ToString());

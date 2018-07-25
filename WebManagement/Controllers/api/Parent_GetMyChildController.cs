@@ -17,12 +17,12 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string parentId)
         {
-            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user)) return SessionError;
-            if (!(user.ObjectId == parentId && user.UserGroup.IsParent)) return UserGroupError;
+            if (!ValidateSession()) return SessionError;
+            if (!(CurrentUser.ObjectId == parentId && CurrentUser.UserGroup.IsParent)) return UserGroupError;
             
             
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereValueContainedInArray("objectId", user.ChildList.ToArray()), out List<StudentObject> StudentList))
+            switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereValueContainedInArray("objectId", CurrentUser.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
                 case DBQueryStatus.INTERNAL_ERROR: return InternalError;
                 default:

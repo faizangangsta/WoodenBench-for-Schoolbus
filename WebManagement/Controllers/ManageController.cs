@@ -15,32 +15,32 @@ namespace WBPlatform.WebManagement.Controllers
         public override IActionResult Index()
         {
             ViewData["where"] = HomeController.ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                if (!user.UserGroup.IsAdmin)
+                if (!CurrentUser.UserGroup.IsAdmin)
                 {
-                    LW.E("Someone trying access illegal page!, Page: index, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
+                    LW.E("Someone trying access illegal page!, Page: index, user:" + CurrentUser.UserName + ", possible referer:" + Request.Headers["Referer"]);
                     return NotFound();
                 }
-                AIKnownUser(user);
-                ViewData["cUser"] = user.ToString();
-                return View(user);
+                AISetUser();
+                ViewData["cUser"] = CurrentUser.ToString();
+                return View(CurrentUser);
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName);
             }
         }
         public IActionResult UserManage(string mode, string from, string uid, string msg)
         {
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                if (!user.UserGroup.IsAdmin)
+                AISetUser();
+                if (!CurrentUser.UserGroup.IsAdmin)
                 {
-                    LW.E("Someone trying access illegal page!, Page: UserManage, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
+                    LW.E("Someone trying access illegal page!, Page: UserManage, user:" + CurrentUser.UserName + ", possible referer:" + Request.Headers["Referer"]);
                     return NotFound();
                 }
                 ViewData["mode"] = mode;
@@ -54,7 +54,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         return View(_user);
                     }
-                    else return _InternalError(ServerAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", user.RealName, ErrorRespCode.NotSet);
+                    else return _InternalError(ServerAction.INTERNAL_ERROR, ErrorType.DataBaseError, "暂时找不到URL中指定的用户", CurrentUser.RealName, ErrorRespCode.NotSet);
                 }
                 else if (mode == "query")
                 {
@@ -67,15 +67,15 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed($"/Manage/UserManage?mode={mode}&from={from}&uid={uid}&msg={msg}");
             }
         }
         public IActionResult ChangeRequest(string arg, string reqId)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
+                AISetUser();
                 if (!string.IsNullOrEmpty(arg))
                 {
                     switch (arg)
@@ -86,10 +86,10 @@ namespace WBPlatform.WebManagement.Controllers
                             if (string.IsNullOrEmpty(reqId))
                             {
                                 // MY LIST
-                                switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", user.ObjectId), out List<UserChangeRequest> requests))
+                                switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", CurrentUser.ObjectId), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", CurrentUser.UserName);
                                     default:
                                         ViewData["count"] = requests.Count;
                                         ViewData["list"] = requests.ToArray();
@@ -99,12 +99,12 @@ namespace WBPlatform.WebManagement.Controllers
                             else
                             {
                                 // MY SINGLE Viewer
-                                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("UserID", user.ObjectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
+                                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("UserID", CurrentUser.ObjectId).WhereEqualTo("objectId", reqId), out UserChangeRequest requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", CurrentUser.UserName);
                                     default:
                                         return base.View(requests);
                                 }
@@ -112,9 +112,9 @@ namespace WBPlatform.WebManagement.Controllers
                         case "manage":
                             ViewData["where"] = ControllerName;
                             ViewData["mode"] = "manage";
-                            if (!user.UserGroup.IsAdmin)
+                            if (!CurrentUser.UserGroup.IsAdmin)
                             {
-                                LW.E("Someone trying access illegal page!, Page: changeRequest: arg=manage, user:" + user.UserName + ", possible referer:" + Request.Headers["Referer"]);
+                                LW.E("Someone trying access illegal page!, Page: changeRequest: arg=manage, user:" + CurrentUser.UserName + ", possible referer:" + Request.Headers["Referer"]);
                                 return NotFound();
                             }
                             if (string.IsNullOrEmpty(reqId))
@@ -122,7 +122,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 switch (DataBaseOperation.QueryMultipleData(new DBQuery(), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", CurrentUser.UserName);
                                     default:
                                         ViewData["list"] = requests.ToArray();
                                         return base.View();
@@ -135,23 +135,23 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", user.UserName);
+                                        return _InternalError(ServerAction.Manage_VerifyChangeRequest, ErrorType.INTERNAL_ERROR, "服务器异常：数据库查询出错", CurrentUser.UserName);
                                     default:
                                         return base.View(requests);
                                 }
                             }
                         default:
-                            return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                            return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", CurrentUser.UserName);
                     }
                 }
                 else
                 {
-                    return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", user.UserName);
+                    return _InternalError(ServerAction.General_ViewChangeRequests, ErrorType.RequestInvalid, "请求异常：参数错误", CurrentUser.UserName);
                 }
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/ChangeRequest?arg=" + arg + "&reqId=" + reqId);
             }
         }

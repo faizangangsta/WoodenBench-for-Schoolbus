@@ -21,10 +21,10 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable GET(string BusID, string SignData, string Data)
         {
             //THIS FUNCTION IS SHARED BY BUSTEACHER AND PARENTS
-            if (!Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (!ValidateSession())
                 return SessionError;
-            if (!(user.UserGroup.IsParent || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin))
-                return UserGroupError;
+            if (!(CurrentUser.UserGroup.IsParent || CurrentUser.UserGroup.IsBusManager || CurrentUser.UserGroup.IsAdmin)) return UserGroupError;
+
             string str = Encoding.UTF8.GetString(Convert.FromBase64String(Data));
             if (str.Contains(";") && str.Split(';').Length != 5) return RequestIllegal;
             string[] p = str.Split(';');
@@ -59,7 +59,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 else if (SType.ToLower() == "pleave") stu.AHChecked = Value;
                                 else if (SType.ToLower() == "come") stu.CSChecked = Value;
                                 else return RequestIllegal;
-                                if (DataBaseOperation.UpdateData(stu) == DBQueryStatus.ONE_RESULT)
+                                if (DataBaseOperation.UpdateData(ref stu) == DBQueryStatus.ONE_RESULT)
                                 {
                                     Dictionary<string, string> dict = stu.ToDictionary();
                                     dict.Add("ErrCode", "0");

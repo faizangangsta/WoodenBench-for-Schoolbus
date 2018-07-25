@@ -136,5 +136,6 @@ namespace WBPlatform.StaticClasses
             stream?.Dispose();
             stream = null;
         }
+        public static string ToParsedString<TKey, TValue>(this IDictionary<TKey, TValue> valuePairs) => JsonConvert.SerializeObject(valuePairs);
     }
 }

@@ -92,7 +92,7 @@ namespace WBPlatform.WebManagement.Tools
                             {
                                 _user.CurrentPoint = Message.Location;
                                 _user.Precision = Precision;
-                                if (DataBaseOperation.UpdateData(_user) != DBQueryStatus.ONE_RESULT)
+                                if (DataBaseOperation.UpdateData(ref _user) != DBQueryStatus.ONE_RESULT)
                                     LW.E("WeChatMessageResp: Cannot save User with new Position...");
                                 else LW.D("WeChatMessageResp: Succeed Save User with New Position...");
                             }

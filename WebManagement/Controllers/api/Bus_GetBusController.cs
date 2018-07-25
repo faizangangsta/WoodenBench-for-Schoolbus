@@ -17,9 +17,9 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string UserID, string Session)
         {
-            if (Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject SessionUser))
+            if (ValidateSession())
             {
-                if (SessionUser.ObjectId == UserID && SessionUser.UserGroup.IsBusManager)//&& SessionUser.UserGroup.BusID == BusID
+                if (CurrentUser.ObjectId == UserID && CurrentUser.UserGroup.IsBusManager)//&& SessionUser.UserGroup.BusID == BusID
                 {
                     switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("TeacherObjectID", UserID), out List<SchoolBusObject> BusList))
                     {
@@ -27,7 +27,7 @@ namespace WBPlatform.WebManagement.Controllers
                         default:
                             if (BusList.Count == 0)
                             {
-                                BusList.Add(new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = SessionUser.ObjectId });
+                                BusList.Add(new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = CurrentUser.ObjectId });
                             }
                             int LSChecked = 0, CSChecked = 0, AHChecked = 0;
                             switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusList[0].ObjectId), out List<StudentObject> StudentList))

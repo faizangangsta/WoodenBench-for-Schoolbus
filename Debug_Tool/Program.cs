@@ -60,7 +60,7 @@ namespace Debug_Tool
             }
 
             me.HeadImagePath = "liuhaoyu.gif";
-            LW.D(DataBaseOperation.UpdateData(me));
+            LW.D(DataBaseOperation.UpdateData(ref me));
             LW.D(me);
         }
     }

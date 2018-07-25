@@ -15,19 +15,19 @@ namespace WBPlatform.WebManagement.Controllers
         public override IActionResult Index()
         {
             ViewData["where"] = HomeController.ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                if (user.ChildList.Count > 0)
+                AISetUser();
+                if (CurrentUser.ChildList.Count > 0)
                 {
-                    ViewData["cUser"] = user.ToString();
+                    ViewData["cUser"] = CurrentUser.ToString();
                     return View();
                 }
-                else return _InternalError(ServerAction.MyChild_Index, ErrorType.UserGroupError, "你不是家长，不能使用此功能.请确认是否被注册为家长。", user.RealName, ErrorRespCode.NotSet);
+                else return _InternalError(ServerAction.MyChild_Index, ErrorType.UserGroupError, "你不是家长，不能使用此功能.请确认是否被注册为家长。", CurrentUser.RealName, ErrorRespCode.NotSet);
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName);
             }
 
@@ -39,24 +39,24 @@ namespace WBPlatform.WebManagement.Controllers
             string BusID, BusTeacherID;
             //CHECK => Student Bus is TeacherID
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                if (ID == null) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "请求必需的 ChildID 不存在", user.UserName, ErrorRespCode.RequestIllegal);
+                AISetUser();
+                if (ID == null) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "请求必需的 ChildID 不存在", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
                 string[] IDSplit = ID.Split(";");
-                if (IDSplit.Length != 2) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "非法请求", user.UserName, ErrorRespCode.RequestIllegal);
-                if (!user.UserGroup.IsParent) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "你不是家长，没有权限使用此功能", user.UserName, ErrorRespCode.PermisstionDenied);
+                if (IDSplit.Length != 2) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "非法请求", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
+                if (!CurrentUser.UserGroup.IsParent) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "你不是家长，没有权限使用此功能", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "内部错误，数据库查询出错", user.UserName, ErrorRespCode.InternalError);
+                    case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "内部错误，数据库查询出错", CurrentUser.UserName, ErrorRespCode.InternalError);
                     case DBQueryStatus.NO_RESULTS: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         foreach (StudentObject item in StudentListInBus)
                         {
-                            if (user.ChildList.Contains(item.ObjectId))
+                            if (CurrentUser.ChildList.Contains(item.ObjectId))
                             {
                                 ToBeSignedStudents.Add(item);
                             }
@@ -70,14 +70,14 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     ViewData["ChildNum_" + i.ToString()] = ToBeSignedStudents[i].ToString();
                 }
-                ViewData["cUser"] = user.ToString();
+                ViewData["cUser"] = CurrentUser.ToString();
                 ViewData["cBusID"] = BusID;
                 ViewData["cTeacherID"] = BusTeacherID;
                 return View();
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
             }
         }

@@ -13,8 +13,8 @@ namespace WBPlatform.TableObject
         public string SolverID { get; set; }
         public UserChangeRequestTypes RequestTypes { get; set; }
         public string DetailTexts { get; set; }
-        public UserChangeRequestProcessStatus Status { get; set; }
-        public UserChangeRequestRefusedReasons ProcessResultReason { get; set; }
+        public UCRProcessStatus Status { get; set; }
+        public UCRRefusedReasons ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
         public override void ReadFields(DBInput input)
@@ -25,8 +25,8 @@ namespace WBPlatform.TableObject
             RequestTypes = (UserChangeRequestTypes)input.GetInt("RequestType");
             DetailTexts = input.GetString("DetailTexts");
             NewContent = input.GetString("NewContent");
-            ProcessResultReason = (UserChangeRequestRefusedReasons)input.GetInt("ResultReason");
-            Status = (UserChangeRequestProcessStatus)input.GetInt("Status");
+            ProcessResultReason = (UCRRefusedReasons)input.GetInt("ResultReason");
+            Status = (UCRProcessStatus)input.GetInt("Status");
         }
 
         public override void WriteObject(DBOutput output, bool all)
@@ -52,7 +52,7 @@ namespace WBPlatform.TableObject
                 { "RequestType", RequestTypes.ToString() },
                 { "CreatedAt", CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
                 { "NewContent", NewContent },
-                { "IsSolved", (Status != UserChangeRequestProcessStatus.NotSolved).ToString() },
+                { "IsSolved", (Status != UCRProcessStatus.NotSolved).ToString() },
                 { "DetailTexts", DetailTexts }
             };
         }

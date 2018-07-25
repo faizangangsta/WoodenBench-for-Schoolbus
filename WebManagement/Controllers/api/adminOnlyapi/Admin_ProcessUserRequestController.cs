@@ -18,30 +18,30 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string reqId, string mode, string detail)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject SessionUser))
+            if (ValidateSession())
             {
-                if (SessionUser.UserGroup.IsAdmin)
+                if (CurrentUser.UserGroup.IsAdmin)
                 {
                     switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", reqId), out UserChangeRequest request))
                     {
                         case DBQueryStatus.ONE_RESULT:
-                            request.SolverID = SessionUser.ObjectId;
+                            request.SolverID = CurrentUser.ObjectId;
                             switch (mode)
                             {
                                 case "0":
                                     //Accepted
-                                    request.Status = UserChangeRequestProcessStatus.Accepted;
+                                    request.Status = UCRProcessStatus.Accepted;
                                     break;
                                 case "1":
                                     //Refused
-                                    UserChangeRequestRefusedReasons reason = Enum.Parse<UserChangeRequestRefusedReasons>(detail);
-                                    request.Status = UserChangeRequestProcessStatus.Refused;
+                                    UCRRefusedReasons reason = Enum.Parse<UCRRefusedReasons>(detail);
+                                    request.Status = UCRProcessStatus.Refused;
                                     request.ProcessResultReason = reason;
                                     break;
                                 default: return RequestIllegal;
                             }
-                            if (DataBaseOperation.UpdateData(request) != (DBQueryStatus)1) return DataBaseError;
-                            if (request.Status == UserChangeRequestProcessStatus.Accepted)
+                            if (DataBaseOperation.UpdateData(ref request) != DBQueryStatus.ONE_RESULT) return DataBaseError;
+                            if (request.Status == UCRProcessStatus.Accepted)
                             {
                                 switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", request.UserID), out UserObject user))
                                 {
@@ -56,6 +56,12 @@ namespace WBPlatform.WebManagement.Controllers
                                                 break;
                                             default: return SpecialisedInfo("提交成功，部分内容需要手动修改");
                                         }
+                                        if (DataBaseOperation.UpdateData(ref user) != DBQueryStatus.ONE_RESULT)
+                                        {
+                                            LW.E("Admin->UCRProcess: Failed to Save user data");
+                                            return DataBaseError;
+                                        }
+                                        
                                         InternalMessage message_User = new InternalMessage() { _Type = GlobalMessageTypes.UCR_Procceed_TO_User, DataObject = request, User = user, ObjectId = request.UserID };
                                         MessagingSystem.AddMessageProcesses(message_User);
                                         break;

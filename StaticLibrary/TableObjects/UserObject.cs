@@ -85,11 +85,11 @@ namespace WBPlatform.TableObject
 
         public UserObject GetNull()
         {
-            ObjectId = RandomString(10, true, CustomStr: RandomString(5, true));
-            UserName = RandomString(10, true, CustomStr: RandomString(5, true));
-            Password = RandomString(10, true, CustomStr: RandomString(5, true));
-            RealName = RandomString(10, true, CustomStr: RandomString(5, true));
-            HeadImagePath = RandomString(10, true, CustomStr: RandomString(5, true));
+            ObjectId = "NOT__KNOWN";
+            UserName = "UnknownUser";
+            Password = "";
+            RealName = "UnknownName";
+            HeadImagePath = "default.png";
             UserGroup = new UserGroup(false, false, false, false);
             return this;
         }
@@ -98,7 +98,7 @@ namespace WBPlatform.TableObject
             return UserName + "-" + ObjectId;
         }
 
-        public static UserObject RandomValue => new UserObject().GetNull();
+        public static UserObject DefaultValue => new UserObject().GetNull();
 
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
 

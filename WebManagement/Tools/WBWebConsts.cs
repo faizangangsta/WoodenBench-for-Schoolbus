@@ -42,8 +42,7 @@ namespace WBPlatform.StaticClasses
     {
         WeChatLogin,
         UserRegister, 
-        AddPassword,
-        FreeLogin_View 
+        AddPassword
     }
     public enum ErrorType
     {

@@ -19,9 +19,9 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable GET(string BusID, string TeacherID, string ReportType, string Content)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                if (TeacherID != user.ObjectId) return RequestIllegal;
+                if (TeacherID != CurrentUser.ObjectId) return RequestIllegal;
                 if (DataBaseOperation.QuerySingleData(
                     new DBQuery()
                     .WhereEqualTo("objectId", BusID)
@@ -43,14 +43,14 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         DataObject = busReport,
                         ObjectId = BusID,
-                        User = user,
+                        User = CurrentUser,
                         _Type = GlobalMessageTypes.Bus_Status_Report_TC
                     };
                     InternalMessage message_TP = new InternalMessage()
                     {
                         DataObject = busReport,
                         ObjectId = BusID,
-                        User = user,
+                        User = CurrentUser,
                         _Type = GlobalMessageTypes.Bus_Status_Report_TP
                     };
 

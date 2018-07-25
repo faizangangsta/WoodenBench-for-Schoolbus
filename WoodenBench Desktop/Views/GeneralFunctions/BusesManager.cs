@@ -176,7 +176,7 @@ namespace WBPlatform.DesktopClient.Views
             else
             {
                 busObject.ObjectId = row.Cells[0].Value.ToString();
-                return DataBaseOperation.UpdateData(busObject) == 0;
+                return DataBaseOperation.UpdateData(ref busObject) == 0;
             }
         }
 

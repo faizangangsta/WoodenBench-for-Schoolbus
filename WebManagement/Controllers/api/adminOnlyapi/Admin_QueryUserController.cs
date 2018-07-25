@@ -18,9 +18,9 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string columnName, string operand, string value)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject SessionUser))
+            if (ValidateSession())
             {
-                if (SessionUser.UserGroup.IsAdmin)
+                if (CurrentUser.UserGroup.IsAdmin)
                 {
                     string _column = (string)PublicTools.DecodeObject(columnName ?? "");
                     string _operand = (string)PublicTools.DecodeObject(operand ?? "");

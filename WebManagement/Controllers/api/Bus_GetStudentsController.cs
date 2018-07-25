@@ -17,10 +17,10 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string BusID, string TeacherID, string Session, string STAMP)
         {
-            if (!Sessions.OnSessionReceived(Session, Request.Headers["User-Agent"], out UserObject user)) return SessionError;
-            if (!(user.ObjectId == TeacherID)) return UserGroupError;
+            if (!ValidateSession()) return SessionError;
+            if (!(CurrentUser.ObjectId == TeacherID)) return UserGroupError;
             //user.UserGroup.BusID == BusID &&
-            if (Cryptography.SHA256Encrypt(BusID + ";;" + Session + user.ObjectId + ";;" + Session) != STAMP) return RequestIllegal;
+            if (Cryptography.SHA256Encrypt(BusID + ";;" + Session + CurrentUser.ObjectId + ";;" + Session) != STAMP) return RequestIllegal;
             DBQuery BusQuery = new DBQuery();
             BusQuery.WhereEqualTo("objectId", BusID);
             BusQuery.WhereEqualTo("TeacherObjectID", TeacherID);
@@ -31,7 +31,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         if (BusList.Count == 0)
                         {
-                            BusList.Add(new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = user.ObjectId });
+                            BusList.Add(new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = CurrentUser.ObjectId });
                         }
                         DBQuery StudentQuery = new DBQuery();
                         StudentQuery.WhereEqualTo("BusID", BusList[0].ObjectId);

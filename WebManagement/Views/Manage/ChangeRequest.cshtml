@@ -48,7 +48,7 @@
                             <p>@item.RequestTypes.ToString()</p>
                         </div>
                         <div class="col">
-                            <p>@(item.Status != UserChangeRequestProcessStatus.NotSolved ? "是✔" : "否❌")</p>
+                            <p>@(item.Status != UCRProcessStatus.NotSolved ? "是✔" : "否❌")</p>
                         </div>
                         <div class="col">
                             <a href="/Manage/ChangeRequest?arg=@(isManage?"manage":"my")&reqId=@item.ObjectId">查看🔍</a>
@@ -75,19 +75,19 @@
                     <label>处理状态：</label>
                     @switch (Model.Status)
                     {
-                        case UserChangeRequestProcessStatus.NotSolved:
+                        case UCRProcessStatus.NotSolved:
                             <div class="container">未处理❌</div>
                             break;
-                        case UserChangeRequestProcessStatus.Accepted:
+                        case UCRProcessStatus.Accepted:
                             <div class="container">已处理并同意更改😊</div>
                             break;
-                        case UserChangeRequestProcessStatus.Refused:
+                        case UCRProcessStatus.Refused:
                             <div class="container">已处理但拒绝更改😭</div>
                             <label>原因：</label>
                             <div class="container">@Model.ProcessResultReason.ToString()</div>
                             break;
                     }
-                    @if (Model.Status != UserChangeRequestProcessStatus.NotSolved)
+                    @if (Model.Status != UCRProcessStatus.NotSolved)
                     {
                         <label>处理者ID：</label>
                         <div id="solveID" class="container">
@@ -113,16 +113,16 @@
                 else
                 {
                     //Manage_ViewDetail
-                    if (Model.Status == UserChangeRequestProcessStatus.NotSolved)
+                    if (Model.Status == UCRProcessStatus.NotSolved)
                     {
                         <div id="optionss" class="center-margin center-all">
                             <button class="btn btn-success btn-sm" style="width: 49%" onclick="accepted();">同意更改</button>
                             <button class="btn btn-danger btn-sm" style="width: 49%" onclick="refuse();">拒绝更改</button>
                         </div>
-                        <div id="refuseReasons" class="center-all center-margin hidden">
+                        <div id="refuseReasons" class="center-all center-margin" hidden>
                             <select id="selection" asp-for="ProcessResultReason" class="form-control">
                                 @{
-                                    string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UserChangeRequestRefusedReasons));
+                                    string[] p = Enum.GetNames(typeof(WBPlatform.StaticClasses.UCRRefusedReasons));
                                     foreach (string item in p)
                                     {
                                         <option>@item</option>
@@ -165,12 +165,12 @@
     {
         <script>
             function refuse() {
-                $("#refuseReasons").removeClass("hidden");
-                $("#optionss").addClass("hidden");
+                $("#refuseReasons").removeAttr("hidden");
+                $("#optionss").attr("hidden", "");
             }
             function cancel() {
-                $("#refuseReasons").addClass("hidden");
-                $("#optionss").removeClass("hidden");
+                $("#refuseReasons").attr("hidden", "");
+                $("#optionss").removeAttr("hidden");
             }
 
             function accepted() { ProcessRequest("@Model.ObjectId", 0, $("#selection").val(), callback); }

@@ -390,7 +390,7 @@ namespace WBPlatform.DesktopClient.Views
                 else
                 {
                     StudentObj.ObjectId = (string)StudentData.Rows[RowNum].Cells[0].Value;
-                    if (Database.DataBaseOperation.UpdateData(StudentObj) == 0)
+                    if (Database.DataBaseOperation.UpdateData(ref StudentObj) == 0)
                     {
                         statusLabel.Text = $"正在上传第{RowNum}项，共{StudentData.RowCount - 2}项，完成！";
                         StudentData.Rows[RowNum].DefaultCellStyle.BackColor = Color.LawnGreen;

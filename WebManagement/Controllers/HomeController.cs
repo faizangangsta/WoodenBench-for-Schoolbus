@@ -1,8 +1,8 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
@@ -15,10 +15,10 @@ namespace WBPlatform.WebManagement.Controllers
         public override IActionResult Index()
         {
             ViewData["where"] = "Home";
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                if (user.UserGroup.IsBusManager || user.UserGroup.IsClassTeacher || user.UserGroup.IsParent || user.UserGroup.IsAdmin)
+                AISetUser();
+                if (CurrentUser.UserGroup.IsBusManager || CurrentUser.UserGroup.IsClassTeacher || CurrentUser.UserGroup.IsParent || CurrentUser.UserGroup.IsAdmin)
                 {
                     if (Request.Cookies["LoginRedirect"] != null)
                     {
@@ -30,12 +30,12 @@ namespace WBPlatform.WebManagement.Controllers
                 else
                 {
                     Response.Cookies.Delete("Session");
-                    return _InternalError(ServerAction.Home_Index, ErrorType.UserGroupError, "用户未经过验证，UserID = " + user.ObjectId, user.UserName, ErrorRespCode.NotSet);
+                    return _InternalError(ServerAction.Home_Index, ErrorType.UserGroupError, "用户未经过验证，UserID = " + CurrentUser.ObjectId, CurrentUser.UserName, ErrorRespCode.NotSet);
                 }
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 string Stamp = DateTime.Now.TimeOfDay.TotalMilliseconds + ";WCLogin";
                 string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
                     "appid=" + WeChat.CorpID +
@@ -55,7 +55,7 @@ namespace WBPlatform.WebManagement.Controllers
         /// <returns>Bug Report Form </returns> 
         public IActionResult ReportBugs()
         {
-            AIUnknownUser();
+            AISetUser();
             ViewData["where"] = ControllerName;
             return View();
         }
@@ -63,9 +63,9 @@ namespace WBPlatform.WebManagement.Controllers
         public IActionResult requestResult(string req, string status, string callback)
         {
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
+                AISetUser();
                 ViewData["req"] = req;
                 ViewData["status"] = status;
                 ViewData["callback"] = callback;
@@ -73,41 +73,56 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed(callback);
             }
         }
 
         public IActionResult Error()
         {
-            AIUnknownUser();
+            AISetUser();
             return _InternalError(ServerAction.INTERNAL_ERROR, ErrorType.INTERNAL_ERROR, "未知原因异常：异常汇报程序未提供任何内容", LoginUsr: "SYSTEM");
         }
 
         public IActionResult WeChatLogin(string state, string code)
         {
-            AIUnknownUser();
+            AISetUser();
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
                 return _InternalError(ServerAction.WeChatLogin_PreExecute, ErrorType.RequestInvalid, "微信请求状态异常，请重试请求", "WECHAT_LOGIN", ErrorRespCode.RequestIllegal);
             else
             {
-                string Session = Sessions.LoginOrCreateUser_Core(code, Request.Headers["User-Agent"], out object user);
-                if (string.IsNullOrEmpty(Session))
-                    return _InternalError(ServerAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "未获取到 Session 信息，请重试", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
-                else if (Session == "0")
+                WeChat.ReNewWCCodes();
+                //object LogonUser = null;
+                Dictionary<string, string> JSON = PublicTools.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + code);
+                if (!JSON.ContainsKey("UserId"))
                 {
-                    string token = JumpTokens.CreateToken();
-                    JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.WeChatLogin, Request.Headers["User-Agent"], (string)user));
-                    return Redirect($"/Account/Register?token={token}&user={(string)user}&_action=register");
+                    LW.E("WeChat JSON doesnot Contain: UserID, " + JSON.ToParsedString());
+                    return null;
                 }
-                else
+                string WeiXinID = JSON["UserId"];
+                switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("Username", WeiXinID), out UserObject User))
                 {
-                    Response.Cookies.Append("Session", Session, new CookieOptions() { Expires = DateTime.Now.AddHours(4) });
-                    Response.Cookies.Delete("WB_WXLoginOption");
-                    return Redirect("/Home/Index/");
+                    case DBQueryStatus.INTERNAL_ERROR:
+                        LW.E("SessionManager: Failed to get User by its UserName --> DataBase Inernal Error....");
+                        return _InternalError(ServerAction.WeChatLogin_PostExecute, ErrorType.INTERNAL_ERROR, DetailedInfo: "未获取到 Session 信息，请重试", LoginUsr: "WECHAT_LOGIN", ResponseCode: ErrorRespCode.InternalError);
+
+                    case DBQueryStatus.NO_RESULTS:
+                        string token = JumpTokens.CreateToken();
+                        JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.WeChatLogin, Request.Headers["User-Agent"], WeiXinID));
+                        return Redirect($"/Account/Register?token={token}&user={WeiXinID}&_action=register");
+
+                    case DBQueryStatus.ONE_RESULT:
+                        UpdateUser(User);
+                        Response.Cookies.Delete("WB_WXLoginOption");
+                        return Redirect("/Home/Index/");
+
+                    default:
+                        LW.E("HomeController: Unexpected Database Query Result for WeChatLogin...");
+                        return _InternalError(ServerAction.WeChatLogin_PostExecute, ErrorType.DataBaseError, "数据库返回了错误信息", ResponseCode: ErrorRespCode.InternalError);
                 }
             }
         }
     }
 }
+

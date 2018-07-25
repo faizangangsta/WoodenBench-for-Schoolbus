@@ -16,7 +16,7 @@ namespace WBPlatform.WebManagement.Controllers
         [HttpGet]
         public IEnumerable Get(string UserID)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject SessionUser))
+            if (ValidateSession())
             {
                 if (string.IsNullOrEmpty(UserID))
                 {

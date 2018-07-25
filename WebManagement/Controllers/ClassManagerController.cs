@@ -16,27 +16,27 @@ namespace WBPlatform.WebManagement.Controllers
         public override IActionResult Index()
         {
             ViewData["where"] = HomeController.ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                if (user.UserGroup.IsClassTeacher && user.ClassList.Count > 0)
+                AISetUser();
+                if (CurrentUser.UserGroup.IsClassTeacher && CurrentUser.ClassList.Count > 0)
                 {
-                    switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", user.ClassList[0]), out List<ClassObject> ClassList))
+                    switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", CurrentUser.ClassList[0]), out List<ClassObject> ClassList))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", user.UserName, ErrorRespCode.InternalError);
-                        case DBQueryStatus.NO_RESULTS: return _InternalError(ServerAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", user.UserName);
+                        case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", CurrentUser.UserName, ErrorRespCode.InternalError);
+                        case DBQueryStatus.NO_RESULTS: return _InternalError(ServerAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", CurrentUser.UserName);
                         default:
                             ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
                             ViewData["ClassID"] = ClassList[0].ObjectId;
-                            ViewData["cUser"] = user.ToString();
+                            ViewData["cUser"] = CurrentUser.ToString();
                             return base.View();
                     }
                 }
-                else return _InternalError(ServerAction.MyClass_Index, ErrorType.UserGroupError, "你不是班主任，不能使用此功能.", user.UserName, ErrorRespCode.NotSet);
+                else return _InternalError(ServerAction.MyClass_Index, ErrorType.UserGroupError, "你不是班主任，不能使用此功能.", CurrentUser.UserName, ErrorRespCode.NotSet);
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/ClassManager/Index/");
             }
 

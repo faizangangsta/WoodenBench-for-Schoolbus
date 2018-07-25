@@ -15,13 +15,13 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("image/Jpeg")]
     [Route("api/QRCode")]
-    public class QRCodeController : Controller
+    public class QRCodeController : WebAPIController
     {
         public void Get(string Data)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                if (user.UserGroup.IsBusManager && user.ObjectId == Data.Split(";")[1])//user.UserGroup.BusID == Data.Split(";")[0] &&
+                if (CurrentUser.UserGroup.IsBusManager && CurrentUser.ObjectId == Data.Split(";")[1])//user.UserGroup.BusID == Data.Split(";")[0] &&
                 {
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     Data = Request.Scheme + "://" + Request.Host + "/MyChild/ParentCheck?ID=" + Data;

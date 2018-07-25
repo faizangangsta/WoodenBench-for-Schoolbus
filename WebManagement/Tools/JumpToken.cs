@@ -43,20 +43,19 @@ namespace WBPlatform.WebManagement.Tools
 
         public static bool OnAccessed(string Token, out JumpTokenInfo Info)
         {
-            bool IsSecceed = false;
             lock (JumpToken)
             {
                 if (JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds > 0)
                 {
                     JumpToken.Remove(Token, out Info);
-                    IsSecceed = true;
+                    return true;
                 }
                 else
                 {
                     Info = null;
+                    return false;
                 }
             }
-            return IsSecceed;
         }
     }
 }

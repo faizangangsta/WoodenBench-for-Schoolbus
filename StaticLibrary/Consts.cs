@@ -89,11 +89,11 @@ namespace WBPlatform.StaticClasses
         User__Pending_Verify = 4, User__Finishd_Verify = 5,
         Bus_Status_Report_TC = 6, Bus_Status_Report_TP = 7
     }
-    public enum UserChangeRequestProcessStatus
+    public enum UCRProcessStatus
     {
         NotSolved = -1, Accepted = 0, Refused = 1
     }
-    public enum UserChangeRequestRefusedReasons
+    public enum UCRRefusedReasons
     {
         理由不充分 = 0, 格式有误_请重新填写 = 1, 其他原因 = -1
     }

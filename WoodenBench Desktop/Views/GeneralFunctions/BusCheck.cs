@@ -135,13 +135,16 @@ namespace WBPlatform.DesktopClient.Views
         {
             foreach (StudentObject item in studentDataObjectBindingSource)
             {
-                if (Database.DataBaseOperation.UpdateData(item) == DBQueryStatus.ONE_RESULT)
+                var _item = item;
+                if (Database.DataBaseOperation.UpdateData(ref _item) == DBQueryStatus.ONE_RESULT)
                 {
-                    ExDescription.Text = "成功更新项：" + item.StudentName;
+                    ExDescription.Text = "成功更新项：" + _item.StudentName;
+                    LW.D("BusCheck: Succeed Updated Record: " + item.ObjectId);
                 }
                 else
                 {
-                    ExDescription.Text = "出现问题：" + item.StudentName;
+                    ExDescription.Text = "出现问题：" + _item.StudentName;
+                    LW.E("BusCheck: Failed to Update Record: " + item.ObjectId);
                 }
                 Application.DoEvents();
             }

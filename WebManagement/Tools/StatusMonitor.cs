@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using WBPlatform.Database.Connection;
 using WBPlatform.StaticClasses;
+using WBPlatform.WebManagement.Controllers;
 
 namespace WBPlatform.WebManagement.Tools
 {
@@ -24,7 +25,7 @@ namespace WBPlatform.WebManagement.Tools
             {
                 status.Clear();
                 status.Add("ReportTime", DateTime.Now);
-                status.Add("SessionsCount", Sessions.GetCount);
+                status.Add("SessionsCount", BaseController.GetCount);
                 status.Add("SessionThread", true);
                 status.Add("Tokens", JumpTokens.GetCount);
                 var WeChatStatus = WeChatMessageSystem.Status();

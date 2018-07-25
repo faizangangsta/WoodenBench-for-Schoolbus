@@ -27,16 +27,16 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (dict.ContainsKey("Password"))
                 {
-                    if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject _cpUser))
+                    if (ValidateSession())
                     {
                         string password = Cryptography.SHA256Encrypt(dict["Password"]);
-                        if (_cpUser.UserName == dict["UserName"])
+                        if (CurrentUser.UserName == dict["UserName"])
                         {
-                            _cpUser.Password = password;
-                            if (DataBaseOperation.UpdateData(_cpUser) == DBQueryStatus.ONE_RESULT)
+                            CurrentUser.Password = password;
+                            var temp = CurrentUser;
+                            if (DataBaseOperation.UpdateData(ref temp) == DBQueryStatus.ONE_RESULT)
                             {
                                 Response.Redirect("/Home");
-                                Response.Cookies.Delete("Session");
                                 return "OK";
                             }
                             else return DataBaseError;
@@ -74,34 +74,34 @@ namespace WBPlatform.WebManagement.Controllers
         public IEnumerable GET(string userId, string mode)
         {
             //Response.Redirect("/Error");
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
                 if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(mode)) return RequestIllegal;
-                if (userId != user.ObjectId) return RequestIllegal;
+                if (userId != CurrentUser.ObjectId) return RequestIllegal;
                 switch (mode)
                 {
                     case "true":
                         //Create Password
-                        if (!string.IsNullOrWhiteSpace(user.Password))
+                        if (!string.IsNullOrWhiteSpace(CurrentUser.Password))
                         {
                             return RequestIllegal;
                         }
                         else
                         {
                             string token = JumpTokens.CreateToken();
-                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, Request.Headers["User-Agent"], user.UserName, 600));
+                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }
                     case "false":
                         //Register User....
-                        if (string.IsNullOrEmpty(user.Password))
+                        if (string.IsNullOrEmpty(CurrentUser.Password))
                         {
                             return RequestIllegal;
                         }
                         else
                         {
                             string token = JumpTokens.CreateToken();
-                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.UserRegister, Request.Headers["User-Agent"], user.UserName, 600));
+                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.UserRegister, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }
                     default: return RequestIllegal;

@@ -74,8 +74,8 @@ namespace WBPlatform.Database
             return result;
         }
 
-        public static DBQueryStatus UpdateData<T>(T item) where T : DataTableObject, new() => UpdateData(item, null);
-        public static DBQueryStatus UpdateData<T>(T item, DBQuery query) where T : DataTableObject, new()
+        public static DBQueryStatus UpdateData<T>(ref T item) where T : DataTableObject, new() => UpdateData(ref item, null);
+        public static DBQueryStatus UpdateData<T>(ref T item, DBQuery query) where T : DataTableObject, new()
         {
             if (query == null)
             {
@@ -84,7 +84,15 @@ namespace WBPlatform.Database
             query.Limit(1);
             DBOutput output = new DBOutput();
             item.WriteObject(output, false);
-            return _DBRequestInternal(item.Table, DBVerbs.Update, query, output, out DBInput[] inputs);
+            var _result = _DBRequestInternal(item.Table, DBVerbs.Update, query, output, out DBInput[] inputs);
+            if (_result != DBQueryStatus.ONE_RESULT)
+            {
+                LW.E("DBInternalLog: UpdateData Process Failed!");
+                return DBQueryStatus.INTERNAL_ERROR;
+            }
+            item = new T();
+            item.ReadFields(inputs[0]);
+            return _result;
         }
 
         public static DBQueryStatus CreateData<T>(ref T data) where T : DataTableObject, new() => CreateData(data, out data);
@@ -135,7 +143,7 @@ namespace WBPlatform.Database
                         internalQuery.Query = query;
                         break;
                 }
-                
+
                 string internalQueryString = internalQuery.ToString();
 
                 string _MessageId = MessageId;
@@ -198,7 +206,7 @@ namespace WBPlatform.Database
             catch (DataBaseException ex)
             {
                 inputs = null;
-                LW.E(ex.ToString());
+                LW.E(ex);
                 return DBQueryStatus.INTERNAL_ERROR;
             }
         }

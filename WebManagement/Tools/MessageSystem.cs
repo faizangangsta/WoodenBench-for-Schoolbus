@@ -87,7 +87,7 @@ namespace WBPlatform.WebManagement.Tools
                         switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", message.ObjectId), out UserObject requestSender))
                         {
                             case DBQueryStatus.ONE_RESULT:
-                                string stat = ((UserChangeRequest)message.DataObject).Status == UserChangeRequestProcessStatus.Accepted ? "审核通过" : "未通过";
+                                string stat = ((UserChangeRequest)message.DataObject).Status == UCRProcessStatus.Accepted ? "审核通过" : "未通过";
                                 WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.DataObject).RequestTypes.ToString() + " 信息的工单发生了状态变动！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.DataObject).ObjectId + "\r\n" +

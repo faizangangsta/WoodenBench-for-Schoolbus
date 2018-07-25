@@ -15,23 +15,23 @@ namespace WBPlatform.WebManagement.Controllers
         public override IActionResult Index()
         {
             ViewData["where"] = HomeController.ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                if (user.UserGroup.IsBusManager)
+                if (CurrentUser.UserGroup.IsBusManager)
                 {
-                    AIKnownUser(user);
-                    ViewData["cUser"] = user.ToString();
+                    AISetUser();
+                    ViewData["cUser"] = CurrentUser.ToString();
                     return View();
                 }
                 else
                 {
-                    AIUnknownUser();
-                    return _InternalError(ServerAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", user.RealName, ErrorRespCode.NotSet);
+                    AISetUser();
+                    return _InternalError(ServerAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", CurrentUser.RealName, ErrorRespCode.NotSet);
                 }
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/");
             }
         }
@@ -39,15 +39,15 @@ namespace WBPlatform.WebManagement.Controllers
         public IActionResult WeekIssue()
         {
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                ViewData["cUser"] = user.ToString();
+                AISetUser();
+                ViewData["cUser"] = CurrentUser.ToString();
                 return View();
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/WeekIssue");
             }
         }
@@ -56,26 +56,26 @@ namespace WBPlatform.WebManagement.Controllers
         {
             ViewData["where"] = ControllerName;
             ViewData["SignMode"] = signmode;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                ViewData["cUser"] = user.ToString();
+                AISetUser();
+                ViewData["cUser"] = CurrentUser.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
-                    DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.ObjectId), out SchoolBusObject busObject);
+                    DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.ObjectId), out SchoolBusObject busObject);
                     if (busObject == null)
                     {
-                        busObject = new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = user.ObjectId };
+                        busObject = new SchoolBusObject() { ObjectId = "0000000000", BusName = "未找到校车", TeacherID = CurrentUser.ObjectId };
                     }
                     ViewData["cBus"] = busObject.ObjectId;
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _InternalError(ServerAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: user.UserName);
+                else return _InternalError(ServerAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: CurrentUser.UserName);
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
             }
         }
@@ -83,28 +83,29 @@ namespace WBPlatform.WebManagement.Controllers
         public IActionResult ArriveHomeScan()
         {
             ViewData["where"] = ControllerName;
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
-                AIKnownUser(user);
-                ViewData["cUser"] = user.ToString();
-                if (user.UserGroup.IsBusManager)
+                AISetUser();
+                ViewData["cUser"] = CurrentUser.ToString();
+                if (CurrentUser.UserGroup.IsBusManager)
                 {
-                    DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", user.ObjectId), out SchoolBusObject busObject);
+                    DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("TeacherObjectID", CurrentUser.ObjectId), out SchoolBusObject busObject);
                     ViewData["cBus"] = busObject.ObjectId;
-                    ViewData["cTeacher"] = user.ObjectId;
+                    ViewData["cTeacher"] = CurrentUser.ObjectId;
                 }
-                else return _InternalError(ServerAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.PermisstionDenied);
+                else return _InternalError(ServerAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
             }
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
             }
             return View();
         }
 
-        private IActionResult CheckFlag(DBQueryStatus flag, bool isSingleRequest, UserObject user, string info)
+        private IActionResult CheckFlag(DBQueryStatus flag, bool isSingleRequest, string info)
         {
+            UserObject user = CurrentUser;
             switch (flag)
             {
                 case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
@@ -123,16 +124,16 @@ namespace WBPlatform.WebManagement.Controllers
         /// <returns></returns>
         public IActionResult ViewStudent(string StudentID, string ClassID, string BusID, string from)
         {
-            if (Sessions.OnSessionReceived(Request.Cookies["Session"], Request.Headers["User-Agent"], out UserObject user))
+            if (ValidateSession())
             {
                 if (string.IsNullOrEmpty(from))
                 {
-                    return _InternalError(ServerAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", user.UserName);
+                    return _InternalError(ServerAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", CurrentUser.UserName);
                 }
-                AIKnownUser(user);
+                AISetUser();
                 ViewData["where"] = from;
                 // User Group Check
-                if (user.UserGroup.IsParent || user.UserGroup.IsClassTeacher || user.UserGroup.IsBusManager || user.UserGroup.IsAdmin)
+                if (CurrentUser.UserGroup.IsParent || CurrentUser.UserGroup.IsClassTeacher || CurrentUser.UserGroup.IsBusManager || CurrentUser.UserGroup.IsAdmin)
                 {
                     DBQueryStatus flag;
                     IActionResult result = null;
@@ -141,7 +142,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                     //Search student with spec ClassID and StudentID and BusID
                     flag = DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", StudentID).WhereEqualTo("ClassID", ClassID).WhereEqualTo("BusID", BusID), out StudentObject Student);
-                    result = CheckFlag(flag, true, user, "GetStudentBy_CID_BID_SID");
+                    result = CheckFlag(flag, true, "GetStudentBy_CID_BID_SID");
                     if (result != null) return result;
                     if (Student != null)
                     {
@@ -150,7 +151,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                         //Get Class information with ClassID
                         flag = DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.ClassID), out ClassObject Class);
-                        result = CheckFlag(flag, true, user, "GetClassBy_CID");
+                        result = CheckFlag(flag, true, "GetClassBy_CID");
                         if (result != null) return result;
                         else
                         {
@@ -165,7 +166,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 info._class = Class;
                                 //Get Class Teacher Information
                                 flag = DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Class.TeacherID), out UserObject Teacher);
-                                result = CheckFlag(flag, true, user, "GetClassTeacherBy_CID_BID_SID");
+                                result = CheckFlag(flag, true, "GetClassTeacherBy_CID_BID_SID");
                                 if (result != null) return result;
                                 else
                                 {
@@ -185,7 +186,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                         //Get Parents
                         flag = DataBaseOperation.QueryMultipleData(new DBQuery().WhereRecordContainsValue("ChildIDs", Student.ObjectId), out List<UserObject> Parents);
-                        result = CheckFlag(flag, false, user, "GetParentsBy_UID");
+                        result = CheckFlag(flag, false, "GetParentsBy_UID");
                         if (result != null) return result;
                         else
                         {
@@ -204,7 +205,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                         // Get SchoolBus
                         flag = DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Student.BusID), out SchoolBusObject Bus);
-                        result = CheckFlag(flag, true, user, "GetBusBy_BID");
+                        result = CheckFlag(flag, true, "GetBusBy_BID");
                         if (result != null) return result;
                         else
                         {
@@ -219,7 +220,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 info._schoolbus = Bus;
                                 // Get SchoolBus Teacher.
                                 flag = DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", Bus.TeacherID), out UserObject BusTeacher);
-                                result = CheckFlag(flag, true, user, "GetBusTeacherBy_UID");
+                                result = CheckFlag(flag, true, "GetBusTeacherBy_UID");
                                 if (result != null) return result;
                                 else
                                 {
@@ -238,21 +239,21 @@ namespace WBPlatform.WebManagement.Controllers
                         }
 
                         //        Is in user's class?                           Is in user's Bus??                      Is user's child??                Or the god...
-                        if (user.ClassList.Contains(Student.ClassID) || user.ObjectId == Bus.TeacherID || user.ChildList.Contains(Student.ObjectId) || user.UserGroup.IsAdmin)
+                        if (CurrentUser.ClassList.Contains(Student.ClassID) || CurrentUser.ObjectId == Bus.TeacherID || CurrentUser.ChildList.Contains(Student.ObjectId) || CurrentUser.UserGroup.IsAdmin)
                         {
                             return View(info);
                         }
-                        else return _InternalError(ServerAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", user.UserName, ErrorRespCode.PermisstionDenied);
+                        else return _InternalError(ServerAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
                     }
-                    else return _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", user.UserName, ErrorRespCode.RequestIllegal);
+                    else return _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
                 }
-                else return _InternalError(ServerAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", user.UserName, ErrorRespCode.RequestIllegal);
+                else return _InternalError(ServerAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
             }
 
             //Return to Home because this is privacy-related function
             else
             {
-                AIUnknownUser();
+                AISetUser();
                 return _LoginFailed("/");
             }
         }
