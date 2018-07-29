@@ -45,7 +45,7 @@ namespace WBPlatform.Database
             //    return databaseOperationResult;
             //}
             var _Status = QueryMultipleData(query, out List<T> results, 1);
-            Result = results[0];
+            Result = _Status > 0 ? results[0] : null;
             return _Status;
         }
 

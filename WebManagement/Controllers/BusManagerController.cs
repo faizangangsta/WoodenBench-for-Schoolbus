@@ -19,20 +19,17 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (CurrentUser.UserGroup.IsBusManager)
                 {
-                    AISetUser();
                     ViewData["cUser"] = CurrentUser.ToString();
                     return View();
                 }
                 else
                 {
-                    AISetUser();
-                    return _InternalError(ServerAction.BusManage_Index, ErrorType.UserGroupError, "你不是校车老师，不能使用此功能.", CurrentUser.RealName, ErrorRespCode.NotSet);
+                    return PermissionDenied(ServerAction.BusManage_Index, "你不是校车老师，不能使用此功能.", ResponceCode.Default);
                 }
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName + "/");
+                return LoginFailed("/" + ControllerName + "/");
             }
         }
 
@@ -41,14 +38,12 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (ValidateSession())
             {
-                AISetUser();
                 ViewData["cUser"] = CurrentUser.ToString();
                 return View();
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName + "/WeekIssue");
+                return LoginFailed("/" + ControllerName + "/WeekIssue");
             }
         }
 
@@ -58,7 +53,6 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["SignMode"] = signmode;
             if (ValidateSession())
             {
-                AISetUser();
                 ViewData["cUser"] = CurrentUser.ToString();
                 if (Request.Cookies["SignMode"] == signmode)
                 {
@@ -71,12 +65,11 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return _InternalError(ServerAction.BusManage_SignStudents, ErrorType.RequestInvalid, "内部错误：Cookie已超时或不存在", LoginUsr: CurrentUser.UserName);
+                else return RequestIllegal(ServerAction.BusManage_SignStudents, "Cookie已超时或不存在");
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
+                return LoginFailed("/" + ControllerName + "/SignStudent?signmode=" + signmode);
             }
         }
 
@@ -85,7 +78,7 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (ValidateSession())
             {
-                AISetUser();
+
                 ViewData["cUser"] = CurrentUser.ToString();
                 if (CurrentUser.UserGroup.IsBusManager)
                 {
@@ -93,24 +86,22 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["cBus"] = busObject.ObjectId;
                     ViewData["cTeacher"] = CurrentUser.ObjectId;
                 }
-                else return _InternalError(ServerAction.BusManage_CodeGenerate, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
+                else return PermissionDenied(ServerAction.BusManage_CodeGenerate, "用户组权限不足，无法执行此操作");
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName + "/ArriveHomeScan");
+                return LoginFailed("/" + ControllerName + "/ArriveHomeScan");
             }
             return View();
         }
 
         private IActionResult CheckFlag(DBQueryStatus flag, bool isSingleRequest, string info)
         {
-            UserObject user = CurrentUser;
             switch (flag)
             {
-                case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.General_ViewStudent, string.Join("", info, ":", flag));
                 case DBQueryStatus.MORE_RESULTS:
-                    if (isSingleRequest) _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, info + ":" + flag, user.UserName);
+                    if (isSingleRequest) DatabaseError(ServerAction.General_ViewStudent, string.Join("", info, ":", flag));
                     return null;
                 default: return null;
             }
@@ -128,9 +119,9 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(from))
                 {
-                    return _InternalError(ServerAction.General_ViewStudent, ErrorType.RequestInvalid, "from 属性未设置", CurrentUser.UserName);
+                    return RequestIllegal(ServerAction.General_ViewStudent, "from 属性未设置");
                 }
-                AISetUser();
+
                 ViewData["where"] = from;
                 // User Group Check
                 if (CurrentUser.UserGroup.IsParent || CurrentUser.UserGroup.IsClassTeacher || CurrentUser.UserGroup.IsBusManager || CurrentUser.UserGroup.IsAdmin)
@@ -243,18 +234,18 @@ namespace WBPlatform.WebManagement.Controllers
                         {
                             return View(info);
                         }
-                        else return _InternalError(ServerAction.General_ViewStudent, ErrorType.PermisstionDenied, "没有权限查看当前学生信息", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
+                        else return PermissionDenied(ServerAction.General_ViewStudent, "没有权限查看当前学生信息");
                     }
-                    else return _InternalError(ServerAction.General_ViewStudent, ErrorType.DataBaseError, "数据库查询失败", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
+                    else return DatabaseError(ServerAction.General_ViewStudent, "数据库查询失败");
                 }
-                else return _InternalError(ServerAction.General_ViewStudent, ErrorType.UserGroupError, "用户组权限不足，无法执行此操作", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
+                else return PermissionDenied(ServerAction.General_ViewStudent, "用户组权限不足，无法执行此操作");
             }
 
             //Return to Home because this is privacy-related function
             else
             {
-                AISetUser();
-                return _LoginFailed("/");
+
+                return LoginFailed("/");
             }
         }
     }

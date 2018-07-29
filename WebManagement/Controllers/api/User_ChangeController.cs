@@ -36,16 +36,15 @@ namespace WBPlatform.WebManagement.Controllers
             if (SessionVerify.Length != 2) return RequestIllegal;
             if (ValidateSession() && SessionVerify[0] == Cryptography.SHA256Encrypt(CurrentUser.ObjectId + Content + SessionVerify[1]))
             {
-                UserObject user = new UserObject();
                 //user.objectId = SessionUser.objectId;
                 //user.UserGroup = SessionUser.UserGroup;
                 switch (Column.ToLower())
                 {
                     case "realname":
-                        user.RealName = (string)Equals2Obj;
+                        CurrentUser.RealName = (string)Equals2Obj;
                         break;
                     case "password":
-                        user.Password = (string)Equals2Obj;
+                        CurrentUser.Password = (string)Equals2Obj;
                         break;
                     case "notice":
                         //user.WebNotiSeen = (bool)Equals2Obj;
@@ -58,24 +57,15 @@ namespace WBPlatform.WebManagement.Controllers
                         break;
                 }
 
-
-                if (DataBaseOperation.UpdateData(ref user) == 0)
+                var _tempUser = CurrentUser;
+                if (DataBaseOperation.UpdateData(ref _tempUser) == 0)
                 {
-                    DBQuery query = new DBQuery();
-                    query.WhereEqualTo("objectId", CurrentUser.ObjectId);
-                    switch (DataBaseOperation.QueryMultipleData(query, out List<UserObject> UserList))
-                    {
-                        case DBQueryStatus.INTERNAL_ERROR: return InternalError;
-                        case DBQueryStatus.NO_RESULTS: return DataBaseError;
-                        default:
-                            Dictionary<string, string> dict = UserList[0].ToDictionary();
-                            //string NewSession = RenewSession(SessionVerify[1], Request.Headers["User-Agent"], UserList[0]);
-                            Response.Cookies.Append("Session", "----NewSession------", new Microsoft.AspNetCore.Http.CookieOptions() { Path = "/" });
-                            dict.Add("ErrCode", "0");
-                            dict.Add("ErrMessage", "null");
-                            dict.Add("updated_At", DateTime.Now.ToString());
-                            return dict;
-                    }
+                    Dictionary<string, string> dict = CurrentUser.ToDictionary();
+                    UpdateUser(_tempUser);
+                    dict.Add("ErrCode", "0");
+                    dict.Add("ErrMessage", "null");
+                    dict.Add("updated_At", DateTime.Now.ToString());
+                    return dict;
                 }
                 else return InternalError;
             }

@@ -28,6 +28,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.0-beta2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
@@ -72,7 +79,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logs\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dev\js\Crypto-Js\" />
   </ItemGroup>

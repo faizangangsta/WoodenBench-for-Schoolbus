@@ -5,9 +5,9 @@ using WBPlatform.StaticClasses;
 
 namespace WBPlatform.WebManagement.Tools
 {
-    public class JumpTokenInfo
+    public class TicketInfo
     {
-        public JumpTokenInfo(JumpTokenUsage usage, string user_Agent, string userID, int timeout = 120)
+        public TicketInfo(TicketUsage usage, string user_Agent, string userID, int timeout = 120)
         {
             Usage = usage;
             User_Agent = user_Agent;
@@ -18,36 +18,36 @@ namespace WBPlatform.WebManagement.Tools
         public DateTime CreatedAt { get; private set; }
         public DateTime ExpiresAt { get; private set; }
 
-        public JumpTokenUsage Usage { get; private set; }
+        public TicketUsage Usage { get; private set; }
         public string User_Agent { get; private set; }
         public string UserID { get; private set; }
     }
 
 
-    public static class JumpTokens
+    public static class ExecuteOnceTicket
     {
-        public static int GetCount { get => JumpToken.Count; }
-        private static Dictionary<string, JumpTokenInfo> JumpToken { get; set; } = new Dictionary<string, JumpTokenInfo>();
+        public static int GetCount { get => Tickets.Count; }
+        private static Dictionary<string, TicketInfo> Tickets { get; set; } = new Dictionary<string, TicketInfo>();
 
-        public static bool TryAdd(string Token, JumpTokenInfo tokenInfo)
+        public static bool TryAdd(string Token, TicketInfo tokenInfo)
         {
-            lock (JumpToken)
+            lock (Tickets)
             {
-                if (JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds < 0) return false;
-                JumpToken.Add(Token, tokenInfo);
+                if (Tickets.ContainsKey(Token) && Tickets[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds < 0) return false;
+                Tickets.Add(Token, tokenInfo);
             }
             return true;
         }
 
         public static string CreateToken() => Cryptography.SHA512Encrypt(Cryptography.RandomString(20, true));
 
-        public static bool OnAccessed(string Token, out JumpTokenInfo Info)
+        public static bool OnAccessed(string Token, out TicketInfo Info)
         {
-            lock (JumpToken)
+            lock (Tickets)
             {
-                if (JumpToken.ContainsKey(Token) && JumpToken[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds > 0)
+                if (Tickets.ContainsKey(Token) && Tickets[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds > 0)
                 {
-                    JumpToken.Remove(Token, out Info);
+                    Tickets.Remove(Token, out Info);
                     return true;
                 }
                 else

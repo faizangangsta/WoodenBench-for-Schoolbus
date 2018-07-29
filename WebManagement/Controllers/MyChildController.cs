@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 using WBPlatform.Database;
@@ -17,18 +17,18 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (ValidateSession())
             {
-                AISetUser();
+
                 if (CurrentUser.ChildList.Count > 0)
                 {
                     ViewData["cUser"] = CurrentUser.ToString();
                     return View();
                 }
-                else return _InternalError(ServerAction.MyChild_Index, ErrorType.UserGroupError, "你不是家长，不能使用此功能.请确认是否被注册为家长。", CurrentUser.RealName, ErrorRespCode.NotSet);
+                else return PermissionDenied(ServerAction.MyChild_Index, "你不是家长，不能使用此功能.请确认是否被注册为家长。", ResponceCode.Default);
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName);
+
+                return LoginFailed("/" + ControllerName);
             }
 
             //throw new NotImplementedException("This method is not ready.......", new InvalidOperationException("This Method IS Still Under Developing"));
@@ -41,26 +41,19 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (ValidateSession())
             {
-                AISetUser();
-                if (ID == null) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "请求必需的 ChildID 不存在", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
+                if (ID == null) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, "请求必需的 ChildID 不存在");
                 string[] IDSplit = ID.Split(";");
-                if (IDSplit.Length != 2) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.RequestInvalid, "非法请求", CurrentUser.UserName, ErrorRespCode.RequestIllegal);
-                if (!CurrentUser.UserGroup.IsParent) return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.UserGroupError, "你不是家长，没有权限使用此功能", CurrentUser.UserName, ErrorRespCode.PermisstionDenied);
+                if (IDSplit.Length != 2) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, "非法请求");
+                if (!CurrentUser.UserGroup.IsParent) return PermissionDenied(ServerAction.MyChild_MarkAsArrived, "你不是家长，没有权限使用此功能", ResponceCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyChild_MarkAsArrived, ErrorType.DataBaseError, "内部错误，数据库查询出错", CurrentUser.UserName, ErrorRespCode.InternalError);
+                    case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyChild_MarkAsArrived, "数据库内部异常");
                     case DBQueryStatus.NO_RESULTS: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
-                        foreach (StudentObject item in StudentListInBus)
-                        {
-                            if (CurrentUser.ChildList.Contains(item.ObjectId))
-                            {
-                                ToBeSignedStudents.Add(item);
-                            }
-                        }
+                        ToBeSignedStudents.AddRange(from _stu in StudentListInBus where CurrentUser.ChildList.Contains(_stu.ObjectId) select _stu);
                         break;
                 }
                 //if (ToBeSignedStudents.Count == 0)
@@ -77,8 +70,8 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
+
+                return LoginFailed("/" + ControllerName + "/ParentCheck?ID=" + ID);
             }
         }
     }

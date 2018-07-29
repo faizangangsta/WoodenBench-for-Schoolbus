@@ -88,8 +88,8 @@ namespace WBPlatform.WebManagement.Controllers
                         }
                         else
                         {
-                            string token = JumpTokens.CreateToken();
-                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
+                            string token = ExecuteOnceTicket.CreateToken();
+                            ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }
                     case "false":
@@ -100,8 +100,8 @@ namespace WBPlatform.WebManagement.Controllers
                         }
                         else
                         {
-                            string token = JumpTokens.CreateToken();
-                            JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.UserRegister, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
+                            string token = ExecuteOnceTicket.CreateToken();
+                            ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.UserRegister, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }
                     default: return RequestIllegal;

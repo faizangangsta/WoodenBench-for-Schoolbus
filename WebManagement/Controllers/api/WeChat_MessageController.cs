@@ -45,10 +45,13 @@ namespace WBPlatform.WebManagement.Controllers
             MemoryStream ms = new MemoryStream();
             Request.Body.CopyTo(ms);
             string XML_Message = "";
-            int ret = WeChat.WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, Encoding.UTF8.GetString(ms.ToArray()), ref XML_Message);
+            string _message = Encoding.UTF8.GetString(ms.ToArray());
+            int ret = WeChat.WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, _message, ref XML_Message);
             if (ret != 0)
             {
-                Response.StatusCode = 500;
+                Response.StatusCode = 200;
+                LW.E("WeChat Message Decrypt Failed!! " + _message);
+                Response.WriteAsync("");
                 return;
             }
             WeChatMessageSystem.AddToRecvList(new WeChatRcvdMessage(XML_Message, DateTime.Now));

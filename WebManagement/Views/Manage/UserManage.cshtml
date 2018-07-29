@@ -106,10 +106,10 @@
                 <label for="adv_Area">高级选项</label>
                 <div id="adv_Area" class="container">
                     <label>班级ID</label>
-                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetClassIdString(';')" />
+                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetClassIdString(";")" />
                     <br />
                     <label>子女ID</label>
-                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetChildIdString(';')" />
+                    <input asp-for="ClassList" class="TxBox checkbox-inline" disabled readonly value="@Model.GetChildIdString(";")" />
                     <br />
                 </div>
             </div>

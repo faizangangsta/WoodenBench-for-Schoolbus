@@ -1,25 +1,23 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 using System;
 using System.Collections.Generic;
-using WBPlatform.Database;
+
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement.Controllers
 {
-    public static class SessionManager
-    {
-
-    }
     public class BaseController : Controller
     {
         public UserObject CurrentUser { get => CurrentIdentity.User; }
         public UserIdentity CurrentIdentity { get; private set; } = UserIdentity.Unknown;
 
-        private TelemetryClient telemetry = new TelemetryClient();
+        public TelemetryClient Telemetry { get; set; } = new TelemetryClient();
+
         public static readonly string UID_CookieName = "identifiedUID";
         public static int GetCount { get => SessionCollection.Count; }
         private static Dictionary<string, UserIdentity> SessionCollection { get; set; } = new Dictionary<string, UserIdentity>();
@@ -56,21 +54,12 @@ namespace WBPlatform.WebManagement.Controllers
             SessionCollection.Add(NewSession, CurrentIdentity);
         }
 
-        public void AISetUser()
-        {
-            User.AddIdentity(CurrentIdentity.Identity);
-            telemetry.Context.User.AccountId = CurrentUser?.ObjectId ?? "Unknown";
-            telemetry.Context.User.Id = CurrentUser?.UserName ?? "Unknown";
-            ViewData[UID_CookieName] = CurrentUser?.GetIdentifiableCode() ?? "Unknown";
-            ///
-        }
-
         public bool ValidateSession()
         {
             string SessionString = Request.Cookies["Session"];
             string UA = Request.Headers["User-Agent"];
 
-            if (string.IsNullOrEmpty(SessionString) || string.IsNullOrEmpty(UA)) return false;
+            if (string.IsNullOrWhiteSpace(SessionString) || string.IsNullOrWhiteSpace(UA)) return false;
             if (SessionCollection.ContainsKey(SessionString) && (UA == "JumpToken_FreeLogin" || SessionCollection[SessionString].UserAgent == UA))
             {
                 lock (SessionCollection)
@@ -78,6 +67,19 @@ namespace WBPlatform.WebManagement.Controllers
                     SessionCollection[SessionString].SetLastActive();
                 }
                 CurrentIdentity = SessionCollection[SessionString];
+
+                User.AddIdentity(CurrentIdentity.Identity);
+
+                Telemetry.Context.User.Id = CurrentUser.GetIdentifiableCode();
+                Telemetry.Context.Session.Id = Request.Cookies["Session"] ?? "Unknown";
+
+                ViewData[UID_CookieName] = CurrentUser.GetIdentifiableCode();
+                Response.Cookies.Append("ai_user", CurrentUser.GetIdentifiableCode());
+
+                string _session = HttpContext.Connection.RemoteIpAddress.ToString() + ":" + HttpContext.Connection.RemotePort + "-" + CurrentUser.GetIdentifiableCode() + "-";
+                Response.Cookies.Append("ai_session", _session + Request.Cookies["Session"].Substring(0, 5) ?? "Unknown");
+                Response.Cookies.Append("ai_authUser", CurrentUser.RealName);
+
                 return true;
             }
             else return false;

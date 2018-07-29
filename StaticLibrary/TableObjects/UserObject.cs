@@ -83,45 +83,32 @@ namespace WBPlatform.TableObject
             output.Put("precision", Precision);
         }
 
-        public UserObject GetNull()
+        public UserObject SetDefault()
         {
-            ObjectId = "NOT__KNOWN";
+            ObjectId = "0000000000";
             UserName = "UnknownUser";
             Password = "";
             RealName = "UnknownName";
             HeadImagePath = "default.png";
             UserGroup = new UserGroup(false, false, false, false);
+            CurrentPoint = new PointF();
+            Precision = 0;
+            Sex = "M";
+            PhoneNumber = "-----------";
+            ClassList = new List<string>();
+            ChildList = new List<string>();
             return this;
         }
         public string GetIdentifiableCode()
         {
-            return UserName + "-" + ObjectId;
+            return string.Join("_", UserName, ObjectId);
         }
 
-        public static UserObject DefaultValue => new UserObject().GetNull();
-
+        public string GetFullIdentity() => string.Join("-", GetIdentifiableCode(), RealName);
+        public static UserObject DefaultValue => new UserObject().SetDefault();
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
-
-        public string GetClassIdString(char Splitter)
-        {
-            string result = "";
-            foreach (string item in ClassList)
-            {
-                result = result + item + Splitter.ToString();
-            }
-            return result;
-        }
-
-        public string GetChildIdString(char Splitter)
-        {
-            string result = "";
-            foreach (string item in ChildList)
-            {
-                result = result + item + Splitter.ToString();
-            }
-            return result;
-        }
-
+        public string GetClassIdString(string Splitter) => string.Join(Splitter, ClassList.ToArray());
+        public string GetChildIdString(string Splitter) => string.Join(Splitter, ChildList.ToArray());
 
         public Dictionary<string, string> ToDictionary()
         {
@@ -141,8 +128,8 @@ namespace WBPlatform.TableObject
                 { "IsClassTeacher" , UserGroup.IsClassTeacher.ToString().ToLower() },
                 { "IsAdmin" , UserGroup.IsAdmin.ToString().ToLower() },
 
-                { "ClassIDs", GetChildIdString(';') },
-                { "ChildIDs", GetClassIdString(';') },
+                { "ClassIDs", GetChildIdString(";") },
+                { "ChildIDs", GetClassIdString(";") },
                 { "LocationX", CurrentPoint.X.ToString()},
                 { "LocationY", CurrentPoint.Y.ToString()},
                 { "Precision", Precision.ToString() }

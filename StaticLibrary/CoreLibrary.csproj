@@ -81,6 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PublicTools.cs" />
+    <Compile Include="StatusReportObject.cs" />
     <Compile Include="TableObjects\BusReportObject.cs" />
     <Compile Include="TableObjects\NotificationObject.cs" />
     <Compile Include="Pinyin.cs" />

@@ -13,27 +13,38 @@ namespace WBPlatform.WebManagement.Controllers
     public abstract class ViewController : BaseController
     {
         public abstract IActionResult Index();
-        protected IActionResult _LoginFailed(string RedirectPage)
+        protected IActionResult LoginFailed(string RedirectPage)
         {
-            AISetUser();
+
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
             return RedirectToAction("Index", HomeController.ControllerName);
         }
 
-        protected IActionResult _InternalError(ServerAction _Where, ErrorType _ErrorType, string DetailedInfo = "未提供错误信息", string LoginUsr = "用户未登录", ErrorRespCode ResponseCode = ErrorRespCode.NotSet)
+        protected IActionResult NotFoundError(ServerAction action, string item, ResponceCode respCode = ResponceCode.NotFound) => _InternalError(action, "未找到所需内容:\r\n" + item, respCode);
+        protected IActionResult PermissionDenied(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.PermisstionDenied) => _InternalError(action, "用户权限不足:\r\n" + Reason, respCode);
+        protected IActionResult DatabaseError(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.InternalServerError) => _InternalError(action, "数据库错误: \r\n" + Reason, respCode);
+        protected IActionResult RequestIllegal(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.RequestIllegal) => _InternalError(action, "请求不合法: \r\n" + Reason, respCode);
+        protected IActionResult NotSupported(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.NotSupported) => _InternalError(action, "不支持所选的操作: \r\n" + Reason, respCode);
+
+        protected IActionResult Unknown_Error(ServerAction action) => _InternalError(action, "未知异常……", ResponceCode.InternalServerError);
+
+        protected enum ResponceCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalServerError = 500, NotSupported = 501, Default = 200 }
+        private IActionResult _InternalError(ServerAction action, string info, ResponceCode respCode)
         {
             string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
             Exception ex = HttpContext.Features.Get<ExceptionHandlerFeature>()?.Error;
             Page = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Path;
-            if (ex != null) DetailedInfo = ex.InnerException == null ? ex.Message : (ex.Message + ":::" + ex.InnerException.Message);
 
-            Response.StatusCode = ResponseCode != ErrorRespCode.NotSet ? (int)ResponseCode : Response.StatusCode;
+            info = info + "\r\n" + ex?.ToString();
+
+            Response.StatusCode = (int)respCode;
+
             ViewData["where"] = HomeController.ControllerName;
-            ViewData["DetailedInfo"] = Response.StatusCode == 404 ? ErrorType.ItemsNotFound.ToString() : _ErrorType.ToString();
-            ViewData["ErrorAT"] = _Where.ToString();
+            ViewData["DetailedInfo"] = respCode.ToString();
+            ViewData["ErrorAT"] = action.ToString();
             ViewData["RespCode"] = Response.StatusCode.ToString();
-            ViewData["ErrorMessage"] = DetailedInfo;
+            ViewData["ErrorMessage"] = info;
             ViewData["RAWResp"] = Page;
 
             WeChatSentMessage _Message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
@@ -42,13 +53,13 @@ namespace WBPlatform.WebManagement.Controllers
                 "\r\nURL:" + ViewData["RAWResp"] +
                 "\r\nCOE:" + Response.StatusCode +
                 "\r\nMSG:" + ViewData["ErrorMessage"] +
-                "\r\nUSR:" + LoginUsr +
+                "\r\nUSR:" + CurrentUser.GetFullIdentity() +
                 "\r\nSTK:" + ViewData["ErrorAT"] +
                 "\r\nNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
 
             LW.E(_Message.Content.Replace("\r\n", " -- "));
 
-            if (Response.StatusCode != 200)
+            if (respCode != ResponceCode.Default)
             {
                 WeChatMessageSystem.AddToSendList(_Message);
             }

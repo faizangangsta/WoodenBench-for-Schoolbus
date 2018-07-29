@@ -55,8 +55,8 @@ namespace WBPlatform.WebManagement.Tools
                             switch (Message.EventKey)
                             {
                                 case "ADD_PASSWORD":
-                                    string token = JumpTokens.CreateToken();
-                                    if (JumpTokens.TryAdd(token, new JumpTokenInfo(JumpTokenUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
+                                    string token = ExecuteOnceTicket.CreateToken();
+                                    if (ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
                                     {
                                         var p = SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
                                             "要是想使用Windows 客户端登陆的话\r\n" +

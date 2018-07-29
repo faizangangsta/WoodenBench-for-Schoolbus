@@ -38,17 +38,12 @@ namespace WBPlatform.StaticClasses
         INTERNAL_ERROR
     }
 
-    public enum JumpTokenUsage
+    public enum TicketUsage
     {
-        WeChatLogin,
-        UserRegister, 
+        //WeChatLogin,
+        UserRegister,
         AddPassword
     }
-    public enum ErrorType
-    {
-        ItemsNotFound, UserGroupError, PermisstionDenied, RequestInvalid, DataBaseError, INTERNAL_ERROR
-    }
-    public enum ErrorRespCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalError = 500, NotSet = 200 }
     public static class WeChat
     {
         public const int agentId = 41;

@@ -18,26 +18,26 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (ValidateSession())
             {
-                AISetUser();
                 if (CurrentUser.UserGroup.IsClassTeacher && CurrentUser.ClassList.Count > 0)
                 {
-                    switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("objectId", CurrentUser.ClassList[0]), out List<ClassObject> ClassList))
+                    switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", CurrentUser.ClassList[0]), out ClassObject myClass))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return _InternalError(ServerAction.MyClass_Index, ErrorType.DataBaseError, "数据库查询出错", CurrentUser.UserName, ErrorRespCode.InternalError);
-                        case DBQueryStatus.NO_RESULTS: return _InternalError(ServerAction.MyClass_Index, ErrorType.ItemsNotFound, "未找到任何你管理的班级", CurrentUser.UserName);
-                        default:
-                            ViewData["ClassName"] = ClassList[0].CDepartment + " " + ClassList[0].CGrade + " " + ClassList[0].CNumber;
-                            ViewData["ClassID"] = ClassList[0].ObjectId;
+                        case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyClass_Index, "数据库内部出错……");
+                        case DBQueryStatus.NO_RESULTS: return NotFoundError(ServerAction.MyClass_Index, "未找到任何你管理的班级");
+                        case DBQueryStatus.ONE_RESULT:
+                            ViewData["ClassName"] = string.Join(" ", myClass.CDepartment, myClass.CGrade, myClass.CNumber);
+                            ViewData["ClassID"] = myClass.ObjectId;
                             ViewData["cUser"] = CurrentUser.ToString();
-                            return base.View();
+                            return View();
+                        default:
+                            return DatabaseError(ServerAction.MyClass_Index, "找到多个班级，现只支持单个班级管理");
                     }
                 }
-                else return _InternalError(ServerAction.MyClass_Index, ErrorType.UserGroupError, "你不是班主任，不能使用此功能.", CurrentUser.UserName, ErrorRespCode.NotSet);
+                else return RequestIllegal(ServerAction.MyClass_Index, "你不是班主任，不能使用此功能", ResponceCode.Default);
             }
             else
             {
-                AISetUser();
-                return _LoginFailed("/ClassManager/Index/");
+                return LoginFailed("/ClassManager/Index/");
             }
 
         }

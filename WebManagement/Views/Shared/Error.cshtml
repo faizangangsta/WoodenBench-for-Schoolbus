@@ -21,7 +21,8 @@
     }
     <hr />
     <div class="container">
-        <h6 class="text-danger">@ViewData["ErrorMessage"]</h6>
+        <p id="msg" class="text-danger"></p>
+        <script>$("#msg").html(decodeURIComponent("@Uri.EscapeDataString(ViewData["ErrorMessage"]?.ToString().Replace("\r\n", "<br /><br />"))"))</script>
         @if (ViewData["RespCode"].ToString() == "404")
         {
             <strong> 请求URL:</strong>
