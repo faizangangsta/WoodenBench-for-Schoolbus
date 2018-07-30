@@ -12,10 +12,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/GetBuses")]
-    public class Bus_GetBusController : WebAPIController
+    public class Bus_GetBusController : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string UserID, string Session)
+        public JsonResult Get(string UserID, string Session)
         {
             if (ValidateSession())
             {
@@ -47,7 +47,7 @@ namespace WBPlatform.WebManagement.Controllers
                                     dict.Add("Total", StudentList.Count.ToString());
                                     dict.Add("ErrCode", "0");
                                     dict.Add("ErrMessage", "null");
-                                    return dict;
+                                    return Json(dict);
                             }
                     }
                 }

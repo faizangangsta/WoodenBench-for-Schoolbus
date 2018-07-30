@@ -15,10 +15,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/SignStudents")]
-    public class Bus_SignStudentsController : WebAPIController
+    public class Bus_SignStudentsController : APIController
     {
         [HttpGet]
-        public IEnumerable GET(string BusID, string SignData, string Data)
+        public JsonResult GET(string BusID, string SignData, string Data)
         {
             //THIS FUNCTION IS SHARED BY BUSTEACHER AND PARENTS
             if (!ValidateSession())
@@ -67,7 +67,7 @@ namespace WBPlatform.WebManagement.Controllers
                                     dict.Add("SignMode", SType);
                                     dict.Add("SignResult", Value.ToString());
                                     dict.Add("Updated", DateTime.Now.ToString());
-                                    return dict;
+                                    return Json(dict);
                                 }
                                 else return InternalError;
                         }

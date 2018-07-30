@@ -37,16 +37,16 @@ namespace WBPlatform.WebManagement.Controllers
                 return _action == "AddPassword"
                     ? info.Usage == TicketUsage.AddPassword
                         ? View()
-                        : RequestIllegal(ServerAction.MyAccount_UserRegister, "Token用法不合法 " + info.UserID)
+                        : RequestIllegal(ServerAction.MyAccount_UserRegister, XConfig.Messages["TokenUsageInvalid"] + info.UserID)
                     : _action == "changePassword"
-                        ? NotSupported(ServerAction.MyAccount_UserRegister, "小板凳微信平台现已不支持在线改密，请到Windows客户端更改密码")
-                        : NotSupported(ServerAction.MyAccount_UserRegister, "暂时不支持用户注册，请联系管理员进行操作");
+                        ? NotSupported(ServerAction.MyAccount_UserRegister, XConfig.Messages["NotSupportedOnlinePswdChange_GotoWinClient"])
+                        : NotSupported(ServerAction.MyAccount_UserRegister, XConfig.Messages["NotSupportedUserRegister_ContactAdmin"]);
                 //return _action == "register"
                 //    ? View()
                 //    : _InternalError(ServerSideAction.Home_UserRegister, "请求所带的参数无效", user + info?.UserID);
 
             }
-            return RequestIllegal(ServerAction.MyAccount_UserRegister, "Token 超时或不存在，请重试");
+            return RequestIllegal(ServerAction.MyAccount_UserRegister, XConfig.Messages["TokenTimeout"]);
         }
         public IActionResult RequestChange()
         {
@@ -72,7 +72,7 @@ namespace WBPlatform.WebManagement.Controllers
                     if (DataBaseOperation.CreateData(ref request) != DBQueryStatus.ONE_RESULT)
                     {
                         LW.E("AccountController->ProcessNewUCR: Create UCR Failed!");
-                        return DatabaseError(ServerAction.MyAccount_CreateChangeRequest, "创建工单失败！");
+                        return DatabaseError(ServerAction.MyAccount_CreateChangeRequest, XConfig.Messages["CreateUCR_Failed"]);
                     }
 
                     InternalMessage messageAdmin = new InternalMessage() { _Type = GlobalMessageTypes.UCR_Created_TO_ADMIN, DataObject = request, User = CurrentUser, ObjectId = request.ObjectId };

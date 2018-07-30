@@ -12,10 +12,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/QueryStudents")]
-    public class QueryStudentsController : WebAPIController
+    public class QueryStudentsController : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string BusID, string Column, string Content, string STAMP, string SALT)
+        public JsonResult Get(string BusID, string Column, string Content, string STAMP, string SALT)
         {
             if (Cryptography.SHA256Encrypt(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT) != STAMP) return RequestIllegal;
 
@@ -47,7 +47,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 }
                                 dict.Add("ErrCode", "0");
                                 dict.Add("ErrMsg", "null");
-                                return dict;
+                                return Json(dict);
                         }
                     }
             }

@@ -13,10 +13,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/admin/QueryUsers")]
-    public class Admin_QueryUsers : WebAPIController
+    public class Admin_QueryUsers : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string columnName, string operand, string value)
+        public JsonResult Get(string columnName, string operand, string value)
         {
             if (ValidateSession())
             {
@@ -45,7 +45,7 @@ namespace WBPlatform.WebManagement.Controllers
                             dict.Add("num_" + i.ToString(), users[i].ToString());
                         dict.Add("ErrCode", "0");
                         dict.Add("ErrMessage", "null");
-                        return dict;
+                        return Json(dict);
                     }
                     else return DataBaseError;
                 }

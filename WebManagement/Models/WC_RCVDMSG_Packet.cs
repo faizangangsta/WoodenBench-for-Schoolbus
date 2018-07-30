@@ -8,8 +8,8 @@ namespace WBPlatform.WebManagement.Tools
 {
     public class WeChatRcvdMessage
     {
-        public WeChat.RcvdMessageType MessageType { get; set; }
-        public WeChat.Event Event { get; set; }
+        public WeChatRMsg MessageType { get; set; }
+        public WeChatEvent Event { get; set; }
         public PointF Location { get; set; }
         public decimal Precision { get; set; }
         public string FromUser { get; set; }
@@ -30,7 +30,7 @@ namespace WBPlatform.WebManagement.Tools
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(XMLMessage);
             XmlNode root = doc.FirstChild;
-            MessageType = (WeChat.RcvdMessageType)Enum.Parse(typeof(WeChat.RcvdMessageType), root["MsgType"].InnerText, true);
+            MessageType = (WeChatRMsg)Enum.Parse(typeof(WeChatRMsg), root["MsgType"].InnerText, true);
 
             FromUser = root["FromUserName"].InnerText;
             ToUser = root["ToUserName"].InnerText;
@@ -39,23 +39,23 @@ namespace WBPlatform.WebManagement.Tools
 
             switch (MessageType)
             {
-                case WeChat.RcvdMessageType.text:
+                case WeChatRMsg.text:
                     TextContent = root["Content"].InnerText;
                     MessageID = root["MsgId"].InnerText;
                     break;
-                case WeChat.RcvdMessageType.image:
+                case WeChatRMsg.image:
                     PicUrl = root["PicUrl"].InnerText;
                     MediaId = root["MediaId"].InnerText;
                     break;
-                case WeChat.RcvdMessageType.EVENT:
-                    Event = (WeChat.Event)Enum.Parse(typeof(WeChat.Event), root["Event"].InnerText, true);
+                case WeChatRMsg.EVENT:
+                    Event = (WeChatEvent)Enum.Parse(typeof(WeChatEvent), root["Event"].InnerText, true);
                     switch (Event)
                     {
-                        case WeChat.Event.LOCATION:
+                        case WeChatEvent.LOCATION:
                             Location = new PointF((float)Convert.ToDecimal(root["Latitude"].InnerText), (float)Convert.ToDecimal(root["Longitude"].InnerText));
                             Precision = Convert.ToDecimal(root["Precision"].InnerText);
                             break;
-                        case WeChat.Event.click:
+                        case WeChatEvent.click:
                             EventKey = root["EventKey"].InnerText;
                             break;
                         default:

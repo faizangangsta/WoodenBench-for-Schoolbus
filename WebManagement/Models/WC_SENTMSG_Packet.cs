@@ -4,7 +4,7 @@ namespace WBPlatform.WebManagement.Tools
 {
     public class WeChatSentMessage
     {
-        public WeChatSentMessage(WeChat.SentMessageType type, string title, string content, string uRL_OnClick, params string[] toUser)
+        public WeChatSentMessage(WeChatSMsg type, string title, string content, string uRL_OnClick, params string[] toUser)
         {
             Content = content;
             this.toUser = toUser;
@@ -15,7 +15,7 @@ namespace WBPlatform.WebManagement.Tools
 
         public string Content { get; set; }
         public string[] toUser { get; set; }
-        public WeChat.SentMessageType type { get; set; }
+        public WeChatSMsg type { get; set; }
         public string Title { get; set; }
         public string URL_OnClick { get; set; }
     }

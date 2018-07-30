@@ -12,10 +12,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Register")]
-    public class User_RegisterController : WebAPIController
+    public class User_RegisterController : APIController
     {
         [HttpPost]
-        public IEnumerable POST()
+        public JsonResult POST()
         {
             FormCollection myform = (FormCollection)Request.Form;
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -37,7 +37,7 @@ namespace WBPlatform.WebManagement.Controllers
                             if (DataBaseOperation.UpdateData(ref temp) == DBQueryStatus.ONE_RESULT)
                             {
                                 Response.Redirect("/Home");
-                                return "OK";
+                                return SpecialisedInfo("OK");
                             }
                             else return DataBaseError;
                         }
@@ -58,7 +58,7 @@ namespace WBPlatform.WebManagement.Controllers
                     {
                         MessagingSystem.AddMessageProcesses(new InternalMessage() { User = user, _Type = GlobalMessageTypes.User__Pending_Verify, DataObject = dict["table"] });
                         Response.Redirect("/Home");
-                        return "OK";
+                        return SpecialisedInfo("OK");
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace WBPlatform.WebManagement.Controllers
         }
 
         [HttpGet]
-        public IEnumerable GET(string userId, string mode)
+        public JsonResult GET(string userId, string mode)
         {
             //Response.Redirect("/Error");
             if (ValidateSession())
@@ -88,7 +88,7 @@ namespace WBPlatform.WebManagement.Controllers
                         }
                         else
                         {
-                            string token = ExecuteOnceTicket.CreateToken();
+                            string token = ExecuteOnceTicket.CreateTicket();
                             ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }
@@ -100,7 +100,7 @@ namespace WBPlatform.WebManagement.Controllers
                         }
                         else
                         {
-                            string token = ExecuteOnceTicket.CreateToken();
+                            string token = ExecuteOnceTicket.CreateTicket();
                             ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.UserRegister, Request.Headers["User-Agent"], CurrentUser.UserName, 600));
                             return SpecialisedInfo(token);
                         }

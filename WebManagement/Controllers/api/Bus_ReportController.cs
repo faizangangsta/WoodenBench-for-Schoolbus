@@ -13,10 +13,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/bus/NewIssueReport")]
-    public class Bus_ReportController : WebAPIController
+    public class Bus_ReportController : APIController
     {
         [HttpGet]
-        public IEnumerable GET(string BusID, string TeacherID, string ReportType, string Content)
+        public JsonResult GET(string BusID, string TeacherID, string ReportType, string Content)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             if (ValidateSession())
@@ -65,7 +65,7 @@ namespace WBPlatform.WebManagement.Controllers
                     return DataBaseError;
                 }
             }
-            return dict;
+            return Json(dict);
         }
     }
 }

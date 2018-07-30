@@ -28,39 +28,41 @@ namespace WBPlatform.WebManagement
             LW.D($"\t Startup Time {StartUpTime.ToString()}.");
             Version = new FileInfo(new string(Assembly.GetExecutingAssembly().CodeBase.Skip(8).ToArray())).LastWriteTime.ToString();
             LW.D($"\t Version {Version}");
+
+            var v = XConfig.LoadAll();
+            if (!(v.Item1 && v.Item2)) return;
+
             StatusMonitor.StartMonitorThread();
-            LW.D("Monitor Thread: Active");
-            WeChat.ReNewWCCodes();
+            WeChatHelper.ReNewWCCodes();
 
-
-            DataBaseOperation.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+            DataBaseOperation.InitialiseClient(IPAddress.Parse(XConfig.CurrentConfig.Database.ServerIP));
             //DataBaseOperation.InitialiseClient(IPAddress.Loopback);
 
-
-            LW.D("Initialising WeChat Data Packet Encryptor.....");
-            WeChat.WeChatEncryptor = new WXEncryptedXMLHelper(WeChat.sToken, WeChat.sEncodingAESKey, WeChat.CorpID);
+            WeChatHelper.InitialiseExcryptor();
 
             LW.D("Initialising Core Messaging Systems.....");
             WeChatMessageSystem.StartProcessThreads();
             WeChatMessageBackupService.StartBackupThread();
             MessagingSystem.StartProcessThread();
 
-            LW.D("Building WebHost....");
-            var webHost = BuildWebHost(args);
+            var webHost = BuildWebHost(XConfig.CurrentConfig.ApplicationInsightInstrumentationKey, args);
             LW.D("Starting WebHost....");
-
-            //WeChatMessageSystem.AddMessageToList(new WeChatRcvdMessage("<xml><ToUserName><![CDATA[wx68bec13e85ca6465]]></ToUserName><FromUserName><![CDATA[liuhaoyu]]></FromUserName><CreateTime>1521830752</CreateTime><MsgType><![CDATA[event]]></MsgType><AgentID>41</AgentID><Event><![CDATA[LOCATION]]></Event><Latitude>38.5811</Latitude><Longitude>116.857</Longitude><Precision>15</Precision></xml>", DateTime.Now));
 
             WebServerTask = webHost.RunAsync(ServerStopToken.Token);
             WebServerTask.Wait();
             LW.E("WebServer Stoped! Cancellation Token = " + ServerStopToken.IsCancellationRequested);
         }
 
-        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
-                .UseIISIntegration()
-                .UseKestrel()
-                .UseApplicationInsights()
-                .UseStartup<Startup>()
-                .Build();
+        public static IWebHost BuildWebHost(string instrumentationKey, string[] args)
+        {
+            LW.D("Building WebHost....");
+            var host = WebHost.CreateDefaultBuilder(args)
+                 .UseIISIntegration()
+                 .UseKestrel()
+                 .UseApplicationInsights(instrumentationKey)
+                 .UseStartup<Startup>()
+                 .Build();
+            return host;
+        }
     }
 }

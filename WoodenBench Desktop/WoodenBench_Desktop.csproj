@@ -203,9 +203,6 @@
     <EmbeddedResource Include="Views\UsersOperation\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\WBServicePlatform.TableObject.AllUserObject.datasource" />

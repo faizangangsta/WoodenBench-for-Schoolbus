@@ -12,33 +12,40 @@ namespace WBPlatform.WebManagement.Controllers
 {
     public abstract class ViewController : BaseController
     {
+
         public abstract IActionResult Index();
         protected IActionResult LoginFailed(string RedirectPage)
         {
-
             Response.Cookies.Delete("Session");
             Response.Cookies.Append("LoginRedirect", RedirectPage, new CookieOptions() { Expires = DateTime.Now.AddMinutes(2) });
             return RedirectToAction("Index", HomeController.ControllerName);
         }
 
-        protected IActionResult NotFoundError(ServerAction action, string item, ResponceCode respCode = ResponceCode.NotFound) => _InternalError(action, "未找到所需内容:\r\n" + item, respCode);
-        protected IActionResult PermissionDenied(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.PermisstionDenied) => _InternalError(action, "用户权限不足:\r\n" + Reason, respCode);
-        protected IActionResult DatabaseError(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.InternalServerError) => _InternalError(action, "数据库错误: \r\n" + Reason, respCode);
-        protected IActionResult RequestIllegal(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.RequestIllegal) => _InternalError(action, "请求不合法: \r\n" + Reason, respCode);
-        protected IActionResult NotSupported(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.NotSupported) => _InternalError(action, "不支持所选的操作: \r\n" + Reason, respCode);
+        protected IActionResult NotFoundError(ServerAction action, string item, ResponceCode respCode = ResponceCode.NotFound) => _InternalError(action, XConfig.Messages.NotFound + item, respCode);
+        protected IActionResult PermissionDenied(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.PermisstionDenied)
+            => _InternalError(action, XConfig.Messages.UserPermissionDenied + Reason, respCode);
 
-        protected IActionResult Unknown_Error(ServerAction action) => _InternalError(action, "未知异常……", ResponceCode.InternalServerError);
+        protected IActionResult DatabaseError(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.InternalServerError)
+            => _InternalError(action, XConfig.Messages.DataBaseError + Reason, respCode);
+
+        protected IActionResult RequestIllegal(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.RequestIllegal)
+            => _InternalError(action, XConfig.Messages.RequestIllegal + Reason, respCode);
+
+        protected IActionResult NotSupported(ServerAction action, string Reason, ResponceCode respCode = ResponceCode.NotSupported)
+            => _InternalError(action, XConfig.Messages.NotSupported + Reason, respCode);
+
+        protected IActionResult Unknown_Error(ServerAction action) => _InternalError(action, XConfig.Messages.UnknownInternalException, ResponceCode.InternalServerError);
 
         protected enum ResponceCode { RequestIllegal = 400, PermisstionDenied = 403, NotFound = 404, InternalServerError = 500, NotSupported = 501, Default = 200 }
+
         private IActionResult _InternalError(ServerAction action, string info, ResponceCode respCode)
         {
-            string Page = "";//Response.HttpContext.Request.Scheme + "://" + Response.HttpContext.Request.Host + Response.HttpContext.Request.Path;
             Exception ex = HttpContext.Features.Get<ExceptionHandlerFeature>()?.Error;
-            Page = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Path;
+            string Page = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Path;
 
             info = info + "\r\n" + ex?.ToString();
 
-            Response.StatusCode = (int)respCode;
+            Response.StatusCode = Response.StatusCode == 404 ? 404 : (int)respCode;
 
             ViewData["where"] = HomeController.ControllerName;
             ViewData["DetailedInfo"] = respCode.ToString();
@@ -47,17 +54,19 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["ErrorMessage"] = info;
             ViewData["RAWResp"] = Page;
 
-            WeChatSentMessage _Message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
-                "ERROR!" +
-                "\r\nRQT:" + DateTime.Now.ToString() +
-                "\r\nURL:" + ViewData["RAWResp"] +
-                "\r\nCOE:" + Response.StatusCode +
-                "\r\nMSG:" + ViewData["ErrorMessage"] +
-                "\r\nUSR:" + CurrentUser.GetFullIdentity() +
-                "\r\nSTK:" + ViewData["ErrorAT"] +
-                "\r\nNFO:" + ViewData["DetailedInfo"], null, "liuhaoyu");
+            string content = string.Join("\r\n",
+                "Error Report:",
+                DateTime.Now.ToNormalString(),
+                CurrentUser.GetFullIdentity(),
+                Response.StatusCode,
+                ViewData["RAWResp"],
+                ViewData["ErrorMessage"],
+                ViewData["ErrorAT"],
+                ViewData["DetailedInfo"]);
 
-            LW.E(_Message.Content.Replace("\r\n", " -- "));
+            WeChatSentMessage _Message = new WeChatSentMessage(WeChatSMsg.text, null, content, null, "liuhaoyu");
+
+            LW.E(content.Replace("\r\n", " -- "));
 
             if (respCode != ResponceCode.Default)
             {

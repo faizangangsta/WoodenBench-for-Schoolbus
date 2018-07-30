@@ -12,15 +12,15 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/parent/getMyChild")]
-    public class GetMyChildController : WebAPIController
+    public class GetMyChildController : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string parentId)
+        public JsonResult Get(string parentId)
         {
             if (!ValidateSession()) return SessionError;
             if (!(CurrentUser.ObjectId == parentId && CurrentUser.UserGroup.IsParent)) return UserGroupError;
-            
-            
+
+
             Dictionary<string, string> dict = new Dictionary<string, string>();
             switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereValueContainedInArray("objectId", CurrentUser.ChildList.ToArray()), out List<StudentObject> StudentList))
             {
@@ -31,7 +31,7 @@ namespace WBPlatform.WebManagement.Controllers
                         dict.Add("num_" + i.ToString(), StudentList[i].ToString());
                     dict.Add("ErrCode", "0");
                     dict.Add("ErrMessage", "null");
-                    return dict;
+                    return Json(dict);
             }
         }
     }

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+
 using System.IO.Pipes;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.ServiceStatus
@@ -20,14 +13,18 @@ namespace WBPlatform.ServiceStatus
     {
         public static void Main(string[] args)
         {
-            LW.SetLogLevel(StaticClasses.LogLevel.Dbg);
+            LW.SetLogLevel(LogLevel.Dbg);
             LW.InitLog();
+
+            var v = XConfig.LoadAll();
+            if (!(v.Item1 && v.Item2)) return;
+
             new Thread(new ThreadStart(GetStateString)).Start();
             BuildWebHost(args).Run();
         }
         public static void GetStateString()
         {
-            NamedPipeClientStream client = new NamedPipeClientStream("localhost", "83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.In);
+            NamedPipeClientStream client = new NamedPipeClientStream("localhost", XConfig.CurrentConfig.StatusReportNamedPipe, PipeDirection.In);
             while (true)
             {
                 client.Connect();
@@ -49,7 +46,7 @@ namespace WBPlatform.ServiceStatus
             WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
                 .UseKestrel()
-                .UseApplicationInsights()
+                .UseApplicationInsights(XConfig.CurrentConfig.ApplicationInsightInstrumentationKey)
                 .UseStartup<Startup>()
                 .Build();
     }

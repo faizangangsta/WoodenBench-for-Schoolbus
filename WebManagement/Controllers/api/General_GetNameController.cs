@@ -11,10 +11,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/gen/GetName")]
-    public class Gen_GetName : WebAPIController
+    public class Gen_GetName : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string UserID)
+        public JsonResult Get(string UserID)
         {
             if (ValidateSession())
             {

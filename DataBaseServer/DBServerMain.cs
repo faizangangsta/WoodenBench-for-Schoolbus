@@ -24,7 +24,7 @@ namespace WBPlatform.Database.DBServer
             LW.OnLog += LogWritter_onLog;
         }
 
-        private void LogWritter_onLog(LW.OnLogChangedEventArgs logchange)
+        private void LogWritter_onLog(LW.OnLogChangedEventArgs logchange, object sender)
         {
             logsTextbox.Invoke(new Action(delegate
             {

@@ -52,7 +52,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["registerMsg"] = message;
                     return DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", uid), out UserObject _user) == DBQueryStatus.ONE_RESULT
                         ? View(_user)
-                        : NotFoundError(ServerAction.INTERNAL_ERROR, "暂时找不到URL中指定的用户");
+                        : NotFoundError(ServerAction.INTERNAL_ERROR, XConfig.Messages["NoUserFoundByGivenID"]);
                 }
                 else if (mode == "query")
                 {
@@ -86,7 +86,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 // MY LIST
                                 switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("UserID", CurrentUser.ObjectId), out List<UserChangeRequest> requests))
                                 {
-                                    case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.General_ViewChangeRequests, "数据库内部异常");
+                                    case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.General_ViewChangeRequests, XConfig.Messages.InternalDataBaseError);
                                     default:
                                         ViewData["count"] = requests.Count;
                                         ViewData["list"] = requests.ToArray();
@@ -101,7 +101,7 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return DatabaseError(ServerAction.General_ViewChangeRequests, "数据库内部异常");
+                                        return DatabaseError(ServerAction.General_ViewChangeRequests, XConfig.Messages.InternalDataBaseError);
                                     default:
                                         return base.View(requests);
                                 }
@@ -119,7 +119,7 @@ namespace WBPlatform.WebManagement.Controllers
                                 switch (DataBaseOperation.QueryMultipleData(new DBQuery(), out List<UserChangeRequest> requests))
                                 {
                                     case DBQueryStatus.INTERNAL_ERROR:
-                                        return DatabaseError(ServerAction.Manage_VerifyChangeRequest, "数据库内部异常");
+                                        return DatabaseError(ServerAction.Manage_VerifyChangeRequest, XConfig.Messages.InternalDataBaseError);
                                     default:
                                         ViewData["list"] = requests.ToArray();
                                         return base.View();
@@ -132,18 +132,18 @@ namespace WBPlatform.WebManagement.Controllers
                                     case DBQueryStatus.INTERNAL_ERROR:
                                     case DBQueryStatus.NO_RESULTS:
                                     case DBQueryStatus.MORE_RESULTS:
-                                        return DatabaseError(ServerAction.Manage_VerifyChangeRequest, "数据库内部异常");
+                                        return DatabaseError(ServerAction.Manage_VerifyChangeRequest, XConfig.Messages.InternalDataBaseError);
                                     default:
                                         return base.View(requests);
                                 }
                             }
                         default:
-                            return RequestIllegal(ServerAction.General_ViewChangeRequests, "参数错误");
+                            return RequestIllegal(ServerAction.General_ViewChangeRequests, XConfig.Messages.ParameterUnexpected);
                     }
                 }
                 else
                 {
-                    return RequestIllegal(ServerAction.General_ViewChangeRequests, "参数错误");
+                    return RequestIllegal(ServerAction.General_ViewChangeRequests, XConfig.Messages.ParameterUnexpected);
                 }
             }
             else

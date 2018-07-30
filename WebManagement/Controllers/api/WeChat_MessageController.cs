@@ -25,7 +25,7 @@ namespace WBPlatform.WebManagement.Controllers
         {
             int ret = 0;
             string sEchoStr = "";
-            ret = WeChat.WeChatEncryptor.VerifyURL(msg_signature, timestamp, nonce, echostr, ref sEchoStr);
+            ret = WeChatHelper.WeChatEncryptor.VerifyURL(msg_signature, timestamp, nonce, echostr, ref sEchoStr);
             if (ret != 0)
             {
                 return;
@@ -46,7 +46,7 @@ namespace WBPlatform.WebManagement.Controllers
             Request.Body.CopyTo(ms);
             string XML_Message = "";
             string _message = Encoding.UTF8.GetString(ms.ToArray());
-            int ret = WeChat.WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, _message, ref XML_Message);
+            int ret = WeChatHelper.WeChatEncryptor.DecryptMsg(msg_signature, timestamp, nonce, _message, ref XML_Message);
             if (ret != 0)
             {
                 Response.StatusCode = 200;

@@ -29,20 +29,22 @@ namespace WBPlatform.WebManagement.Controllers
                 else
                 {
                     Response.Cookies.Delete("Session");
-                    return RequestIllegal(ServerAction.Home_Index, "用户未经过验证，用户ID = " + CurrentUser.ObjectId, ResponceCode.Default);
+                    return RequestIllegal(ServerAction.Home_Index, XConfig.Messages["UserAccoutNotVerified_With_UserID"] + CurrentUser.ObjectId, ResponceCode.Default);
                 }
             }
             else
             {
-
-                string Stamp = DateTime.Now.TimeOfDay.TotalMilliseconds + ";WCLogin";
-                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-                    "appid=" + WeChat.CorpID +
-                    "&redirect_uri=" + Request.Scheme + "://" + Request.Host + "/Home/WeChatLogin" +
-                    "&response_type=code&scope=snsapi_uerinfo&agentid=41" +
-                    "&state=" + Stamp + "#wechat_redirect";
+                string ticket = ExecuteOnceTicket.CreateTicket();
+                string Stamp = ticket + ";WCLogin";
+                string url = string.Join("", "https://open.weixin.qq.com/connect/oauth2/authorize?",
+                    "appid=", XConfig.CurrentConfig.WeChat.CorpID,
+                    "&redirect_uri=", Request.Scheme, "://" + Request.Host, "/Home/WeChatLogin",
+                    "&response_type=code" +
+                    "&scope=snsapi_uerinfo" +
+                    "&agentid=", XConfig.CurrentConfig.WeChat.AgentId,
+                    "&state=", Stamp, "#wechat_redirect");
                 Response.Cookies.Append("WB_WXLoginOption", Stamp, new CookieOptions() { Path = "/", Expires = DateTimeOffset.Now.AddMinutes(2) });
-
+                ExecuteOnceTicket.TryAdd(ticket, new TicketInfo(TicketUsage.WeChatLogin, Request.Headers["User-Agent"], "WeChat_Login"));
                 return Redirect(url);
             }
         }
@@ -87,12 +89,12 @@ namespace WBPlatform.WebManagement.Controllers
 
             ViewData["where"] = ControllerName;
             if (string.IsNullOrEmpty(Request.Cookies["WB_WXLoginOption"]) || string.IsNullOrEmpty(state) || string.IsNullOrEmpty(code))
-                return RequestIllegal(ServerAction.WeChatLogin_PreExecute, "微信请求状态异常，请重试请求");
+                return RequestIllegal(ServerAction.WeChatLogin_PreExecute, XConfig.Messages["WeChatRequestStatusUnexcepted"]);
             else
             {
-                WeChat.ReNewWCCodes();
+                WeChatHelper.ReNewWCCodes();
                 //object LogonUser = null;
-                Dictionary<string, string> JSON = PublicTools.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChat.AccessToken + "&code=" + code);
+                Dictionary<string, string> JSON = PublicTools.HTTPGet("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + WeChatHelper.AccessToken + "&code=" + code);
                 if (!JSON.ContainsKey("UserId"))
                 {
                     LW.E("WeChat JSON doesnot Contain: UserID, " + JSON.ToParsedString());
@@ -103,10 +105,10 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     case DBQueryStatus.INTERNAL_ERROR:
                         LW.E("SessionManager: Failed to get User by its UserName --> DataBase Inernal Error....");
-                        return DatabaseError(ServerAction.WeChatLogin_PostExecute, "数据库内部异常", ResponceCode.InternalServerError);
+                        return DatabaseError(ServerAction.WeChatLogin_PostExecute, XConfig.Messages["InternalDataBaseError"]);
 
                     case DBQueryStatus.NO_RESULTS:
-                        string token = ExecuteOnceTicket.CreateToken();
+                        string token = ExecuteOnceTicket.CreateTicket();
                         ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.UserRegister, Request.Headers["User-Agent"], WeiXinID));
                         return Redirect($"/Account/Register?token={token}&user={WeiXinID}&_action=register");
 
@@ -117,7 +119,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                     default:
                         LW.E("HomeController: Unexpected Database Query Result for WeChatLogin...");
-                        return DatabaseError(ServerAction.WeChatLogin_PostExecute, "数据库返回了错误信息");
+                        return DatabaseError(ServerAction.WeChatLogin_PostExecute, XConfig.Messages["WrongDataReturnedFromDatabase"]);
                 }
             }
         }

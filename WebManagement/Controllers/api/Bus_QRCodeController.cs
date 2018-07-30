@@ -1,21 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using QRCoder;
+
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-using Microsoft.AspNetCore.Mvc;
-
-using QRCoder;
-
-using WBPlatform.TableObject;
 using WBPlatform.WebManagement.Properties;
-using WBPlatform.WebManagement.Tools;
 
 namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("image/Jpeg")]
     [Route("api/QRCode")]
-    public class QRCodeController : WebAPIController
+    public class QRCodeController : APIController
     {
         public void Get(string Data)
         {

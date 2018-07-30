@@ -16,12 +16,13 @@ namespace WBPlatform.WebManagement
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddAntiforgery();
             services.AddCors();
             services.AddApplicationInsightsTelemetry();
+            return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +30,9 @@ namespace WBPlatform.WebManagement
         {
             app.UseStaticFiles();
             app.UseCors();
+            app.UseHsts();
+            app.UseHttpsRedirection();
+            
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -36,12 +40,10 @@ namespace WBPlatform.WebManagement
             }
             else
             {
-                //app.UseStatusCodePages(builder => builder.Run(handler));
                 app.UseExceptionHandler("/Home/Error");
                 app.UseStatusCodePagesWithReExecute("/Home/Error");
             }
             app.UseMvc(routes => { routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}"); });
         }
-        
     }
 }

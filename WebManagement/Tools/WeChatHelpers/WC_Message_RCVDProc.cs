@@ -36,41 +36,39 @@ namespace WBPlatform.WebManagement.Tools
         {
             switch (Message.MessageType)
             {
-                case WeChat.RcvdMessageType.text:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "你是说:" + Message.TextContent + "??");
-                case WeChat.RcvdMessageType.image:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "哇这张图片真好看");
-                case WeChat.RcvdMessageType.voice:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "哇声音真好听");
-                case WeChat.RcvdMessageType.location:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "发个地址干啥，，你想去吗？");
-                case WeChat.RcvdMessageType.video:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "啥视频？");
-                case WeChat.RcvdMessageType.link:
-                    return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, "这啥网站？？");
-                case WeChat.RcvdMessageType.EVENT:
+                case WeChatRMsg.text:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_Text"] + Message.TextContent + "??");
+                case WeChatRMsg.image:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_Image"]);
+                case WeChatRMsg.voice:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_Voice"]);
+                case WeChatRMsg.location:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_Location"]);
+                case WeChatRMsg.video:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_Video"]);
+                case WeChatRMsg.link:
+                    return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["DefaultReply_WebLink"]);
+                case WeChatRMsg.EVENT:
                     switch (Message.Event)
                     {
-                        case WeChat.Event.click:
+                        case WeChatEvent.click:
                             switch (Message.EventKey)
                             {
                                 case "ADD_PASSWORD":
-                                    string token = ExecuteOnceTicket.CreateToken();
+                                    string token = ExecuteOnceTicket.CreateTicket();
                                     if (ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
                                     {
-                                        var p = SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
-                                            "要是想使用Windows 客户端登陆的话\r\n" +
-                                            "就点击<a href='https://schoolbus.lhy0403.top/Account/Register/?token=" + token + "&_action=AddPassword&user=" + Message.FromUser + "'>这里</a>" +
-                                            "给自己加一个密码吧!");
+                                        //"要是想使用Windows 客户端登陆的话\r\n就点击<a href='https://schoolbus.lhy0403.top/Account/Register/?token={0}&_action=AddPassword&user={1}'>这里</a>给自己加一个密码吧!"
+                                        string content = string.Format(XConfig.Messages["AddPasswordMessage"], token, Message.FromUser);
+                                        var p = SendMessageString(WeChatSMsg.text, Message.FromUser, null, content);
                                         return p;
                                     }
                                     else
                                     {
-                                        return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null,
-                                            "我们在处理你的账户时出现了问题，你可能暂时无法添加密码\r\n请与管理员联系，并提供以下内容:\r\nCreateToken_Error");
+                                        return SendMessageString(WeChatSMsg.text, Message.FromUser, null, XConfig.Messages["CreateTokenError"]);
                                     }
                                 case "WEB_SERV_VER":
-                                    return SendMessageString(WeChat.SentMessageType.textcard, Message.FromUser,
+                                    return SendMessageString(WeChatSMsg.textcard, Message.FromUser,
                                         "小板凳平台版本信息",
                                         "这是当前版本信息: \r\n" +
                                         "启动の时间: " + Program.StartUpTime.ToString() + "\r\n\r\n" +
@@ -81,7 +79,7 @@ namespace WBPlatform.WebManagement.Tools
                                     LW.E("Recieved Not Supported :::Wechat Event Click::: Key " + Message.EventKey);
                                     return null;
                             }
-                        case WeChat.Event.LOCATION:
+                        case WeChatEvent.LOCATION:
                             var Latitude = Message.Location.X;
                             var Longitude = Message.Location.Y;
                             var Precision = Message.Precision;
@@ -97,12 +95,12 @@ namespace WBPlatform.WebManagement.Tools
                                 else LW.D("WeChatMessageResp: Succeed Save User with New Position...");
                             }
                             else LW.E("WeChatMessageResp: Cannot find user in Database....");
-                            
+
                             return null;
                     }
                     return null;
             }
-            return SendMessageString(WeChat.SentMessageType.text, Message.FromUser, null, Content: "不支持的消息类型");
+            return SendMessageString(WeChatSMsg.text, Message.FromUser, null, "不支持的消息类型");
         }
 
         private static void _ProcessRCVD()

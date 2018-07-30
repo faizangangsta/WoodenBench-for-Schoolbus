@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Controllers
                 }
                 else
                 {
-                    return PermissionDenied(ServerAction.BusManage_Index, "你不是校车老师，不能使用此功能.", ResponceCode.Default);
+                    return PermissionDenied(ServerAction.BusManage_Index, XConfig.Messages["NotBusTeacher"], ResponceCode.Default);
                 }
             }
             else
@@ -65,7 +65,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["mode"] = signmode;
                     return View();
                 }
-                else return RequestIllegal(ServerAction.BusManage_SignStudents, "Cookie已超时或不存在");
+                else return RequestIllegal(ServerAction.BusManage_SignStudents, XConfig.Messages["TokenTimeout"]);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["cBus"] = busObject.ObjectId;
                     ViewData["cTeacher"] = CurrentUser.ObjectId;
                 }
-                else return PermissionDenied(ServerAction.BusManage_CodeGenerate, "用户组权限不足，无法执行此操作");
+                else return PermissionDenied(ServerAction.BusManage_CodeGenerate, XConfig.Messages.UserPermissionDenied);
             }
             else
             {
@@ -119,7 +119,7 @@ namespace WBPlatform.WebManagement.Controllers
             {
                 if (string.IsNullOrEmpty(from))
                 {
-                    return RequestIllegal(ServerAction.General_ViewStudent, "from 属性未设置");
+                    return RequestIllegal(ServerAction.General_ViewStudent, XConfig.Messages.RequestIllegal);
                 }
 
                 ViewData["where"] = from;
@@ -234,11 +234,11 @@ namespace WBPlatform.WebManagement.Controllers
                         {
                             return View(info);
                         }
-                        else return PermissionDenied(ServerAction.General_ViewStudent, "没有权限查看当前学生信息");
+                        else return PermissionDenied(ServerAction.General_ViewStudent, XConfig.Messages.UserPermissionDenied);
                     }
-                    else return DatabaseError(ServerAction.General_ViewStudent, "数据库查询失败");
+                    else return DatabaseError(ServerAction.General_ViewStudent, XConfig.Messages["WrongDataReturnedFromDatabase"]);
                 }
-                else return PermissionDenied(ServerAction.General_ViewStudent, "用户组权限不足，无法执行此操作");
+                else return PermissionDenied(ServerAction.General_ViewStudent, XConfig.Messages.UserPermissionDenied);
             }
 
             //Return to Home because this is privacy-related function

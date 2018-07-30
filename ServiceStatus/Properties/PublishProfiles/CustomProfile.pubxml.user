@@ -14,7 +14,7 @@
       <publishTime>06/26/2018 17:27:12</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>06/26/2018 17:27:12</publishTime>
+      <publishTime>07/30/2018 23:32:21</publishTime>
     </File>
     <File Include="Bmob-Windows.dll">
       <publishTime>04/02/2017 13:24:52</publishTime>
@@ -23,7 +23,7 @@
       <publishTime>06/26/2018 17:27:13</publishTime>
     </File>
     <File Include="Connected Services/Application Insights/ConnectedService.json">
-      <publishTime>06/26/2018 17:27:11</publishTime>
+      <publishTime>07/30/2018 23:32:24</publishTime>
     </File>
     <File Include="Microsoft.AI.DependencyCollector.dll">
       <publishTime>05/21/2018 14:55:46</publishTime>
@@ -71,34 +71,34 @@
       <publishTime>06/15/2018 00:32:55</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.deps.json">
-      <publishTime>07/23/2018 23:23:10</publishTime>
+      <publishTime>07/31/2018 00:28:39</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll">
-      <publishTime>07/23/2018 23:23:04</publishTime>
+      <publishTime>07/31/2018 00:25:33</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll.config">
-      <publishTime>07/23/2018 23:08:43</publishTime>
+      <publishTime>07/30/2018 20:29:47</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.pdb">
-      <publishTime>07/23/2018 23:23:04</publishTime>
+      <publishTime>07/31/2018 00:25:33</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.runtimeconfig.json">
-      <publishTime>07/23/2018 23:23:10</publishTime>
+      <publishTime>07/31/2018 00:28:39</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.dll">
-      <publishTime>07/23/2018 23:23:04</publishTime>
+      <publishTime>07/31/2018 00:25:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.pdb">
-      <publishTime>07/23/2018 23:23:04</publishTime>
+      <publishTime>07/31/2018 00:25:35</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/23/2018 23:23:10</publishTime>
+      <publishTime>07/31/2018 00:28:39</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>07/23/2018 23:23:02</publishTime>
+      <publishTime>07/30/2018 23:59:36</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>07/23/2018 23:23:02</publishTime>
+      <publishTime>07/30/2018 23:59:36</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
       <publishTime>06/26/2018 17:27:13</publishTime>

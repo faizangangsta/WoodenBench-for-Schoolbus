@@ -22,18 +22,18 @@ namespace WBPlatform.WebManagement.Controllers
                 {
                     switch (DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("objectId", CurrentUser.ClassList[0]), out ClassObject myClass))
                     {
-                        case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyClass_Index, "数据库内部出错……");
-                        case DBQueryStatus.NO_RESULTS: return NotFoundError(ServerAction.MyClass_Index, "未找到任何你管理的班级");
+                        case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyClass_Index, XConfig.Messages.InternalDataBaseError);
+                        case DBQueryStatus.NO_RESULTS: return NotFoundError(ServerAction.MyClass_Index, XConfig.Messages["ClassNotFound"]);
                         case DBQueryStatus.ONE_RESULT:
                             ViewData["ClassName"] = string.Join(" ", myClass.CDepartment, myClass.CGrade, myClass.CNumber);
                             ViewData["ClassID"] = myClass.ObjectId;
                             ViewData["cUser"] = CurrentUser.ToString();
                             return View();
                         default:
-                            return DatabaseError(ServerAction.MyClass_Index, "找到多个班级，现只支持单个班级管理");
+                            return DatabaseError(ServerAction.MyClass_Index, XConfig.Messages["MultipleClassIDsFound"]);
                     }
                 }
-                else return RequestIllegal(ServerAction.MyClass_Index, "你不是班主任，不能使用此功能", ResponceCode.Default);
+                else return RequestIllegal(ServerAction.MyClass_Index, XConfig.Messages["NotClassTeacher"], ResponceCode.Default);
             }
             else
             {

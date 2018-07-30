@@ -64,7 +64,7 @@ namespace WBPlatform.WebManagement.Tools
                         else
                         {
                             WeChatSentMessage UCR_Created_TO_ADMIN_Msg = new WeChatSentMessage(
-                                WeChat.SentMessageType.textcard,
+                                WeChatSMsg.textcard,
                                 "管理员通知",
                                 $"你有一条来自 {message.User.RealName} 的工单有待处理：\r\n{message.User.RealName}请求把 {((UserChangeRequest)message.DataObject).RequestTypes.ToString()} 修改成{((UserChangeRequest)message.DataObject).NewContent }\r\n请尽快处理！",
                                 "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=manage&reqId=" + message.ObjectId,
@@ -75,7 +75,7 @@ namespace WBPlatform.WebManagement.Tools
                     }
                 case GlobalMessageTypes.UCR_Created__TO_User:
                     {
-                        WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单提交成功！",
+                        WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChatSMsg.textcard, "工单提交成功！",
                                         "你申请修改账户 " + ((UserChangeRequest)message.DataObject).RequestTypes.ToString() + " 信息的工单已经提交成功！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.DataObject).ObjectId + "\r\n" +
                                         "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.ObjectId, message.User.UserName);
@@ -88,7 +88,7 @@ namespace WBPlatform.WebManagement.Tools
                         {
                             case DBQueryStatus.ONE_RESULT:
                                 string stat = ((UserChangeRequest)message.DataObject).Status == UCRProcessStatus.Accepted ? "审核通过" : "未通过";
-                                WeChatSentMessage _WMessage = new WeChatSentMessage(WeChat.SentMessageType.textcard, "工单状态提醒",
+                                WeChatSentMessage _WMessage = new WeChatSentMessage(WeChatSMsg.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.DataObject).RequestTypes.ToString() + " 信息的工单发生了状态变动！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.DataObject).ObjectId + "\r\n" +
                                         "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)message.DataObject).ObjectId, requestSender.UserName);
@@ -115,7 +115,7 @@ namespace WBPlatform.WebManagement.Tools
                     {
                         string escapedString = (string)PublicTools.EncodeString(message.DataObject.ToString());
                         string URL = Convert.ToBase64String(Encoding.UTF8.GetBytes(escapedString), Base64FormattingOptions.None);
-                        WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.textcard, "新用户注册审核通知",
+                        WeChatSentMessage _message = new WeChatSentMessage(WeChatSMsg.textcard, "新用户注册审核通知",
                             $"有一位新用户在{message.User.CreatedAt.ToString()}申请了注册用户，请审核！" +
                             $"\r\n提供的姓名：{message.User.RealName}" +
                             $"\r\n手机号码：{message.User.PhoneNumber}",
@@ -156,7 +156,7 @@ namespace WBPlatform.WebManagement.Tools
                                 LW.E("MessageSystem->BusStatusReport: Failed to get ClassTeacher of ClassID: " + _class.ObjectId);
                             }
                             string[] _StudentInClass = (from _stu in students where _stu.ClassID == _class.ObjectId select _stu.StudentName).ToArray();
-                            WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
+                            WeChatSentMessage _message = new WeChatSentMessage(WeChatSMsg.text, null,
                                 $"{_ClassTeacher.RealName}: \r\n" +
                                 $"你的班级 {_class.CDepartment}{_class.CGrade}{_class.CNumber} \r\n" +
                                 $"有 {_StudentInClass.Length} 名学生受到校车 {_report.ReportType} 影响: \r\n" +
@@ -183,7 +183,7 @@ namespace WBPlatform.WebManagement.Tools
                         foreach (UserObject _parent in AllParents)
                         {
                             string[] _ChildrenList = (from _stu in students where _parent.ChildList.Contains(_stu.ObjectId) select _stu.StudentName).Distinct().ToArray();
-                            WeChatSentMessage _message = new WeChatSentMessage(WeChat.SentMessageType.text, null,
+                            WeChatSentMessage _message = new WeChatSentMessage(WeChatSMsg.text, null,
                                 $"{_parent.RealName}: \r\n" +
                                 $"你的 {_ChildrenList.Length} 个孩子受到校车 {_report.ReportType} 影响\r\n" +
                                 $"原因:{_report.OtherData}\r\n" +

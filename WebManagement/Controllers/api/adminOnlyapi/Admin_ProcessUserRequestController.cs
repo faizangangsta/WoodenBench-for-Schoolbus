@@ -13,10 +13,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/admin/ProcessUserRequest")]
-    public class Admin_ProcessUserRequest : WebAPIController
+    public class Admin_ProcessUserRequest : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string reqId, string mode, string detail)
+        public JsonResult Get(string reqId, string mode, string detail)
         {
             if (ValidateSession())
             {

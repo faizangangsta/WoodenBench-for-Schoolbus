@@ -32,3 +32,4 @@ packages/
 bower_components/
 *.log
 databaset.txt
+*.conf

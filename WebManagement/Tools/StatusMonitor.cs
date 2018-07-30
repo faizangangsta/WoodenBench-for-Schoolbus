@@ -16,9 +16,14 @@ namespace WBPlatform.WebManagement.Tools
     {
         private static Thread _MonitorThread = new Thread(new ThreadStart(ThreadWork));
         private static Dictionary<string, object> status = new Dictionary<string, object>();
-        private static NamedPipeServerStream pipe = new NamedPipeServerStream("83302E23-6377-4DD1-8EE9-21895EDF404E", PipeDirection.Out);
+        private static NamedPipeServerStream pipe = new NamedPipeServerStream(XConfig.CurrentConfig.StatusReportNamedPipe, PipeDirection.Out);
 
-        public static void StartMonitorThread() => _MonitorThread.Start();
+        public static void StartMonitorThread()
+        {
+            LW.D("Starting Monitor Thread");
+            _MonitorThread.Start();
+            LW.D("Monitor Thread: Active");
+        }
         private static void ThreadWork()
         {
             while (true)

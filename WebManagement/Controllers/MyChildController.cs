@@ -23,7 +23,7 @@ namespace WBPlatform.WebManagement.Controllers
                     ViewData["cUser"] = CurrentUser.ToString();
                     return View();
                 }
-                else return PermissionDenied(ServerAction.MyChild_Index, "你不是家长，不能使用此功能.请确认是否被注册为家长。", ResponceCode.Default);
+                else return PermissionDenied(ServerAction.MyChild_Index, XConfig.Messages["NotParent"], ResponceCode.Default);
             }
             else
             {
@@ -41,16 +41,16 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = ControllerName;
             if (ValidateSession())
             {
-                if (ID == null) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, "请求必需的 ChildID 不存在");
+                if (ID == null) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, XConfig.Messages.ParameterUnexpected);
                 string[] IDSplit = ID.Split(";");
-                if (IDSplit.Length != 2) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, "非法请求");
-                if (!CurrentUser.UserGroup.IsParent) return PermissionDenied(ServerAction.MyChild_MarkAsArrived, "你不是家长，没有权限使用此功能", ResponceCode.PermisstionDenied);
+                if (IDSplit.Length != 2) return RequestIllegal(ServerAction.MyChild_MarkAsArrived, XConfig.Messages.RequestIllegal);
+                if (!CurrentUser.UserGroup.IsParent) return PermissionDenied(ServerAction.MyChild_MarkAsArrived, XConfig.Messages["NotParent"], ResponceCode.PermisstionDenied);
                 BusID = IDSplit[0];
                 BusTeacherID = IDSplit[1];
                 List<StudentObject> ToBeSignedStudents = new List<StudentObject>();
                 switch (DataBaseOperation.QueryMultipleData(new DBQuery().WhereEqualTo("BusID", BusID).WhereEqualTo("CHChecked", false), out List<StudentObject> StudentListInBus))
                 {
-                    case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyChild_MarkAsArrived, "数据库内部异常");
+                    case DBQueryStatus.INTERNAL_ERROR: return DatabaseError(ServerAction.MyChild_MarkAsArrived, XConfig.Messages.InternalDataBaseError);
                     case DBQueryStatus.NO_RESULTS: //return Redirect(Sessions.ErrorRedirectURL(MyError.N03_ItemsNotFoundError, "MyChild::ParentsCheck ==> NoChildInBus???"));
                     default:
                         ToBeSignedStudents.AddRange(from _stu in StudentListInBus where CurrentUser.ChildList.Contains(_stu.ObjectId) select _stu);

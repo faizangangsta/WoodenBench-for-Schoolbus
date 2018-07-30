@@ -9,10 +9,10 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <ApplicationInsightsResourceId>/subscriptions/8dc7966f-2d0e-4614-8988-57911d06e773/resourcegroups/WoodenBench-Platform/providers/microsoft.insights/components/WoodenBench</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/8dc7966f-2d0e-4614-8988-57911d06e773/resourcegroups/WoodenBench-Platform/providers/microsoft.insights/components/WoodenBench</ApplicationInsightsAnnotationResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/8dc7966f-2d0e-4614-8988-57911d06e773/resourcegroups/WoodenBench-Platform/providers/microsoft.insights/components/WoodenBench_Dev</ApplicationInsightsResourceId>
     <StartupObject></StartupObject>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/8dc7966f-2d0e-4614-8988-57911d06e773/resourcegroups/WoodenBench-Platform/providers/microsoft.insights/components/WoodenBench</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

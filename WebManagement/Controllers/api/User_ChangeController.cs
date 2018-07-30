@@ -14,7 +14,7 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/Change")]
-    public class User_ChangeController : WebAPIController
+    public class User_ChangeController : APIController
     {
         [HttpGet]
         /// <summary>
@@ -26,7 +26,7 @@ namespace WBPlatform.WebManagement.Controllers
         /// <param name="STAMP">Time Stamp and hash</param>
         /// <param name="Ticket">Random string</param>
         /// <returns></returns>
-        public IEnumerable Get(string UserID, string Column, string Content, string STAMP)
+        public JsonResult Get(string UserID, string Column, string Content, string STAMP)
         {
             object Equals2Obj = Content;
             if (int.TryParse((string)Equals2Obj, out int EqInt)) Equals2Obj = EqInt;
@@ -65,7 +65,7 @@ namespace WBPlatform.WebManagement.Controllers
                     dict.Add("ErrCode", "0");
                     dict.Add("ErrMessage", "null");
                     dict.Add("updated_At", DateTime.Now.ToString());
-                    return dict;
+                    return Json(dict);
                 }
                 else return InternalError;
             }

@@ -12,10 +12,10 @@ namespace WBPlatform.WebManagement.Controllers
 {
     [Produces("application/json")]
     [Route("api/class/getStudents")]
-    public class GetClassStudentsController : WebAPIController
+    public class GetClassStudentsController : APIController
     {
         [HttpGet]
-        public IEnumerable Get(string ClassID, string TeacherID)
+        public JsonResult Get(string ClassID, string TeacherID)
         {
             if (!ValidateSession()) return SessionError;
             if (!(CurrentUser.ClassList.Contains(ClassID) && CurrentUser.ObjectId == TeacherID)) return UserGroupError;
@@ -33,7 +33,7 @@ namespace WBPlatform.WebManagement.Controllers
                         dict.Add("num_" + i.ToString(), StudentList[i].ToString());
                     dict.Add("ErrCode", "0");
                     dict.Add("ErrMessage", "null");
-                    return dict;
+                    return Json(dict);
             }
         }
     }

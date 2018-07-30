@@ -1,0 +1,96 @@
+﻿using Newtonsoft.Json;
+
+using System.Collections.Generic;
+using System.IO;
+
+namespace WBPlatform.StaticClasses
+{
+    public static class XConfig
+    {
+        public static ConfigCollection CurrentConfig { get; set; } = new ConfigCollection();
+        public static LocalisedMessages Messages { get; set; } = new LocalisedMessages();
+
+        public class ConfigCollection
+        {
+            public string ApplicationInsightInstrumentationKey { get; set; }
+            public string StatusReportNamedPipe { get; set; }
+
+            public DatabaseConfig Database { get; set; } = new DatabaseConfig();
+            public WeChatConfig WeChat { get; set; } = new WeChatConfig();
+
+            public class DatabaseConfig
+            {
+                public string ServerIP { get; set; }
+                public int ConnectionFailedRetryTime { get; set; }
+            }
+            public class WeChatConfig
+            {
+                public string AgentId { get; set; }
+                public string CorpID { get; set; }
+                public string CorpSecret { get; set; }
+                public string sToken { get; set; }
+                public string AESKey { get; set; }
+            }
+            public override string ToString() => JsonConvert.SerializeObject(this);
+        }
+        public class LocalisedMessages
+        {
+            public Dictionary<string, string> messages = new Dictionary<string, string>();
+            public string this[string mID] => GetMsg(mID);
+
+            private string GetMsg(string mID) => messages.ContainsKey(mID) ? messages[mID] : $"{{{mID}}}";
+
+            public string NotFound => GetMsg("NotFound");
+            public string UserPermissionDenied => GetMsg("UserPermissionDenied");
+            public string DataBaseError => GetMsg("DataBaseError");
+            public string RequestIllegal => GetMsg("RequestIllegal");
+            public string NotSupported => GetMsg("NotSupported");
+            public string UnknownInternalException => GetMsg("UnknownInternalException");
+            public string InternalDataBaseError => GetMsg("InternalDataBaseError");
+            public string ParameterUnexpected => GetMsg("ParameterUnexpected");
+            public override string ToString() => JsonConvert.SerializeObject(this);
+        }
+
+        public static bool LoadMessages(string MessageFile)
+        {
+            LW.D("Reading Messages....");
+            string ConfigString = File.ReadAllText(MessageFile);
+            var msg = JsonConvert.DeserializeObject<LocalisedMessages>(ConfigString);
+            LW.D("Finished Reading Messages....");
+
+            LW.D("Loading Messages....");
+            if (msg == null)
+            {
+                LW.E("Failed Load Messages.... Exiting...");
+                return false;
+            }
+            Messages = msg;
+            LW.D("Finished Loading Messages....");
+            return true;
+        }
+
+        public static bool LoadConfig(string ConfigFile)
+        {
+            LW.D("Reading Config....");
+            string ConfigString = File.ReadAllText(ConfigFile);
+            var config = JsonConvert.DeserializeObject<ConfigCollection>(ConfigString);
+            LW.D("Finished Reading Config....");
+
+            LW.D("Loading Config....");
+            if (config == null)
+            {
+                LW.E("Failed Load Config.... Exiting...");
+                return false;
+            }
+            CurrentConfig = config;
+            LW.D("Finished Loading Config....");
+            return true;
+        }
+        public static (bool, bool) LoadAll(string ConfigFilePath = "XConfig.conf", string MessageFilePath = "Messages.conf")
+        {
+            bool resultA = LoadConfig(ConfigFilePath);
+            bool resultB = LoadMessages(MessageFilePath);
+            return (resultA, resultB);
+        }
+    }
+}

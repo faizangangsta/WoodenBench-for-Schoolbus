@@ -41,23 +41,23 @@ namespace WBPlatform.WebManagement.Tools
             return SendMessageString(message.type, users, message.Title, message.Content, message.URL_OnClick);
         }
 
-        private static Dictionary<string, string> SendMessageString(WeChat.SentMessageType MessageType, string users, string Title, string Content, string URL = null)
+        private static Dictionary<string, string> SendMessageString(WeChatSMsg MessageType, string users, string Title, string Content, string URL = null)
         {
             WeChatMessageBackupService.AddToSendList(users, Title, Content);
-            WeChat.ReNewWCCodes();
-            string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + WeChat.agentId + ",\"" + MessageType.ToString() + "\":";
+            WeChatHelper.ReNewWCCodes();
+            string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + XConfig.CurrentConfig.WeChat.AgentId + ",\"" + MessageType.ToString() + "\":";
             switch (MessageType)
             {
-                case WeChat.SentMessageType.text:
+                case WeChatSMsg.text:
                     Message = Message + $"{{\"content\":\"{Content}\r\n\r\n MST: {DateTime.Now.ToNormalString()}\"}}";
                     break;
-                case WeChat.SentMessageType.textcard:
+                case WeChatSMsg.textcard:
                     Message = Message + $"{{\"title\":\"{Title}\",\"description\":\"{Content}\",\"url\":\"{URL}\"}}";
                     break;
             }
             Message = Message + "}";
             LW.D("WeChat Message Sent: " + Message);
-            return PublicTools.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChat.AccessToken, Message);
+            return PublicTools.HTTPPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + WeChatHelper.AccessToken, Message);
         }
     }
 }
