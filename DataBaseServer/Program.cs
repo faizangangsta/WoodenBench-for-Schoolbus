@@ -15,6 +15,11 @@ namespace WBPlatform.Database.DBServer
         static void Main()
         {
             LW.InitLog();
+            if (!XConfig.LoadConfig("XConfig.conf"))
+            {
+                LW.E("Config File Not Loaded!");
+                return;
+            }
             DatabaseCore.InitialiseDBConnection();
             DatabaseSocketsServer.InitialiseSockets();
 

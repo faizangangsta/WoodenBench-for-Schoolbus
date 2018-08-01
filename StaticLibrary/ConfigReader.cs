@@ -18,10 +18,29 @@ namespace WBPlatform.StaticClasses
             public DatabaseConfig Database { get; set; } = new DatabaseConfig();
             public WeChatConfig WeChat { get; set; } = new WeChatConfig();
 
+            /// <summary>
+            /// DO NOT CHANGE ANY PROPERTIES' NAME 
+            /// Used by 
+            /// <see cref="LoadAll(string, string)"/> 
+            /// <see cref="LoadConfig(string)"/>
+            /// And
+            /// <see cref="LoadMessages(string)"/>
+            /// </summary>
+            /// 
             public class DatabaseConfig
             {
-                public string ServerIP { get; set; }
-                public int ConnectionFailedRetryTime { get; set; }
+                //Used by Database Server...
+                public string SQLServerIP { get; set; }
+                public int SQLServerPort { get; set; }
+                public string DatabaseName { get; set; }
+                public string DatabaseUserName { get; set; }
+                public string DatabasePassword { get; set; }
+
+
+                public string DBServerIP { get; set; }
+                public int DBServerPort { get; set; }
+                public int ClientTimeout { get; set; }
+                public int FailedRetryTime { get; set; }
             }
             public class WeChatConfig
             {
@@ -54,6 +73,7 @@ namespace WBPlatform.StaticClasses
         public static bool LoadMessages(string MessageFile)
         {
             LW.D("Reading Messages....");
+            if (!File.Exists(MessageFile)) return false;
             string ConfigString = File.ReadAllText(MessageFile);
             var msg = JsonConvert.DeserializeObject<LocalisedMessages>(ConfigString);
             LW.D("Finished Reading Messages....");
@@ -72,6 +92,7 @@ namespace WBPlatform.StaticClasses
         public static bool LoadConfig(string ConfigFile)
         {
             LW.D("Reading Config....");
+            if (!File.Exists(ConfigFile)) return false;
             string ConfigString = File.ReadAllText(ConfigFile);
             var config = JsonConvert.DeserializeObject<ConfigCollection>(ConfigString);
             LW.D("Finished Reading Config....");

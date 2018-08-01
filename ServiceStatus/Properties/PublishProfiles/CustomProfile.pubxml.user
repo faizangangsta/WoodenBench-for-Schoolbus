@@ -26,25 +26,25 @@
       <publishTime>07/30/2018 23:32:24</publishTime>
     </File>
     <File Include="Microsoft.AI.DependencyCollector.dll">
-      <publishTime>05/21/2018 14:55:46</publishTime>
+      <publishTime>07/10/2018 10:53:56</publishTime>
     </File>
     <File Include="Microsoft.AI.PerfCounterCollector.dll">
-      <publishTime>05/21/2018 15:08:02</publishTime>
+      <publishTime>07/10/2018 11:09:04</publishTime>
     </File>
     <File Include="Microsoft.AI.ServerTelemetryChannel.dll">
-      <publishTime>05/21/2018 20:31:36</publishTime>
+      <publishTime>07/06/2018 22:40:44</publishTime>
     </File>
     <File Include="Microsoft.AI.WindowsServer.dll">
-      <publishTime>05/21/2018 15:06:18</publishTime>
+      <publishTime>07/10/2018 11:06:28</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.AspNetCore.dll">
-      <publishTime>05/23/2018 22:09:42</publishTime>
+      <publishTime>07/12/2018 18:42:34</publishTime>
     </File>
     <File Include="Microsoft.ApplicationInsights.dll">
-      <publishTime>05/21/2018 20:28:02</publishTime>
+      <publishTime>07/06/2018 22:37:28</publishTime>
     </File>
     <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
-      <publishTime>07/13/2018 21:48:28</publishTime>
+      <publishTime>07/27/2018 10:10:49</publishTime>
     </File>
     <File Include="ServiceStatus.deps.json">
       <publishTime>06/15/2018 00:33:08</publishTime>
@@ -71,34 +71,34 @@
       <publishTime>06/15/2018 00:32:55</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.deps.json">
-      <publishTime>07/31/2018 00:28:39</publishTime>
+      <publishTime>07/31/2018 10:53:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll">
-      <publishTime>07/31/2018 00:25:33</publishTime>
+      <publishTime>07/31/2018 10:49:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.dll.config">
-      <publishTime>07/30/2018 20:29:47</publishTime>
+      <publishTime>07/31/2018 10:49:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.pdb">
-      <publishTime>07/31/2018 00:25:33</publishTime>
+      <publishTime>07/31/2018 10:49:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.runtimeconfig.json">
-      <publishTime>07/31/2018 00:28:39</publishTime>
+      <publishTime>07/31/2018 10:53:35</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.dll">
-      <publishTime>07/31/2018 00:25:35</publishTime>
+      <publishTime>07/31/2018 10:49:36</publishTime>
     </File>
     <File Include="WBPlatformServ_Status.Views.pdb">
-      <publishTime>07/31/2018 00:25:35</publishTime>
+      <publishTime>07/31/2018 10:49:36</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>07/31/2018 00:28:39</publishTime>
+      <publishTime>07/31/2018 10:53:35</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>07/30/2018 23:59:36</publishTime>
+      <publishTime>07/31/2018 10:49:33</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>07/30/2018 23:59:36</publishTime>
+      <publishTime>07/31/2018 10:49:33</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
       <publishTime>06/26/2018 17:27:13</publishTime>

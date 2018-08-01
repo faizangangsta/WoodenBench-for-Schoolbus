@@ -35,7 +35,7 @@ namespace WBPlatform.WebManagement
             StatusMonitor.StartMonitorThread();
             WeChatHelper.ReNewWCCodes();
 
-            DataBaseOperation.InitialiseClient(IPAddress.Parse(XConfig.CurrentConfig.Database.ServerIP));
+            DataBaseOperation.InitialiseClient();
             //DataBaseOperation.InitialiseClient(IPAddress.Loopback);
 
             WeChatHelper.InitialiseExcryptor();

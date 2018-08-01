@@ -13,7 +13,7 @@ namespace Debug_Tool
         {
             LW.InitLog();
             LW.SetLogLevel(LogLevel.Dbg);
-            DataBaseOperation.InitialiseClient(IPAddress.Parse("118.190.144.179"));
+            DataBaseOperation.InitialiseClient();
 
             LW.D(DataBaseOperation.QuerySingleData(new DBQuery().WhereEqualTo("realname", "刘浩宇"), out UserObject me));
             LW.D(me);

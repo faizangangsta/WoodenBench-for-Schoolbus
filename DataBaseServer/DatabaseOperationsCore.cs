@@ -1,18 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web.Util;
-using Newtonsoft.Json;
+
 using WBPlatform.Database.DBIOCommand;
 using WBPlatform.Database.Internal;
 using WBPlatform.StaticClasses;
-using System.Configuration;
-using WBPlatform.TableObject;
-using System.Web;
-using System.Collections;
 
 namespace WBPlatform.Database.DBServer
 {
@@ -21,14 +17,14 @@ namespace WBPlatform.Database.DBServer
         private static SqlConnection sqlConnection;
         public static void InitialiseDBConnection()
         {
-            SqlConnectionStringBuilder readOnlyConnectionString = new SqlConnectionStringBuilder();
+            SqlConnectionStringBuilder conn = new SqlConnectionStringBuilder();
             LW.D("Start Initiallising Database Connections.....");
-            readOnlyConnectionString.DataSource = "118.190.144.179,1433";
-            readOnlyConnectionString.UserID = "schoolbus_Database";
-            readOnlyConnectionString.Password = "EV#WT%GTegqeraagw%#q3%GW%E$E";
-            readOnlyConnectionString.TrustServerCertificate = true;
+            conn.DataSource = XConfig.CurrentConfig.Database.SQLServerIP + "," + XConfig.CurrentConfig.Database.SQLServerPort;
+            conn.UserID = XConfig.CurrentConfig.Database.DatabaseUserName;
+            conn.Password = XConfig.CurrentConfig.Database.DatabasePassword;
+            conn.TrustServerCertificate = true;
             LW.D("DB Connection String Loaded!");
-            sqlConnection = new SqlConnection(readOnlyConnectionString.ConnectionString);
+            sqlConnection = new SqlConnection(conn.ConnectionString);
             sqlConnection.Open();
             LW.D("DB Connection Opened!");
         }
@@ -74,14 +70,14 @@ namespace WBPlatform.Database.DBServer
                         break;
                     case DBVerbs.Update:
                         //Only Support first thing....
-                        var _ = SQLQueryCommand(BuildQueryString(request.TableName, dbQuery));
-                        if (_.Count != 1)
+                        var dict = SQLQueryCommand(BuildQueryString(request.TableName, dbQuery));
+                        if (dict.Count != 1)
                         {
                             throw new KeyNotFoundException("DBServerCore-->ProcessRequest->Update: Cannot find Specific Record by Query, so Failed to update....");
                         }
-                        rowModified = CommandUpdate(request.TableName, _[0]["objectId"].ToString(), dbOutputData);
+                        rowModified = CommandUpdate(request.TableName, dict[0]["objectId"].ToString(), dbOutputData);
                         reply.DBResultCode = (DBQueryStatus)rowModified;
-                        reply.ObjectString = JsonConvert.SerializeObject(GetFirstRecord(request.TableName, "objectId", _[0]["objectId"]));
+                        reply.ObjectString = JsonConvert.SerializeObject(GetFirstRecord(request.TableName, "objectId", dict[0]["objectId"]));
 
                         break;
                     case DBVerbs.Delete:
@@ -146,7 +142,6 @@ namespace WBPlatform.Database.DBServer
                 $" VALUES " +
                 $"('{string.Join("','", (from val in output.Data.Values select (PublicTools.EncodeString(val))).ToArray())}', '{DateTime.Now}', '{DateTime.Now}')";
             SqlCommand command_Create = new SqlCommand(sqlCommand_Create, sqlConnection);
-
             return command_Create.ExecuteNonQuery();
         }
 

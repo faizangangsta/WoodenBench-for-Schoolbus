@@ -18,7 +18,7 @@ namespace WBPlatform.Database.Connection
         private static NetworkStream stream;
         private static IPEndPoint remoteEndpoint;
 
-        private static TimeSpan WaitTimeout = new TimeSpan(0, 0, 20);
+        private static TimeSpan WaitTimeout = new TimeSpan(0, 0, XConfig.CurrentConfig.Database.ClientTimeout);
         private static bool IsFirstTimeInit { get; set; } = true;
 
         public static bool Connected { get { return socketclient.Connected; } }
@@ -29,11 +29,12 @@ namespace WBPlatform.Database.Connection
             ReceiverThread.Start();
             DataBaseConnectionMaintainer.Start();
         }
-        public static bool Initialise(IPAddress ServerIP)
+        public static bool Initialise(IPAddress ServerIP, int Port)
         {
             socketclient = new TcpClient();
-            remoteEndpoint = new IPEndPoint(ServerIP, 8098);
-            for (int i = 0; i < 5; i++)
+            remoteEndpoint = new IPEndPoint(ServerIP, Port);
+            int FailedRetry = XConfig.CurrentConfig.Database.FailedRetryTime;
+            for (int i = 0; i < FailedRetry; i++)
             {
                 try
                 {
@@ -103,8 +104,8 @@ namespace WBPlatform.Database.Connection
                     LW.E("Heartbeat Error! " + ex.Message);
                     socketclient.CloseAndDispose();
                     stream.CloseAndDispose();
-                    Initialise(remoteEndpoint.Address);
-                    Thread.Sleep(10000);
+                    Initialise(remoteEndpoint.Address, remoteEndpoint.Port);
+                    Thread.Sleep(5000);
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace WBPlatform.Database.DBServer
         public static void InitialiseSockets()
         {
             socketwatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, 8098);
+            IPEndPoint point = new IPEndPoint(IPAddress.Any, XConfig.CurrentConfig.Database.DBServerPort);
             socketwatch.Bind(point);
             socketwatch.Listen(20);
 

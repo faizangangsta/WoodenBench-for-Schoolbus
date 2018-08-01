@@ -18,14 +18,14 @@ namespace WBPlatform.Database
         //private static string QueryToken = "";
         public static bool isInitiallised = false;
         public static string MessageId { get { return Cryptography.RandomString(5, false); } }
-        public static void InitialiseClient(IPAddress server)
+        public static void InitialiseClient()
         {
             LW.D("Started Initialise Database Server Connection....");
-            bool conn = DatabaseSocketsClient.Initialise(server);
+            bool conn = DatabaseSocketsClient.Initialise(IPAddress.Parse(XConfig.CurrentConfig.Database.DBServerIP), XConfig.CurrentConfig.Database.DBServerPort);
             while (!conn)
             {
                 LW.E("DBServer Initial Connection Failed!");
-                conn = DatabaseSocketsClient.Initialise(server);
+                conn = DatabaseSocketsClient.Initialise(IPAddress.Parse(XConfig.CurrentConfig.Database.DBServerIP), XConfig.CurrentConfig.Database.DBServerPort);
             }
         }
         public static DBQueryStatus QuerySingleData<T>(DBQuery query, out T Result) where T : DataTableObject, new()
