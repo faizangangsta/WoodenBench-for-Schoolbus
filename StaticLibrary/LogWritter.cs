@@ -33,7 +33,7 @@ namespace WBPlatform.StaticClasses
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\Logs\\");
             Fs = File.CreateText(LogFilePath);
             Fs.AutoFlush = true;
-            WriteLog( _LogLevel, "Log is Now Initialised!");
+            WriteLog(_LogLevel, "Log is Now Initialised!");
         }
 
         private static void WriteLog(LogLevel level, string Message)

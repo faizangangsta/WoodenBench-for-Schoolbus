@@ -69,13 +69,13 @@ namespace WBPlatform.StaticClasses
         public static string AccessToken { get; set; }
         public static DateTime AvailableTime_Ticket { get; set; }
         public static DateTime AvailableTime_Token { get; set; }
-        public static readonly string GetAccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + XConfig.CurrentConfig.WeChat.CorpID + "&corpsecret=" + XConfig.CurrentConfig.WeChat.CorpSecret;
+        public static readonly string GetAccessToken_Url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + "corpid=" + XConfig.Current.WeChat.CorpID + "&corpsecret=" + XConfig.Current.WeChat.CorpSecret;
 
 
         public static bool InitialiseExcryptor()
         {
             LW.D("Initialising WeChat Data Packet Encryptor.....");
-            WeChatEncryptor = new WXEncryptedXMLHelper(XConfig.CurrentConfig.WeChat.sToken, XConfig.CurrentConfig.WeChat.AESKey, XConfig.CurrentConfig.WeChat.CorpID);
+            WeChatEncryptor = new WXEncryptedXMLHelper(XConfig.Current.WeChat.sToken, XConfig.Current.WeChat.AESKey, XConfig.Current.WeChat.CorpID);
             LW.D("WeChat Data Packet Encryptor Initialisation Finished!");
             return true;
         }

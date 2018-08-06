@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using WBPlatform.StaticClasses;
 using WBPlatform.Database.DBIOCommand;
+using System.Collections;
 
 namespace WBPlatform.Database
 {
@@ -14,14 +16,14 @@ namespace WBPlatform.Database
         public DateTime UpdatedAt { get; internal set; }
 
 
-        public virtual void ReadFields(DBInput input)
+        public virtual void ReadFields(DataBaseIO input)
         {
             ObjectId = input.GetString("objectId");
-            CreatedAt = input.GetDate("createdAt");
-            UpdatedAt = input.GetDate("updatedAt");
+            CreatedAt = input.GetDateTime("createdAt");
+            UpdatedAt = input.GetDateTime("updatedAt");
         }
 
-        public virtual void WriteObject(DBOutput output, bool all)
+        public virtual void WriteObject(DataBaseIO output, bool all)
         {
             output.Put("objectId", ObjectId);
             if (all)

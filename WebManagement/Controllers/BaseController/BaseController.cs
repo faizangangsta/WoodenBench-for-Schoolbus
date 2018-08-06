@@ -78,7 +78,7 @@ namespace WBPlatform.WebManagement.Controllers
 
                 string _session = HttpContext.Connection.RemoteIpAddress.ToString() + ":" + HttpContext.Connection.RemotePort + "-" + CurrentUser.GetIdentifiableCode() + "-";
                 Response.Cookies.Append("ai_session", _session + Request.Cookies["Session"].Substring(0, 5) ?? "Unknown");
-                Response.Cookies.Append("ai_authUser", CurrentUser.RealName);
+                Response.Cookies.Append("ai_authUser", CurrentUser.UserName);
 
                 return true;
             }

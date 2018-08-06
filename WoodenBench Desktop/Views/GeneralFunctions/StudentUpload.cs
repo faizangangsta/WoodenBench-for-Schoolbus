@@ -150,7 +150,14 @@ namespace WBPlatform.DesktopClient.Views
                     StudentObject student = new StudentObject();
                     student.StudentName = StuName;
                     student.ClassID = CurrentClass.ObjectId;
-                    student.BusID = BusDataPair[StuDirection];
+                    if (BusDataPair.ContainsKey(StuDirection))
+                    {
+                        student.BusID = BusDataPair[StuDirection];
+                    }
+                    else
+                    {
+                        MessageBox.Show("校车数据库中找不到学生乘坐的校车名：" + StuDirection);
+                    }
                     studentDataBindSourc.Add(student);
                 }
             }
@@ -242,7 +249,7 @@ namespace WBPlatform.DesktopClient.Views
             StudentData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             StudentData.Enabled = true;
         }
-        
+
         private void ExcelOperationWindow_Shown(object sender, EventArgs e)
         {
             schoolBusObjectBindingSource.Clear();

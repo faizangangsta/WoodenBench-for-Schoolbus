@@ -30,6 +30,7 @@ _notes/
 
 packages/
 bower_components/
+node_modules/
 *.log
 databaset.txt
 *.conf

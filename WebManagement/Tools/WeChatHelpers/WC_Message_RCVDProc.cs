@@ -58,7 +58,7 @@ namespace WBPlatform.WebManagement.Tools
                                     string token = ExecuteOnceTicket.CreateTicket();
                                     if (ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
                                     {
-                                        //"要是想使用Windows 客户端登陆的话\r\n就点击<a href='https://schoolbus.lhy0403.top/Account/Register/?token={0}&_action=AddPassword&user={1}'>这里</a>给自己加一个密码吧!"
+                                        //"要是想使用Windows 客户端登陆的话\r\n就点击<a href='" + XConfig.CurrentConfig.WebSiteAddress + "/Account/Register/?token={0}&_action=AddPassword&user={1}'>这里</a>给自己加一个密码吧!"
                                         string content = string.Format(XConfig.Messages["AddPasswordMessage"], token, Message.FromUser);
                                         var p = SendMessageString(WeChatSMsg.text, Message.FromUser, null, content);
                                         return p;
@@ -74,7 +74,7 @@ namespace WBPlatform.WebManagement.Tools
                                         "启动の时间: " + Program.StartUpTime.ToString() + "\r\n\r\n" +
                                         "服务端版本: " + Program.Version + "\r\n" +
                                         "核心库版本: " + WBConsts.CurrentCoreVersion + "\r\n" +
-                                        "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion + "\r\n\r\n=点击查看系统状态>>", "https://status.schoolbus.lhy0403.top/");
+                                        "运行时版本: " + Assembly.GetCallingAssembly().ImageRuntimeVersion + "\r\n\r\n=点击查看系统状态>>", XConfig.Current.StatusPageAddress);
                                 default:
                                     LW.E("Recieved Not Supported :::Wechat Event Click::: Key " + Message.EventKey);
                                     return null;

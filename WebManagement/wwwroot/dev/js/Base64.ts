@@ -1,6 +1,7 @@
+ 
 //下面是64个基本的编码
-var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-var base64DecodeChars = [
+var base64EncodeChars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+var base64DecodeChars: number[] = [
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
@@ -11,7 +12,7 @@ var base64DecodeChars = [
     41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1
 ];
 //编码的方法
-function base64Encode(str) {
+function base64Encode(str: string): string {
     var out, i, len;
     var c1, c2, c3;
     len = str.length;
@@ -42,8 +43,8 @@ function base64Encode(str) {
     return out;
 }
 //解码的方法
-function base64decode(str) {
-    var c1, c2, c3, c4, i, len, out;
+function base64decode(str: string) {
+    var c1: number, c2: number, c3: number, c4: number, i: number, len: number, out: string;
     len = str.length;
     i = 0;
     out = "";
@@ -80,7 +81,7 @@ function base64decode(str) {
     }
     return out;
 }
-function utf16to8En(str) {
+function utf16to8En(str: string): string {
     if (str === null)
         str = "";
     var out, i, len, c;
@@ -103,7 +104,7 @@ function utf16to8En(str) {
     }
     return out;
 }
-function utf8to16De(str) {
+function utf8to16De(str: string): string {
     if (str === null)
         str = "";
     var out, i, len, c;
@@ -142,4 +143,3 @@ function utf8to16De(str) {
     }
     return out;
 }
-//# sourceMappingURL=Base64.js.map

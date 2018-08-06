@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using WBPlatform.Database.DBIOCommand;
+
 using WBPlatform.StaticClasses;
 
 namespace WBPlatform.Database.Connection
@@ -18,22 +17,24 @@ namespace WBPlatform.Database.Connection
         private static NetworkStream stream;
         private static IPEndPoint remoteEndpoint;
 
-        private static TimeSpan WaitTimeout = new TimeSpan(0, 0, XConfig.CurrentConfig.Database.ClientTimeout);
+        private static TimeSpan WaitTimeout = new TimeSpan(0, 0, XConfig.Current.Database.ClientTimeout);
         private static bool IsFirstTimeInit { get; set; } = true;
 
         public static bool Connected { get { return socketclient.Connected; } }
 
         private static Dictionary<string, string> _messages { get; set; } = new Dictionary<string, string>();
-        public static void StartThread()
+        public static void KillConnection()
         {
-            ReceiverThread.Start();
-            DataBaseConnectionMaintainer.Start();
+            ReceiverThread.Abort();
+            DataBaseConnectionMaintainer.Abort();
+            socketclient.CloseAndDispose();
+            stream.CloseAndDispose();
         }
         public static bool Initialise(IPAddress ServerIP, int Port)
         {
             socketclient = new TcpClient();
             remoteEndpoint = new IPEndPoint(ServerIP, Port);
-            int FailedRetry = XConfig.CurrentConfig.Database.FailedRetryTime;
+            int FailedRetry = XConfig.Current.Database.FailedRetryTime;
             for (int i = 0; i < FailedRetry; i++)
             {
                 try
@@ -43,7 +44,8 @@ namespace WBPlatform.Database.Connection
                     LW.D("\tDatabase Connection Estabilished!");
                     if (IsFirstTimeInit)
                     {
-                        StartThread();
+                        ReceiverThread.Start();
+                        DataBaseConnectionMaintainer.Start();
                         IsFirstTimeInit = false;
                     }
                     SendData("openConnection", "00000", out string token);
@@ -66,12 +68,8 @@ namespace WBPlatform.Database.Connection
             {
                 while (Connected)
                 {
-                    try
-                    {
-                        string requestString = PublicTools.DecodeMessage(stream);
-                        _messages.Add(requestString.Substring(0, 5), requestString.Substring(5));
-                    }
-                    catch { Thread.Sleep(500); }
+                    string requestString = PublicTools.DecodeMessage(stream);
+                    _messages.Add(requestString.Substring(0, 5), requestString.Substring(5));
                 }
                 while (!Connected)
                 {
@@ -101,6 +99,7 @@ namespace WBPlatform.Database.Connection
                 }
                 catch (Exception ex)
                 {
+                    if (ex is ThreadAbortException) return;
                     LW.E("Heartbeat Error! " + ex.Message);
                     socketclient.CloseAndDispose();
                     stream.CloseAndDispose();

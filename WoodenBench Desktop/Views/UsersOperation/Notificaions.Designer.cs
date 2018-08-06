@@ -54,6 +54,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.copyMessage = new DevComponents.DotNetBar.ButtonX();
+            this.copyFrame = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -145,15 +146,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(466, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 17);
+            this.label1.Size = new System.Drawing.Size(209, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "注意：这里只能查询最近100条消息哦！";
+            this.label1.Text = "注意：这里只能查询最近100条消息！";
             // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.copyFrame);
             this.groupBox4.Controls.Add(this.msgContent);
             this.groupBox4.Controls.Add(this.msgType);
             this.groupBox4.Controls.Add(this.msgRecvID);
@@ -299,7 +301,16 @@
             this.copyMessage.Text = "复制消息";
             this.copyMessage.Click += new System.EventHandler(this.copyMessage_Click);
             // 
-            // Notifications
+            // copyFrame
+            // 
+            this.copyFrame.Location = new System.Drawing.Point(7, 316);
+            this.copyFrame.Name = "copyFrame";
+            this.copyFrame.ReadOnly = true;
+            this.copyFrame.Size = new System.Drawing.Size(70, 23);
+            this.copyFrame.TabIndex = 2;
+            this.copyFrame.Visible = false;
+            // 
+            // NotificationsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -315,7 +326,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximumSize = new System.Drawing.Size(1020, 694);
             this.MinimumSize = new System.Drawing.Size(903, 498);
-            this.Name = "Notifications";
+            this.Name = "NotificationsForm";
             this.Text = "通知查看";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BusesManager_FormClosing);
             this.Load += new System.EventHandler(this.BusesManager_Load);
@@ -355,6 +366,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 复制这条消息ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查看消息ToolStripMenuItem;
+        private System.Windows.Forms.TextBox copyFrame;
     }
 }
 

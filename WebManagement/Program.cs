@@ -22,6 +22,7 @@ namespace WBPlatform.WebManagement
         public static CancellationTokenSource ServerStopToken { get; private set; } = new CancellationTokenSource();
         public static void Main(string[] args)
         {
+            LW.SetLogLevel(LogLevel.Dbg);
             LW.InitLog();
             StartUpTime = DateTime.Now;
             LW.D("WoodenBench WebServer Starting....");
@@ -45,7 +46,7 @@ namespace WBPlatform.WebManagement
             WeChatMessageBackupService.StartBackupThread();
             MessagingSystem.StartProcessThread();
 
-            var webHost = BuildWebHost(XConfig.CurrentConfig.ApplicationInsightInstrumentationKey, args);
+            var webHost = BuildWebHost(XConfig.Current.ApplicationInsightInstrumentationKey, args);
             LW.D("Starting WebHost....");
 
             WebServerTask = webHost.RunAsync(ServerStopToken.Token);

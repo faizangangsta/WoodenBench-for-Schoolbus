@@ -23,7 +23,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://schoolbus.lhy0403.top"
+      "applicationUrl": "https://schoolbus.lhy0403.top"
     }
   }
 }

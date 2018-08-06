@@ -22,7 +22,7 @@ namespace WBPlatform.TableObject
         public override string Table => WBConsts.TABLE_Gen_Notification;
 
 
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             Title = input.GetString("Title");
@@ -33,7 +33,7 @@ namespace WBPlatform.TableObject
         }
 
         //写字段信息
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             string recv = GetStringRecivers();
             base.WriteObject(output, all);

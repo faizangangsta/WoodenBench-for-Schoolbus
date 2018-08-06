@@ -26,7 +26,7 @@ namespace WBPlatform.TableObject
 
         public override string Table => WBConsts.TABLE_Mgr_StuData;
 
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             StudentName = input.GetString("StuName");
@@ -39,7 +39,7 @@ namespace WBPlatform.TableObject
             AHChecked = input.GetBool("CHChecked");
         }
 
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("StuName", StudentName);

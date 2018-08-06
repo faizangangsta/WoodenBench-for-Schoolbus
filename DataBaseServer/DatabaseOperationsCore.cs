@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
+using WBPlatform.Database;
 using WBPlatform.Database.DBIOCommand;
 using WBPlatform.Database.Internal;
 using WBPlatform.StaticClasses;
@@ -19,9 +19,9 @@ namespace WBPlatform.Database.DBServer
         {
             SqlConnectionStringBuilder conn = new SqlConnectionStringBuilder();
             LW.D("Start Initiallising Database Connections.....");
-            conn.DataSource = XConfig.CurrentConfig.Database.SQLServerIP + "," + XConfig.CurrentConfig.Database.SQLServerPort;
-            conn.UserID = XConfig.CurrentConfig.Database.DatabaseUserName;
-            conn.Password = XConfig.CurrentConfig.Database.DatabasePassword;
+            conn.DataSource = XConfig.Current.Database.SQLServerIP + "," + XConfig.Current.Database.SQLServerPort;
+            conn.UserID = XConfig.Current.Database.DatabaseUserName;
+            conn.Password = XConfig.Current.Database.DatabasePassword;
             conn.TrustServerCertificate = true;
             LW.D("DB Connection String Loaded!");
             sqlConnection = new SqlConnection(conn.ConnectionString);
@@ -29,60 +29,58 @@ namespace WBPlatform.Database.DBServer
             LW.D("DB Connection Opened!");
         }
 
-        public static string ProcessRequest(DBInternalRequest request)
+        public static string ProcessRequest(DBInternal request)
         {
-            DBOutput dbOutputData = null;
-            DBQuery dbQuery = null;
-            DBInternalReply reply = new DBInternalReply();
+            DBInternal reply = new DBInternal();
             try
             {
                 if (request == null) throw new NullReferenceException("Null Request....");
 
-                if (request.Operation != DBVerbs.Create)
+                if (request.Verb != DBVerbs.Create)
                 {
                     if (request.Query == null)
                         throw new ArgumentNullException("When using Query Single/Multi/Change/Delete. Arg: query cannot be null");
-                    else dbQuery = request.Query;
                 }
 
-                if (request.Operation == DBVerbs.Create || request.Operation == DBVerbs.Update)
+                if (request.Verb == DBVerbs.Create || request.Verb == DBVerbs.Update)
                 {
-                    var real = JsonConvert.DeserializeObject<Dictionary<string, object>>(request.ObjectString);
-                    dbOutputData = new DBOutput(real ?? throw new ArgumentNullException("When using Query Create and Change. Arg: output cannot be null"));
+                    if (request.DBObjects == null)
+                        throw new ArgumentNullException("When using Create and Update. Arg: output cannot be null");
                 }
 
                 int rowModified = 0;
-                reply.DBOperation = request.Operation;
-                switch (request.Operation)
+                reply.Verb = request.Verb;
+                switch (request.Verb)
                 {
                     case DBVerbs.Create:
-                        rowModified = CommandCreate(request.TableName, dbOutputData);
-                        reply.DBResultCode = (DBQueryStatus)rowModified;
-                        reply.ObjectString = JsonConvert.SerializeObject(GetFirstRecord(request.TableName, "objectId", dbOutputData["objectId"]));
+                        rowModified = CommandCreate(request.TableName, request.DBObjects[0]);
+                        reply.ResultCode = (DBQueryStatus)rowModified;
+                        reply.DBObjects = GetFirstRecord(request.TableName, "objectId", request.DBObjects[0]["objectId"]);
                         break;
 
                     case DBVerbs.QuerySingle:
+                    ///There shouldn't be QuerySingle... <see cref="DataBaseOperation.QueryMultipleData{T}(DBQuery, out List{T}, int, int)"/> 
                     case DBVerbs.QueryMulti:
-                        List<Dictionary<string, object>> results = SQLQueryCommand(BuildQueryString(request.TableName, dbQuery));
-                        rowModified = results.Count;
-                        reply.ObjectString = JsonConvert.SerializeObject(results);
-                        reply.DBResultCode = results.Count >= 2 ? DBQueryStatus.MORE_RESULTS : (DBQueryStatus)results.Count;
+                        var results = SQLQueryCommand(BuildQueryString(request.TableName, request.Query));
+                        rowModified = results.Length;
+                        reply.DBObjects = results.ToArray();
+                        reply.ResultCode = results.Length >= 2 ? DBQueryStatus.MORE_RESULTS : (DBQueryStatus)results.Length;
                         break;
                     case DBVerbs.Update:
                         //Only Support first thing....
-                        var dict = SQLQueryCommand(BuildQueryString(request.TableName, dbQuery));
-                        if (dict.Count != 1)
+                        var dict = SQLQueryCommand(BuildQueryString(request.TableName, request.Query));
+                        if (dict.Length != 1)
                         {
                             throw new KeyNotFoundException("DBServerCore-->ProcessRequest->Update: Cannot find Specific Record by Query, so Failed to update....");
                         }
-                        rowModified = CommandUpdate(request.TableName, dict[0]["objectId"].ToString(), dbOutputData);
-                        reply.DBResultCode = (DBQueryStatus)rowModified;
-                        reply.ObjectString = JsonConvert.SerializeObject(GetFirstRecord(request.TableName, "objectId", dict[0]["objectId"]));
+                        rowModified = CommandUpdate(request.TableName, dict[0]["objectId"].ToString(), request.DBObjects[0]);
+                        reply.ResultCode = (DBQueryStatus)rowModified;
+                        reply.DBObjects = GetFirstRecord(request.TableName, "objectId", dict[0]["objectId"]);
 
                         break;
                     case DBVerbs.Delete:
-                        rowModified = CommandDelete(request.TableName, dbQuery.EqualTo["objectId"].ToString());
-                        reply.DBResultCode = (DBQueryStatus)rowModified;
+                        rowModified = CommandDelete(request.TableName, request.Query.EqualTo["objectId"].ToString());
+                        reply.ResultCode = (DBQueryStatus)rowModified;
                         break;
                     default:
                         //HttpUtility.UrlEncode("!@#$%^&*()_+");
@@ -93,12 +91,12 @@ namespace WBPlatform.Database.DBServer
             }
             catch (Exception ex)
             {
-                reply.DBResultCode = DBQueryStatus.INTERNAL_ERROR;
+                reply.ResultCode = DBQueryStatus.INTERNAL_ERROR;
                 reply.Message = ex.Message;
                 reply.Exception = new DataBaseException("DBServer Process Exception", ex);
                 LW.E("Exception! => \r\n" + ex);
             }
-            return reply.ToString();
+            return reply.ToParsedString();
         }
 
         private static string BuildQueryString(string TableName, DBQuery dbQuery)
@@ -134,7 +132,7 @@ namespace WBPlatform.Database.DBServer
             return sqlCommand_Query;
         }
 
-        private static int CommandCreate(string TableName, DBOutput output)
+        private static int CommandCreate(string TableName, DataBaseIO output)
         {
             string sqlCommand_Create =
                 $"INSERT INTO {TableName} " +
@@ -145,7 +143,7 @@ namespace WBPlatform.Database.DBServer
             return command_Create.ExecuteNonQuery();
         }
 
-        private static int CommandUpdate(string TableName, string ObjectID, DBOutput output)
+        private static int CommandUpdate(string TableName, string ObjectID, DataBaseIO output)
         {
             string sqlCommand_Update =
                 $"UPDATE {TableName} " +
@@ -156,7 +154,7 @@ namespace WBPlatform.Database.DBServer
             return command_Update.ExecuteNonQuery();
         }
 
-        private static List<Dictionary<string, object>> GetFirstRecord(string tableName, string Column, object Value)
+        private static DataBaseIO[] GetFirstRecord(string tableName, string Column, object Value)
             => SQLQueryCommand($"SELECT TOP(1) * FROM {tableName} WHERE {Column} = '{PublicTools.EncodeString(Value)}' ");
 
         private static int CommandDelete(string TableName, string ObjectID)
@@ -166,13 +164,13 @@ namespace WBPlatform.Database.DBServer
             return command.ExecuteNonQuery();
         }
 
-        private static List<Dictionary<string, object>> SQLQueryCommand(string sqlCommand)
+        private static DataBaseIO[] SQLQueryCommand(string sqlCommand)
         {
             SqlDataAdapter sda = new SqlDataAdapter(sqlCommand, sqlConnection);
             DataSet ds = new DataSet();
             sda.Fill(ds);
             sda.Dispose();
-            List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
+            List<DataBaseIO> results = new List<DataBaseIO>();
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 Dictionary<string, object> tmp = new Dictionary<string, object>();
@@ -180,10 +178,9 @@ namespace WBPlatform.Database.DBServer
                 {
                     tmp.Add(ds.Tables[0].Columns[i].ColumnName, PublicTools.DecodeObject(item.ItemArray[i]));
                 }
-                results.Add(tmp);
+                results.Add(new DataBaseIO(tmp));
             }
-            return results;
+            return results.ToArray();
         }
-
     }
 }

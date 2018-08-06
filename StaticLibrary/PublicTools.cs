@@ -113,29 +113,5 @@ namespace WBPlatform.StaticClasses
             mergedPackage.AddRange(arrClientSendMsg);
             return mergedPackage.ToArray();
         }
-
-        public static string ToNormalString(this DateTime dateTime)
-        {
-            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-        }
-        public static void CloseAndDispose(this Socket _socket)
-        {
-            _socket?.Disconnect(true);
-            _socket?.Close();
-            _socket?.Dispose();
-            _socket = null;
-        }
-        public static void CloseAndDispose(this TcpClient client)
-        {
-            client?.Close();
-            client = null;
-        }
-        public static void CloseAndDispose(this NetworkStream stream)
-        {
-            stream?.Close();
-            stream?.Dispose();
-            stream = null;
-        }
-        public static string ToParsedString<TKey, TValue>(this IDictionary<TKey, TValue> valuePairs) => JsonConvert.SerializeObject(valuePairs);
-    }
+   }
 }

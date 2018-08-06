@@ -20,7 +20,7 @@ namespace WBPlatform.TableObject
         public SchoolBusObject() { }
         public override string Table => WBConsts.TABLE_Mgr_BusData;
 
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             BusName = input.GetString("BusName");
@@ -30,7 +30,7 @@ namespace WBPlatform.TableObject
             AHChecked = input.GetBool("AHChecked");
         }
 
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("BusName", BusName);

@@ -27,8 +27,7 @@
     "outputFileName": "wwwroot/js/service.min.js",
     "inputFiles": [
       "wwwroot/dev/js/Base64.js",
-      "wwwroot/dev/js/UserActivity.js",
-      "wwwroot/dev/js/WCServicesProvider.js"
+      "wwwroot/dev/js/UserActivity.js"
     ],
     // Optionally specify minification options
     "minify": {

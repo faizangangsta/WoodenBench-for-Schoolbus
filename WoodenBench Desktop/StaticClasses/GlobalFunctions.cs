@@ -17,30 +17,27 @@ namespace WBPlatform.DesktopClient.StaticClasses
         [STAThread]
         public static void Main()
         {
+            LW.SetLogLevel(LogLevel.Dbg);
             LW.InitLog();
             LW.D("========= = Start WoodenBench for Schoolbus Windows Client = =========");
-            DataBaseOperation.InitialiseClient();
+            if (!XConfig.LoadConfig("XConfig.conf"))
+            {
+                LW.E("Config Loading Failed! Check file...");
+                return;
+            }
             
+            DataBaseOperation.InitialiseClient();            
             Application.EnableVisualStyles();
-            FileIO.onFileIOCompleted += MainForm.Default.DnFinished;
-            LW.D("Basic Events Registration Completed.");
-
-            FileIO.onFileIOCompleted += FileIO_onFileIOCompleted;
             Application.Run(LoginWindow.Default);
         }
 
-        public static UserObject CurrentUser { get; set; } = new UserObject();
+        public static UserObject CurrentUser { get; set; } = UserObject.DefaultValue;
 
         public static void ApplicationExit()
         {
-            LW.D("Application will now EXIT, User has been logged off, now Closing Logs and terminal all windows.");
+            LW.D("Terminating Application.....");
+            Database.Connection.DatabaseSocketsClient.KillConnection();
             Application.Exit();
-        }
-
-        private static void FileIO_onFileIOCompleted(FileIOEventArgs e)
-        {
-            if (e.isSucceed) LW.D($"Headimage download completed, at: {e.LocalFilePath}");
-            else LW.E(e.ErrDescription);
         }
     }
 }

@@ -37,11 +37,11 @@ namespace WBPlatform.WebManagement.Controllers
                 string ticket = ExecuteOnceTicket.CreateTicket();
                 string Stamp = ticket + ";WCLogin";
                 string url = string.Join("", "https://open.weixin.qq.com/connect/oauth2/authorize?",
-                    "appid=", XConfig.CurrentConfig.WeChat.CorpID,
+                    "appid=", XConfig.Current.WeChat.CorpID,
                     "&redirect_uri=", Request.Scheme, "://" + Request.Host, "/Home/WeChatLogin",
                     "&response_type=code" +
                     "&scope=snsapi_uerinfo" +
-                    "&agentid=", XConfig.CurrentConfig.WeChat.AgentId,
+                    "&agentid=", XConfig.Current.WeChat.AgentId,
                     "&state=", Stamp, "#wechat_redirect");
                 Response.Cookies.Append("WB_WXLoginOption", Stamp, new CookieOptions() { Path = "/", Expires = DateTimeOffset.Now.AddMinutes(2) });
                 ExecuteOnceTicket.TryAdd(ticket, new TicketInfo(TicketUsage.WeChatLogin, Request.Headers["User-Agent"], "WeChat_Login"));

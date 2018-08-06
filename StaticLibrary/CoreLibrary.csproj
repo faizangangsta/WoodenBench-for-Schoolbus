@@ -71,12 +71,13 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="CryptoGraphy.cs" />
+    <Compile Include="Database\DataBaseIO.cs" />
     <Compile Include="Database\DatabaseSocketsClient.cs" />
     <Compile Include="Database\DataTableObject.cs" />
-    <Compile Include="Database\DBIO.cs" />
-    <Compile Include="Database\DBInternalObjects.cs" />
+    <Compile Include="Database\DBInternal.cs" />
     <Compile Include="Database\DBOperations.cs" />
     <Compile Include="Database\DBQuery.cs" />
+    <Compile Include="ExtensionClass.cs" />
     <Compile Include="LogWritter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

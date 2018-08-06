@@ -87,8 +87,17 @@ namespace WBPlatform.DesktopClient.Views
 
         private void copyMessage_Click(object sender, EventArgs e)
         {
-            string clip = $"信息标题：{msgTitle.Text} \r\n发送者：{msgSendID.Text} \r\n接收者：{msgRecvID.Text}\r\n发送时间：{msgTime.Text}\r\n消息内容：{msgContent.Text}";
-            Clipboard.SetText(clip);
+            string clip = $"" +
+                $"信息标题：{msgTitle.Text} \r\n" +
+                $"发送者：{msgSendID.Text} \r\n" +
+                $"接收者：{msgRecvID.Text}\r\n" +
+                $"发送时间：{msgTime.Text}\r\n" +
+                $"消息内容：\r\n" +
+                $"{msgContent.Text}";
+            //Clipboard.SetText(clip);
+            copyFrame.Text = clip;
+            copyFrame.Copy();
+            Clipboard.SetDataObject(clip, false, 10, 500);
         }
     }
 }

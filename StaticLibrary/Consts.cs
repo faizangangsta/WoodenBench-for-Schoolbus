@@ -42,9 +42,10 @@ namespace WBPlatform.StaticClasses
     }
     public enum LogLevel
     {
-        Err = 3,
+        Dbg = 0,
         Info = 1,
-        Dbg = 0
+        Warn = 2,
+        Err = 3,
     }
     public enum NotificationType
     {

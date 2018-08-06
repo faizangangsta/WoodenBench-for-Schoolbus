@@ -17,7 +17,7 @@ namespace WBPlatform.TableObject
         public ClassObject() { }
         public override string Table => WBConsts.TABLE_Mgr_Classes;
         
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             CDepartment = input.GetString("ClassDepartment");
@@ -26,7 +26,7 @@ namespace WBPlatform.TableObject
             TeacherID = input.GetString("TeacherID");
         }
 
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("ClassDepartment", CDepartment);

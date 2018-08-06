@@ -13,6 +13,8 @@
     <StartupObject></StartupObject>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/8dc7966f-2d0e-4614-8988-57911d06e773/resourcegroups/WoodenBench-Platform/providers/microsoft.insights/components/WoodenBench</ApplicationInsightsAnnotationResourceId>
+    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,18 +27,61 @@
     <ErrorReport>prompt</ErrorReport>
     <NoWarn>1701;1702;1705</NoWarn>
     <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Logs\**" />
+    <Compile Remove="wwwroot\js\Crypto-Js\**" />
     <Content Remove="Logs\**" />
+    <Content Remove="wwwroot\js\Crypto-Js\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="wwwroot\js\Crypto-Js\**" />
     <None Remove="Logs\**" />
+    <None Remove="wwwroot\js\Crypto-Js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="package-lock.json" />
+    <Content Remove="wwwroot\core.js" />
+    <Content Remove="wwwroot\dev\js\app.js" />
+    <Content Remove="wwwroot\dev\js\app.js.map" />
+    <Content Remove="wwwroot\dev\js\app.ts" />
+    <Content Remove="wwwroot\dev\js\Base64.ts" />
+    <Content Remove="wwwroot\dev\js\file.d.ts" />
+    <Content Remove="wwwroot\dev\js\file.js" />
+    <Content Remove="wwwroot\dev\js\file.js.map" />
+    <Content Remove="wwwroot\dev\js\UserActivity.d.ts" />
+    <Content Remove="wwwroot\dev\js\UserActivity.ts" />
+    <Content Remove="wwwroot\dev\js\WCServicesProvider.d.ts" />
+    <Content Remove="wwwroot\dev\js\WCServicesProvider.js" />
+    <Content Remove="wwwroot\dev\js\WCServicesProvider.js.map" />
+    <Content Remove="wwwroot\dev\js\WCServicesProvider.ts" />
+    <Content Remove="wwwroot\jquery.js" />
+    <Content Remove="wwwroot\jquery.min.js" />
+    <Content Remove="wwwroot\jquery.min.map" />
+    <Content Remove="wwwroot\jquery.slim.js" />
+    <Content Remove="wwwroot\jquery.slim.min.js" />
+    <Content Remove="wwwroot\jquery.slim.min.map" />
+    <Content Remove="wwwroot\js\bootstrap.bundle.js" />
+    <Content Remove="wwwroot\js\bootstrap.bundle.js.map" />
+    <Content Remove="wwwroot\js\bootstrap.bundle.min.js" />
+    <Content Remove="wwwroot\js\bootstrap.bundle.min.js.map" />
+    <Content Remove="wwwroot\js\bootstrap.js" />
+    <Content Remove="wwwroot\js\bootstrap.js.map" />
+    <Content Remove="wwwroot\js\bootstrap.min.js" />
+    <Content Remove="wwwroot\js\bootstrap.min.js.map" />
+    <Content Remove="wwwroot\js\service.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Tools\file.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.0-beta3" />
+    <PackageReference Include="jquery.TypeScript.DefinitelyTyped" Version="3.1.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.0-beta4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="QRCoder" Version="1.3.3" />
@@ -81,6 +126,181 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dev\js\Crypto-Js\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\dev\js\Base64.js" />
+    <None Include="wwwroot\dev\js\Base64.js.map" />
+    <None Include="wwwroot\dev\js\Base64.ts" />
+    <None Include="wwwroot\dev\js\Crypto-Js\aes.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\aes.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\aes.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\cipher-core.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\cipher-core.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\cipher-core.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\core.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\core.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\core.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\crypto-js.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\crypto-js.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\crypto-js.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-base64.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-base64.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-base64.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-hex.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-hex.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-hex.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-latin1.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-latin1.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-latin1.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf16.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf16.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf16.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf8.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf8.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\enc-utf8.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\evpkdf.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\evpkdf.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\evpkdf.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-hex.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-hex.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-hex.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-openssl.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-openssl.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\format-openssl.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-md5.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-md5.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-md5.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-ripemd160.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-ripemd160.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-ripemd160.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha1.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha1.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha1.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha224.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha224.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha224.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha256.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha256.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha256.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha3.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha3.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha3.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha384.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha384.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha384.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha512.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha512.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac-sha512.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\hmac.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\index.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\index.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\index.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\lib-typedarrays.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\lib-typedarrays.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\lib-typedarrays.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\md5.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\md5.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\md5.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-cfb.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-cfb.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-cfb.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr-gladman.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr-gladman.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr-gladman.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ctr.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ecb.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ecb.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ecb.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ofb.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ofb.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\mode-ofb.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-ansix923.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-ansix923.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-ansix923.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso10126.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso10126.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso10126.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso97971.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso97971.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-iso97971.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-nopadding.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-nopadding.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-nopadding.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-pkcs7.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-pkcs7.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-pkcs7.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-zeropadding.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-zeropadding.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pad-zeropadding.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pbkdf2.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pbkdf2.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\pbkdf2.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit-legacy.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit-legacy.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit-legacy.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rabbit.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rc4.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rc4.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\rc4.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\ripemd160.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\ripemd160.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\ripemd160.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha1.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha1.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha1.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha224.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha224.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha224.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha256.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha256.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha256.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha3.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha3.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha3.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha384.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha384.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha384.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha512.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha512.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\sha512.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\tripledes.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\tripledes.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\tripledes.min.js.map" />
+    <None Include="wwwroot\dev\js\Crypto-Js\x64-core.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\x64-core.min.js" />
+    <None Include="wwwroot\dev\js\Crypto-Js\x64-core.min.js.map" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.bundle.js" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.js" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.js.map" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.min.js" />
+    <None Include="wwwroot\dev\js\lib\bootstrap.min.js.map" />
+    <None Include="wwwroot\dev\js\lib\cryptojs.d.ts" />
+    <None Include="wwwroot\dev\js\lib\jquery.d.ts" />
+    <None Include="wwwroot\dev\js\lib\jquery.js" />
+    <None Include="wwwroot\dev\js\lib\jquery.min.js" />
+    <None Include="wwwroot\dev\js\lib\jquery.min.map" />
+    <None Include="wwwroot\dev\js\lib\jquery.slim.js" />
+    <None Include="wwwroot\dev\js\lib\jquery.slim.min.js" />
+    <None Include="wwwroot\dev\js\lib\jquery.slim.min.map" />
+    <None Include="wwwroot\dev\js\UserActivity.js" />
+    <None Include="wwwroot\dev\js\UserActivity.js.map" />
+    <None Include="wwwroot\dev\js\UserActivity.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\dev\js\Base64.ts" />
+    <TypeScriptCompile Include="wwwroot\dev\js\UserActivity.ts" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -91,12 +311,12 @@
     <TypeScriptNoImplicitAny>True</TypeScriptNoImplicitAny>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
     <TypeScriptOutFile />
-    <TypeScriptOutDir />
+    <TypeScriptOutDir></TypeScriptOutDir>
     <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
-    <TypeScriptSourceRoot />
+    <TypeScriptSourceRoot></TypeScriptSourceRoot>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1Development_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>

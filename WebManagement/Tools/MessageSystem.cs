@@ -67,7 +67,7 @@ namespace WBPlatform.WebManagement.Tools
                                 WeChatSMsg.textcard,
                                 "管理员通知",
                                 $"你有一条来自 {message.User.RealName} 的工单有待处理：\r\n{message.User.RealName}请求把 {((UserChangeRequest)message.DataObject).RequestTypes.ToString()} 修改成{((UserChangeRequest)message.DataObject).NewContent }\r\n请尽快处理！",
-                                "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=manage&reqId=" + message.ObjectId,
+                                XConfig.Current.WebSiteAddress + "/Manage/ChangeRequest?arg=manage&reqId=" + message.ObjectId,
                                 (from usr in adminUsers_UCR_Request select usr.UserName).ToArray());
                             WeChatMessageSystem.AddToSendList(UCR_Created_TO_ADMIN_Msg);
                             return true;
@@ -78,7 +78,7 @@ namespace WBPlatform.WebManagement.Tools
                         WeChatSentMessage UCR_Created_TO_User_Msg = new WeChatSentMessage(WeChatSMsg.textcard, "工单提交成功！",
                                         "你申请修改账户 " + ((UserChangeRequest)message.DataObject).RequestTypes.ToString() + " 信息的工单已经提交成功！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.DataObject).ObjectId + "\r\n" +
-                                        "状态：正在等待审核", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + message.ObjectId, message.User.UserName);
+                                        "状态：正在等待审核", XConfig.Current.WebSiteAddress + "Manage/ChangeRequest?arg=my&reqId=" + message.ObjectId, message.User.UserName);
                         WeChatMessageSystem.AddToSendList(UCR_Created_TO_User_Msg);
                         return true;
                     }
@@ -91,7 +91,7 @@ namespace WBPlatform.WebManagement.Tools
                                 WeChatSentMessage _WMessage = new WeChatSentMessage(WeChatSMsg.textcard, "工单状态提醒",
                                     "你申请修改账户 " + ((UserChangeRequest)message.DataObject).RequestTypes.ToString() + " 信息的工单发生了状态变动！\r\n" +
                                         "工单编号：" + ((UserChangeRequest)message.DataObject).ObjectId + "\r\n" +
-                                        "审核结果：" + stat + "\r\n请点击查看详细内容", "http://schoolbus.lhy0403.top/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)message.DataObject).ObjectId, requestSender.UserName);
+                                        "审核结果：" + stat + "\r\n请点击查看详细内容", XConfig.Current.WebSiteAddress + "/Manage/ChangeRequest?arg=my&reqId=" + ((UserChangeRequest)message.DataObject).ObjectId, requestSender.UserName);
                                 WeChatMessageSystem.AddToSendList(_WMessage);
                                 return true;
                             case DBQueryStatus.INTERNAL_ERROR:
@@ -119,7 +119,7 @@ namespace WBPlatform.WebManagement.Tools
                             $"有一位新用户在{message.User.CreatedAt.ToString()}申请了注册用户，请审核！" +
                             $"\r\n提供的姓名：{message.User.RealName}" +
                             $"\r\n手机号码：{message.User.PhoneNumber}",
-                            "http://schoolbus.lhy0403.top/Manage/UserManage?from=userCreate&mode=edit&uid=" + message.User.ObjectId
+                            XConfig.Current.WebSiteAddress + "/Manage/UserManage?from=userCreate&mode=edit&uid=" + message.User.ObjectId
                             + "&msg=" + URL,
                             (from usr in adminUsers_createUser select usr.UserName).ToArray());
                         WeChatMessageSystem.AddToSendList(_message);

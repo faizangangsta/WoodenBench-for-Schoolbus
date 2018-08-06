@@ -24,7 +24,7 @@ namespace WBPlatform.ServiceStatus
         }
         public static void GetStateString()
         {
-            NamedPipeClientStream client = new NamedPipeClientStream("localhost", XConfig.CurrentConfig.StatusReportNamedPipe, PipeDirection.In);
+            NamedPipeClientStream client = new NamedPipeClientStream("localhost", XConfig.Current.StatusReportNamedPipe, PipeDirection.In);
             while (true)
             {
                 client.Connect();
@@ -46,7 +46,7 @@ namespace WBPlatform.ServiceStatus
             WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
                 .UseKestrel()
-                .UseApplicationInsights(XConfig.CurrentConfig.ApplicationInsightInstrumentationKey)
+                .UseApplicationInsights(XConfig.Current.ApplicationInsightInstrumentationKey)
                 .UseStartup<Startup>()
                 .Build();
     }

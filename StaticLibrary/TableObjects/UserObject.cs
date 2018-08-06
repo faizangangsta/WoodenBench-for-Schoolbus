@@ -30,7 +30,7 @@ namespace WBPlatform.TableObject
         public PointF CurrentPoint { get; set; }
         public decimal Precision { get; set; }
 
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             UserName = input.GetString("Username");
@@ -59,7 +59,7 @@ namespace WBPlatform.TableObject
             Precision = input.GetT<decimal>("precision");
         }
 
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("Username", UserName);

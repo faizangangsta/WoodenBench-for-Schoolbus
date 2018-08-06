@@ -69,9 +69,7 @@ namespace WBPlatform.WebManagement.Controllers
             LW.E(content.Replace("\r\n", " -- "));
 
             if (respCode != ResponceCode.Default)
-            {
                 WeChatMessageSystem.AddToSendList(_Message);
-            }
             return View("Error");
         }
     }

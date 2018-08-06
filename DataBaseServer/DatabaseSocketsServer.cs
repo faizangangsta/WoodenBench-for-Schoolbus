@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+
 using WBPlatform.Database.Internal;
 using WBPlatform.StaticClasses;
 
@@ -17,7 +18,7 @@ namespace WBPlatform.Database.DBServer
         public static void InitialiseSockets()
         {
             socketwatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint point = new IPEndPoint(IPAddress.Any, XConfig.CurrentConfig.Database.DBServerPort);
+            IPEndPoint point = new IPEndPoint(IPAddress.Any, XConfig.Current.Database.DBServerPort);
             socketwatch.Bind(point);
             socketwatch.Listen(20);
 
@@ -72,10 +73,9 @@ namespace WBPlatform.Database.DBServer
                         baseSocket.CloseAndDispose();
                         break;
                     }
+
                     string _MessageId = requestString.Substring(0, 5);
                     requestString = requestString.Substring(5);
-
-                    QueryStrings[remoteEP] = requestString;
 
                     if (requestString == "openConnection")
                     {
@@ -97,8 +97,9 @@ namespace WBPlatform.Database.DBServer
                             stream.Flush();
                             LW.D("C: Replied a HearBeat, to " + remoteEP);
                         }
-                        else if (DBInternalRequest.FromJSONString(requestString, out var request))
+                        else if (requestString.ToParsedObject(out DBInternal request))
                         {
+                            QueryStrings[remoteEP] = requestString;
                             LW.D("Q: " + remoteEP + " :: " + requestString);
                             //It takes Time.....
                             string returnStr = DatabaseCore.ProcessRequest(request);
@@ -110,7 +111,7 @@ namespace WBPlatform.Database.DBServer
                         else
                         {
                             //Invalid Connection......
-                            LW.D("E: " + remoteEP + " :: JSON Parse Exception!");
+                            LW.E("E: " + remoteEP + " :: JSON Parse Exception!");
                             baseSocket.CloseAndDispose();
                             QueryStrings.Remove(remoteEP);
                             break;
@@ -120,6 +121,7 @@ namespace WBPlatform.Database.DBServer
                     {
                         LW.E("Connection to " + remoteEP + " is not marked as 'Opened'");
                         baseSocket.CloseAndDispose();
+                        stream.CloseAndDispose();
                         QueryStrings.Remove(remoteEP);
                         break;
                     }
@@ -128,12 +130,15 @@ namespace WBPlatform.Database.DBServer
                 {
                     LW.E("Client " + remoteEP + " drops the connection. " + "\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n");
                     QueryStrings.Remove(remoteEP);
+                    stream.CloseAndDispose();
                     baseSocket.CloseAndDispose();
                     break;
                 }
             }
             QueryStrings.Remove(remoteEP);
-            LW.E("A Socket Recieve Thread Stoped! ");
+            LW.E("Client Connection Socket to " + remoteEP + " gonna Stop!");
+            Thread.CurrentThread.Abort();
+            return;
         }
     }
 }

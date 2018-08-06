@@ -17,7 +17,7 @@ namespace WBPlatform.TableObject
         public UCRRefusedReasons ProcessResultReason { get; set; }
         public string NewContent { get; set; }
 
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             UserID = input.GetString("UserID");
@@ -29,7 +29,7 @@ namespace WBPlatform.TableObject
             Status = (UCRProcessStatus)input.GetInt("Status");
         }
 
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("UserID", UserID);

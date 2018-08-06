@@ -45,7 +45,7 @@ namespace WBPlatform.WebManagement.Tools
         {
             WeChatMessageBackupService.AddToSendList(users, Title, Content);
             WeChatHelper.ReNewWCCodes();
-            string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + XConfig.CurrentConfig.WeChat.AgentId + ",\"" + MessageType.ToString() + "\":";
+            string Message = "{\"touser\":\"" + users + "\",\"msgtype\":\"" + MessageType.ToString() + "\",\"agentid\":" + XConfig.Current.WeChat.AgentId + ",\"" + MessageType.ToString() + "\":";
             switch (MessageType)
             {
                 case WeChatSMsg.text:

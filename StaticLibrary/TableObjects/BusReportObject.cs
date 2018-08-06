@@ -17,7 +17,7 @@ namespace WBPlatform.TableObject
 
         public override string Table => WBConsts.TABLE_Mgr_WeekIssue;
                 //读字段信息
-        public override void ReadFields(DBInput input)
+        public override void ReadFields(DataBaseIO input)
         {
             base.ReadFields(input);
             TeacherID = input.GetString("ReportTeacherID");
@@ -27,7 +27,7 @@ namespace WBPlatform.TableObject
         }
 
         //写字段信息
-        public override void WriteObject(DBOutput output, bool all)
+        public override void WriteObject(DataBaseIO output, bool all)
         {
             base.WriteObject(output, all);
             output.Put("ReportTeacherID", TeacherID);

@@ -44,6 +44,7 @@ namespace WBPlatform.DesktopClient.Views
                 {
                     defaultInstance = new MainForm();
                     defaultInstance.FormClosed += new FormClosedEventHandler(DefaultInstance_FormClosed);
+                    FileIO.onFileIOCompleted += Default.DnFinished;
                 }
                 return defaultInstance;
             }
@@ -52,7 +53,8 @@ namespace WBPlatform.DesktopClient.Views
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-            ApplicationExit();
+            LoginWindow.Default.Close();
+            //ApplicationExit();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -171,5 +173,5 @@ namespace WBPlatform.DesktopClient.Views
             NotificationsForm.Default.Show();
             Hide();
         }
-    } 
+    }
 }

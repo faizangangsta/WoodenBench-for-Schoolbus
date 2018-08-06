@@ -58,16 +58,19 @@
         <br />
         <button class="btn btn-warning btn-sm" onClick="location.href = '/Account/RequestChange'">申请修改用户数据</button>
         <button class="btn btn-success btn-sm" onClick="location.href = '/Manage/ChangeRequest?arg=my'">我的工单</button>
-        <button id="showTechinfoBtn" class="btn btn-info btn-sm" onclick="showTechinfo();">显示技术信息</button>
-        <button id="hideTechinfoBtn" class="btn btn-info btn-sm" hidden onclick="hideTechinfo();">隐藏技术信息</button>
-        <div id="innerTechInfo" hidden>
-            <br />
-            <label>技术信息: </label><br />
-            <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
-            <label>ChildList：</label>@Model.GetChildIdString(";")<br />
-            <label>ClassList：</label>@Model.GetClassIdString(";")<br />
-            <label>CreationTime：</label>@Model.CreatedAt<br />
-            <label>ModifiedTime：</label>@Model.UpdatedAt<br />
+
+        <div hidden>
+            <button id="showTechinfoBtn" class="btn btn-info btn-sm" onclick="showTechinfo();">显示技术信息</button>
+            <button id="hideTechinfoBtn" class="btn btn-info btn-sm" hidden onclick="hideTechinfo();">隐藏技术信息</button>
+            <div id="innerTechInfo" hidden>
+                <br />
+                <label>技术信息: </label><br />
+                <label>UGIdentifier：</label>@Model.UserGroup.ToString()<br />
+                <label>ChildList：</label>@Model.GetChildIdString(";")<br />
+                <label>ClassList：</label>@Model.GetClassIdString(";")<br />
+                <label>CreationTime：</label>@Model.CreatedAt<br />
+                <label>ModifiedTime：</label>@Model.UpdatedAt<br />
+            </div>
         </div>
         @if (Model.UserGroup.IsAdmin)
         {
@@ -80,7 +83,6 @@
             高级选项:&nbsp;&nbsp;
             <button class="btn btn-outline-danger btn-sm" onclick="removeLoginData();">刷新用户数据</button>
         </label>
-
     </div>
 </div>
 <script>

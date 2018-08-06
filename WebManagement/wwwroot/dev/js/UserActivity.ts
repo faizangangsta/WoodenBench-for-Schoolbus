@@ -1,14 +1,17 @@
+
 /// <reference path="./lib/jquery.d.ts" />
 /// <reference path="./lib/cryptojs.d.ts" />
 /// <reference path="./Base64.ts" />
-function GetMgmtBus(UserID, Session, CallBackFunction) {
+
+
+function GetMgmtBus(UserID: string, Session: string, CallBackFunction: Function) {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/GetBuses?" +
             "UserID=" + UserID +
             "&Session=" + Session,
         type: 'GET',
-        success: function (data2) {
+        success: function (data2: JSON) {
             CallBackFunction(data2);
         },
         error: function () {
@@ -16,12 +19,12 @@ function GetMgmtBus(UserID, Session, CallBackFunction) {
         }
     });
 }
-function GetName(UserId, HTMLNode, CallBackFunction) {
+function GetName(UserId: string, HTMLNode: Element, CallBackFunction: Function) {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/gen/GetName?UserID=" + UserId,
         type: 'GET',
-        success: function (data2) {
+        success: function (data2: JSON) {
             CallBackFunction(HTMLNode, data2);
         },
         error: function () {
@@ -29,7 +32,8 @@ function GetName(UserId, HTMLNode, CallBackFunction) {
         }
     });
 }
-function GetStudents(BusID, TeacherID, CallBackFunction) {
+
+function GetStudents(BusID: string, TeacherID: string, CallBackFunction: Function) {
     "use strict";
     var Session = getCookie("Session");
     var STAMP = CryptoJS.SHA256(BusID + ";;" + Session + TeacherID + ";;" + Session).toString();
@@ -48,7 +52,9 @@ function GetStudents(BusID, TeacherID, CallBackFunction) {
         }
     });
 }
-function QueryStudents(BusID, Column, Content, CallBackFunction) {
+
+
+function QueryStudents(BusID: string, Column: string, Content: string, CallBackFunction: Function) {
     "use strict";
     var SALT = randomString(32);
     var STAMP = CryptoJS.SHA256(BusID + ";;" + SALT + Column + ";" + Content + ";;" + SALT).toString();
@@ -73,7 +79,8 @@ function QueryStudents(BusID, Column, Content, CallBackFunction) {
         }
     });
 }
-function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction) {
+
+function UserNewReport(TeacherID: string, BusID: string, Type: string, Content: string, CallBackFunction: Function) {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/bus/NewIssueReport?" +
@@ -95,7 +102,11 @@ function UserNewReport(TeacherID, BusID, Type, Content, CallBackFunction) {
         }
     });
 }
-function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack) {
+
+
+function SignStudent(TeacherID: string, BusID: string, StudentID: string, Mode: string, Value: string, SignCallBack: Function)
+//function SignStudent(busID, Mode, value, TeacherID, StudentID, Session, SignCallBack)
+{
     "use strict";
     var SALT = getCookie("Session");
     $.ajax({
@@ -112,7 +123,8 @@ function SignStudent(TeacherID, BusID, StudentID, Mode, Value, SignCallBack) {
         }
     });
 }
-function GetClassStudents(ClassID, UserID, GetCallback) {
+
+function GetClassStudents(ClassID: string, UserID: string, GetCallback: Function) {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/class/getStudents?ClassID=" + ClassID + "&TeacherID=" + UserID,
@@ -121,7 +133,8 @@ function GetClassStudents(ClassID, UserID, GetCallback) {
         error: function (err) { GetCallback(false); }
     });
 }
-function GetMyChild(UserID, GetCallback) {
+
+function GetMyChild(UserID: string, GetCallback: Function) {
     "use strict";
     $.ajax({
         url: location.protocol + "//" + location.host + "/api/parent/getMyChild?parentId=" + UserID,
@@ -130,7 +143,7 @@ function GetMyChild(UserID, GetCallback) {
         error: function (err) { GetCallback(false); }
     });
 }
-function randomString(len) {
+function randomString(len: number) {
     "use strict";
     len = len || 16;
     var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
@@ -141,27 +154,31 @@ function randomString(len) {
     }
     return pwd;
 }
-function setCookie(name, value) {
+
+
+
+
+function setCookie(name: string, value: string): void {
     var TimeMins = 40;
     var exp = new Date();
     exp.setTime(exp.getTime() + TimeMins * 60 * 1000);
     document.cookie = name + "=" + escape(value) + ";expires=" + exp.toUTCString() + ";path=/";
 }
-function getCookie(name) {
+
+function getCookie(name: string): string {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-    if (arr = document.cookie.match(reg))
-        return unescape(arr[2]);
-    else
-        return null;
+    if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+    else return null;
 }
-function delCookie(name) {
+
+function delCookie(name: string): void {
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
     var cval = getCookie(name);
-    if (cval !== null)
-        document.cookie = name + "=nothing;expires=" + exp.toUTCString() + ";path=/";
+    if (cval !== null) document.cookie = name + "=nothing;expires=" + exp.toUTCString() + ";path=/";
 }
-function GetURLOption(option) {
+
+function GetURLOption(option: string): string {
     "use strict";
     var reg = new RegExp("(^|&)" + option + "=([^&]*)(&|$)");
     var r = location.href.substr(location.href.indexOf("?") + 1).match(reg);
@@ -169,4 +186,3 @@ function GetURLOption(option) {
         return "nullStr";
     return r[2];
 }
-//# sourceMappingURL=UserActivity.js.map
