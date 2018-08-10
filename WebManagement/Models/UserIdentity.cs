@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
-using WBPlatform.Database;
-using WBPlatform.StaticClasses;
+
 using WBPlatform.TableObject;
 
 namespace WBPlatform.WebManagement.Tools
@@ -23,7 +21,6 @@ namespace WBPlatform.WebManagement.Tools
         public DateTime LastActive { get; private set; }
 
         public void SetLastActive() => LastActive = DateTime.Now;
-
-        public static UserIdentity Unknown => new UserIdentity("Unknown", UserObject.DefaultValue);
+        public static UserIdentity Default => new UserIdentity("Unknown", UserObject.Default);
     }
 }

@@ -55,8 +55,8 @@ namespace WBPlatform.WebManagement.Tools
                             switch (Message.EventKey)
                             {
                                 case "ADD_PASSWORD":
-                                    string token = ExecuteOnceTicket.CreateTicket();
-                                    if (ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
+                                    string token = OnePassTicket.CreateTicket();
+                                    if (OnePassTicket.TryAdd(token, new TicketInfo(TicketUsage.AddPassword, "JumpToken_FreeLogin", Message.FromUser)))
                                     {
                                         //"要是想使用Windows 客户端登陆的话\r\n就点击<a href='" + XConfig.CurrentConfig.WebSiteAddress + "/Account/Register/?token={0}&_action=AddPassword&user={1}'>这里</a>给自己加一个密码吧!"
                                         string content = string.Format(XConfig.Messages["AddPasswordMessage"], token, Message.FromUser);

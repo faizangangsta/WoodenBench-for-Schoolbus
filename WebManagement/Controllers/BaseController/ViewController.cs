@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using System;
 
@@ -12,7 +11,6 @@ namespace WBPlatform.WebManagement.Controllers
 {
     public abstract class ViewController : BaseController
     {
-
         public abstract IActionResult Index();
         protected IActionResult LoginFailed(string RedirectPage)
         {

@@ -31,7 +31,7 @@ namespace WBPlatform.DesktopClient.StaticClasses
             Application.Run(LoginWindow.Default);
         }
 
-        public static UserObject CurrentUser { get; set; } = UserObject.DefaultValue;
+        public static UserObject CurrentUser { get; set; } = UserObject.Default;
 
         public static void ApplicationExit()
         {

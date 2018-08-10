@@ -14,7 +14,6 @@ namespace WBPlatform.WebManagement.Controllers
             ViewData["where"] = HomeController.ControllerName;
             if (ValidateSession())
             {
-
                 ViewData["cUser"] = CurrentUser.ToString();
                 return View(CurrentUser);
             }
@@ -27,7 +26,7 @@ namespace WBPlatform.WebManagement.Controllers
         public IActionResult Register(string token, string user, string _action)
         {
             ViewData["where"] = ControllerName;
-            if (token != null && ExecuteOnceTicket.OnAccessed(token, out TicketInfo info)
+            if (token != null && OnePassTicket.OnAccessed(token, out TicketInfo info)
                 && user == info.UserID
                 && info.Usage == TicketUsage.UserRegister
                 && (info.User_Agent == "JumpToken_FreeLogin" || info.User_Agent == Request.Headers["User-Agent"]))

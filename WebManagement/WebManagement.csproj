@@ -71,7 +71,6 @@
     <Content Remove="wwwroot\js\bootstrap.js.map" />
     <Content Remove="wwwroot\js\bootstrap.min.js" />
     <Content Remove="wwwroot\js\bootstrap.min.js.map" />
-    <Content Remove="wwwroot\js\service.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -126,7 +125,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dev\js\Crypto-Js\" />
-    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>

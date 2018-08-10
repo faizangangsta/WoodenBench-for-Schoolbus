@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
+using System;
+using System.Collections.Generic;
+
 using WBPlatform.Database;
 using WBPlatform.StaticClasses;
 using WBPlatform.TableObject;
@@ -34,7 +36,7 @@ namespace WBPlatform.WebManagement.Controllers
             }
             else
             {
-                string ticket = ExecuteOnceTicket.CreateTicket();
+                string ticket = OnePassTicket.CreateTicket();
                 string Stamp = ticket + ";WCLogin";
                 string url = string.Join("", "https://open.weixin.qq.com/connect/oauth2/authorize?",
                     "appid=", XConfig.Current.WeChat.CorpID,
@@ -44,7 +46,7 @@ namespace WBPlatform.WebManagement.Controllers
                     "&agentid=", XConfig.Current.WeChat.AgentId,
                     "&state=", Stamp, "#wechat_redirect");
                 Response.Cookies.Append("WB_WXLoginOption", Stamp, new CookieOptions() { Path = "/", Expires = DateTimeOffset.Now.AddMinutes(2) });
-                ExecuteOnceTicket.TryAdd(ticket, new TicketInfo(TicketUsage.WeChatLogin, Request.Headers["User-Agent"], "WeChat_Login"));
+                OnePassTicket.TryAdd(ticket, new TicketInfo(TicketUsage.WeChatLogin, Request.Headers["User-Agent"], "WeChat_Login"));
                 return Redirect(url);
             }
         }
@@ -108,8 +110,8 @@ namespace WBPlatform.WebManagement.Controllers
                         return DatabaseError(ServerAction.WeChatLogin_PostExecute, XConfig.Messages["InternalDataBaseError"]);
 
                     case DBQueryStatus.NO_RESULTS:
-                        string token = ExecuteOnceTicket.CreateTicket();
-                        ExecuteOnceTicket.TryAdd(token, new TicketInfo(TicketUsage.UserRegister, Request.Headers["User-Agent"], WeiXinID));
+                        string token = OnePassTicket.CreateTicket();
+                        OnePassTicket.TryAdd(token, new TicketInfo(TicketUsage.UserRegister, Request.Headers["User-Agent"], WeiXinID));
                         return Redirect($"/Account/Register?token={token}&user={WeiXinID}&_action=register");
 
                     case DBQueryStatus.ONE_RESULT:

@@ -119,19 +119,19 @@
       <publishTime>04/22/2018 09:30:28</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>08/06/2018 22:54:33</publishTime>
+      <publishTime>08/10/2018 22:20:07</publishTime>
     </File>
     <File Include="WebManagement.deps.json">
-      <publishTime>08/06/2018 22:54:33</publishTime>
+      <publishTime>08/10/2018 22:20:06</publishTime>
     </File>
     <File Include="WebManagement.dll">
-      <publishTime>08/06/2018 22:54:27</publishTime>
+      <publishTime>08/10/2018 22:19:11</publishTime>
     </File>
     <File Include="WebManagement.dll.config">
-      <publishTime>08/06/2018 22:54:25</publishTime>
+      <publishTime>08/10/2018 22:19:08</publishTime>
     </File>
     <File Include="WebManagement.pdb">
-      <publishTime>08/06/2018 22:54:27</publishTime>
+      <publishTime>08/10/2018 22:19:11</publishTime>
     </File>
     <File Include="WebManagement.PrecompiledViews.dll">
       <publishTime>06/11/2018 14:34:26</publishTime>
@@ -140,19 +140,19 @@
       <publishTime>06/14/2018 23:13:12</publishTime>
     </File>
     <File Include="WebManagement.runtimeconfig.json">
-      <publishTime>08/06/2018 22:54:33</publishTime>
+      <publishTime>08/10/2018 22:20:06</publishTime>
     </File>
     <File Include="WebManagement.Views.dll">
-      <publishTime>08/06/2018 22:54:28</publishTime>
+      <publishTime>08/10/2018 22:19:12</publishTime>
     </File>
     <File Include="WebManagement.Views.pdb">
-      <publishTime>08/06/2018 22:54:28</publishTime>
+      <publishTime>08/10/2018 22:19:12</publishTime>
     </File>
     <File Include="WoodenBench_Helper.dll">
-      <publishTime>08/06/2018 22:54:22</publishTime>
+      <publishTime>08/10/2018 22:19:00</publishTime>
     </File>
     <File Include="WoodenBench_Helper.pdb">
-      <publishTime>08/06/2018 22:54:22</publishTime>
+      <publishTime>08/10/2018 22:19:00</publishTime>
     </File>
     <File Include="wwwroot/Backgrounds/404-1.jpg">
       <publishTime>06/26/2018 17:27:25</publishTime>
@@ -224,7 +224,7 @@
       <publishTime>06/26/2018 17:27:26</publishTime>
     </File>
     <File Include="wwwroot/css/WBWeb.min.css">
-      <publishTime>08/06/2018 22:54:26</publishTime>
+      <publishTime>08/10/2018 22:19:10</publishTime>
     </File>
     <File Include="wwwroot/dev/css/bootstrap-grid.css">
       <publishTime>07/12/2018 09:22:44</publishTime>
@@ -266,10 +266,10 @@
       <publishTime>07/22/2018 20:40:56</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Base64.js">
-      <publishTime>08/06/2018 22:54:26</publishTime>
+      <publishTime>08/10/2018 22:19:10</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Base64.js.map">
-      <publishTime>08/06/2018 22:54:26</publishTime>
+      <publishTime>08/10/2018 22:19:10</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/aes.js">
       <publishTime>07/14/2018 17:21:25</publishTime>
@@ -281,7 +281,7 @@
       <publishTime>07/14/2018 17:21:26</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/cipher-core.js">
-      <publishTime>07/14/2018 17:21:26</publishTime>
+      <publishTime>08/08/2018 11:25:43</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/cipher-core.min.js">
       <publishTime>07/14/2018 17:21:26</publishTime>
@@ -290,7 +290,7 @@
       <publishTime>07/14/2018 17:21:26</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/core.js">
-      <publishTime>07/14/2018 17:21:26</publishTime>
+      <publishTime>08/08/2018 11:25:43</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/core.min.js">
       <publishTime>07/14/2018 17:21:26</publishTime>
@@ -299,7 +299,7 @@
       <publishTime>07/14/2018 17:21:26</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/crypto-js.js">
-      <publishTime>07/14/2018 17:26:08</publishTime>
+      <publishTime>08/08/2018 11:25:43</publishTime>
     </File>
     <File Include="wwwroot/dev/js/Crypto-Js/crypto-js.min.js">
       <publishTime>07/14/2018 17:21:26</publishTime>
@@ -734,10 +734,10 @@
       <publishTime>03/22/2016 10:57:08</publishTime>
     </File>
     <File Include="wwwroot/dev/js/lib/jquery.d.ts">
-      <publishTime>08/06/2018 21:02:23</publishTime>
+      <publishTime>08/07/2018 10:24:35</publishTime>
     </File>
     <File Include="wwwroot/dev/js/lib/jquery.js">
-      <publishTime>08/06/2018 20:36:39</publishTime>
+      <publishTime>08/08/2018 11:25:43</publishTime>
     </File>
     <File Include="wwwroot/dev/js/lib/jquery.min.js">
       <publishTime>07/14/2018 15:21:21</publishTime>
@@ -746,7 +746,7 @@
       <publishTime>07/14/2018 15:21:21</publishTime>
     </File>
     <File Include="wwwroot/dev/js/lib/jquery.slim.js">
-      <publishTime>07/14/2018 15:21:22</publishTime>
+      <publishTime>08/08/2018 11:25:43</publishTime>
     </File>
     <File Include="wwwroot/dev/js/lib/jquery.slim.min.js">
       <publishTime>07/14/2018 15:21:22</publishTime>
@@ -755,10 +755,10 @@
       <publishTime>07/14/2018 15:21:22</publishTime>
     </File>
     <File Include="wwwroot/dev/js/UserActivity.js">
-      <publishTime>08/06/2018 22:54:26</publishTime>
+      <publishTime>08/10/2018 22:19:10</publishTime>
     </File>
     <File Include="wwwroot/dev/js/UserActivity.js.map">
-      <publishTime>08/06/2018 22:54:26</publishTime>
+      <publishTime>08/10/2018 22:19:10</publishTime>
     </File>
     <File Include="wwwroot/dev/js/WCServicesProvider.js">
       <publishTime>07/14/2018 18:32:07</publishTime>
@@ -830,7 +830,7 @@
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
     <File Include="wwwroot/js/crpto-js.min.js">
-      <publishTime>08/06/2018 22:54:27</publishTime>
+      <publishTime>08/10/2018 22:19:11</publishTime>
     </File>
     <File Include="wwwroot/js/CryptoJS/aes.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
@@ -1013,13 +1013,13 @@
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
     <File Include="wwwroot/js/library.min.js">
-      <publishTime>08/06/2018 22:54:27</publishTime>
+      <publishTime>08/10/2018 22:19:11</publishTime>
     </File>
     <File Include="wwwroot/js/npm.js">
       <publishTime>06/26/2018 17:27:27</publishTime>
     </File>
     <File Include="wwwroot/js/service.min.js">
-      <publishTime>08/01/2018 22:56:25</publishTime>
+      <publishTime>08/10/2018 22:19:11</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
       <publishTime>06/26/2018 17:27:27</publishTime>

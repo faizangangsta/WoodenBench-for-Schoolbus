@@ -105,7 +105,7 @@ namespace WBPlatform.TableObject
         }
 
         public string GetFullIdentity() => string.Join("-", GetIdentifiableCode(), RealName);
-        public static UserObject DefaultValue => new UserObject().SetDefault();
+        public static UserObject Default => new UserObject().SetDefault();
         public override string ToString() => JsonConvert.SerializeObject(ToDictionary());
         public string GetClassIdString(string Splitter) => string.Join(Splitter, ClassList.ToArray());
         public string GetChildIdString(string Splitter) => string.Join(Splitter, ChildList.ToArray());

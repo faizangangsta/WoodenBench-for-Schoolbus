@@ -13,14 +13,14 @@ namespace WBPlatform.WebManagement.Controllers
 {
     public class BaseController : Controller
     {
-        public UserObject CurrentUser { get => CurrentIdentity.User; }
-        public UserIdentity CurrentIdentity { get; private set; } = UserIdentity.Unknown;
-
-        public TelemetryClient Telemetry { get; set; } = new TelemetryClient();
-
         public static readonly string UID_CookieName = "identifiedUID";
         public static int GetCount { get => SessionCollection.Count; }
         private static Dictionary<string, UserIdentity> SessionCollection { get; set; } = new Dictionary<string, UserIdentity>();
+
+        protected UserObject CurrentUser { get => CurrentIdentity.User; }
+        protected UserIdentity CurrentIdentity { get; private set; } = UserIdentity.Default;
+        protected TelemetryClient Telemetry { get; set; } = new TelemetryClient();
+
 
         //public static string RenewSession(string SessionString, string UserAgent, UserObject _user)
         //{
@@ -45,7 +45,7 @@ namespace WBPlatform.WebManagement.Controllers
                 Request.Headers["User-Agent"] +
                 CurrentUser.UserGroup.ToString());
 
-        public void UpdateUser(UserObject _user)
+        protected void UpdateUser(UserObject _user)
         {
             SessionCollection.Remove(Request.Cookies["Session"] ?? "");
             CurrentIdentity = new UserIdentity(Request.Headers["User-Agent"], _user);
@@ -54,32 +54,28 @@ namespace WBPlatform.WebManagement.Controllers
             SessionCollection.Add(NewSession, CurrentIdentity);
         }
 
-        public bool ValidateSession()
+        protected bool ValidateSession()
         {
-            string SessionString = Request.Cookies["Session"];
+            string Session = Request.Cookies["Session"];
             string UA = Request.Headers["User-Agent"];
-
-            if (string.IsNullOrWhiteSpace(SessionString) || string.IsNullOrWhiteSpace(UA)) return false;
-            if (SessionCollection.ContainsKey(SessionString) && (UA == "JumpToken_FreeLogin" || SessionCollection[SessionString].UserAgent == UA))
+            if (string.IsNullOrWhiteSpace(Session) || string.IsNullOrWhiteSpace(UA)) return false;
+            //if (SessionCollection.ContainsKey(SessionString) && (UA == "JumpToken_FreeLogin" || SessionCollection[SessionString].UserAgent == UA))
+            if (SessionCollection.ContainsKey(Session) && (SessionCollection[Session].UserAgent == UA))
             {
-                lock (SessionCollection)
-                {
-                    SessionCollection[SessionString].SetLastActive();
-                }
-                CurrentIdentity = SessionCollection[SessionString];
-
+                lock (SessionCollection) SessionCollection[Session].SetLastActive();
+                CurrentIdentity = SessionCollection[Session];
                 User.AddIdentity(CurrentIdentity.Identity);
 
-                Telemetry.Context.User.Id = CurrentUser.GetIdentifiableCode();
-                Telemetry.Context.Session.Id = Request.Cookies["Session"] ?? "Unknown";
+                string _userIC = CurrentUser.GetIdentifiableCode();
 
-                ViewData[UID_CookieName] = CurrentUser.GetIdentifiableCode();
-                Response.Cookies.Append("ai_user", CurrentUser.GetIdentifiableCode());
+                Telemetry.Context.User.Id = _userIC;
+                Telemetry.Context.Session.Id = Session;
 
-                string _session = HttpContext.Connection.RemoteIpAddress.ToString() + ":" + HttpContext.Connection.RemotePort + "-" + CurrentUser.GetIdentifiableCode() + "-";
-                Response.Cookies.Append("ai_session", _session + Request.Cookies["Session"].Substring(0, 5) ?? "Unknown");
+                ViewData[UID_CookieName] = _userIC;
+
+                Response.Cookies.Append("ai_user", _userIC);
+                Response.Cookies.Append("ai_session", HttpContext.Connection.RemoteIpAddress.ToString() + "-" + _userIC + Request.Cookies["Session"].Substring(0, 8) ?? "Unknown");
                 Response.Cookies.Append("ai_authUser", CurrentUser.UserName);
-
                 return true;
             }
             else return false;

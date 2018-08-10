@@ -32,7 +32,7 @@ namespace WBPlatform.WebManagement.Tools
                 status.Add("ReportTime", DateTime.Now);
                 status.Add("SessionsCount", BaseController.GetCount);
                 status.Add("SessionThread", true);
-                status.Add("Tokens", ExecuteOnceTicket.GetCount);
+                status.Add("Tokens", OnePassTicket.GetCount);
                 var WeChatStatus = WeChatMessageSystem.Status();
                 status.Add("WeChatRCVDThreadStatus", WeChatStatus.Item1);
                 status.Add("WeChatSENTThreadStatus", WeChatStatus.Item2);

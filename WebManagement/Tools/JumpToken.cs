@@ -24,7 +24,7 @@ namespace WBPlatform.WebManagement.Tools
     }
 
 
-    public static class ExecuteOnceTicket
+    public static class OnePassTicket
     {
         public static int GetCount { get => Tickets.Count; }
         private static Dictionary<string, TicketInfo> Tickets { get; set; } = new Dictionary<string, TicketInfo>();
@@ -34,7 +34,7 @@ namespace WBPlatform.WebManagement.Tools
             lock (Tickets)
             {
                 if (Tickets.ContainsKey(Token) && Tickets[Token].ExpiresAt.Subtract(DateTime.Now).TotalSeconds < 0) return false;
-                Tickets.Add(Token, tokenInfo);
+                else Tickets.Add(Token, tokenInfo);
             }
             return true;
         }
